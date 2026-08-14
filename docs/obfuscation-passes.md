@@ -57,21 +57,35 @@ Applies bitwise Mixed Boolean-Arithmetic expansions over the lifted representati
 
 ---
 
-## 8. Opcode Equalization & Histogram Smoothing (`OpcodeEqualize` Anti-DRLDO)
+## 8. Basic Block Splitting (`BBSplit` Jitter Jumps)
+**Module**: `lib/domain/services/c_source/control_flow/c_basic_block_split_service.ml`
+
+Splits contiguous basic blocks and statement sequences into fragmented blocks connected by explicit labels and unconditional `goto` jumps:
+```c
+stmt_1;
+goto __split_bb_1;
+__split_bb_1:
+stmt_2;
+```
+disrupting token sequence locality, basic-block embeddings, and LLM attention windows (defeating LLM-based malware detection and AST analyzers).
+
+---
+
+## 9. Opcode Equalization & Histogram Smoothing (`OpcodeEqualize` Anti-DRLDO)
 **Module**: `lib/domain/services/c_source/morphing/c_opcode_equalize_service.ml`
 
 Injects balanced multi-class arithmetic, shift, bitwise, and logical instructions to flatten the opcode frequency histogram and maximize Shannon entropy across the binary, preventing Deep Reinforcement Learning agents (like DRLDO) from learning statistical pruning policies.
 
 ---
 
-## 9. Dataflow-Entangled Anti-Slicing Computation (`AntiSlicing`)
+## 10. Dataflow-Entangled Anti-Slicing Computation (`AntiSlicing`)
 **Module**: `lib/domain/services/c_source/morphing/c_anti_slicing_entanglement_service.ml`
 
 Entangles phantom variables into live computation paths using algebraic invariants ($y = (x \oplus K) \cdot 2 - (x \oplus K) - (x \oplus K) \equiv 0$). Adds $y$ to active output variables to create hard Def-Use dependencies that static program slicers and dead-code eliminators cannot remove.
 
 ---
 
-## 10. Instruction Substitution (`InstrSubst` with Opcode Normalization)
+## 11. Instruction Substitution (`InstrSubst` with Opcode Normalization)
 **Module**: `lib/domain/services/c_source/morphing/c_instruction_subst_service.ml`
 
 Replaces basic arithmetic and bitwise expressions with a stochastic selection across orthogonal algebraic equivalence classes:
@@ -82,7 +96,7 @@ Replaces basic arithmetic and bitwise expressions with a stochastic selection ac
 
 ---
 
-## 11. Ghost Code Injection (`GhostCode` with Opcode Blending)
+## 12. Ghost Code Injection (`GhostCode` with Opcode Blending)
 **Module**: `lib/domain/services/c_source/morphing/c_ghost_code_service.ml`
 
 Injects diverse reversible instruction sequences modifying local variables with algebraic ring compensation ($\sum \Delta \equiv 0$):
@@ -92,21 +106,21 @@ Injects diverse reversible instruction sequences modifying local variables with 
 
 ---
 
-## 12. Instruction Permutation (`InstrPermute` via Def-Use Scheduling)
+## 13. Instruction Permutation (`InstrPermute` via Def-Use Scheduling)
 **Module**: `lib/domain/services/c_source/morphing/c_instruction_permute_service.ml`
 
 Constructs Def-Use dependency graphs for basic block statements and permutes independent instruction pairs without altering semantic invariants.
 
 ---
 
-## 13. Algorithmic Paradigm Morphing (Loop $\to$ Tail-Recursion)
+## 14. Algorithmic Paradigm Morphing (Loop $\to$ Tail-Recursion)
 **Module**: `lib/domain/services/c_source/morphing/c_loop_to_recursion_service.ml`
 
 Replaces iterative loop constructs with auxiliary tail-recursive call trees, destroying natural loop header basic blocks and backward CFG edges.
 
 ---
 
-## 14. Diophantine Opaque Predicates
+## 15. Diophantine Opaque Predicates
 **Module**: `lib/domain/services/c_source/control_flow/c_diophantine_opaque_service.ml`
 
 Injects dead code guarded by unsolvable Diophantine equations and algebraic invariants:
@@ -115,147 +129,147 @@ Injects dead code guarded by unsolvable Diophantine equations and algebraic inva
 
 ---
 
-## 15. Live Range Splitting (`LiveRangeSplit`)
+## 16. Live Range Splitting (`LiveRangeSplit`)
 **Module**: `lib/domain/services/c_source/morphing/c_live_range_split_service.ml`
 
 Splits variable lifetimes into phased variables (`v_phase2`) connected by handover operations, breaking SSA liveness analysis in decompilers.
 
 ---
 
-## 16. Constant Unfolding (`ConstUnfold`)
+## 17. Constant Unfolding (`ConstUnfold`)
 **Module**: `lib/domain/services/c_source/morphing/c_constant_unfold_service.ml`
 
 Deconstructs static integer constants $C$ into non-trivial algebraic expansions ($C \iff (C \oplus K) \oplus K$).
 
 ---
 
-## 17. Stack Memory Aliasing (`StackAliasing` with S-Box)
+## 18. Stack Memory Aliasing (`StackAliasing` with S-Box)
 **Module**: `lib/domain/services/c_source/morphing/c_stack_aliasing_service.ml`
 
 Embeds local scalar variables into a unified stack byte frame with S-Box addressing permutations, preventing linear stack layout analysis.
 
 ---
 
-## 18. Nested Multi-Layer VM
+## 19. Nested Multi-Layer VM
 **Module**: `lib/domain/services/c_source/virtualization/c_nested_vm_service.ml`
 
 Embeds an interpreter inside another interpreter (Outer VM controls Inner VM sub-steps), creating combinatorial path explosion in symbolic execution engines (angr, Triton).
 
 ---
 
-## 19. Self-Modifying Bytecode VM
+## 20. Self-Modifying Bytecode VM
 **Module**: `lib/domain/services/c_source/virtualization/c_self_modifying_vm_service.ml`
 
 Stores bytecode in an encrypted state. In the fetch-decode-execute loop, instructions are decrypted in memory immediately before execution and dynamically re-encrypted with a mutated key after execution, rendering static memory dumps useless.
 
 ---
 
-## 20. JIT Bytecode Machine Code Compilation (`Jitify`)
+## 21. JIT Bytecode Machine Code Compilation (`Jitify`)
 **Module**: `lib/domain/services/c_source/virtualization/c_jitify_service.ml`
 
 Injects an embedded runtime native AArch64 / ARM64 machine code generator that allocates executable memory pages and translates virtualized bytecode directly into raw machine code at runtime.
 
 ---
 
-## 21. Anti-Debug Injection
+## 22. Anti-Debug Injection
 **Module**: `lib/domain/services/c_source/anti_analysis/c_anti_debug_service.ml`
 
 Injects kernel-level process inspection checks (`sysctl(KERN_PROC_PID, P_TRACED)` / `ptrace PT_DENY_ATTACH`) inside basic blocks, detecting attached debuggers (GDB, LLDB, x64dbg) and terminating the session immediately.
 
 ---
 
-## 22. Anti-Disassembly (Junk Byte Desync)
+## 23. Anti-Disassembly (Junk Byte Desync)
 **Module**: `lib/domain/services/c_source/anti_analysis/c_anti_disassembly_service.ml`
 
 Injects inline assembly directives with opcode bytes resembling valid multi-byte instruction prefixes inside opaque dead code blocks to desynchronize linear sweep and recursive disassemblers.
 
 ---
 
-## 23. Self-Checksumming (Hash Guards)
+## 24. Self-Checksumming (Hash Guards)
 **Module**: `lib/domain/services/c_source/anti_analysis/c_self_checksum_service.ml`
 
 Calculates runtime CRC32 checksums of function memory pages to detect software breakpoints (`0xCC` / `BRK`) and active memory patching.
 
 ---
 
-## 24. Timing Verification (Anti-Stepping)
+## 25. Timing Verification (Anti-Stepping)
 **Module**: `lib/domain/services/c_source/anti_analysis/c_timing_check_service.ml`
 
 Injects high-resolution monotonic timer delta checks (`mach_absolute_time()`) between basic blocks, detecting interactive debugger single-stepping.
 
 ---
 
-## 25. Dynamic Hook Detection
+## 26. Dynamic Hook Detection
 **Module**: `lib/domain/services/c_source/anti_analysis/c_hook_detect_service.ml`
 
 Verifies function pointers and memory prologue bytes to detect Frida, Substrate, or Mach-O symbol interposing.
 
 ---
 
-## 26. Identifier Renaming & Symbol Hashing (`RenameSymbols`)
+## 27. Identifier Renaming & Symbol Hashing (`RenameSymbols`)
 **Module**: `lib/domain/services/c_source/symbols/c_rename_symbols_service.ml`
 
 Scrambles all non-exported local variables, static functions, and formal arguments into visually confusing homoglyph strings (e.g. `_l1I_lI1l_...`), eliminating meaningful identifiers for human analysts.
 
 ---
 
-## 27. Source Directives Stripping (`StripDirectives`)
+## 28. Source Directives Stripping (`StripDirectives`)
 **Module**: `lib/domain/services/c_source/symbols/c_strip_directives_service.ml`
 
 Strips `#line` pragmas and references to original development filepaths and directory structures from the emitted C source code.
 
 ---
 
-## 28. Function Inlining (`Inline`)
+## 29. Function Inlining (`Inline`)
 **Module**: `lib/domain/services/c_source/inter_procedural/c_inline_service.ml`
 
 Inlines small non-recursive functions directly into call sites across the AST, eliminating call-graph boundaries and increasing local analysis surface for subsequent intra-procedural passes.
 
 ---
 
-## 29. Call Graph Flattening (Indirect Call Routing)
+## 30. Call Graph Flattening (Indirect Call Routing)
 **Module**: `lib/domain/services/c_source/inter_procedural/c_call_graph_flatten_service.ml`
 
 Replaces direct function calls `target_fn(a, b)` with indirect dispatch through a global function pointer table (`static void *__indirect_call_table[]`), concealing static call hierarchy from IDA Pro and Ghidra.
 
 ---
 
-## 30. Cross-Function Bogus Call Injection
+## 31. Cross-Function Bogus Call Injection
 **Module**: `lib/domain/services/c_source/inter_procedural/c_bogus_calls_service.ml`
 
 Injects dead calls between unrelated functions guarded by algebraic opaque predicates (`(x & ~x) != 0`), generating deceptive false edges in high-level architectural call graphs.
 
 ---
 
-## 31. Arithmetic Exception Flow (`SIGFPE`)
+## 32. Arithmetic Exception Flow (`SIGFPE`)
 **Module**: `lib/domain/services/c_source/implicit_flow/c_sigfpe_flow_service.ml`
 
 Converts conditional branches into arithmetic fault conditions (`__fpe_denom == 0`) intercepted by `sigsetjmp` / `siglongjmp` and a static signal handler.
 
 ---
 
-## 32. Illegal Opcode Flow (`SIGILL`)
+## 33. Illegal Opcode Flow (`SIGILL`)
 **Module**: `lib/domain/services/c_source/implicit_flow/c_sigill_flow_service.ml`
 
 Replaces jumps with illegal opcodes / traps caught by a `SIGILL` signal handler.
 
 ---
 
-## 33. Multi-Threaded Race Implicit Flow
+## 34. Multi-Threaded Race Implicit Flow
 **Module**: `lib/domain/services/c_source/implicit_flow/c_threaded_implicit_flow_service.ml`
 
 Transmits branch decisions across thread boundaries using POSIX threads (`pthread`), eliminating sequential control flow edges in intra-procedural decompilation.
 
 ---
 
-## 34. Syscall Error Return Flow
+## 35. Syscall Error Return Flow
 **Module**: `lib/domain/services/c_source/implicit_flow/c_syscall_error_flow_service.ml`
 
 Communicates boolean state via error return codes of intentionally failing system calls (e.g. `access("/__nonexistent_trap__", 0) < 0`), confusing kernel trace analyzers (strace, dtruss).
 
 ---
 
-## 35. Lookup Table Arithmetic (LUT)
+## 36. Lookup Table Arithmetic (LUT)
 **Module**: `lib/domain/services/c_source/data_encoding/c_lut_arithmetic_service.ml`
 
 Converts arithmetic and bitwise byte operations into static 256-element lookup tables (`static const unsigned char __lut_xor_K[256]`):
@@ -266,35 +280,35 @@ __lut_xor_5A_1[x & 0xFF];
 
 ---
 
-## 36. Array Folding & Interleaving
+## 37. Array Folding & Interleaving
 **Module**: `lib/domain/services/c_source/data_encoding/c_array_interleave_service.ml`
 
 Transforms array index lookups by wrapping indices into non-trivial scaled interleaved expressions (`((idx << 1) - idx)`), preventing linear dataflow and cache locality tracking.
 
 ---
 
-## 37. Struct Field Permutation & Padding
+## 38. Struct Field Permutation & Padding
 **Module**: `lib/domain/services/c_source/data_encoding/c_struct_permute_service.ml`
 
 Reorders fields in structure definitions (`CompInfo`) and injects random padding fields (`int __pad_field_1;`), destroying struct layout assumptions in Ghidra / IDA Pro.
 
 ---
 
-## 38. Pointer Swizzling & Pointer Masking
+## 39. Pointer Swizzling & Pointer Masking
 **Module**: `lib/domain/services/c_source/data_encoding/c_pointer_masking_service.ml`
 
 Applies reversible XOR masking layers to pointer addresses at dereference sites, confounding dynamic taint tracking and automated pointer analyzers.
 
 ---
 
-## 39. Homomorphic Data Encoding
+## 40. Homomorphic Data Encoding
 **Module**: `lib/domain/services/c_source/data_encoding/c_homomorphic_service.ml`
 
 Encodes scalar values into $x_H = (a \cdot x + b) \bmod 2^{32}$. Arithmetic operations $(+, -, *)$ proceed directly in the encoded domain without intermediate decoding until output points.
 
 ---
 
-## 40. Dynamic / Math-Property Opaque Predicates
+## 41. Dynamic / Math-Property Opaque Predicates
 **Module**: `lib/domain/services/c_source/control_flow/c_dynamic_opaque_service.ml`
 
 Generates dynamic invariants based on integer arithmetic properties:
@@ -304,49 +318,49 @@ Generates dynamic invariants based on integer arithmetic properties:
 
 ---
 
-## 41. Bogus Control Flow (BCF Code Cloning & Mutation)
+## 42. Bogus Control Flow (BCF Code Cloning & Mutation)
 **Module**: `lib/domain/services/c_source/control_flow/c_bogus_control_flow_service.ml`
 
 Clones legitimate basic blocks, alters numeric constants in the duplicate, and guards the paths behind a Dynamic Opaque Predicate.
 
 ---
 
-## 42. Loop Unrolling & Jittering
+## 43. Loop Unrolling & Jittering
 **Module**: `lib/domain/services/c_source/control_flow/c_loop_unroll_service.ml`
 
 Unrolls loop bodies by a factor of 2 while interleaving non-interfering jitter computations (`__loop_jitter = (__loop_jitter * 31) ^ 0x5A`).
 
 ---
 
-## 43. Loop Fission & Segmentation
+## 44. Loop Fission & Segmentation
 **Module**: `lib/domain/services/c_source/control_flow/c_loop_fission_service.ml`
 
 Splits multi-statement loop bodies into sequenced execution phases (`__loop_phase`), breaking loop invariant analysis.
 
 ---
 
-## 44. Indirect Jump Tables (Computed Dispatch)
+## 45. Indirect Jump Tables (Computed Dispatch)
 **Module**: `lib/domain/services/c_source/control_flow/c_indirect_jump_service.ml`
 
 Converts sequential statement blocks into an indirect indexed dispatch table (`switch(__indirect_state)`), breaking linear code layout.
 
 ---
 
-## 45. Function Merging (`Merge`)
+## 46. Function Merging (`Merge`)
 **Module**: `lib/domain/services/c_source/c_merge_functions_service.ml`
 
 Merges pairs of independent C functions into a monolithic dispatcher function `__merged_fn(selector, ...)`.
 
 ---
 
-## 46. Function Outlining (`Outline`)
+## 47. Function Outlining (`Outline`)
 **Module**: `lib/domain/services/c_source/c_outline_service.ml`
 
 Slices contiguous statement blocks from function bodies into separate `static` helper functions passing local variables via pointer references.
 
 ---
 
-## 47. High-Order Polynomial MBA & Invertible Affine Transformations (Anti-Z3)
+## 48. High-Order Polynomial MBA & Invertible Affine Transformations (Anti-Z3)
 **Module**: `lib/domain/services/c_source/c_polynomial_mba_service.ml`
 
 Generates non-linear polynomial expressions coupled with **Invertible Affine Layers over $\mathbb{Z}_{2^{32}}$**:
@@ -355,42 +369,42 @@ where $a^{-1} \pmod{2^{32}}$ is computed via Newton-Raphson modular inverse iter
 
 ---
 
-## 48. Linear Mixed Boolean-Arithmetic (MBA)
+## 49. Linear Mixed Boolean-Arithmetic (MBA)
 **Modules**: `lib/domain/services/native/mba_service.ml`, `lib/domain/services/c_source/c_mba_service.ml`
 
 Linear MBA replaces arithmetic operations with equivalent bitwise formulas ($x + y \iff (x \oplus y) + 2(x \land y)$).
 
 ---
 
-## 49. Control Flow Flattening (CFF)
+## 50. Control Flow Flattening (CFF)
 **Modules**: `lib/domain/services/native/flattening_service.ml`, `lib/domain/services/c_source/c_flattening_service.ml`
 
 Transforms high-level structured control flow into a flat, single-loop state machine dispatcher (`while(1) switch(__cff_state)`).
 
 ---
 
-## 50. Invariant Opaque Predicates
+## 51. Invariant Opaque Predicates
 **Modules**: `lib/domain/services/native/opaque_predicate_service.ml`, `lib/domain/services/c_source/c_opaque_service.ml`
 
 Injects dead code branches guarded by algebraic tautologies ($(x \land \sim x) \neq 0$).
 
 ---
 
-## 51. EncodeLiterals (String Literal Encryption)
+## 52. EncodeLiterals (String Literal Encryption)
 **Module**: `lib/domain/services/c_source/c_encode_literals_service.ml`
 
 Encrypts string literals at compile-time into byte arrays with lazy in-function runtime decryptors.
 
 ---
 
-## 52. Variable Splitting & Data Encoding (`EncodeData`)
+## 53. Variable Splitting & Data Encoding (`EncodeData`)
 **Module**: `lib/domain/services/c_source/c_encode_data_service.ml`
 
 Splits local scalar integer variables $v$ into two distinct variables $(v_{s1}, v_{s2})$: $v = v_{s1} + v_{s2}$.
 
 ---
 
-## 53. C-Level Implicit Flow (Signals: SIGSEGV)
+## 54. C-Level Implicit Flow (Signals: SIGSEGV)
 **Module**: `lib/domain/services/c_source/c_implicit_flow_service.ml`
 
 Replaces explicit conditional jumps with signal-driven control flow via `NULL` dereference and `sigsetjmp` / `siglongjmp`.

@@ -6,6 +6,7 @@ type c_pipeline_config = {
   enable_c_dynamic_opaque : bool;
   enable_c_diophantine : bool;
   enable_c_bogus_cf : bool;
+  enable_c_basic_block_split : bool;
   enable_c_loop_unroll : bool;
   enable_c_loop_fission : bool;
   enable_c_loop_to_recursion : bool;
@@ -62,6 +63,7 @@ let default_c_config = {
   enable_c_dynamic_opaque = false;
   enable_c_diophantine = false;
   enable_c_bogus_cf = false;
+  enable_c_basic_block_split = false;
   enable_c_loop_unroll = false;
   enable_c_loop_fission = false;
   enable_c_loop_to_recursion = false;
@@ -118,6 +120,7 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
   module DynOpaque = C_dynamic_opaque_service.Make (Entropy)
   module Diophantine = C_diophantine_opaque_service.Make (Entropy)
   module BogusCF = C_bogus_control_flow_service.Make (Entropy)
+  module BBSplit = C_basic_block_split_service.Make (Entropy)
   module LoopUnroll = C_loop_unroll_service.Make (Entropy)
   module LoopFission = C_loop_fission_service.Make (Entropy)
   module LoopToRecursion = C_loop_to_recursion_service.Make (Entropy)
@@ -174,6 +177,7 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
     let f = if config.enable_c_loop_unroll then LoopUnroll.transform_file f else f in
     let f = if config.enable_c_loop_fission then LoopFission.transform_file f else f in
     let f = if config.enable_c_loop_to_recursion then LoopToRecursion.transform_file f else f in
+    let f = if config.enable_c_basic_block_split then BBSplit.transform_file f else f in
     let f = if config.enable_c_array_interleave then ArrayInterleave.transform_file f else f in
     let f = if config.enable_c_pointer_mask then PointerMask.transform_file f else f in
     let f = if config.enable_c_encode_literals then EncodeLiterals.transform_file f else f in

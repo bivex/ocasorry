@@ -6,7 +6,7 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 
 ## 📊 Feature Status Matrix
 
-- `[x]` = **100% Implemented & Verified in OcaSorry (55 Test Suites)**
+- `[x]` = **100% Implemented & Verified in OcaSorry (56 Test Suites)**
 
 ---
 
@@ -28,6 +28,7 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 | Status | Technique | CIL AST Mechanism | Resilience Target |
 | :---: | :--- | :--- | :--- |
 | `[x]` | **Control Flow Flattening (`Flatten`)** | Collapses all structured basic blocks (`bstmts`) into a single-loop state machine (`while(1) switch(__cff_state)`). | Control Flow Graph (CFG) Analysis |
+| `[x]` | **Basic Block Splitting (Jitter Jumps)** | Splits straight-line basic blocks into fragmented blocks connected by explicit labels and unconditional `goto` jumps. | LLM Context Windows, Token N-Grams, Basic Block Analysis |
 | `[x]` | **Invariant Opaque Predicates** | Injects algebraic tautologies (`(x & ~x) != 0`) guarding junk / trap code. | Static Disassemblers |
 | `[x]` | **Dynamic / Math-Property Opaque Predicates** | Generates dynamic invariants based on integer arithmetic properties (`(x*(x+1)) % 2 == 0`, `((x<<2)+2) % 2 == 0`). | SMT / SAT Solvers (Z3) |
 | `[x]` | **Diophantine Opaque Predicates** | Injects unsolvable integer equations ($x^2 \equiv 2 \pmod 4$) and product invariants ($x(x+1)(x+2) \equiv 0 \pmod 6$). | SMT Solvers & Symbolic Analyzers |
