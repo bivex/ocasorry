@@ -1,0 +1,1 @@
+scripts/build_license_demo.sh
