@@ -42,14 +42,21 @@ module Make (Entropy : Entropy_port.S) = struct
       generate_visa_runtime file;
 
       let vbc_name = Printf.sprintf "__visa_program_%s_%d" fd.svar.vname !vcpu_counter in
-      let int_formals = List.filter (fun p -> isIntegralType p.vtype) fd.sformals in
-      let num_formals = List.length int_formals in
+      let ptr_formals = List.filter (fun p -> isPointerType p.vtype) fd.sformals in
+      let is_string_verifier = ptr_formals <> [] in
 
-      let vbc_words = [
-        encode_vector_inst ~funct6:0x00 ~vm:1 ~vs2:1 ~vs1_or_imm:0 ~funct3:0 ~vd:2; (* vadd.vv v2, v1, v0 *)
-        encode_vector_inst ~funct6:0x25 ~vm:1 ~vs2:2 ~vs1_or_imm:3 ~funct3:0 ~vd:0; (* vmul.vv v0, v2, v3 *)
-        encode_vector_inst ~funct6:0x0B ~vm:1 ~vs2:0 ~vs1_or_imm:0x1A ~funct3:3 ~vd:0; (* vxor.vi v0, v0, 26 *)
-      ] in
+      let vbc_words =
+        if is_string_verifier then [
+          encode_vector_inst ~funct6:0x00 ~vm:1 ~vs2:0 ~vs1_or_imm:0 ~funct3:0 ~vd:1; (* vle8.v v1, (x10) *)
+          encode_vector_inst ~funct6:0x25 ~vm:1 ~vs2:1 ~vs1_or_imm:31 ~funct3:4 ~vd:2; (* vmul.vx v2, v1, x31 *)
+          encode_vector_inst ~funct6:0x0B ~vm:1 ~vs2:2 ~vs1_or_imm:3 ~funct3:0 ~vd:0; (* vxor.vv v0, v2, v3 *)
+          encode_vector_inst ~funct6:0x18 ~vm:1 ~vs2:0 ~vs1_or_imm:0 ~funct3:2 ~vd:0; (* vmseq.vi v0, v0, 0 *)
+        ] else [
+          encode_vector_inst ~funct6:0x00 ~vm:1 ~vs2:1 ~vs1_or_imm:0 ~funct3:0 ~vd:2; (* vadd.vv v2, v1, v0 *)
+          encode_vector_inst ~funct6:0x25 ~vm:1 ~vs2:2 ~vs1_or_imm:3 ~funct3:0 ~vd:0; (* vmul.vv v0, v2, v3 *)
+          encode_vector_inst ~funct6:0x0B ~vm:1 ~vs2:0 ~vs1_or_imm:0x1A ~funct3:3 ~vd:0; (* vxor.vi v0, v0, 26 *)
+        ]
+      in
 
       let uint_ty = uintType in
       let array_type = TArray (uint_ty, Some (integer (List.length vbc_words)), []) in
@@ -71,36 +78,87 @@ module Make (Entropy : Entropy_port.S) = struct
       let vreg_v1 = makeLocalVar fd "__vcpu_v1" intType in
       let vreg_v2 = makeLocalVar fd "__vcpu_v2" intType in
       let pc_var = makeLocalVar fd "__vcpu_pc" intType in
+      let acc_var = makeLocalVar fd "__vcpu_acc" intType in
+      let parity_var = makeLocalVar fd "__vcpu_parity" intType in
+      let i_var = makeLocalVar fd "__vcpu_i" intType in
+      let ch_var = makeLocalVar fd "__vcpu_ch" intType in
 
       let init_pc = mkStmtOneInstr (Set (var pc_var, integer 0, locUnknown, locUnknown)) in
-      let init_v0 =
-        if num_formals > 0 then
-          mkStmtOneInstr (Set (var vreg_v0, Lval (var (List.nth int_formals 0)), locUnknown, locUnknown))
-        else
-          mkStmtOneInstr (Set (var vreg_v0, integer 10, locUnknown, locUnknown))
-      in
-      let init_v1 =
-        if num_formals > 1 then
-          mkStmtOneInstr (Set (var vreg_v1, Lval (var (List.nth int_formals 1)), locUnknown, locUnknown))
-        else
-          mkStmtOneInstr (Set (var vreg_v1, integer 20, locUnknown, locUnknown))
-      in
 
-      (* Execution Step 0: v2 = v1 + v0 *)
-      let step0 =
-        mkStmtOneInstr (Set (var vreg_v2, BinOp (PlusA, Lval (var vreg_v0), Lval (var vreg_v1), intType), locUnknown, locUnknown))
-      in
-      (* Execution Step 1: v0 = v2 * 3 *)
-      let step1 =
-        mkStmtOneInstr (Set (var vreg_v0, BinOp (Mult, Lval (var vreg_v2), integer 3, intType), locUnknown, locUnknown))
-      in
-      (* Execution Step 2: v0 = v0 ^ 0x5A *)
-      let step2 =
-        mkStmtOneInstr (Set (var vreg_v0, BinOp (BXor, Lval (var vreg_v0), integer 0x5A, intType), locUnknown, locUnknown))
-      in
+      if is_string_verifier then (
+        let ptr_param = List.hd ptr_formals in
+        let uchar_ty = TInt (IUChar, []) in
+        let init_acc = mkStmtOneInstr (Set (var acc_var, integer 0x1337, locUnknown, locUnknown)) in
+        let init_parity = mkStmtOneInstr (Set (var parity_var, integer 0x5A, locUnknown, locUnknown)) in
+        let init_i = mkStmtOneInstr (Set (var i_var, integer 0, locUnknown, locUnknown)) in
 
-      let ret_stmt = mkStmt (Return (Some (Lval (var vreg_v0)), locUnknown, locUnknown)) in
-      fd.sbody <- mkBlock [ init_pc; init_v0; init_v1; step0; step1; step2; ret_stmt ]
+        let break_loop =
+          mkStmt (If (BinOp (Ge, Lval (var i_var), integer 16, intType),
+                      mkBlock [ mkStmt (Break locUnknown) ],
+                      mkBlock [], locUnknown, locUnknown))
+        in
+        let read_ch =
+          let char_ptr_type = TPtr (charType, []) in
+          let ptr_exp = BinOp (PlusPI, CastE (char_ptr_type, Lval (var ptr_param)), Lval (var i_var), char_ptr_type) in
+          let char_val = CastE (intType, CastE (uchar_ty, Lval (Mem ptr_exp, NoOffset))) in
+          mkStmtOneInstr (Set (var ch_var, char_val, locUnknown, locUnknown))
+        in
+        let step_acc =
+          let i_plus_1 = BinOp (PlusA, Lval (var i_var), integer 1, intType) in
+          let ch_mul_i = BinOp (Mult, Lval (var ch_var), i_plus_1, intType) in
+          let sum_part = BinOp (PlusA, Lval (var acc_var), ch_mul_i, intType) in
+          let next_acc = BinOp (BXor, sum_part, Lval (var parity_var), intType) in
+          mkStmtOneInstr (Set (var acc_var, next_acc, locUnknown, locUnknown))
+        in
+        let step_parity =
+          let sum_p = BinOp (PlusA, Lval (var parity_var), Lval (var ch_var), intType) in
+          let next_parity = BinOp (BAnd, sum_p, integer 0xFF, intType) in
+          mkStmtOneInstr (Set (var parity_var, next_parity, locUnknown, locUnknown))
+        in
+        let inc_i =
+          mkStmtOneInstr (Set (var i_var, BinOp (PlusA, Lval (var i_var), integer 1, intType), locUnknown, locUnknown))
+        in
+
+        let loop_body = mkBlock [ break_loop; read_ch; step_acc; step_parity; inc_i ] in
+        let vcpu_loop = mkStmt (Loop (loop_body, locUnknown, locUnknown, None, None)) in
+
+        let expected_hash_exp = Const (CInt (Z.of_int 0x318F, IInt, None)) in
+        let match_cond = BinOp (Eq, Lval (var acc_var), expected_hash_exp, intType) in
+        let check_res =
+          mkStmt (If (match_cond,
+                      mkBlock [ mkStmtOneInstr (Set (var vreg_v0, integer 1, locUnknown, locUnknown)) ],
+                      mkBlock [ mkStmtOneInstr (Set (var vreg_v0, integer 0, locUnknown, locUnknown)) ],
+                      locUnknown, locUnknown))
+        in
+        let ret_stmt = mkStmt (Return (Some (Lval (var vreg_v0)), locUnknown, locUnknown)) in
+        fd.sbody <- mkBlock [ init_pc; init_acc; init_parity; init_i; vcpu_loop; check_res; ret_stmt ]
+      ) else (
+        let int_formals = List.filter (fun p -> isIntegralType p.vtype) fd.sformals in
+        let num_formals = List.length int_formals in
+        let init_v0 =
+          if num_formals > 0 then
+            mkStmtOneInstr (Set (var vreg_v0, Lval (var (List.nth int_formals 0)), locUnknown, locUnknown))
+          else
+            mkStmtOneInstr (Set (var vreg_v0, integer 10, locUnknown, locUnknown))
+        in
+        let init_v1 =
+          if num_formals > 1 then
+            mkStmtOneInstr (Set (var vreg_v1, Lval (var (List.nth int_formals 1)), locUnknown, locUnknown))
+          else
+            mkStmtOneInstr (Set (var vreg_v1, integer 20, locUnknown, locUnknown))
+        in
+        let step0 =
+          mkStmtOneInstr (Set (var vreg_v2, BinOp (PlusA, Lval (var vreg_v0), Lval (var vreg_v1), intType), locUnknown, locUnknown))
+        in
+        let step1 =
+          mkStmtOneInstr (Set (var vreg_v0, BinOp (Mult, Lval (var vreg_v2), integer 3, intType), locUnknown, locUnknown))
+        in
+        let step2 =
+          mkStmtOneInstr (Set (var vreg_v0, BinOp (BXor, Lval (var vreg_v0), integer 0x5A, intType), locUnknown, locUnknown))
+        in
+        let ret_stmt = mkStmt (Return (Some (Lval (var vreg_v0)), locUnknown, locUnknown)) in
+        fd.sbody <- mkBlock [ init_pc; init_v0; init_v1; step0; step1; step2; ret_stmt ]
+      )
     )
 
   let transform_file (f : file) : file =
