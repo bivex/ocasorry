@@ -35,7 +35,9 @@ let () =
   Suite_inline.run ();
   Suite_call_flatten.run ();
   Suite_bogus_calls.run ();
+  Suite_rename_symbols.run ();
+  Suite_strip_directives.run ();
 
   Printf.printf "\n=================================================================\n";
-  Printf.printf "       ALL 32 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
+  Printf.printf "       ALL 34 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
   Printf.printf "=================================================================\n%!"

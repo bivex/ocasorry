@@ -93,5 +93,5 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 
 | Status | Technique | CIL AST Mechanism | Resilience Target |
 | :---: | :--- | :--- | :--- |
-| `[ ]` | **Identifier Renaming / Symbol Hashing** | Renames all non-exported `varinfo.vname` to unreadable homoglyph strings (e.g. `_ll1lI1l_`) or cryptographic hashes. | Human Comprehension |
-| `[ ]` | **Source Directives Stripping** | Removes `#line` comments and original filename references from pretty-printed C output. | Source Mapping / Debugging Info |
+| `[x]` | **Identifier Renaming / Symbol Hashing** | Renames all non-exported `varinfo.vname` to unreadable homoglyph strings (e.g. `_l1I_lI1l_...`) and entropy-derived identifiers. | Human Comprehension |
+| `[x]` | **Source Directives Stripping** | Removes `#line` comments and original filename references from pretty-printed C output. | Source Mapping / Debugging Info |

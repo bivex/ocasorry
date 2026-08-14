@@ -20,6 +20,8 @@ type c_pipeline_config = {
   enable_c_inline : bool;
   enable_c_call_flatten : bool;
   enable_c_bogus_calls : bool;
+  enable_c_rename_symbols : bool;
+  enable_c_strip_directives : bool;
   enable_c_lut : bool;
   enable_c_array_interleave : bool;
   enable_c_struct_permute : bool;
@@ -53,6 +55,8 @@ let default_c_config = {
   enable_c_inline = false;
   enable_c_call_flatten = false;
   enable_c_bogus_calls = false;
+  enable_c_rename_symbols = false;
+  enable_c_strip_directives = false;
   enable_c_lut = false;
   enable_c_array_interleave = false;
   enable_c_struct_permute = false;
@@ -86,6 +90,8 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
   module Inline = C_inline_service.Make (Entropy)
   module CallFlatten = C_call_graph_flatten_service.Make (Entropy)
   module BogusCalls = C_bogus_calls_service.Make (Entropy)
+  module RenameSymbols = C_rename_symbols_service.Make (Entropy)
+  module StripDirectives = C_strip_directives_service.Make (Entropy)
   module LUT = C_lut_arithmetic_service.Make (Entropy)
   module ArrayInterleave = C_array_interleave_service.Make (Entropy)
   module StructPermute = C_struct_permute_service.Make (Entropy)
@@ -127,6 +133,8 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
     let f = if config.enable_c_self_mod_vm then SelfModVM.transform_file f else f in
     let f = if config.enable_c_jitify then Jitify.transform_file f else f in
     let f = if config.enable_c_flattening then Flattening.transform_file f else f in
+    let f = if config.enable_c_rename_symbols then RenameSymbols.transform_file f else f in
+    let f = if config.enable_c_strip_directives then StripDirectives.transform_file f else f in
     f
 
   let obfuscate_c_string (source_code : string) (config : c_pipeline_config) : string =

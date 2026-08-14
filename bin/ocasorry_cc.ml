@@ -41,6 +41,8 @@ let () =
   let enable_inline = ref false in
   let enable_call_flatten = ref false in
   let enable_bogus_calls = ref false in
+  let enable_rename = ref false in
+  let enable_strip = ref false in
   let enable_lut = ref false in
   let enable_interleave = ref false in
   let enable_permute_struct = ref false in
@@ -89,6 +91,8 @@ let () =
       | "--ocasorry-inline" -> enable_inline := true
       | "--ocasorry-call-flatten" -> enable_call_flatten := true
       | "--ocasorry-bogus-calls" -> enable_bogus_calls := true
+      | "--ocasorry-rename" -> enable_rename := true
+      | "--ocasorry-strip" -> enable_strip := true
       | _ -> (
           if Filename.check_suffix arg ".c" && not !disable_all && Sys.file_exists arg then (
             let tmp_c = Filename.temp_file "ocasorry_obf_" ".c" in
@@ -115,6 +119,8 @@ let () =
               enable_c_inline = !enable_inline;
               enable_c_call_flatten = !enable_call_flatten;
               enable_c_bogus_calls = !enable_bogus_calls;
+              enable_c_rename_symbols = !enable_rename;
+              enable_c_strip_directives = !enable_strip;
               enable_c_lut = !enable_lut;
               enable_c_array_interleave = !enable_interleave;
               enable_c_struct_permute = !enable_permute_struct;

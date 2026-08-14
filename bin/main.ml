@@ -128,6 +128,8 @@ let () =
   let enable_inline = ref false in
   let enable_call_flatten = ref false in
   let enable_bogus_calls = ref false in
+  let enable_rename = ref false in
+  let enable_strip = ref false in
   let enable_lut = ref false in
   let enable_interleave = ref false in
   let enable_permute_struct = ref false in
@@ -173,6 +175,8 @@ let () =
     ("--inline", Arg.Set enable_inline, "Enable Function Inlining");
     ("--call-flatten", Arg.Set enable_call_flatten, "Enable Call Graph Flattening (Indirect Calls)");
     ("--bogus-calls", Arg.Set enable_bogus_calls, "Enable Cross-Function Bogus Call Injection");
+    ("--rename", Arg.Set enable_rename, "Enable Identifier Renaming / Symbol Hashing");
+    ("--strip", Arg.Set enable_strip, "Enable Source Directives Stripping");
   ] in
 
   let usage_msg = "Usage: ocasorry [-i <input.c> -o <output.c> [passes]] (run without args for interactive demo)" in
@@ -204,6 +208,8 @@ let () =
       enable_c_inline = !enable_inline;
       enable_c_call_flatten = !enable_call_flatten;
       enable_c_bogus_calls = !enable_bogus_calls;
+      enable_c_rename_symbols = !enable_rename;
+      enable_c_strip_directives = !enable_strip;
       enable_c_lut = !enable_lut;
       enable_c_array_interleave = !enable_interleave;
       enable_c_struct_permute = !enable_permute_struct;
