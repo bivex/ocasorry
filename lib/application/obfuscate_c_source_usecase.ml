@@ -18,6 +18,10 @@ type c_pipeline_config = {
   enable_c_struct_permute : bool;
   enable_c_pointer_mask : bool;
   enable_c_homomorphic : bool;
+  enable_c_virtualize : bool;
+  enable_c_nested_vm : bool;
+  enable_c_self_mod_vm : bool;
+  enable_c_jitify : bool;
 }
 
 let default_c_config = {
@@ -40,6 +44,10 @@ let default_c_config = {
   enable_c_struct_permute = false;
   enable_c_pointer_mask = false;
   enable_c_homomorphic = false;
+  enable_c_virtualize = false;
+  enable_c_nested_vm = false;
+  enable_c_self_mod_vm = false;
+  enable_c_jitify = false;
 }
 
 module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
@@ -62,6 +70,10 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
   module StructPermute = C_struct_permute_service.Make (Entropy)
   module PointerMask = C_pointer_masking_service.Make (Entropy)
   module Homomorphic = C_homomorphic_service.Make (Entropy)
+  module Virtualize = C_random_visa_virtualize_service.Make (Entropy)
+  module NestedVM = C_nested_vm_service.Make (Entropy)
+  module SelfModVM = C_self_modifying_vm_service.Make (Entropy)
+  module Jitify = C_jitify_service.Make (Entropy)
 
   let run_passes (cil_file : GoblintCil.Cil.file) (config : c_pipeline_config) : GoblintCil.Cil.file =
     let f = if config.enable_c_struct_permute then StructPermute.transform_file cil_file else cil_file in
@@ -82,6 +94,10 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
     let f = if config.enable_c_bogus_cf then BogusCF.transform_file f else f in
     let f = if config.enable_c_implicit_flow then ImplicitFlow.transform_file f else f in
     let f = if config.enable_c_indirect_jump then IndirectJump.transform_file f else f in
+    let f = if config.enable_c_virtualize then Virtualize.transform_file f else f in
+    let f = if config.enable_c_nested_vm then NestedVM.transform_file f else f in
+    let f = if config.enable_c_self_mod_vm then SelfModVM.transform_file f else f in
+    let f = if config.enable_c_jitify then Jitify.transform_file f else f in
     let f = if config.enable_c_flattening then Flattening.transform_file f else f in
     f
 

@@ -15,10 +15,10 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 
 | Status | Technique | CIL AST Mechanism | Resilience Target |
 | :---: | :--- | :--- | :--- |
-| `[ ]` | **C-Level Bytecode Virtualization (`Virtualize`)** | Translates function bodies (`fundec.sbody`) into custom bytecode arrays (`static unsigned char __bc[]`) with an embedded C-level fetch-decode-execute loop (`switch` / indirect `goto *dispatch_table[op]`). | Disassemblers (IDA, Ghidra), Decompilers |
-| `[ ]` | **Nested Multi-Layer VM** | Embeds an interpreter inside another interpreter with randomized virtual instruction sets (Stack-based + Register-based hybrid). | Symbolic Execution (angr) |
-| `[ ]` | **Self-Modifying Bytecode** | Virtual machine dynamically rewrites its own bytecode in memory during execution via XOR keys. | Static Signatures |
-| `[ ]` | **JIT Bytecode Compilation (`Jitify`)** | Injects an embedded machine code generator (e.g. DynASM or custom emitter) that translates bytecode directly to executable RAM. | Static Reverse Engineering |
+| `[x]` | **C-Level Bytecode Virtualization (`Virtualize`)** | Integrates with `random_vISA` vector ISA synthesizer, encoding function logic into 32-bit RISC-V Vector Bytecode (`.vbc`) with an embedded C11 VCPU execution loop. | Disassemblers (IDA, Ghidra), Decompilers |
+| `[x]` | **Nested Multi-Layer VM** | Embeds an interpreter inside another interpreter (Outer VM $\to$ Inner VM) with multi-tier dispatch tables. | Symbolic Execution (angr) |
+| `[x]` | **Self-Modifying Bytecode** | Virtual machine dynamically rewrites its own bytecode in memory during execution via rolling XOR multi-phase keys. | Static Signatures & Memory Dumps |
+| `[x]` | **JIT Bytecode Compilation (`Jitify`)** | Injects an embedded runtime AArch64 machine code generator that translates virtualized bytecode directly to executable RAM. | Static Reverse Engineering |
 
 ---
 

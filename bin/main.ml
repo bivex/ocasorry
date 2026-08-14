@@ -68,25 +68,16 @@ let run_demo () =
   Printf.printf "-----------------------------------------------------------------\n%!";
   Printf.printf " Original C Code:\n%s\n" sample_c_program;
   let c_config : Obfuscate_c_source_usecase.c_pipeline_config = {
+    Obfuscate_c_source_usecase.default_c_config with
     enable_c_mba = false;
     enable_c_polynomial_mba = true;
     enable_c_opaque = true;
     enable_c_dynamic_opaque = true;
     enable_c_bogus_cf = true;
-    enable_c_loop_unroll = false;
-    enable_c_loop_fission = false;
-    enable_c_indirect_jump = false;
     enable_c_flattening = true;
     enable_c_encode_literals = true;
     enable_c_implicit_flow = true;
     enable_c_encode_data = true;
-    enable_c_merge = false;
-    enable_c_outline = false;
-    enable_c_lut = false;
-    enable_c_array_interleave = false;
-    enable_c_struct_permute = false;
-    enable_c_pointer_mask = false;
-    enable_c_homomorphic = false;
   } in
   let obfuscated_c = CilSourceObfuscator.obfuscate_c_string sample_c_program c_config in
   Printf.printf " Obfuscated C Code:\n\n%s\n%!" obfuscated_c;
@@ -135,6 +126,10 @@ let () =
   let enable_permute_struct = ref false in
   let enable_pointer_mask = ref false in
   let enable_homomorphic = ref false in
+  let enable_virtualize = ref false in
+  let enable_nested_vm = ref false in
+  let enable_self_mod_vm = ref false in
+  let enable_jitify = ref false in
 
   let speclist = [
     ("-i", Arg.Set_string in_file, "Input C source file to obfuscate");
@@ -155,6 +150,10 @@ let () =
     ("--permute-struct", Arg.Set enable_permute_struct, "Enable Struct Field Permutation & Padding");
     ("--pointer-mask", Arg.Set enable_pointer_mask, "Enable Pointer Swizzling & Masking");
     ("--homomorphic", Arg.Set enable_homomorphic, "Enable Homomorphic Data Encoding");
+    ("--virtualize", Arg.Set enable_virtualize, "Enable random_vISA VCPU Bytecode Virtualization");
+    ("--nested-vm", Arg.Set enable_nested_vm, "Enable Nested Multi-Layer VM");
+    ("--self-mod-vm", Arg.Set enable_self_mod_vm, "Enable Self-Modifying Bytecode VM");
+    ("--jitify", Arg.Set enable_jitify, "Enable JIT Bytecode Machine Code Compilation");
     ("--literals", Arg.Set enable_literals, "Enable String Literal Encryption");
     ("--split", Arg.Set enable_split, "Enable Variable Splitting (EncodeData)");
     ("--implicit", Arg.Set enable_implicit, "Enable Signal-Driven Implicit Flow");
@@ -189,6 +188,10 @@ let () =
       enable_c_struct_permute = !enable_permute_struct;
       enable_c_pointer_mask = !enable_pointer_mask;
       enable_c_homomorphic = !enable_homomorphic;
+      enable_c_virtualize = !enable_virtualize;
+      enable_c_nested_vm = !enable_nested_vm;
+      enable_c_self_mod_vm = !enable_self_mod_vm;
+      enable_c_jitify = !enable_jitify;
     } in
     Printf.printf "[*] Obfuscating: %s -> %s\n%!" !in_file target_out;
     CilSourceObfuscator.obfuscate_c_file !in_file target_out config;

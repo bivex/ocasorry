@@ -24,7 +24,11 @@ let () =
   Suite_struct_permute.run ();
   Suite_pointer_mask.run ();
   Suite_homomorphic.run ();
+  Suite_virtualize.run ();
+  Suite_nested_vm.run ();
+  Suite_self_mod_vm.run ();
+  Suite_jitify.run ();
 
   Printf.printf "\n=================================================================\n";
-  Printf.printf "       ALL 21 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
+  Printf.printf "       ALL 25 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
   Printf.printf "=================================================================\n%!"

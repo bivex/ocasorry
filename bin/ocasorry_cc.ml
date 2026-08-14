@@ -39,6 +39,10 @@ let () =
   let enable_permute_struct = ref false in
   let enable_pointer_mask = ref false in
   let enable_homomorphic = ref false in
+  let enable_virtualize = ref false in
+  let enable_nested_vm = ref false in
+  let enable_self_mod_vm = ref false in
+  let enable_jitify = ref false in
   let disable_all = ref false in
 
   let compiler_args = ref [] in
@@ -62,6 +66,10 @@ let () =
       | "--ocasorry-permute-struct" -> enable_permute_struct := true
       | "--ocasorry-pointer-mask" -> enable_pointer_mask := true
       | "--ocasorry-homomorphic" -> enable_homomorphic := true
+      | "--ocasorry-virtualize" -> enable_virtualize := true
+      | "--ocasorry-nested-vm" -> enable_nested_vm := true
+      | "--ocasorry-self-mod-vm" -> enable_self_mod_vm := true
+      | "--ocasorry-jitify" -> enable_jitify := true
       | "--ocasorry-no-literals" -> enable_literals := false
       | "--ocasorry-no-split" -> enable_split := false
       | "--ocasorry-implicit" -> enable_implicit := true
@@ -91,6 +99,10 @@ let () =
               enable_c_struct_permute = !enable_permute_struct;
               enable_c_pointer_mask = !enable_pointer_mask;
               enable_c_homomorphic = !enable_homomorphic;
+              enable_c_virtualize = !enable_virtualize;
+              enable_c_nested_vm = !enable_nested_vm;
+              enable_c_self_mod_vm = !enable_self_mod_vm;
+              enable_c_jitify = !enable_jitify;
             } in
             if is_verbose then
               Printf.eprintf "[ocasorry-cc] Obfuscating source: %s -> %s\n%!" arg tmp_c;
