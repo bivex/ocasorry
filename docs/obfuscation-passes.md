@@ -4,34 +4,50 @@ This document details the transformation algorithms implemented in **OcaSorry**.
 
 ---
 
-## 1. High-Order Polynomial MBA & Invertible Affine Transformations (Anti-Z3)
-**Module**: `lib/domain/services/c_source/c_polynomial_mba_service.ml`
+## 1. Function Merging (`Merge`)
+**Module**: `lib/domain/services/c_source/c_merge_functions_service.ml`
 
-Linear MBA can sometimes be simplified by modern SMT-based deobfuscators (e.g. arybo, msynth, Z3). **OcaSorry** generates **High-Order Polynomial MBA expressions** coupled with **Invertible Affine Layers over the ring $\mathbb{Z}_{2^{32}}$**, causing combinatorial state-space explosion in symbolic solvers.
-
-### Invertible Affine Layer over $\mathbb{Z}_{2^{32}}$:
-For an expression $E$, an odd multiplier $a$ ($\gcd(a, 2^{32}) = 1$), and a random constant $b$:
-1. We compute modular multiplicative inverse $a^{-1} \pmod{2^{32}}$ via Newton-Raphson iteration:
-   $$x_{k+1} = x_k \cdot (2 - a \cdot x_k) \pmod{2^{32}}$$
-2. Wrap $E$ in an affine permutation layer:
-   $$E' = a^{-1} \cdot \Big( (a \cdot E + b) - b \Big) \pmod{2^{32}}$$
-3. Substitute inner operations with non-linear polynomial identities.
-
-### High-Order Polynomial Identities:
-- **Non-Linear Addition ($x + y$)**:
-  - $a^{-1} \cdot \Big( a \cdot \big( (x \oplus y) + 2(x \land y) \big) + b - b \Big)$
-  - $a^{-1} \cdot \Big( a \cdot \big( 2(x \lor y) - (x \oplus y) \big) + b - b \Big)$
-  - $a^{-1} \cdot \Big( a \cdot \big( (x \lor y) + (x \land y) \big) + b - b \Big)$
-- **Non-Linear Subtraction ($x - y$)**:
-  - $a^{-1} \cdot \Big( a \cdot \big( (x \oplus y) - 2(\sim x \land y) \big) + b - b \Big)$
-  - $a^{-1} \cdot \Big( a \cdot \big( (x \land \sim y) - (\sim x \land y) \big) + b - b \Big)$
-- **Non-Linear Bitwise XOR ($x \oplus y$)**:
-  - $a^{-1} \cdot \Big( a \cdot \big( (x \lor y) - (x \land y) \big) + b - b \Big)$
-  - $a^{-1} \cdot \Big( a \cdot \big( (x \lor y) + (\sim x \land \sim y) + 1 \big) + b - b \Big)$
+Merges pairs of independent, unrelated C functions (e.g. `calculate_area` and `calculate_perimeter`) into a single monolithic dispatcher function:
+```c
+static int __merged_fn_a_fn_b(int __selector, int a0, int a1, int a2, int a3) {
+    if (__selector == 0x3F1A) {
+        /* Body of Function A */
+    } else if (__selector == 0x9B4C) {
+        /* Body of Function B */
+    } else {
+        return 0;
+    }
+}
+```
+- Original function definitions are replaced with lightweight proxy stubs passing the secret selector.
+- When combined with **Control Flow Flattening**, the basic blocks of both functions are completely intermingled in a single unified state-machine switch loop.
 
 ---
 
-## 2. Linear Mixed Boolean-Arithmetic (MBA)
+## 2. Function Outlining (`Outline`)
+**Module**: `lib/domain/services/c_source/c_outline_service.ml`
+
+Slices contiguous statement blocks from function bodies into separate `static` helper functions:
+```c
+static void __outlined_fn_1(int *x_ptr, int *step_ptr) {
+    *step_ptr = (*x_ptr * 3) + 50;
+}
+```
+- Local variables are passed via pointer references (`&x`, `&step`).
+- Fragments intra-procedural dataflow graphs and confuses static analysis heuristics in IDA Pro and Ghidra.
+
+---
+
+## 3. High-Order Polynomial MBA & Invertible Affine Transformations (Anti-Z3)
+**Module**: `lib/domain/services/c_source/c_polynomial_mba_service.ml`
+
+Generates non-linear polynomial expressions coupled with **Invertible Affine Layers over the ring $\mathbb{Z}_{2^{32}}$**, causing combinatorial state-space explosion in symbolic execution solvers:
+$$E' = a^{-1} \cdot \Big( (a \cdot E + b) - b \Big) \pmod{2^{32}}$$
+where $a^{-1} \pmod{2^{32}}$ is computed via Newton-Raphson modular inverse iteration.
+
+---
+
+## 4. Linear Mixed Boolean-Arithmetic (MBA)
 **Modules**: `lib/domain/services/native/mba_service.ml`, `lib/domain/services/c_source/c_mba_service.ml`
 
 Linear MBA replaces arithmetic operations with equivalent bitwise formulas:
@@ -43,7 +59,7 @@ Linear MBA replaces arithmetic operations with equivalent bitwise formulas:
 
 ---
 
-## 3. Control Flow Flattening (CFF)
+## 5. Control Flow Flattening (CFF)
 **Modules**: `lib/domain/services/native/flattening_service.ml`, `lib/domain/services/c_source/c_flattening_service.ml`
 
 Transforms high-level structured control flow (nested `if`, `while`, `for`) into a flat, single-loop state machine dispatcher:
@@ -53,7 +69,7 @@ Transforms high-level structured control flow (nested `if`, `while`, `for`) into
 
 ---
 
-## 4. Invariant Opaque Predicates
+## 6. Invariant Opaque Predicates
 **Modules**: `lib/domain/services/native/opaque_predicate_service.ml`, `lib/domain/services/c_source/c_opaque_service.ml`
 
 Injects dead code branches guarded by algebraic tautologies:
@@ -62,7 +78,7 @@ Injects dead code branches guarded by algebraic tautologies:
 
 ---
 
-## 5. EncodeLiterals (String Literal Encryption)
+## 7. EncodeLiterals (String Literal Encryption)
 **Module**: `lib/domain/services/c_source/c_encode_literals_service.ml`
 
 - Detects string constants in C AST (`Const (CStr "...")`).
@@ -72,7 +88,7 @@ Injects dead code branches guarded by algebraic tautologies:
 
 ---
 
-## 6. Variable Splitting & Data Encoding (`EncodeData`)
+## 8. Variable Splitting & Data Encoding (`EncodeData`)
 **Module**: `lib/domain/services/c_source/c_encode_data_service.ml`
 
 Splits local scalar integer variables $v$ into two distinct variables $(v_{s1}, v_{s2})$:
@@ -83,7 +99,7 @@ Splits local scalar integer variables $v$ into two distinct variables $(v_{s1}, 
 
 ---
 
-## 7. C-Level Implicit Flow (Signals)
+## 9. C-Level Implicit Flow (Signals)
 **Module**: `lib/domain/services/c_source/c_implicit_flow_service.ml`
 
 Replaces explicit conditional jumps with signal-driven control flow:
@@ -97,4 +113,3 @@ if (sigsetjmp(__implicit_jmp_buf, 1) == 0) {
     then_branch();        // Runs after signal handler longjmp!
 }
 ```
-Decompilers and symbolic execution solvers treat the `NULL` write as an irrecoverable crash path, completely severing the link to the `then` block.

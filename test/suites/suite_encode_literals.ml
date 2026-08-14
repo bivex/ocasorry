@@ -30,6 +30,8 @@ int main(int argc, char **argv) {
     enable_c_encode_literals = true;
     enable_c_implicit_flow = false;
     enable_c_encode_data = false;
+    enable_c_merge = false;
+    enable_c_outline = false;
   } in
 
   let obfuscated_c = CilSourceObfuscator.obfuscate_c_string c_code c_config in

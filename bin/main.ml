@@ -75,6 +75,8 @@ let () =
     enable_c_encode_literals = true;
     enable_c_implicit_flow = true;
     enable_c_encode_data = true;
+    enable_c_merge = false;
+    enable_c_outline = false;
   } in
   let obfuscated_c = CilSourceObfuscator.obfuscate_c_string sample_c_program c_config in
   Printf.printf " Obfuscated C Code:\n\n%s\n%!" obfuscated_c;

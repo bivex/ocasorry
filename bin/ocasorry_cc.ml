@@ -27,6 +27,8 @@ let () =
   let enable_literals = ref true in
   let enable_split = ref true in
   let enable_implicit = ref false in
+  let enable_merge = ref false in
+  let enable_outline = ref false in
   let disable_all = ref false in
 
   let compiler_args = ref [] in
@@ -43,6 +45,8 @@ let () =
       | "--ocasorry-no-literals" -> enable_literals := false
       | "--ocasorry-no-split" -> enable_split := false
       | "--ocasorry-implicit" -> enable_implicit := true
+      | "--ocasorry-merge" -> enable_merge := true
+      | "--ocasorry-outline" -> enable_outline := true
       | _ -> (
           if Filename.check_suffix arg ".c" && not !disable_all && Sys.file_exists arg then (
             let tmp_c = Filename.temp_file "ocasorry_obf_" ".c" in
@@ -55,6 +59,8 @@ let () =
               enable_c_encode_literals = !enable_literals;
               enable_c_implicit_flow = !enable_implicit;
               enable_c_encode_data = !enable_split;
+              enable_c_merge = !enable_merge;
+              enable_c_outline = !enable_outline;
             } in
             if is_verbose then
               Printf.eprintf "[ocasorry-cc] Obfuscating source: %s -> %s\n%!" arg tmp_c;
