@@ -1,18 +1,19 @@
 /**
  * Example 01: Software License Key Verification (4-VCPU Federated Protection)
  *
- * Demonstrates 4-Tier Cascading Virtualization Pipeline via Granular Attributes:
- *  - Tier 1 (VCPU 1): random_vISA Vector Bytecode ISA (__attribute__((annotate("ocasorry:visa"))))
- *  - Tier 2 (VCPU 2): Nested Multi-Layer VM (__attribute__((annotate("ocasorry:nested_vm"))))
- *  - Tier 3 (VCPU 3): Stateful Rolling Key VM (__attribute__((annotate("ocasorry:rolling_vkey"))))
- *  - Tier 4 (VCPU 4): Ephemeral In-Memory JIT VM (__attribute__((annotate("ocasorry:ephemeral"))))
+ * Demonstrates 4-Tier Cascading Virtualization Pipeline via Granular Comma-Separated Attributes:
+ *  - Tier 1 (VCPU 1): random_vISA Vector Bytecode ISA + Anti-Debug + Timing Verification
+ *  - Tier 2 (VCPU 2): Nested Multi-Layer VM + High-Order Poly MBA + Relational Morphing
+ *  - Tier 3 (VCPU 3): Stateful Rolling Key VM + Dataflow Anti-Slicing Entanglement
+ *  - Tier 4 (VCPU 4): Ephemeral In-Memory JIT VM + Dynamic Hook Detection
+ *  - Master Verifier: Control Flow Flattening + Irreducible CFG Loop + Bogus Control Flow
  */
 
 extern int printf(const char *format, ...);
 extern unsigned long strlen(const char *s);
 
-/* Tier 1: Vector Processor (random_vISA VCPU 1) */
-__attribute__((annotate("ocasorry:visa")))
+/* Tier 1: Vector Processor (random_vISA VCPU 1) with Anti-Debug and Timing Checks */
+__attribute__((annotate("ocasorry:visa, anti_debug, timing_check")))
 int vcpu1_vector_parity(const char *license_key) {
     int acc = 0x1337;
     int parity = 0x5A;
@@ -24,25 +25,26 @@ int vcpu1_vector_parity(const char *license_key) {
     return acc;
 }
 
-/* Tier 2: Nested Multi-Layer Virtual Machine (VCPU 2) */
-__attribute__((annotate("ocasorry:nested_vm")))
+/* Tier 2: Nested Multi-Layer Virtual Machine (VCPU 2) with Poly MBA & Relational Morph */
+__attribute__((annotate("ocasorry:nested_vm, poly_mba, relational_morph")))
 int vcpu2_nested_matrix(int h1) {
     return ((h1 * 3) ^ 0x1F2E) + 0x100;
 }
 
-/* Tier 3: Stateful Rolling Key & Self-Modifying Virtual Machine (VCPU 3) */
-__attribute__((annotate("ocasorry:rolling_vkey")))
+/* Tier 3: Stateful Rolling Key Virtual Machine (VCPU 3) with Anti-Slicing Entanglement */
+__attribute__((annotate("ocasorry:rolling_vkey, anti_slicing")))
 int vcpu3_rolling_vkey(int h2) {
     return ((h2 + 0x5A) ^ 0xA5) * 2;
 }
 
-/* Tier 4: In-Memory Ephemeral JIT Virtual Machine (VCPU 4) */
-__attribute__((annotate("ocasorry:ephemeral")))
+/* Tier 4: In-Memory Ephemeral JIT Virtual Machine (VCPU 4) with Dynamic Hook Detection */
+__attribute__((annotate("ocasorry:ephemeral, hook_detect")))
 int vcpu4_ephemeral_jit(int h3) {
     return (h3 == 60608) ? 1 : 0;
 }
 
-/* Master Federated Verifier */
+/* Master Federated Verifier with CFF, Irreducible Loops, and BCF */
+__attribute__((annotate("ocasorry:cff, irreducible_loop, bcf, poly_mba")))
 int verify_license_key(const char *license_key) {
     if (license_key == (void*)0 || strlen(license_key) != 16) {
         printf("[-] Invalid key format: Must be exactly 16 characters.\n");
