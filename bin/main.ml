@@ -148,6 +148,8 @@ let () =
   let enable_live_range_split = ref false in
   let enable_constant_unfold = ref false in
   let enable_stack_aliasing = ref false in
+  let enable_opcode_equalize = ref false in
+  let enable_anti_slicing = ref false in
   let enable_lut = ref false in
   let enable_interleave = ref false in
   let enable_permute_struct = ref false in
@@ -191,6 +193,8 @@ let () =
     ("--live-range", Arg.Set enable_live_range_split, "Enable Live Range Splitting");
     ("--unfold-const", Arg.Set enable_constant_unfold, "Enable Constant Unfolding");
     ("--stack-alias", Arg.Set enable_stack_aliasing, "Enable Stack Memory Aliasing (S-Box)");
+    ("--equalize-opcodes", Arg.Set enable_opcode_equalize, "Enable Opcode Histogram Equalization (Anti-DRL)");
+    ("--anti-slicing", Arg.Set enable_anti_slicing, "Enable Dataflow-Entangled Anti-Slicing");
     ("--jitify", Arg.Set enable_jitify, "Enable JIT Bytecode Machine Code Compilation");
     ("--literals", Arg.Set enable_literals, "Enable String Literal Encryption");
     ("--split", Arg.Set enable_split, "Enable Variable Splitting (EncodeData)");
@@ -264,6 +268,8 @@ let () =
       enable_c_live_range_split = !enable_live_range_split;
       enable_c_constant_unfold = !enable_constant_unfold;
       enable_c_stack_aliasing = !enable_stack_aliasing;
+      enable_c_opcode_equalize = !enable_opcode_equalize;
+      enable_c_anti_slicing = !enable_anti_slicing;
       enable_c_lut = !enable_lut;
       enable_c_array_interleave = !enable_interleave;
       enable_c_struct_permute = !enable_permute_struct;

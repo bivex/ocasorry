@@ -40,6 +40,8 @@ type c_pipeline_config = {
   enable_c_live_range_split : bool;
   enable_c_constant_unfold : bool;
   enable_c_stack_aliasing : bool;
+  enable_c_opcode_equalize : bool;
+  enable_c_anti_slicing : bool;
   enable_c_lut : bool;
   enable_c_array_interleave : bool;
   enable_c_struct_permute : bool;
@@ -93,6 +95,8 @@ let default_c_config = {
   enable_c_live_range_split = false;
   enable_c_constant_unfold = false;
   enable_c_stack_aliasing = false;
+  enable_c_opcode_equalize = false;
+  enable_c_anti_slicing = false;
   enable_c_lut = false;
   enable_c_array_interleave = false;
   enable_c_struct_permute = false;
@@ -146,6 +150,8 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
   module LiveRangeSplit = C_live_range_split_service.Make (Entropy)
   module ConstUnfold = C_constant_unfold_service.Make (Entropy)
   module StackAliasing = C_stack_aliasing_service.Make (Entropy)
+  module OpcodeEqualize = C_opcode_equalize_service.Make (Entropy)
+  module AntiSlicing = C_anti_slicing_entanglement_service.Make (Entropy)
   module LUT = C_lut_arithmetic_service.Make (Entropy)
   module ArrayInterleave = C_array_interleave_service.Make (Entropy)
   module StructPermute = C_struct_permute_service.Make (Entropy)
@@ -178,6 +184,8 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
     let f = if config.enable_c_mba then MBA.transform_file f else f in
     let f = if config.enable_c_ghost_code then GhostCode.transform_file f else f in
     let f = if config.enable_c_live_range_split then LiveRangeSplit.transform_file f else f in
+    let f = if config.enable_c_opcode_equalize then OpcodeEqualize.transform_file f else f in
+    let f = if config.enable_c_anti_slicing then AntiSlicing.transform_file f else f in
     let f = if config.enable_c_opaque then Opaque.transform_file f else f in
     let f = if config.enable_c_dynamic_opaque then DynOpaque.transform_file f else f in
     let f = if config.enable_c_diophantine then Diophantine.transform_file f else f in

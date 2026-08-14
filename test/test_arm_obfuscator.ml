@@ -55,7 +55,9 @@ let () =
   Suite_diophantine.run ();
   Suite_loop_to_recursion.run ();
   Suite_instruction_permute.run ();
+  Suite_opcode_equalize.run ();
+  Suite_anti_slicing_entanglement.run ();
 
   Printf.printf "\n=================================================================\n";
-  Printf.printf "       ALL 52 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
+  Printf.printf "       ALL 54 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
   Printf.printf "=================================================================\n%!"
