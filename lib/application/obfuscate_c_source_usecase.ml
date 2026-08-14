@@ -1,6 +1,7 @@
 type c_pipeline_config = {
   enable_c_mba : bool;
   enable_c_polynomial_mba : bool;
+  enable_c_float_mba : bool;
   enable_c_opaque : bool;
   enable_c_dynamic_opaque : bool;
   enable_c_diophantine : bool;
@@ -56,6 +57,7 @@ type c_pipeline_config = {
 let default_c_config = {
   enable_c_mba = true;
   enable_c_polynomial_mba = false;
+  enable_c_float_mba = false;
   enable_c_opaque = true;
   enable_c_dynamic_opaque = false;
   enable_c_diophantine = false;
@@ -111,6 +113,7 @@ let default_c_config = {
 module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
   module MBA = C_mba_service.Make (Entropy)
   module PolyMBA = C_polynomial_mba_service.Make (Entropy)
+  module FloatMBA = C_float_mba_service.Make (Entropy)
   module Opaque = C_opaque_service.Make (Entropy)
   module DynOpaque = C_dynamic_opaque_service.Make (Entropy)
   module Diophantine = C_diophantine_opaque_service.Make (Entropy)
@@ -176,6 +179,7 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
     let f = if config.enable_c_encode_literals then EncodeLiterals.transform_file f else f in
     let f = if config.enable_c_encode_data then EncodeData.transform_file f else f in
     let f = if config.enable_c_homomorphic then Homomorphic.transform_file f else f in
+    let f = if config.enable_c_float_mba then FloatMBA.transform_file f else f in
     let f = if config.enable_c_instruction_subst then InstrSubst.transform_file f else f in
     let f = if config.enable_c_instruction_permute then InstrPermute.transform_file f else f in
     let f = if config.enable_c_constant_unfold then ConstUnfold.transform_file f else f in

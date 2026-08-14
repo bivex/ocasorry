@@ -6,7 +6,7 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 
 ## 📊 Feature Status Matrix
 
-- `[x]` = **100% Implemented & Verified in OcaSorry (54 Test Suites)**
+- `[x]` = **100% Implemented & Verified in OcaSorry (55 Test Suites)**
 
 ---
 
@@ -44,6 +44,7 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 | :---: | :--- | :--- | :--- |
 | `[x]` | **Linear Mixed Boolean-Arithmetic (MBA)** | Rewrites arithmetic (`+`, `-`, `^`) into 1st-order bitwise polynomial identities ($x + y \iff (x \oplus y) + 2(x \land y)$). | Human Reversers, Disassemblers |
 | `[x]` | **High-Order Polynomial MBA (Anti-Z3)** | Injects non-linear polynomial expressions over $\mathbb{Z}_{2^{32}}$ and Invertible Affine Layers ($E' = a^{-1}(aE + b) - (a^{-1}b)$). | SMT / Symbolic Solvers (Z3, Triton) |
+| `[x]` | **Floating-Point MBA (FLOB Lifting)** | Lifts IEEE-754 `float`/`double` values into fixed-scale integers with bitwise MBA expansions without precision loss. | DNN Model Extractors & Decompilers |
 | `[x]` | **EncodeLiterals (String Encryption)** | Replaces static string literals with encrypted byte arrays and inserts lazy constructor / prologue decryptors. | Strings Analyzers (`strings`, Binwalk) |
 | `[x]` | **Variable Splitting (`EncodeData`)** | Splits scalar local variables $v$ into $(v_{s1}, v_{s2})$ maintaining $v = v_{s1} + v_{s2}$ on all reads and writes. | Memory Scanners (Cheat Engine) |
 | `[x]` | **Lookup Table Arithmetic (LUT)** | Converts arithmetic operations into 256-byte precomputed tables stored in `static` memory. | Algebraic Deobfuscators |

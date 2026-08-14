@@ -57,7 +57,8 @@ let () =
   Suite_instruction_permute.run ();
   Suite_opcode_equalize.run ();
   Suite_anti_slicing_entanglement.run ();
+  Suite_float_mba.run ();
 
   Printf.printf "\n=================================================================\n";
-  Printf.printf "       ALL 54 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
+  Printf.printf "       ALL 55 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
   Printf.printf "=================================================================\n%!"

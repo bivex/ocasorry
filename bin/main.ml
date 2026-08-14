@@ -109,6 +109,7 @@ let () =
   let out_file = ref "" in
   let enable_mba = ref false in
   let enable_poly_mba = ref true in
+  let enable_float_mba = ref false in
   let enable_cff = ref true in
   let enable_opaque = ref true in
   let enable_dyn_opaque = ref false in
@@ -166,6 +167,7 @@ let () =
     ("--mba", Arg.Set enable_mba, "Enable Linear Mixed Boolean-Arithmetic");
     ("--poly-mba", Arg.Set enable_poly_mba, "Enable High-Order Polynomial MBA (Anti-Z3)");
     ("--no-poly-mba", Arg.Clear enable_poly_mba, "Disable High-Order Polynomial MBA");
+    ("--float-mba", Arg.Set enable_float_mba, "Enable Floating-Point Fixed-Scale MBA Lifting");
     ("--cff", Arg.Set enable_cff, "Enable Control Flow Flattening");
     ("--no-cff", Arg.Clear enable_cff, "Disable Control Flow Flattening");
     ("--opaque", Arg.Set enable_opaque, "Enable Invariant Opaque Predicates");
@@ -229,6 +231,7 @@ let () =
     let config : Obfuscate_c_source_usecase.c_pipeline_config = {
       enable_c_mba = !enable_mba;
       enable_c_polynomial_mba = !enable_poly_mba;
+      enable_c_float_mba = !enable_float_mba;
       enable_c_opaque = !enable_opaque;
       enable_c_dynamic_opaque = !enable_dyn_opaque;
       enable_c_diophantine = !enable_diophantine;
