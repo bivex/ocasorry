@@ -11,9 +11,10 @@ It combines **C Source-to-Source AST transformations** (powered by George Necula
 Detailed technical documentation is available in the [`docs/`](file:///Volumes/External/Code/ocasorry/docs/) directory:
 
 - 🏛️ **[Hexagonal Architecture & DDD](file:///Volumes/External/Code/ocasorry/docs/architecture.md)**: Layer partitioning, Entities, Ports (SPI), and Domain Services.
-- ⚡ **[Obfuscation Passes & Math](file:///Volumes/External/Code/ocasorry/docs/obfuscation-passes.md)**: MBA identities, Control Flow Flattening, Opaque Predicates, `EncodeLiterals`, `EncodeData` (Variable Splitting), and C Implicit Flow.
+- ⚡ **[Obfuscation Passes & Math](file:///Volumes/External/Code/ocasorry/docs/obfuscation-passes.md)**: MBA identities, Control Flow Flattening, Opaque Predicates, `EncodeLiterals`, `EncodeData` (Variable Splitting), Function Merging/Outlining, and C Implicit Flow.
 - 🔄 **[Two-Level JITting & Hardware Signal Flow](file:///Volumes/External/Code/ocasorry/docs/two-tier-jit.md)**: Staging architecture, Apple Silicon W^X cache management, and `ucontext_t` PC redirection.
 - 🛠️ **[Compiler Wrapper (`ocasorry-cc`)](file:///Volumes/External/Code/ocasorry/docs/compiler-wrapper.md)**: Integration guide for Makefiles, CMake, flags, and options.
+- 📋 **[CIL Capabilities & Obfuscation Roadmap](file:///Volumes/External/Code/ocasorry/docs/cil-capabilities.md)**: Complete checkbox roadmap of all feasible techniques via George Necula's CIL / Goblint-CIL.
 
 ---
 
@@ -30,26 +31,18 @@ Detailed technical documentation is available in the [`docs/`](file:///Volumes/E
 ## ⚡ Key Capabilities
 
 1. **Two-Level JITting + Hardware Implicit Flow**: Compact outer stager triggers hardware fault (`BRK`), signal handler dynamically decrypts inner payload and updates CPU `PC` register directly.
-2. **Variable Splitting & Data Encoding (`EncodeData`)**: Splits scalar variables into multiple components maintaining mathematical invariants across reads/writes.
-3. **Mixed Boolean-Arithmetic (MBA)**: Rewrites arithmetic into non-linear boolean polynomial identities.
-4. **Control Flow Flattening (CFF)**: Flattens function control flow into a state-machine switch dispatcher.
-5. **Invariant Opaque Predicates**: Injects algebraic tautologies (`(x & ~x) == 0`) with deceptive dead branches.
-6. **EncodeLiterals (String Encryption)**: Encrypts static strings into byte arrays with lazy in-function runtime decryptors.
-7. **C-Level Implicit Flow**: Converts conditional branches into `NULL` pointer dereferences caught via signals and routed with `sigsetjmp`/`siglongjmp`.
-8. **Drop-in Compiler Wrapper (`ocasorry-cc`)**: Seamless build integration (`CC=ocasorry-cc make`).
+2. **High-Order Polynomial MBA (Anti-Z3)**: Non-linear polynomial expressions and invertible affine layers over $\mathbb{Z}_{2^{32}}$.
+3. **Function Merging & Outlining**: Inter-procedural merging (`--ocasorry-merge`) and basic-block slicing (`--ocasorry-outline`).
+4. **Variable Splitting & Data Encoding (`EncodeData`)**: Splits scalar variables into multiple components maintaining mathematical invariants.
+5. **Control Flow Flattening (CFF)**: Flattens function control flow into a state-machine switch dispatcher.
+6. **Invariant Opaque Predicates**: Injects algebraic tautologies (`(x & ~x) == 0`) with deceptive dead branches.
+7. **EncodeLiterals (String Encryption)**: Encrypts static strings into byte arrays with lazy in-function runtime decryptors.
+8. **C-Level Implicit Flow**: Converts conditional branches into `NULL` pointer dereferences caught via signals.
+9. **Drop-in Compiler Wrapper (`ocasorry-cc`)**: Seamless build integration (`CC=ocasorry-cc make`).
 
 ---
 
 ## 🚀 Quick Start
-
-### Prerequisites
-- **OCaml** >= 5.0.0, **Dune** >= 3.10
-- **Opam package**: `goblint-cil`
-- **C Compiler**: `clang` or `gcc`
-
-```bash
-opam install goblint-cil dune -y
-```
 
 ### Build Everything
 ```bash
@@ -64,6 +57,11 @@ dune exec ./bin/main.exe
 ### Run Automated Test Suites
 ```bash
 dune runtest
+```
+
+### Build and Run C Examples
+```bash
+make -C examples CC=../_build/default/bin/ocasorry_cc.exe run
 ```
 
 ---
