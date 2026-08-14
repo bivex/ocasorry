@@ -130,6 +130,11 @@ let () =
   let enable_bogus_calls = ref false in
   let enable_rename = ref false in
   let enable_strip = ref false in
+  let enable_anti_debug = ref false in
+  let enable_anti_disasm = ref false in
+  let enable_self_checksum = ref false in
+  let enable_timing_check = ref false in
+  let enable_hook_detect = ref false in
   let enable_lut = ref false in
   let enable_interleave = ref false in
   let enable_permute_struct = ref false in
@@ -177,6 +182,11 @@ let () =
     ("--bogus-calls", Arg.Set enable_bogus_calls, "Enable Cross-Function Bogus Call Injection");
     ("--rename", Arg.Set enable_rename, "Enable Identifier Renaming / Symbol Hashing");
     ("--strip", Arg.Set enable_strip, "Enable Source Directives Stripping");
+    ("--anti-debug", Arg.Set enable_anti_debug, "Enable Anti-Debug Injection (sysctl P_TRACED)");
+    ("--anti-disasm", Arg.Set enable_anti_disasm, "Enable Anti-Disassembly (Junk Byte Desync)");
+    ("--self-checksum", Arg.Set enable_self_checksum, "Enable Self-Checksumming (Hash Guards)");
+    ("--timing-check", Arg.Set enable_timing_check, "Enable Timing Verification (Anti-Stepping)");
+    ("--hook-detect", Arg.Set enable_hook_detect, "Enable Dynamic Hook Detection");
   ] in
 
   let usage_msg = "Usage: ocasorry [-i <input.c> -o <output.c> [passes]] (run without args for interactive demo)" in
@@ -210,6 +220,11 @@ let () =
       enable_c_bogus_calls = !enable_bogus_calls;
       enable_c_rename_symbols = !enable_rename;
       enable_c_strip_directives = !enable_strip;
+      enable_c_anti_debug = !enable_anti_debug;
+      enable_c_anti_disasm = !enable_anti_disasm;
+      enable_c_self_checksum = !enable_self_checksum;
+      enable_c_timing_check = !enable_timing_check;
+      enable_c_hook_detect = !enable_hook_detect;
       enable_c_lut = !enable_lut;
       enable_c_array_interleave = !enable_interleave;
       enable_c_struct_permute = !enable_permute_struct;

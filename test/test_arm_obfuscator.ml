@@ -37,7 +37,12 @@ let () =
   Suite_bogus_calls.run ();
   Suite_rename_symbols.run ();
   Suite_strip_directives.run ();
+  Suite_anti_debug.run ();
+  Suite_anti_disasm.run ();
+  Suite_self_checksum.run ();
+  Suite_timing_check.run ();
+  Suite_hook_detect.run ();
 
   Printf.printf "\n=================================================================\n";
-  Printf.printf "       ALL 34 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
+  Printf.printf "       ALL 39 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
   Printf.printf "=================================================================\n%!"

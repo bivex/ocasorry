@@ -22,6 +22,11 @@ type c_pipeline_config = {
   enable_c_bogus_calls : bool;
   enable_c_rename_symbols : bool;
   enable_c_strip_directives : bool;
+  enable_c_anti_debug : bool;
+  enable_c_anti_disasm : bool;
+  enable_c_self_checksum : bool;
+  enable_c_timing_check : bool;
+  enable_c_hook_detect : bool;
   enable_c_lut : bool;
   enable_c_array_interleave : bool;
   enable_c_struct_permute : bool;
@@ -57,6 +62,11 @@ let default_c_config = {
   enable_c_bogus_calls = false;
   enable_c_rename_symbols = false;
   enable_c_strip_directives = false;
+  enable_c_anti_debug = false;
+  enable_c_anti_disasm = false;
+  enable_c_self_checksum = false;
+  enable_c_timing_check = false;
+  enable_c_hook_detect = false;
   enable_c_lut = false;
   enable_c_array_interleave = false;
   enable_c_struct_permute = false;
@@ -92,6 +102,11 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
   module BogusCalls = C_bogus_calls_service.Make (Entropy)
   module RenameSymbols = C_rename_symbols_service.Make (Entropy)
   module StripDirectives = C_strip_directives_service.Make (Entropy)
+  module AntiDebug = C_anti_debug_service.Make (Entropy)
+  module AntiDisasm = C_anti_disassembly_service.Make (Entropy)
+  module SelfChecksum = C_self_checksum_service.Make (Entropy)
+  module TimingCheck = C_timing_check_service.Make (Entropy)
+  module HookDetect = C_hook_detect_service.Make (Entropy)
   module LUT = C_lut_arithmetic_service.Make (Entropy)
   module ArrayInterleave = C_array_interleave_service.Make (Entropy)
   module StructPermute = C_struct_permute_service.Make (Entropy)
@@ -108,6 +123,11 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
     let f = if config.enable_c_merge then Merge.transform_file f else f in
     let f = if config.enable_c_outline then Outline.transform_file f else f in
     let f = if config.enable_c_bogus_calls then BogusCalls.transform_file f else f in
+    let f = if config.enable_c_anti_debug then AntiDebug.transform_file f else f in
+    let f = if config.enable_c_anti_disasm then AntiDisasm.transform_file f else f in
+    let f = if config.enable_c_self_checksum then SelfChecksum.transform_file f else f in
+    let f = if config.enable_c_timing_check then TimingCheck.transform_file f else f in
+    let f = if config.enable_c_hook_detect then HookDetect.transform_file f else f in
     let f = if config.enable_c_loop_unroll then LoopUnroll.transform_file f else f in
     let f = if config.enable_c_loop_fission then LoopFission.transform_file f else f in
     let f = if config.enable_c_array_interleave then ArrayInterleave.transform_file f else f in

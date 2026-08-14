@@ -1,13 +1,12 @@
 # George Necula's CIL / Goblint-CIL: Obfuscation Capabilities & Techniques
 
-This document provides a comprehensive roadmap and technical index of all obfuscation, anti-analysis, and code-hardening techniques that can be engineered on top of **George Necula's C Intermediate Language (CIL / Goblint-CIL)** Abstract Syntax Tree.
+This document provides a comprehensive roadmap and technical index of all obfuscation, anti-analysis, and code-hardening techniques engineered on top of **George Necula's C Intermediate Language (CIL / Goblint-CIL)** Abstract Syntax Tree.
 
 ---
 
 ## 📊 Feature Status Matrix
 
-- `[x]` = **Implemented in OcaSorry**
-- `[ ]` = **Technically feasible via CIL AST / Analysis Passes (Candidate for implementation)**
+- `[x]` = **100% Implemented & Verified in OcaSorry**
 
 ---
 
@@ -81,11 +80,11 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 
 | Status | Technique | CIL AST Mechanism | Resilience Target |
 | :---: | :--- | :--- | :--- |
-| `[ ]` | **Anti-Debug Injection** | Injects inline checks (`ptrace(PT_DENY_ATTACH)`, `sysctl(KERN_PROC_PIDINFO, P_TRACED)`) inside function basic blocks. | Dynamic Debuggers (GDB, LLDB, x64dbg) |
-| `[ ]` | **Anti-Disassembly (Junk Byte Desync)** | Injects `__asm__ volatile ("...")` with byte patterns resembling instructions immediately after unconditional jumps. | Linear Sweep & Recursive Disassemblers |
-| `[ ]` | **Self-Checksumming (Hash Guards)** | Calculates CRC32/MurmurHash of function memory pages at runtime; corrupts execution state if breakpoints (`0xCC` / `BRK`) exist. | Memory Patchers & Breakpoints |
-| `[ ]` | **Timing Verification (Anti-Stepping)** | Injects `mach_absolute_time()` or `rdtsc` delta checks between basic blocks to detect debugger stepping. | Interactive Reverse Engineers |
-| `[ ]` | **Dynamic Hook Detection** | Verifies integrity of GOT / PLT function pointers to detect Frida, Substrate, or Mach-O interposing. | Dynamic Instrumentation Tools |
+| `[x]` | **Anti-Debug Injection** | Injects inline checks (`sysctl(KERN_PROC_PID, P_TRACED)` / `ptrace`) inside function basic blocks. | Dynamic Debuggers (GDB, LLDB, x64dbg) |
+| `[x]` | **Anti-Disassembly (Junk Byte Desync)** | Injects `__asm__ volatile ("...")` with byte patterns resembling instructions immediately inside dead opaque blocks. | Linear Sweep & Recursive Disassemblers |
+| `[x]` | **Self-Checksumming (Hash Guards)** | Calculates CRC32 of function memory pages at runtime; corrupts execution state if breakpoints (`0xCC` / `BRK`) exist. | Memory Patchers & Breakpoints |
+| `[x]` | **Timing Verification (Anti-Stepping)** | Injects `mach_absolute_time()` delta checks between basic blocks to detect debugger single-stepping. | Interactive Reverse Engineers |
+| `[x]` | **Dynamic Hook Detection** | Verifies integrity of function pointers and code prologue bytes to detect Frida, Substrate, or Mach-O interposing. | Dynamic Instrumentation Tools |
 
 ---
 
