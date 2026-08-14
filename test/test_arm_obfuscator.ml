@@ -47,7 +47,12 @@ let () =
   Suite_rolling_vkey.run ();
   Suite_vcpu_scramble.run ();
   Suite_ephemeral_payload.run ();
+  Suite_instruction_subst.run ();
+  Suite_ghost_code.run ();
+  Suite_live_range_split.run ();
+  Suite_constant_unfold.run ();
+  Suite_stack_aliasing.run ();
 
   Printf.printf "\n=================================================================\n";
-  Printf.printf "       ALL 44 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
+  Printf.printf "       ALL 49 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
   Printf.printf "=================================================================\n%!"

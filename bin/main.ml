@@ -140,6 +140,11 @@ let () =
   let enable_rolling_vkey = ref false in
   let enable_vcpu_scramble = ref false in
   let enable_ephemeral_payload = ref false in
+  let enable_instruction_subst = ref false in
+  let enable_ghost_code = ref false in
+  let enable_live_range_split = ref false in
+  let enable_constant_unfold = ref false in
+  let enable_stack_aliasing = ref false in
   let enable_lut = ref false in
   let enable_interleave = ref false in
   let enable_permute_struct = ref false in
@@ -175,6 +180,11 @@ let () =
     ("--rolling-vkey", Arg.Set enable_rolling_vkey, "Enable Stateful Rolling Bytecode Key Chain");
     ("--vcpu-scramble", Arg.Set enable_vcpu_scramble, "Enable Polymorphic VCPU Context & Struct Scrambling");
     ("--ephemeral", Arg.Set enable_ephemeral_payload, "Enable In-Memory Ephemeral Payload Unpacking");
+    ("--subst", Arg.Set enable_instruction_subst, "Enable Instruction Substitution");
+    ("--ghost", Arg.Set enable_ghost_code, "Enable Dead/Ghost Code Injection (Null-Ring)");
+    ("--live-range", Arg.Set enable_live_range_split, "Enable Live Range Splitting");
+    ("--unfold-const", Arg.Set enable_constant_unfold, "Enable Constant Unfolding");
+    ("--stack-alias", Arg.Set enable_stack_aliasing, "Enable Stack Memory Aliasing (S-Box)");
     ("--jitify", Arg.Set enable_jitify, "Enable JIT Bytecode Machine Code Compilation");
     ("--literals", Arg.Set enable_literals, "Enable String Literal Encryption");
     ("--split", Arg.Set enable_split, "Enable Variable Splitting (EncodeData)");
@@ -240,6 +250,11 @@ let () =
       enable_c_rolling_vkey = !enable_rolling_vkey;
       enable_c_vcpu_scramble = !enable_vcpu_scramble;
       enable_c_ephemeral_payload = !enable_ephemeral_payload;
+      enable_c_instruction_subst = !enable_instruction_subst;
+      enable_c_ghost_code = !enable_ghost_code;
+      enable_c_live_range_split = !enable_live_range_split;
+      enable_c_constant_unfold = !enable_constant_unfold;
+      enable_c_stack_aliasing = !enable_stack_aliasing;
       enable_c_lut = !enable_lut;
       enable_c_array_interleave = !enable_interleave;
       enable_c_struct_permute = !enable_permute_struct;

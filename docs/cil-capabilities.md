@@ -6,7 +6,7 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 
 ## 📊 Feature Status Matrix
 
-- `[x]` = **100% Implemented & Verified in OcaSorry (44 Test Suites)**
+- `[x]` = **100% Implemented & Verified in OcaSorry (49 Test Suites)**
 
 ---
 
@@ -108,3 +108,15 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 | `[x]` | **Stateful Rolling Bytecode Key Chain** | Ties instruction decryption to execution history ($VKey_{n+1} = f(VKey_n, Op_n)$); desynchronizes on out-of-order execution or tampering. | Memory Dumps, Isolated Emulators, SMT Solvers |
 | `[x]` | **Polymorphic VCPU Context & Struct Scrambling** | Randomizes internal field ordering and offsets in virtual processor context structures (`struct __vcpu_state`) per compilation. | Universal De-Virtualization Plugins (IDAPython) |
 | `[x]` | **In-Memory Ephemeral Payload Unpacking** | Encrypts bytecode/code payloads in static memory, unpacking into executable RAM via `mmap` and zeroing memory immediately after. | Static Scanners, Linear RAM Dumpers |
+
+---
+
+## 9. 🧬 Code Morphing Engine (Multi-Level Mutation)
+
+| Status | Technique | CIL AST Mechanism | Resilience Target |
+| :---: | :--- | :--- | :--- |
+| `[x]` | **Instruction Substitution** | Replaces arithmetic operations with equivalent substitution schemes (`x + 1` $\to$ `-~x`, `x ^ y` $\to$ `(x | y) - (x & y)`). | AST Rule Matchers, Decompilers |
+| `[x]` | **Ghost / Dead Code (Null-Ring)** | Injects reversible instruction sequences with zero net delta ($\sum \Delta \equiv 0$). | Static Taint Analyzers |
+| `[x]` | **Live Range Splitting** | Slices variable lifespans into multiple disjoint phased variables with handover expressions. | Variable Recovery Engines |
+| `[x]` | **Constant Unfolding** | Expands scalar constants through XOR algebraic unfoldings ($C \to (C \oplus K) \oplus K$). | Constant Propagation Optimizers |
+| `[x]` | **Stack Memory Aliasing (S-Box)** | Maps local variables into a unified stack buffer indexed via S-Box permutations. | Stack Frame Recovery |
