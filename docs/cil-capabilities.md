@@ -6,7 +6,7 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 
 ## 📊 Feature Status Matrix
 
-- `[x]` = **100% Implemented & Verified in OcaSorry (57 Test Suites)**
+- `[x]` = **100% Implemented & Verified in OcaSorry (58 Test Suites)**
 
 ---
 
@@ -29,6 +29,7 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 | Status | Technique | CIL AST Mechanism | Resilience Target |
 | :---: | :--- | :--- | :--- |
 | `[x]` | **Control Flow Flattening (`Flatten`)** | Collapses all structured basic blocks (`bstmts`) into a single-loop state machine (`while(1) switch(__cff_state)`). | Control Flow Graph (CFG) Analysis |
+| `[x]` | **Relational Boundary & Comparison Morphing** | Inverts relational boundaries ($a < b \iff (a-b)<0 \mid !(a \ge b)$, $a == b \iff ((a \oplus b) == 0)$) and adds null-safe division guards. | SMT Solvers, Boundary Fuzzers, Static Analyzers |
 | `[x]` | **Basic Block Splitting (Jitter Jumps)** | Splits straight-line basic blocks into fragmented blocks connected by explicit labels and unconditional `goto` jumps. | LLM Context Windows, Token N-Grams, Basic Block Analysis |
 | `[x]` | **Invariant Opaque Predicates** | Injects algebraic tautologies (`(x & ~x) != 0`) guarding junk / trap code. | Static Disassemblers |
 | `[x]` | **Dynamic / Math-Property Opaque Predicates** | Generates dynamic invariants based on integer arithmetic properties (`(x*(x+1)) % 2 == 0`, `((x<<2)+2) % 2 == 0`). | SMT / SAT Solvers (Z3) |
@@ -119,6 +120,7 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 
 | Status | Technique | CIL AST Mechanism | Resilience Target |
 | :---: | :--- | :--- | :--- |
+| `[x]` | **Relational Boundary & Comparison Morphing** | Transforms comparison operators into arithmetic/bitwise forms ($(a == b) \to ((a \oplus b) == 0)$). | Boundary Analysis & Symbolic Slicers |
 | `[x]` | **Stochastic Instruction Substitution** | Replaces operations with randomized selections from orthogonal algebraic classes with Opcode Normalization. | AST Pattern Matchers, Decompilers |
 | `[x]` | **Ghost Code (Opcode Blending & Null-Ring)** | Injects diverse reversible instruction sequences with zero net delta ($\sum \Delta \equiv 0$) and balanced instruction profiles. | ML Classifiers & Taint Analyzers |
 | `[x]` | **Instruction Permutation (Def-Use Scheduling)** | Reorders independent instructions and assignments within basic blocks based on disjoint Def-Use sets. | Static Slicing & Signatures |

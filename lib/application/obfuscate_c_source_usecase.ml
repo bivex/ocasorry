@@ -8,6 +8,7 @@ type c_pipeline_config = {
   enable_c_bogus_cf : bool;
   enable_c_basic_block_split : bool;
   enable_c_decentralized_disp : bool;
+  enable_c_relational_morph : bool;
   enable_c_loop_unroll : bool;
   enable_c_loop_fission : bool;
   enable_c_loop_to_recursion : bool;
@@ -66,6 +67,7 @@ let default_c_config = {
   enable_c_bogus_cf = false;
   enable_c_basic_block_split = false;
   enable_c_decentralized_disp = false;
+  enable_c_relational_morph = false;
   enable_c_loop_unroll = false;
   enable_c_loop_fission = false;
   enable_c_loop_to_recursion = false;
@@ -124,6 +126,7 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
   module BogusCF = C_bogus_control_flow_service.Make (Entropy)
   module BBSplit = C_basic_block_split_service.Make (Entropy)
   module DecentDisp = C_decentralized_dispatcher_service.Make (Entropy)
+  module RelationalMorph = C_relational_morph_service.Make (Entropy)
   module LoopUnroll = C_loop_unroll_service.Make (Entropy)
   module LoopFission = C_loop_fission_service.Make (Entropy)
   module LoopToRecursion = C_loop_to_recursion_service.Make (Entropy)
@@ -187,6 +190,7 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
     let f = if config.enable_c_encode_data then EncodeData.transform_file f else f in
     let f = if config.enable_c_homomorphic then Homomorphic.transform_file f else f in
     let f = if config.enable_c_float_mba then FloatMBA.transform_file f else f in
+    let f = if config.enable_c_relational_morph then RelationalMorph.transform_file f else f in
     let f = if config.enable_c_instruction_subst then InstrSubst.transform_file f else f in
     let f = if config.enable_c_instruction_permute then InstrPermute.transform_file f else f in
     let f = if config.enable_c_constant_unfold then ConstUnfold.transform_file f else f in
