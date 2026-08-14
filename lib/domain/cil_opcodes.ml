@@ -1,70 +1,27 @@
 (** ECMA-335 Common Intermediate Language (CIL) Opcode Definitions *)
 
-type cil_opcode =
-  | Nop         (** 0x00 *)
-  | Ldarg_0     (** 0x02 *)
-  | Ldarg_1     (** 0x03 *)
-  | Ldarg_2     (** 0x04 *)
-  | Ldarg_3     (** 0x05 *)
-  | Ldarg of int(** 0xFE 0x09 / 0x0E *)
-  | Ldc_i4_0    (** 0x16 *)
-  | Ldc_i4_1    (** 0x17 *)
-  | Ldc_i4_2    (** 0x18 *)
-  | Ldc_i4 of int32 (** 0x20 *)
-  | Ldc_i8 of int64 (** 0x21 *)
-  | Dup         (** 0x25 *)
-  | Pop         (** 0x26 *)
-  | Ret         (** 0x2A *)
-  | Br of string    (** 0x38 (int32 target) *)
-  | Br_s of string  (** 0x2B (int8 target) *)
-  | Brfalse of string (** 0x39 *)
-  | Brtrue of string  (** 0x3A *)
-  | Beq of string     (** 0x3B *)
-  | Bge of string     (** 0x3C *)
-  | Bgt of string     (** 0x3D *)
-  | Ble of string     (** 0x3E *)
-  | Blt of string     (** 0x3F *)
-  | Bne_un of string  (** 0x40 *)
-  | Add         (** 0x58 *)
-  | Sub         (** 0x59 *)
-  | Mul         (** 0x5A *)
-  | Div         (** 0x5B *)
-  | And         (** 0x5F *)
-  | Or          (** 0x60 *)
-  | Xor         (** 0x61 *)
-  | Shl         (** 0x62 *)
-  | Shr         (** 0x63 *)
-  | Neg         (** 0x65 *)
-  | Not         (** 0x66 *)
-  | Ceq         (** 0xFE 0x01 *)
-  | Cgt         (** 0xFE 0x02 *)
-  | Clt         (** 0xFE 0x04 *)
-
-let opcode_to_bytes (op : cil_opcode) : int list =
-  match op with
-  | Nop -> [ 0x00 ]
-  | Ldarg_0 -> [ 0x02 ]
-  | Ldarg_1 -> [ 0x03 ]
-  | Ldarg_2 -> [ 0x04 ]
-  | Ldarg_3 -> [ 0x05 ]
-  | Ldc_i4_0 -> [ 0x16 ]
-  | Ldc_i4_1 -> [ 0x17 ]
-  | Ldc_i4_2 -> [ 0x18 ]
-  | Dup -> [ 0x25 ]
-  | Pop -> [ 0x26 ]
-  | Ret -> [ 0x2A ]
-  | Add -> [ 0x58 ]
-  | Sub -> [ 0x59 ]
-  | Mul -> [ 0x5A ]
-  | Div -> [ 0x5B ]
-  | And -> [ 0x5F ]
-  | Or  -> [ 0x60 ]
-  | Xor -> [ 0x61 ]
-  | Shl -> [ 0x62 ]
-  | Shr -> [ 0x63 ]
-  | Neg -> [ 0x65 ]
-  | Not -> [ 0x66 ]
-  | Ldarg _ | Ldc_i4 _ | Ldc_i8 _
-  | Br _ | Br_s _ | Brfalse _ | Brtrue _
-  | Beq _ | Bge _ | Bgt _ | Ble _ | Blt _ | Bne_un _
-  | Ceq | Cgt | Clt -> []
+let nop_op    = 0x00
+let ldloc     = 0x0E
+let stloc     = 0x10
+let ldc_i4    = 0x20
+let ldc_i8    = 0x21
+let pop_op    = 0x26
+let ret_op    = 0x2A
+let br_s      = 0x38
+let beq_s     = 0x3B
+let bge_s     = 0x3C
+let bgt_s     = 0x3D
+let ble_s     = 0x3E
+let blt_s     = 0x3F
+let bne_un_s  = 0x40
+let bge_un_s  = 0x41
+let blt_un_s  = 0x43
+let add_op    = 0x58
+let sub_op    = 0x59
+let and_op    = 0x5F
+let or_op     = 0x60
+let xor_op    = 0x61
+let shl_op    = 0x62
+let shr_un_op = 0x64
+let not_op    = 0x66
+let conv_i8   = 0x68
