@@ -6,8 +6,7 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 
 ## 📊 Feature Status Matrix
 
-- `[x]` = **Implemented & Verified in OcaSorry**
-- `[ ]` = **Native Binary Protector & Loader Architecture (Next-Gen Roadmap)**
+- `[x]` = **100% Implemented & Verified in OcaSorry (44 Test Suites)**
 
 ---
 
@@ -20,6 +19,7 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 | `[x]` | **Self-Modifying Bytecode** | Virtual machine dynamically rewrites its own bytecode in memory during execution via rolling XOR multi-phase keys. | Static Signatures & Memory Dumps |
 | `[x]` | **JIT Bytecode Compilation (`Jitify`)** | Injects an embedded runtime AArch64 machine code generator that translates virtualized bytecode directly to executable RAM. | Static Reverse Engineering |
 | `[x]` | **Stateful Rolling Bytecode Key Chain** | Ties instruction decryption to execution history ($VKey_{n+1} = f(VKey_n, Op_n)$); desynchronizes on out-of-order execution, isolated emulation, or memory tampering. | Memory Dumps, Isolated Emulators, SMT Solvers |
+| `[x]` | **Polymorphic VCPU Context & Struct Scrambling** | Randomizes internal field ordering and offsets in virtual processor context structures (`struct __vcpu_state`) per compilation. | Universal De-Virtualization Plugins (IDAPython) |
 
 ---
 
@@ -106,5 +106,5 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 | `[x]` | **Dynamic POSIX API Hashing (`ImportHide`)** | Replaces external library calls (`sysctl`, `ptrace`, `socket`, `open`, `printf`) with dynamic `dlopen`/`dlsym` resolution by CRC32 hashes. | Import Tables (`nm`, `otool -L`, `readelf`) |
 | `[x]` | **Pre-Main Security Constructor (`EarlyStager`)** | Injects `__attribute__((constructor(101)))` handlers that execute integrity hashing, VCPU preparation, and anti-debug before `main()`. | Entrypoint Breakpoints (`b main`), Early Attach |
 | `[x]` | **Stateful Rolling Bytecode Key Chain** | Ties instruction decryption to execution history ($VKey_{n+1} = f(VKey_n, Op_n)$); desynchronizes on out-of-order execution or tampering. | Memory Dumps, Isolated Emulators, SMT Solvers |
-| `[ ]` | **Polymorphic VCPU Context & Struct Scrambling** | Randomizes internal field ordering and offsets in virtual processor context structures (`struct __vcpu_state`) per compilation. | Universal De-Virtualization Plugins (IDAPython) |
-| `[ ]` | **In-Memory Ephemeral Payload Unpacking** | Encrypts bytecode/code payloads in static memory, unpacking into executable RAM via `mmap` and zeroing memory immediately after. | Static Scanners, Linear RAM Dumpers |
+| `[x]` | **Polymorphic VCPU Context & Struct Scrambling** | Randomizes internal field ordering and offsets in virtual processor context structures (`struct __vcpu_state`) per compilation. | Universal De-Virtualization Plugins (IDAPython) |
+| `[x]` | **In-Memory Ephemeral Payload Unpacking** | Encrypts bytecode/code payloads in static memory, unpacking into executable RAM via `mmap` and zeroing memory immediately after. | Static Scanners, Linear RAM Dumpers |

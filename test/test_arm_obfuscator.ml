@@ -45,7 +45,9 @@ let () =
   Suite_api_hash.run ();
   Suite_early_constructor.run ();
   Suite_rolling_vkey.run ();
+  Suite_vcpu_scramble.run ();
+  Suite_ephemeral_payload.run ();
 
   Printf.printf "\n=================================================================\n";
-  Printf.printf "       ALL 42 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
+  Printf.printf "       ALL 44 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
   Printf.printf "=================================================================\n%!"

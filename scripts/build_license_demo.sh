@@ -47,8 +47,8 @@ if [[ ! -f "${OBF_BIN}" ]]; then
     echo -e "${C_GREEN}[+] Dune build complete!${C_RESET}\n"
 fi
 
-# Step 2: Obfuscate source code with all 25 protection layers
-echo -e "${C_BLUE}[1/3] Obfuscating '${INPUT_SRC}' with Full Protection Arsenal (25 Passes)...${C_RESET}"
+# Step 2: Obfuscate source code with all 27 protection layers
+echo -e "${C_BLUE}[1/3] Obfuscating '${INPUT_SRC}' with Full Protection Arsenal (27 Passes)...${C_RESET}"
 echo "      - random_vISA Vector VCPU Virtualization"
 echo "      - High-Order Polynomial MBA & Affine Rings (Anti-Z3)"
 echo "      - Control Flow Flattening (CFF)"
@@ -69,6 +69,9 @@ echo "      - Timing Verification (Anti-Stepping Delta)"
 echo "      - Dynamic Hook & Trampoline Detection"
 echo "      - Dynamic POSIX API Hashing (dlsym Import Hiding)"
 echo "      - Pre-Main Security Constructor (__attribute__((constructor)))"
+echo '      - Stateful Rolling Bytecode Key Chain (VKey_{n+1} = f(VKey_n, Op_n))'
+echo "      - Polymorphic VCPU Context & Struct Scrambling"
+echo "      - In-Memory Ephemeral Payload Unpacking (mmap / munmap zeroing)"
 echo "      - Identifier Homoglyph Renaming (_l1I_...)"
 echo "      - Source Directives & #line Stripping"
 

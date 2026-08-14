@@ -138,6 +138,8 @@ let () =
   let enable_api_hash = ref false in
   let enable_early_constructor = ref false in
   let enable_rolling_vkey = ref false in
+  let enable_vcpu_scramble = ref false in
+  let enable_ephemeral_payload = ref false in
   let enable_lut = ref false in
   let enable_interleave = ref false in
   let enable_permute_struct = ref false in
@@ -171,6 +173,8 @@ let () =
     ("--nested-vm", Arg.Set enable_nested_vm, "Enable Nested Multi-Layer VM");
     ("--self-mod-vm", Arg.Set enable_self_mod_vm, "Enable Self-Modifying Bytecode VM");
     ("--rolling-vkey", Arg.Set enable_rolling_vkey, "Enable Stateful Rolling Bytecode Key Chain");
+    ("--vcpu-scramble", Arg.Set enable_vcpu_scramble, "Enable Polymorphic VCPU Context & Struct Scrambling");
+    ("--ephemeral", Arg.Set enable_ephemeral_payload, "Enable In-Memory Ephemeral Payload Unpacking");
     ("--jitify", Arg.Set enable_jitify, "Enable JIT Bytecode Machine Code Compilation");
     ("--literals", Arg.Set enable_literals, "Enable String Literal Encryption");
     ("--split", Arg.Set enable_split, "Enable Variable Splitting (EncodeData)");
@@ -234,6 +238,8 @@ let () =
       enable_c_api_hash = !enable_api_hash;
       enable_c_early_constructor = !enable_early_constructor;
       enable_c_rolling_vkey = !enable_rolling_vkey;
+      enable_c_vcpu_scramble = !enable_vcpu_scramble;
+      enable_c_ephemeral_payload = !enable_ephemeral_payload;
       enable_c_lut = !enable_lut;
       enable_c_array_interleave = !enable_interleave;
       enable_c_struct_permute = !enable_permute_struct;
