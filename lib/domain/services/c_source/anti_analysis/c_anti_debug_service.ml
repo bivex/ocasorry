@@ -1,8 +1,8 @@
 open GoblintCil.Cil
 
 (** Domain Service: Anti-Debug Injection for CIL AST
-    Injects inline kernel process inspection (sysctl P_TRACED / ptrace) checks
-    inside function basic blocks to detect and mitigate dynamic debuggers.
+    Injects inline kernel process inspection (sysctl P_TRACED / ptrace PT_DENY_ATTACH)
+    to actively detect and terminate attached debuggers (LLDB, GDB).
 *)
 module Make (Entropy : Entropy_port.S) = struct
   class anti_debug_visitor (file : file) = object
@@ -11,7 +11,7 @@ module Make (Entropy : Entropy_port.S) = struct
     val mutable helper_injected = false
 
     method! vfunc (fd : fundec) : fundec visitAction =
-      if fd.svar.vname = "main" || String.starts_with ~prefix:"__" fd.svar.vname then SkipChildren
+      if String.starts_with ~prefix:"__ocasorry_" fd.svar.vname then SkipChildren
       else (
         if not helper_injected then (
           helper_injected <- true;
@@ -19,9 +19,13 @@ module Make (Entropy : Entropy_port.S) = struct
             GText {|
 #include <sys/types.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 #ifdef __APPLE__
 #include <sys/sysctl.h>
+#include <dlfcn.h>
+typedef int (*__ocasorry_ptrace_t)(int request, pid_t pid, void *addr, int data);
+
 static int __ocasorry_check_debugger_present(void) {
     int mib[4];
     struct kinfo_proc info;
@@ -32,13 +36,33 @@ static int __ocasorry_check_debugger_present(void) {
     mib[2] = 1; /* KERN_PROC_PID */
     mib[3] = getpid();
     if (sysctl(mib, 4, &info, &size, 0, 0) == 0) {
-        return ((info.kp_proc.p_flag & 0x00000800) != 0); /* P_TRACED */
+        if ((info.kp_proc.p_flag & 0x00000800) != 0) { /* P_TRACED */
+            return 1;
+        }
     }
     return 0;
+}
+
+static void __ocasorry_enforce_anti_debug(void) {
+    if (__ocasorry_check_debugger_present()) {
+        void *h = dlopen(0, 0);
+        if (h) {
+            __ocasorry_ptrace_t ptrace_fn = (__ocasorry_ptrace_t)dlsym(h, "ptrace");
+            if (ptrace_fn) {
+                ptrace_fn(31, 0, 0, 0); /* PT_DENY_ATTACH */
+            }
+        }
+        exit(137); /* Fallback exit if ptrace returns */
+    }
 }
 #else
 static int __ocasorry_check_debugger_present(void) {
     return 0;
+}
+static void __ocasorry_enforce_anti_debug(void) {
+    if (__ocasorry_check_debugger_present()) {
+        exit(137);
+    }
 }
 #endif
 |}
@@ -46,19 +70,12 @@ static int __ocasorry_check_debugger_present(void) {
           file.globals <- debug_helper :: file.globals
         );
 
-        let check_fn = makeGlobalVar "__ocasorry_check_debugger_present" (TFun (intType, Some [], false, [])) in
-        let dbg_flag = makeLocalVar fd "__is_dbg" intType in
-        let call_check =
-          mkStmtOneInstr (Call (Some (var dbg_flag), Lval (var check_fn), [], locUnknown, locUnknown))
+        let enforce_fn = makeGlobalVar "__ocasorry_enforce_anti_debug" (TFun (voidType, Some [], false, [])) in
+        let call_enforce =
+          mkStmtOneInstr (Call (None, Lval (var enforce_fn), [], locUnknown, locUnknown))
         in
 
-        (* If debugger is detected, corrupt local state or branch to trap *)
-        let dbg_cond = BinOp (Ne, Lval (var dbg_flag), integer 0, intType) in
-        let trap_stmt =
-          mkStmt (If (dbg_cond, mkBlock [ mkStmt (Return (Some (integer 1337), locUnknown, locUnknown)) ], mkBlock [], locUnknown, locUnknown))
-        in
-
-        fd.sbody <- { fd.sbody with bstmts = call_check :: trap_stmt :: fd.sbody.bstmts };
+        fd.sbody <- { fd.sbody with bstmts = call_enforce :: fd.sbody.bstmts };
         DoChildren
       )
   end
