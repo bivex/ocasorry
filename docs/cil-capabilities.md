@@ -6,7 +6,7 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 
 ## 📊 Feature Status Matrix
 
-- `[x]` = **100% Implemented & Verified in OcaSorry (59 Test Suites)**
+- `[x]` = **100% Implemented & Verified in OcaSorry (60 Test Suites)**
 
 ---
 
@@ -29,6 +29,7 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 
 | Status | Technique | CIL AST Mechanism | Resilience Target |
 | :---: | :--- | :--- | :--- |
+| `[x]` | **Irreducible Control-Flow Graph & Multi-Exit Loop Synthesizer** | Deconstructs natural single-entry loops into irreducible multi-entry graphs ($A \leftrightarrow B$) with non-post-dominating multi-exits ($\text{Exit}_1, \text{Exit}_2$). | Decompiler Loop Structuring (Phoenix, NoMoreGotos, Ghidra) |
 | `[x]` | **Control Flow Flattening (`Flatten`)** | Collapses all structured basic blocks (`bstmts`) into a single-loop state machine (`while(1) switch(__cff_state)`). | Control Flow Graph (CFG) Analysis |
 | `[x]` | **Relational Boundary & Comparison Morphing** | Inverts relational boundaries ($a < b \iff (a-b)<0 \mid !(a \ge b)$, $a == b \iff ((a \oplus b) == 0)$) and adds null-safe division guards. | SMT Solvers, Boundary Fuzzers, Static Analyzers |
 | `[x]` | **Basic Block Splitting (Jitter Jumps)** | Splits straight-line basic blocks into fragmented blocks connected by explicit labels and unconditional `goto` jumps. | LLM Context Windows, Token N-Grams, Basic Block Analysis |
