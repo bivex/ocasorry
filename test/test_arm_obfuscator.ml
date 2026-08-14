@@ -128,6 +128,7 @@ int main(int argc, char **argv) {
     enable_c_flattening = true;
     enable_c_encode_literals = false;
     enable_c_implicit_flow = false;
+    enable_c_encode_data = false;
   } in
 
   let obfuscated_c = CilSourceObfuscator.obfuscate_c_string c_code c_config in
@@ -197,6 +198,7 @@ int main(int argc, char **argv) {
     enable_c_flattening = false;
     enable_c_encode_literals = true;
     enable_c_implicit_flow = false;
+    enable_c_encode_data = false;
   } in
 
   let obfuscated_c = CilSourceObfuscator.obfuscate_c_string c_code c_config in
@@ -217,7 +219,6 @@ int main(int argc, char **argv) {
   let compile_res = Sys.command compile_cmd in
   assert_bool "Clang compilation of EncodeLiterals code succeeded" (compile_res = 0);
 
-  (* Run without args -> ACCESS_DENIED_WRONG_CREDENTIALS *)
   let run_cmd1 = Printf.sprintf "%s" (Filename.quote bin_file) in
   let ic1 = Unix.open_process_in run_cmd1 in
   let out1 = input_line ic1 in
@@ -225,7 +226,6 @@ int main(int argc, char **argv) {
   assert_bool "Decrypted string (branch 1): ACCESS_DENIED_WRONG_CREDENTIALS"
     (String.trim out1 = "ACCESS_DENIED_WRONG_CREDENTIALS");
 
-  (* Run with args -> SECRET_FLAG_AUTHENTICATED_OK *)
   let run_cmd2 = Printf.sprintf "%s auth_user" (Filename.quote bin_file) in
   let ic2 = Unix.open_process_in run_cmd2 in
   let out2 = input_line ic2 in
@@ -271,6 +271,7 @@ int main(int argc, char **argv) {
     enable_c_flattening = false;
     enable_c_encode_literals = false;
     enable_c_implicit_flow = true;
+    enable_c_encode_data = false;
   } in
 
   let obfuscated_c = CilSourceObfuscator.obfuscate_c_string c_code c_config in
@@ -288,7 +289,6 @@ int main(int argc, char **argv) {
   let compile_res = Sys.command compile_cmd in
   assert_bool "Clang compilation of Implicit Flow code succeeded" (compile_res = 0);
 
-  (* Input 42 -> signal path triggered -> 1337 *)
   let run_cmd1 = Printf.sprintf "%s 42" (Filename.quote bin_file) in
   let ic1 = Unix.open_process_in run_cmd1 in
   let out1 = input_line ic1 in
@@ -296,7 +296,6 @@ int main(int argc, char **argv) {
   assert_bool "Implicit flow signal execution branch_computation(42) == 1337"
     (int_of_string (String.trim out1) = 1337);
 
-  (* Input 10 -> normal path -> 999 *)
   let run_cmd2 = Printf.sprintf "%s 10" (Filename.quote bin_file) in
   let ic2 = Unix.open_process_in run_cmd2 in
   let out2 = input_line ic2 in
@@ -306,6 +305,133 @@ int main(int argc, char **argv) {
 
   (try Sys.remove src_file with _ -> ());
   (try Sys.remove bin_file with _ -> ())
+
+(* ========================================================================= *)
+(* 6. Variable Splitting & Data Encoding Tests                               *)
+(* ========================================================================= *)
+let test_c_variable_splitting_suite () =
+  Printf.printf "\n--- [Suite 6] Variable Splitting & Data Encoding (EncodeData) ---\n";
+  flush stdout;
+
+  let c_code = {|
+extern int atoi(const char *nptr);
+extern int printf(const char *format, ...);
+
+int calc_complex(int a, int b) {
+    int counter = 0;
+    int accumulator = a * 3;
+    counter = accumulator + b;
+    accumulator = counter ^ 0x1234;
+    return accumulator;
+}
+
+int main(int argc, char **argv) {
+    int a = atoi(argv[1]);
+    int b = atoi(argv[2]);
+    printf("%d\n", calc_complex(a, b));
+    return 0;
+}
+|} in
+
+  let c_config : Obfuscate_c_source_usecase.c_pipeline_config = {
+    enable_c_mba = false;
+    enable_c_opaque = false;
+    enable_c_flattening = false;
+    enable_c_encode_literals = false;
+    enable_c_implicit_flow = false;
+    enable_c_encode_data = true;
+  } in
+
+  let obfuscated_c = CilSourceObfuscator.obfuscate_c_string c_code c_config in
+
+  assert_bool "Local variables are split into _s1 and _s2 components"
+    (try ignore (Str.search_forward (Str.regexp "_s1") obfuscated_c 0); true with _ -> false);
+
+  let src_file = Filename.temp_file "test_split_obf_" ".c" in
+  let bin_file = Filename.temp_file "test_split_obf_" ".bin" in
+  let oc = open_out src_file in
+  output_string oc obfuscated_c;
+  close_out oc;
+
+  let compile_cmd = Printf.sprintf "clang -w -O0 %s -o %s" (Filename.quote src_file) (Filename.quote bin_file) in
+  let compile_res = Sys.command compile_cmd in
+  assert_bool "Clang compilation of Variable Splitting code succeeded" (compile_res = 0);
+
+  let test_inputs = [ (10, 20); (55, 33); (1234, 5678); (0, 0) ] in
+  List.iter
+    (fun (a, b) ->
+      let acc1 = a * 3 in
+      let cnt1 = acc1 + b in
+      let expected = cnt1 lxor 0x1234 in
+
+      let run_cmd = Printf.sprintf "%s %d %d" (Filename.quote bin_file) a b in
+      let ic = Unix.open_process_in run_cmd in
+      let out = input_line ic in
+      ignore (Unix.close_process_in ic);
+
+      let actual = int_of_string (String.trim out) in
+      assert_bool
+        (Printf.sprintf "Variable Splitting execution calc_complex(%d, %d) == %d (actual: %d)" a b expected actual)
+        (actual = expected))
+    test_inputs;
+
+  (try Sys.remove src_file with _ -> ());
+  (try Sys.remove bin_file with _ -> ())
+
+(* ========================================================================= *)
+(* 7. Compiler Wrapper (ocasorry-cc) CLI Drop-in Tooling Test                *)
+(* ========================================================================= *)
+let find_wrapper_bin () =
+  let candidate_paths = [
+    "./_build/default/bin/ocasorry_cc.exe";
+    "../bin/ocasorry_cc.exe";
+    "./ocasorry_cc.exe";
+    "/Volumes/External/Code/ocasorry/_build/default/bin/ocasorry_cc.exe";
+  ] in
+  List.find_opt Sys.file_exists candidate_paths
+
+let test_compiler_wrapper_suite () =
+  Printf.printf "\n--- [Suite 7] Compiler Wrapper (ocasorry-cc) CLI Integration ---\n";
+  flush stdout;
+
+  let wrapper_bin =
+    match find_wrapper_bin () with
+    | Some p -> p
+    | None -> failwith "Could not locate built ocasorry_cc.exe executable"
+  in
+  assert_bool "ocasorry-cc compiler wrapper binary found" (Sys.file_exists wrapper_bin);
+
+  let src_file = Filename.temp_file "wrapper_test_" ".c" in
+  let out_bin = Filename.temp_file "wrapper_out_" ".bin" in
+  let oc = open_out src_file in
+  output_string oc {|
+extern int printf(const char *format, ...);
+
+int multiply_and_offset(int x) {
+    int factor = 7;
+    int offset = 100;
+    return x * factor + offset;
+}
+
+int main() {
+    printf("%d\n", multiply_and_offset(5));
+    return 0;
+}
+|};
+  close_out oc;
+
+  let cmd = Printf.sprintf "%s -w %s -o %s" (Filename.quote wrapper_bin) (Filename.quote src_file) (Filename.quote out_bin) in
+  let res = Sys.command cmd in
+  assert_bool "Compilation with ocasorry-cc succeeded" (res = 0);
+
+  let ic = Unix.open_process_in out_bin in
+  let out_val = input_line ic in
+  ignore (Unix.close_process_in ic);
+
+  assert_bool "ocasorry-cc compiled binary output == 135" (int_of_string (String.trim out_val) = 135);
+
+  (try Sys.remove src_file with _ -> ());
+  (try Sys.remove out_bin with _ -> ())
 
 let () =
   Printf.printf "=================================================================\n";
@@ -317,7 +443,9 @@ let () =
   test_c_source_cil_suite ();
   test_c_encode_literals_suite ();
   test_c_implicit_flow_suite ();
+  test_c_variable_splitting_suite ();
+  test_compiler_wrapper_suite ();
   Printf.printf "\n=================================================================\n";
-  Printf.printf "       ALL 5 ADVANCED TEST SUITES PASSED SUCCESSFULLY!           \n";
+  Printf.printf "       ALL 7 ADVANCED TEST SUITES PASSED SUCCESSFULLY!           \n";
   Printf.printf "=================================================================\n";
   flush stdout

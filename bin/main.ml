@@ -68,7 +68,7 @@ int compute(int x, int y) {
 
 let () =
   Printf.printf "=================================================================\n";
-  Printf.printf "  OcaSorry: Advanced Tigress-Level Multi-Target Obfuscator        \n";
+  Printf.printf "  OcaSorry: Advanced Multi-Target Obfuscator & Compiler Wrapper  \n";
   Printf.printf "=================================================================\n\n";
   flush stdout;
 
@@ -115,10 +115,10 @@ let () =
       Printf.printf "  Error: %s\n\n" err;
       flush stdout);
 
-  (* 3. Target: CIL Source-to-Source (Tigress Techniques: EncodeLiterals + ImplicitFlow + MBA + CFF) *)
+  (* 3. Target: CIL Source-to-Source (Full Tigress Arsenal) *)
   Printf.printf "-----------------------------------------------------------------\n";
   Printf.printf " [Target 3] CIL Source-to-Source Engine (Tigress Techniques)\n";
-  Printf.printf "     Passes: EncodeLiterals + ImplicitFlow(Signals) + MBA + CFF\n";
+  Printf.printf "     Passes: EncodeLiterals + VariableSplitting + Signals + MBA + CFF\n";
   Printf.printf "-----------------------------------------------------------------\n";
   Printf.printf " Original C Code:\n%s\n" sample_c_program;
   let c_config : Obfuscate_c_source_usecase.c_pipeline_config = {
@@ -127,6 +127,7 @@ let () =
     enable_c_flattening = true;
     enable_c_encode_literals = true;
     enable_c_implicit_flow = true;
+    enable_c_encode_data = true;
   } in
   let obfuscated_c = CilSourceObfuscator.obfuscate_c_string sample_c_program c_config in
   Printf.printf " Obfuscated C Code:\n\n%s\n" obfuscated_c;

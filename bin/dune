@@ -1,4 +1,9 @@
 (executable
  (name main)
  (public_name ocasorry)
- (libraries ocasorry_lib))
+ (libraries ocasorry_lib unix str))
+
+(executable
+ (name ocasorry_cc)
+ (public_name ocasorry-cc)
+ (libraries ocasorry_lib unix str))

@@ -4,6 +4,7 @@ type c_pipeline_config = {
   enable_c_flattening : bool;
   enable_c_encode_literals : bool;
   enable_c_implicit_flow : bool;
+  enable_c_encode_data : bool;
 }
 
 let default_c_config = {
@@ -12,6 +13,7 @@ let default_c_config = {
   enable_c_flattening = true;
   enable_c_encode_literals = true;
   enable_c_implicit_flow = false;
+  enable_c_encode_data = true;
 }
 
 module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
@@ -20,9 +22,11 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
   module Flattening = C_flattening_service.Make (Entropy)
   module EncodeLiterals = C_encode_literals_service.Make (Entropy)
   module ImplicitFlow = C_implicit_flow_service.Make (Entropy)
+  module EncodeData = C_encode_data_service.Make (Entropy)
 
   let run_passes (cil_file : GoblintCil.Cil.file) (config : c_pipeline_config) : GoblintCil.Cil.file =
     let f = if config.enable_c_encode_literals then EncodeLiterals.transform_file cil_file else cil_file in
+    let f = if config.enable_c_encode_data then EncodeData.transform_file f else f in
     let f = if config.enable_c_mba then MBA.transform_file f else f in
     let f = if config.enable_c_opaque then Opaque.transform_file f else f in
     let f = if config.enable_c_implicit_flow then ImplicitFlow.transform_file f else f in
