@@ -61,7 +61,8 @@ let () =
   Suite_basic_block_split.run ();
   Suite_decentralized_disp.run ();
   Suite_relational_morph.run ();
+  Suite_granular_annotations.run ();
 
   Printf.printf "\n=================================================================\n";
-  Printf.printf "       ALL 58 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
+  Printf.printf "       ALL 59 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
   Printf.printf "=================================================================\n%!"

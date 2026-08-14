@@ -6,6 +6,13 @@ open GoblintCil.Cil
     Desynchronizes on out-of-order execution, isolated emulation, or memory patching.
 *)
 module Make (Entropy : Entropy_port.S) = struct
+  let should_transform (fd : fundec) : bool =
+    if fd.svar.vname = "main" || String.starts_with ~prefix:"__" fd.svar.vname then false
+    else if C_annotation_service.AnnotationHelper.should_skip_all fd then false
+    else if C_annotation_service.AnnotationHelper.has_annotation fd "rolling_vkey"
+            || C_annotation_service.AnnotationHelper.has_annotation fd "rolling_key" then true
+    else not (C_annotation_service.AnnotationHelper.has_any_vm_annotation fd)
+
   let transform_file (f : file) : file =
     let new_globals = ref [] in
     let func_count = ref 0 in
@@ -13,7 +20,7 @@ module Make (Entropy : Entropy_port.S) = struct
     List.iter
       (fun glob ->
         match glob with
-        | GFun (fd, _) when fd.svar.vname <> "main" && not (String.starts_with ~prefix:"__" fd.svar.vname) ->
+        | GFun (fd, _) when should_transform fd ->
             incr func_count;
             let prog_name = Printf.sprintf "__rolling_bc_%s_%d" fd.svar.vname !func_count in
 
@@ -58,29 +65,24 @@ int %s(int %s) {
         /* Stateful rolling key evolution dependent on decrypted instruction history */
         __vkey = (__vkey * 33U) ^ (__dec + 0x9E3779B9U);
 
-        unsigned char __op = (unsigned char)((__dec >> 24) & 0xFF);
+        unsigned char __op = (unsigned char)(__dec >> 24);
         if (__op == 0x01) {
-            __regs[0] = __regs[0] + 10;
+            __regs[1] = __regs[0] + 10U;
         } else if (__op == 0x02) {
-            __regs[0] = __regs[0] ^ 42;
+            __regs[2] = __regs[1] ^ 42U;
         } else if (__op == 0x03) {
-            __regs[0] = __regs[0] * 2;
+            __regs[3] = __regs[2] * 2U;
         } else if (__op == 0xFF) {
-            return (int)__regs[0];
+            return (int)__regs[3];
         }
         __pc++;
     }
-    return (int)__regs[0];
+    return (int)__regs[3];
 }
-|}
-              fd.svar.vname
-              arg_name
-              arg_name
-              (List.length encrypted_words)
-              prog_name
-            in
+|} fd.svar.vname arg_name arg_name (List.length encrypted_words) prog_name in
+
             new_globals := GText fn_impl :: !new_globals
-        | other -> new_globals := other :: !new_globals)
+        | _ -> new_globals := glob :: !new_globals)
       f.globals;
 
     f.globals <- List.rev !new_globals;

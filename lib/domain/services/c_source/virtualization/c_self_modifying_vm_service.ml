@@ -7,8 +7,15 @@ open GoblintCil.Cil
 module Make (Entropy : Entropy_port.S) = struct
   let sm_counter = ref 0
 
+  let should_transform (fd : fundec) : bool =
+    if fd.svar.vname = "main" || String.starts_with ~prefix:"__" fd.svar.vname then false
+    else if C_annotation_service.AnnotationHelper.should_skip_all fd then false
+    else if C_annotation_service.AnnotationHelper.has_annotation fd "self_mod_vm"
+            || C_annotation_service.AnnotationHelper.has_annotation fd "self_modifying" then true
+    else not (C_annotation_service.AnnotationHelper.has_any_vm_annotation fd)
+
   let transform_function (file : file) (fd : fundec) : unit =
-    if fd.svar.vname = "main" || String.starts_with ~prefix:"__" fd.svar.vname then ()
+    if not (should_transform fd) then ()
     else (
       incr sm_counter;
       let bc_name = Printf.sprintf "__self_mod_bc_%d" !sm_counter in

@@ -5,10 +5,13 @@ open GoblintCil.Cil
     memory via mmap/mprotect, and immediately zeroes and frees memory after execution.
 *)
 module Make (Entropy : Entropy_port.S) = struct
-  let is_target_func (name : string) : bool =
-    name <> "main"
-    && not (String.starts_with ~prefix:"__" name)
-    && not (List.mem name [ "printf"; "fprintf"; "sprintf"; "puts"; "exit"; "atoi"; "malloc"; "free" ])
+  let should_transform (fd : fundec) : bool =
+    if fd.svar.vname = "main" || String.starts_with ~prefix:"__" fd.svar.vname
+       || List.mem fd.svar.vname [ "printf"; "fprintf"; "sprintf"; "puts"; "exit"; "atoi"; "malloc"; "free" ] then false
+    else if C_annotation_service.AnnotationHelper.should_skip_all fd then false
+    else if C_annotation_service.AnnotationHelper.has_annotation fd "ephemeral"
+            || C_annotation_service.AnnotationHelper.has_annotation fd "ephemeral_jit" then true
+    else not (C_annotation_service.AnnotationHelper.has_any_vm_annotation fd)
 
   let transform_file (f : file) : file =
     let new_globals = ref [] in
@@ -40,7 +43,7 @@ static void __ocasorry_free_ephemeral_page(void *ptr, size_t sz) {
     List.iter
       (fun glob ->
         match glob with
-        | GFun (fd, _) when is_target_func fd.svar.vname ->
+        | GFun (fd, _) when should_transform fd ->
             incr func_count;
             let payload_name = Printf.sprintf "__ephemeral_payload_%s_%d" fd.svar.vname !func_count in
 

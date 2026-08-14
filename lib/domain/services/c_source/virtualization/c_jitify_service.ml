@@ -7,8 +7,15 @@ open GoblintCil.Cil
 module Make (Entropy : Entropy_port.S) = struct
   let jit_counter = ref 0
 
+  let should_transform (fd : fundec) : bool =
+    if fd.svar.vname = "main" || String.starts_with ~prefix:"__" fd.svar.vname then false
+    else if C_annotation_service.AnnotationHelper.should_skip_all fd then false
+    else if C_annotation_service.AnnotationHelper.has_annotation fd "jitify"
+            || C_annotation_service.AnnotationHelper.has_annotation fd "jit" then true
+    else not (C_annotation_service.AnnotationHelper.has_any_vm_annotation fd)
+
   let transform_function (file : file) (fd : fundec) : unit =
-    if fd.svar.vname = "main" || String.starts_with ~prefix:"__" fd.svar.vname then ()
+    if not (should_transform fd) then ()
     else (
       incr jit_counter;
       let jit_buf_name = Printf.sprintf "__jit_code_%d" !jit_counter in

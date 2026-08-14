@@ -28,8 +28,15 @@ module Make (Entropy : Entropy_port.S) = struct
   let op_in_mul        = 0x06 (* [op, dst, s1, s2] *)
   let op_in_ret        = 0x0F (* [op, src_reg] *)
 
+  let should_transform (fd : fundec) : bool =
+    if fd.svar.vname = "main" || String.starts_with ~prefix:"__" fd.svar.vname then false
+    else if C_annotation_service.AnnotationHelper.should_skip_all fd then false
+    else if C_annotation_service.AnnotationHelper.has_annotation fd "nested_vm"
+            || C_annotation_service.AnnotationHelper.has_annotation fd "nested" then true
+    else not (C_annotation_service.AnnotationHelper.has_any_vm_annotation fd)
+
   let transform_function (file : file) (fd : fundec) : unit =
-    if fd.svar.vname = "main" || String.starts_with ~prefix:"__" fd.svar.vname then ()
+    if not (should_transform fd) then ()
     else (
       incr nested_counter;
       let outer_bc_name = Printf.sprintf "__packed_outer_bc_%s_%d" fd.svar.vname !nested_counter in
