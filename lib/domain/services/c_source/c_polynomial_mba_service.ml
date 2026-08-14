@@ -101,13 +101,12 @@ module Make (Entropy : Entropy_port.S) = struct
         wrap_affine res ty
 
     | _ ->
-        (* Identity 2: (x | y) + (~x & ~y) + 1 *)
-        let or_part = BinOp (BOr, e1, e2, ty) in
+        (* Identity 2: (x & ~y) | (~x & y) *)
         let not_e1 = UnOp (BNot, e1, ty) in
         let not_e2 = UnOp (BNot, e2, ty) in
-        let and_nots = BinOp (BAnd, not_e1, not_e2, ty) in
-        let sum1 = BinOp (PlusA, or_part, and_nots, ty) in
-        let res = BinOp (PlusA, sum1, integer 1, ty) in
+        let left_part = BinOp (BAnd, e1, not_e2, ty) in
+        let right_part = BinOp (BAnd, not_e1, e2, ty) in
+        let res = BinOp (BOr, left_part, right_part, ty) in
         wrap_affine res ty
 
   class poly_mba_visitor = object
