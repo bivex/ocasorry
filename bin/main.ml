@@ -116,6 +116,7 @@ let () =
   let enable_diophantine = ref false in
   let enable_bcf = ref false in
   let enable_bb_split = ref false in
+  let enable_decentralized_disp = ref false in
   let enable_unroll = ref false in
   let enable_fission = ref false in
   let enable_loop_to_rec = ref false in
@@ -176,6 +177,7 @@ let () =
     ("--diophantine", Arg.Set enable_diophantine, "Enable Diophantine Equation Opaque Predicates");
     ("--bcf", Arg.Set enable_bcf, "Enable Bogus Control Flow (Code Cloning & Mutation)");
     ("--split-bb", Arg.Set enable_bb_split, "Enable Basic Block Splitting (Jitter Jumps)");
+    ("--decentralized-disp", Arg.Set enable_decentralized_disp, "Enable Decentralized Tree Dispatcher & Decoy Hubs");
     ("--unroll", Arg.Set enable_unroll, "Enable Loop Unrolling & Jittering");
     ("--fission", Arg.Set enable_fission, "Enable Loop Fission / Segmentation");
     ("--loop-to-rec", Arg.Set enable_loop_to_rec, "Enable Loop to Tail-Recursion Morphing");
@@ -239,6 +241,7 @@ let () =
       enable_c_diophantine = !enable_diophantine;
       enable_c_bogus_cf = !enable_bcf;
       enable_c_basic_block_split = !enable_bb_split;
+      enable_c_decentralized_disp = !enable_decentralized_disp;
       enable_c_loop_unroll = !enable_unroll;
       enable_c_loop_fission = !enable_fission;
       enable_c_loop_to_recursion = !enable_loop_to_rec;

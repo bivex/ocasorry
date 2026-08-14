@@ -7,6 +7,7 @@ type c_pipeline_config = {
   enable_c_diophantine : bool;
   enable_c_bogus_cf : bool;
   enable_c_basic_block_split : bool;
+  enable_c_decentralized_disp : bool;
   enable_c_loop_unroll : bool;
   enable_c_loop_fission : bool;
   enable_c_loop_to_recursion : bool;
@@ -64,6 +65,7 @@ let default_c_config = {
   enable_c_diophantine = false;
   enable_c_bogus_cf = false;
   enable_c_basic_block_split = false;
+  enable_c_decentralized_disp = false;
   enable_c_loop_unroll = false;
   enable_c_loop_fission = false;
   enable_c_loop_to_recursion = false;
@@ -121,6 +123,7 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
   module Diophantine = C_diophantine_opaque_service.Make (Entropy)
   module BogusCF = C_bogus_control_flow_service.Make (Entropy)
   module BBSplit = C_basic_block_split_service.Make (Entropy)
+  module DecentDisp = C_decentralized_dispatcher_service.Make (Entropy)
   module LoopUnroll = C_loop_unroll_service.Make (Entropy)
   module LoopFission = C_loop_fission_service.Make (Entropy)
   module LoopToRecursion = C_loop_to_recursion_service.Make (Entropy)
@@ -221,6 +224,7 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
     let f = if config.enable_c_api_hash then ApiHash.transform_file f else f in
     let f = if config.enable_c_early_constructor then EarlyConstructor.transform_file f else f in
     let f = if config.enable_c_flattening then Flattening.transform_file f else f in
+    let f = if config.enable_c_decentralized_disp then DecentDisp.transform_file f else f in
     let f = if config.enable_c_rename_symbols then RenameSymbols.transform_file f else f in
     let f = if config.enable_c_strip_directives then StripDirectives.transform_file f else f in
     f

@@ -6,7 +6,7 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 
 ## 📊 Feature Status Matrix
 
-- `[x]` = **100% Implemented & Verified in OcaSorry (56 Test Suites)**
+- `[x]` = **100% Implemented & Verified in OcaSorry (57 Test Suites)**
 
 ---
 
@@ -15,7 +15,8 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 | Status | Technique | CIL AST Mechanism | Resilience Target |
 | :---: | :--- | :--- | :--- |
 | `[x]` | **C-Level Bytecode Virtualization (`Virtualize`)** | Integrates with `random_vISA` vector ISA synthesizer, encoding function logic into 32-bit RISC-V Vector Bytecode (`.vbc`) with an embedded C11 VCPU execution loop. | Disassemblers (IDA, Ghidra), Decompilers |
-| `[x]` | **Nested Multi-Layer VM** | Embeds an interpreter inside another interpreter (Outer VM $\to$ Inner VM) with multi-tier dispatch tables. | Symbolic Execution (angr) |
+| `[x]` | **Nested Multi-Layer VM (2-Tier Packed VM)** | Embeds an encrypted master interpreter commanding an inner worker interpreter on-the-fly with rolling keys ($K_{n+1} = f(K_n)$). | Symbolic Execution (angr), Static Dumps |
+| `[x]` | **Decentralized Tree Dispatcher & Decoy Hubs** | Deconstructs $N$-way central switch dispatchers into binary decision trees ($D_{\text{out}} \le 2$) and injects 32-way decoy hub baits. | Static LLVM Passes (VMTag, arXiv:2601.12916) |
 | `[x]` | **Self-Modifying Bytecode** | Virtual machine dynamically rewrites its own bytecode in memory during execution via rolling XOR multi-phase keys. | Static Signatures & Memory Dumps |
 | `[x]` | **JIT Bytecode Compilation (`Jitify`)** | Injects an embedded runtime AArch64 machine code generator that translates virtualized bytecode directly to executable RAM. | Static Reverse Engineering |
 | `[x]` | **Stateful Rolling Bytecode Key Chain** | Ties instruction decryption to execution history ($VKey_{n+1} = f(VKey_n, Op_n)$); desynchronizes on out-of-order execution, isolated emulation, or memory tampering. | Memory Dumps, Isolated Emulators, SMT Solvers |
