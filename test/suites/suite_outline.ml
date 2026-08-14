@@ -27,6 +27,11 @@ int main(int argc, char **argv) {
     enable_c_mba = false;
     enable_c_polynomial_mba = false;
     enable_c_opaque = false;
+    enable_c_dynamic_opaque = false;
+    enable_c_bogus_cf = false;
+    enable_c_loop_unroll = false;
+    enable_c_loop_fission = false;
+    enable_c_indirect_jump = false;
     enable_c_flattening = false;
     enable_c_encode_literals = false;
     enable_c_implicit_flow = false;

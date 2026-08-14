@@ -2,6 +2,11 @@ type c_pipeline_config = {
   enable_c_mba : bool;
   enable_c_polynomial_mba : bool;
   enable_c_opaque : bool;
+  enable_c_dynamic_opaque : bool;
+  enable_c_bogus_cf : bool;
+  enable_c_loop_unroll : bool;
+  enable_c_loop_fission : bool;
+  enable_c_indirect_jump : bool;
   enable_c_flattening : bool;
   enable_c_encode_literals : bool;
   enable_c_implicit_flow : bool;
@@ -14,6 +19,11 @@ let default_c_config = {
   enable_c_mba = true;
   enable_c_polynomial_mba = false;
   enable_c_opaque = true;
+  enable_c_dynamic_opaque = false;
+  enable_c_bogus_cf = false;
+  enable_c_loop_unroll = false;
+  enable_c_loop_fission = false;
+  enable_c_indirect_jump = false;
   enable_c_flattening = true;
   enable_c_encode_literals = true;
   enable_c_implicit_flow = false;
@@ -26,6 +36,11 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
   module MBA = C_mba_service.Make (Entropy)
   module PolyMBA = C_polynomial_mba_service.Make (Entropy)
   module Opaque = C_opaque_service.Make (Entropy)
+  module DynOpaque = C_dynamic_opaque_service.Make (Entropy)
+  module BogusCF = C_bogus_control_flow_service.Make (Entropy)
+  module LoopUnroll = C_loop_unroll_service.Make (Entropy)
+  module LoopFission = C_loop_fission_service.Make (Entropy)
+  module IndirectJump = C_indirect_jump_service.Make (Entropy)
   module Flattening = C_flattening_service.Make (Entropy)
   module EncodeLiterals = C_encode_literals_service.Make (Entropy)
   module ImplicitFlow = C_implicit_flow_service.Make (Entropy)
@@ -36,12 +51,17 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
   let run_passes (cil_file : GoblintCil.Cil.file) (config : c_pipeline_config) : GoblintCil.Cil.file =
     let f = if config.enable_c_merge then Merge.transform_file cil_file else cil_file in
     let f = if config.enable_c_outline then Outline.transform_file f else f in
+    let f = if config.enable_c_loop_unroll then LoopUnroll.transform_file f else f in
+    let f = if config.enable_c_loop_fission then LoopFission.transform_file f else f in
     let f = if config.enable_c_encode_literals then EncodeLiterals.transform_file f else f in
     let f = if config.enable_c_encode_data then EncodeData.transform_file f else f in
     let f = if config.enable_c_polynomial_mba then PolyMBA.transform_file f else f in
     let f = if config.enable_c_mba then MBA.transform_file f else f in
     let f = if config.enable_c_opaque then Opaque.transform_file f else f in
+    let f = if config.enable_c_dynamic_opaque then DynOpaque.transform_file f else f in
+    let f = if config.enable_c_bogus_cf then BogusCF.transform_file f else f in
     let f = if config.enable_c_implicit_flow then ImplicitFlow.transform_file f else f in
+    let f = if config.enable_c_indirect_jump then IndirectJump.transform_file f else f in
     let f = if config.enable_c_flattening then Flattening.transform_file f else f in
     f
 

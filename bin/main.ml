@@ -61,16 +61,21 @@ let run_demo () =
         (if res.result_val = expected then "PASSED [OK]" else "FAILED [MISMATCH]")
   | Error err -> Printf.printf "  Error: %s\n\n%!" err);
 
-  (* 3. Target: CIL Source-to-Source (Full Tigress Arsenal + High-Order PolyMBA) *)
+  (* 3. Target: CIL Source-to-Source (Full Tigress Arsenal + High-Order PolyMBA + BCF) *)
   Printf.printf "-----------------------------------------------------------------\n";
   Printf.printf " [Target 3] CIL Source-to-Source Engine (Tigress Techniques)\n";
-  Printf.printf "     Passes: EncodeLiterals + VariableSplitting + Signals + PolyMBA + CFF\n";
+  Printf.printf "     Passes: EncodeLiterals + VariableSplitting + Signals + PolyMBA + CFF + BCF\n";
   Printf.printf "-----------------------------------------------------------------\n%!";
   Printf.printf " Original C Code:\n%s\n" sample_c_program;
   let c_config : Obfuscate_c_source_usecase.c_pipeline_config = {
     enable_c_mba = false;
     enable_c_polynomial_mba = true;
     enable_c_opaque = true;
+    enable_c_dynamic_opaque = true;
+    enable_c_bogus_cf = true;
+    enable_c_loop_unroll = false;
+    enable_c_loop_fission = false;
+    enable_c_indirect_jump = false;
     enable_c_flattening = true;
     enable_c_encode_literals = true;
     enable_c_implicit_flow = true;
@@ -110,6 +115,11 @@ let () =
   let enable_poly_mba = ref true in
   let enable_cff = ref true in
   let enable_opaque = ref true in
+  let enable_dyn_opaque = ref false in
+  let enable_bcf = ref false in
+  let enable_unroll = ref false in
+  let enable_fission = ref false in
+  let enable_indirect = ref false in
   let enable_literals = ref true in
   let enable_split = ref true in
   let enable_implicit = ref false in
@@ -125,11 +135,13 @@ let () =
     ("--cff", Arg.Set enable_cff, "Enable Control Flow Flattening");
     ("--no-cff", Arg.Clear enable_cff, "Disable Control Flow Flattening");
     ("--opaque", Arg.Set enable_opaque, "Enable Invariant Opaque Predicates");
-    ("--no-opaque", Arg.Clear enable_opaque, "Disable Invariant Opaque Predicates");
+    ("--dyn-opaque", Arg.Set enable_dyn_opaque, "Enable Dynamic / Math-Property Opaque Predicates");
+    ("--bcf", Arg.Set enable_bcf, "Enable Bogus Control Flow (Code Cloning & Mutation)");
+    ("--unroll", Arg.Set enable_unroll, "Enable Loop Unrolling & Jittering");
+    ("--fission", Arg.Set enable_fission, "Enable Loop Fission / Segmentation");
+    ("--indirect", Arg.Set enable_indirect, "Enable Indirect Jump Tables (Computed Dispatch)");
     ("--literals", Arg.Set enable_literals, "Enable String Literal Encryption");
-    ("--no-literals", Arg.Clear enable_literals, "Disable String Literal Encryption");
     ("--split", Arg.Set enable_split, "Enable Variable Splitting (EncodeData)");
-    ("--no-split", Arg.Clear enable_split, "Disable Variable Splitting");
     ("--implicit", Arg.Set enable_implicit, "Enable Signal-Driven Implicit Flow");
     ("--merge", Arg.Set enable_merge, "Enable Function Merging");
     ("--outline", Arg.Set enable_outline, "Enable Function Outlining");
@@ -146,6 +158,11 @@ let () =
       enable_c_mba = !enable_mba;
       enable_c_polynomial_mba = !enable_poly_mba;
       enable_c_opaque = !enable_opaque;
+      enable_c_dynamic_opaque = !enable_dyn_opaque;
+      enable_c_bogus_cf = !enable_bcf;
+      enable_c_loop_unroll = !enable_unroll;
+      enable_c_loop_fission = !enable_fission;
+      enable_c_indirect_jump = !enable_indirect;
       enable_c_flattening = !enable_cff;
       enable_c_encode_literals = !enable_literals;
       enable_c_implicit_flow = !enable_implicit;

@@ -28,11 +28,11 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 | :---: | :--- | :--- | :--- |
 | `[x]` | **Control Flow Flattening (`Flatten`)** | Collapses all structured basic blocks (`bstmts`) into a single-loop state machine (`while(1) switch(__cff_state)`). | Control Flow Graph (CFG) Analysis |
 | `[x]` | **Invariant Opaque Predicates** | Injects algebraic tautologies (`(x & ~x) != 0`) guarding junk / trap code. | Static Disassemblers |
-| `[ ]` | **Dynamic / Alias-Based Opaque Predicates** | Generates opaque predicates based on pointer aliasing invariants (using CIL `Ptranal`) or array values (`arr[2*k] % 2 == 0`). | SMT / SAT Solvers (Z3) |
-| `[ ]` | **Bogus Control Flow (Code Cloning)** | Clones real basic blocks, alters constants slightly, and guards fake copies with opaque predicates. | Pattern Matchers |
-| `[ ]` | **Loop Unrolling & Jittering** | Duplicates loop bodies (`Loop`) by random unroll factors with randomized induction variables. | Loop Invariant Analyzers |
-| `[ ]` | **Loop Fission & Loop Fusion** | Splits single loops into multiple serialized loops or merges independent loops with interleaved iterations. | Loop Vectorizers / Analyzers |
-| `[ ]` | **Indirect Jump Tables (`LabelsAsValues`)** | Converts `if/else` and `switch` statements into GCC computed gotos (`goto *jump_table[idx]`). | CFG Reconstruction Engines |
+| `[x]` | **Dynamic / Math-Property Opaque Predicates** | Generates dynamic invariants based on integer arithmetic properties (`(x*(x+1)) % 2 == 0`, `((x<<2)+2) % 2 == 0`). | SMT / SAT Solvers (Z3) |
+| `[x]` | **Bogus Control Flow (BCF Code Cloning)** | Clones real basic blocks, alters constants slightly, and guards fake copies with dynamic opaque predicates. | Pattern Matchers, Decompilers |
+| `[x]` | **Loop Unrolling & Jittering** | Duplicates loop bodies (`Loop`) by a factor of 2 and inserts randomized non-interfering jitter computations. | Loop Invariant Analyzers |
+| `[x]` | **Loop Fission & Segmentation** | Splits multi-statement loop bodies into sequenced segmented loop execution phases. | Loop Vectorizers / Analyzers |
+| `[x]` | **Indirect Jump Tables (Computed Dispatch)** | Converts structured sequential blocks into an indirect indexed dispatch table. | CFG Reconstruction Engines |
 
 ---
 
@@ -41,7 +41,7 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 | Status | Technique | CIL AST Mechanism | Resilience Target |
 | :---: | :--- | :--- | :--- |
 | `[x]` | **Linear Mixed Boolean-Arithmetic (MBA)** | Rewrites arithmetic (`+`, `-`, `^`) into 1st-order bitwise polynomial identities ($x + y \iff (x \oplus y) + 2(x \land y)$). | Human Reversers, Disassemblers |
-| `[x]` | **High-Order Polynomial MBA (Anti-Z3)** | Injects non-linear polynomial expressions over $\mathbb{Z}_{2^{32}}$ and Invertible Affine Layers ($E' = a^{-1}(aE + b) - b$). | SMT / Symbolic Solvers (Z3, Triton) |
+| `[x]` | **High-Order Polynomial MBA (Anti-Z3)** | Injects non-linear polynomial expressions over $\mathbb{Z}_{2^{32}}$ and Invertible Affine Layers ($E' = a^{-1}(aE + b) - (a^{-1}b)$). | SMT / Symbolic Solvers (Z3, Triton) |
 | `[x]` | **EncodeLiterals (String Encryption)** | Replaces static string literals with encrypted byte arrays and inserts lazy constructor / prologue decryptors. | Strings Analyzers (`strings`, Binwalk) |
 | `[x]` | **Variable Splitting (`EncodeData`)** | Splits scalar local variables $v$ into $(v_{s1}, v_{s2})$ maintaining $v = v_{s1} + v_{s2}$ on all reads and writes. | Memory Scanners (Cheat Engine) |
 | `[ ]` | **Lookup Table Arithmetic (LUT)** | Converts arithmetic operations into 256-byte or 65536-byte precomputed tables stored in `static` memory. | Algebraic Deobfuscators |
@@ -95,15 +95,3 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 | :---: | :--- | :--- | :--- |
 | `[ ]` | **Identifier Renaming / Symbol Hashing** | Renames all non-exported `varinfo.vname` to unreadable homoglyph strings (e.g. `_ll1lI1l_`) or cryptographic hashes. | Human Comprehension |
 | `[ ]` | **Source Directives Stripping** | Removes `#line` comments and original filename references from pretty-printed C output. | Source Mapping / Debugging Info |
-
----
-
-## 🛠️ Built-in CIL Modules to Leverage for Future Passes
-
-CIL provides built-in static analysis engines that can be leveraged directly:
-
-1. **`GoblintCil.Cfg`**: Control flow graph computation (`stmt.succs`, `stmt.preds`).
-2. **`GoblintCil.Dominators`**: Computes dominator trees and natural loop boundaries for advanced loop transformations.
-3. **`GoblintCil.Ptranal`**: Inter-procedural points-to analysis for alias-based opaque predicates.
-4. **`GoblintCil.Dataflow`**: Generic framework for forward/backward dataflow analysis (used for precise variable liveness and dead code elimination).
-5. **`GoblintCil.Inliner`**: Production-tested function inliner.
