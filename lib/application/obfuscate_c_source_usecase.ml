@@ -27,6 +27,8 @@ type c_pipeline_config = {
   enable_c_self_checksum : bool;
   enable_c_timing_check : bool;
   enable_c_hook_detect : bool;
+  enable_c_api_hash : bool;
+  enable_c_early_constructor : bool;
   enable_c_lut : bool;
   enable_c_array_interleave : bool;
   enable_c_struct_permute : bool;
@@ -67,6 +69,8 @@ let default_c_config = {
   enable_c_self_checksum = false;
   enable_c_timing_check = false;
   enable_c_hook_detect = false;
+  enable_c_api_hash = false;
+  enable_c_early_constructor = false;
   enable_c_lut = false;
   enable_c_array_interleave = false;
   enable_c_struct_permute = false;
@@ -107,6 +111,8 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
   module SelfChecksum = C_self_checksum_service.Make (Entropy)
   module TimingCheck = C_timing_check_service.Make (Entropy)
   module HookDetect = C_hook_detect_service.Make (Entropy)
+  module ApiHash = C_api_hash_resolver_service.Make (Entropy)
+  module EarlyConstructor = C_early_constructor_service.Make (Entropy)
   module LUT = C_lut_arithmetic_service.Make (Entropy)
   module ArrayInterleave = C_array_interleave_service.Make (Entropy)
   module StructPermute = C_struct_permute_service.Make (Entropy)
@@ -152,6 +158,8 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
     let f = if config.enable_c_self_checksum then SelfChecksum.transform_file f else f in
     let f = if config.enable_c_timing_check then TimingCheck.transform_file f else f in
     let f = if config.enable_c_hook_detect then HookDetect.transform_file f else f in
+    let f = if config.enable_c_api_hash then ApiHash.transform_file f else f in
+    let f = if config.enable_c_early_constructor then EarlyConstructor.transform_file f else f in
     let f = if config.enable_c_flattening then Flattening.transform_file f else f in
     let f = if config.enable_c_rename_symbols then RenameSymbols.transform_file f else f in
     let f = if config.enable_c_strip_directives then StripDirectives.transform_file f else f in

@@ -6,7 +6,7 @@ This document details the **Polymorphic Virtual Machine (VM)** subsystem in **Oc
 
 ## 🏛 1. Core Concept: Per-Build Polymorphic VM Synthesis
 
-Traditional binary virtualizers (VMProtect, Code Virtualizer, Tigress `Virtualize`) emit a static, deterministic virtual machine architecture. Once an analyst writes a disassembler or symbolic solver script for a specific VM, all functions virtualized with that version can be automatically lifted and de-virtualized.
+Traditional binary virtualizers and static obfuscators emit a static, deterministic virtual machine architecture. Once an analyst writes a disassembler or symbolic solver script for a specific VM, all functions virtualized with that version can be automatically lifted and de-virtualized.
 
 **OcaSorry eliminates this vulnerability through Per-Build / Per-Function ISA Synthesis:**
 

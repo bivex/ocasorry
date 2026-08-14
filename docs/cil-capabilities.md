@@ -7,7 +7,7 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 ## 📊 Feature Status Matrix
 
 - `[x]` = **Implemented & Verified in OcaSorry**
-- `[ ]` = **VMProtect-Grade Architecture Expansion (Next-Gen Roadmap)**
+- `[ ]` = **Native Binary Protector & Loader Architecture (Next-Gen Roadmap)**
 
 ---
 
@@ -98,12 +98,12 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 
 ---
 
-## 8. 🏰 Binary Protector & Loader Transformations (VMProtect-Grade for POSIX / Mach-O / ELF)
+## 8. 🏰 Native Binary Protector & Loader Architecture (POSIX / Mach-O / ELF)
 
 | Status | Technique | CIL AST Mechanism | Resilience Target |
 | :---: | :--- | :--- | :--- |
-| `[ ]` | **Dynamic POSIX API Hashing (`ImportHide`)** | Replaces external library calls (`sysctl`, `ptrace`, `socket`, `open`) with dynamic `dlopen`/`dlsym` resolution by MurmurHash3/CRC32. | Import Tables (`nm`, `otool -L`, `readelf`) |
-| `[ ]` | **Pre-Main Security Constructor (`EarlyStager`)** | Injects `__attribute__((constructor(101)))` handlers that execute integrity hashing, VCPU preparation, and anti-debug before `main()`. | Entrypoint Breakpoints (`b main`), Early Attach |
+| `[x]` | **Dynamic POSIX API Hashing (`ImportHide`)** | Replaces external library calls (`sysctl`, `ptrace`, `socket`, `open`, `printf`) with dynamic `dlopen`/`dlsym` resolution by CRC32 hashes. | Import Tables (`nm`, `otool -L`, `readelf`) |
+| `[x]` | **Pre-Main Security Constructor (`EarlyStager`)** | Injects `__attribute__((constructor(101)))` handlers that execute integrity hashing, VCPU preparation, and anti-debug before `main()`. | Entrypoint Breakpoints (`b main`), Early Attach |
 | `[ ]` | **Stateful Rolling Bytecode Key Chain** | Ties instruction decryption to execution history ($VKey_{n+1} = f(VKey_n, Op_n)$); desynchronizes on out-of-order execution or tampering. | Memory Dumps, Isolated Emulators, SMT Solvers |
 | `[ ]` | **Polymorphic VCPU Context & Struct Scrambling** | Randomizes internal field ordering and offsets in virtual processor context structures (`struct __vcpu_state`) per compilation. | Universal De-Virtualization Plugins (IDAPython) |
 | `[ ]` | **In-Memory Ephemeral Payload Unpacking** | Encrypts bytecode/code payloads in static memory, unpacking into executable RAM via `mmap` and zeroing memory immediately after. | Static Scanners, Linear RAM Dumpers |

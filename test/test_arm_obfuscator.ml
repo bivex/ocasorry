@@ -42,7 +42,9 @@ let () =
   Suite_self_checksum.run ();
   Suite_timing_check.run ();
   Suite_hook_detect.run ();
+  Suite_api_hash.run ();
+  Suite_early_constructor.run ();
 
   Printf.printf "\n=================================================================\n";
-  Printf.printf "       ALL 39 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
+  Printf.printf "       ALL 41 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
   Printf.printf "=================================================================\n%!"

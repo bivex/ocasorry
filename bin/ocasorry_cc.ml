@@ -48,6 +48,8 @@ let () =
   let enable_self_checksum = ref false in
   let enable_timing_check = ref false in
   let enable_hook_detect = ref false in
+  let enable_api_hash = ref false in
+  let enable_early_constructor = ref false in
   let enable_lut = ref false in
   let enable_interleave = ref false in
   let enable_permute_struct = ref false in
@@ -103,6 +105,8 @@ let () =
       | "--ocasorry-self-checksum" -> enable_self_checksum := true
       | "--ocasorry-timing-check" -> enable_timing_check := true
       | "--ocasorry-hook-detect" -> enable_hook_detect := true
+      | "--ocasorry-api-hash" -> enable_api_hash := true
+      | "--ocasorry-constructor" -> enable_early_constructor := true
       | _ -> (
           if Filename.check_suffix arg ".c" && not !disable_all && Sys.file_exists arg then (
             let tmp_c = Filename.temp_file "ocasorry_obf_" ".c" in
@@ -136,6 +140,8 @@ let () =
               enable_c_self_checksum = !enable_self_checksum;
               enable_c_timing_check = !enable_timing_check;
               enable_c_hook_detect = !enable_hook_detect;
+              enable_c_api_hash = !enable_api_hash;
+              enable_c_early_constructor = !enable_early_constructor;
               enable_c_lut = !enable_lut;
               enable_c_array_interleave = !enable_interleave;
               enable_c_struct_permute = !enable_permute_struct;

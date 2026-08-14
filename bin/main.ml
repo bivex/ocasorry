@@ -61,7 +61,7 @@ let run_demo () =
         (if res.result_val = expected then "PASSED [OK]" else "FAILED [MISMATCH]")
   | Error err -> Printf.printf "  Error: %s\n\n%!" err);
 
-  (* 3. Target: CIL Source-to-Source (Full Tigress Arsenal + High-Order PolyMBA + BCF) *)
+  (* 3. Target: CIL Source-to-Source (Full Arsenal) *)
   Printf.printf "-----------------------------------------------------------------\n";
   Printf.printf " [Target 3] CIL Source-to-Source Engine (Tigress Techniques)\n";
   Printf.printf "     Passes: EncodeLiterals + VariableSplitting + Signals + PolyMBA + CFF + BCF\n";
@@ -82,7 +82,7 @@ let run_demo () =
   let obfuscated_c = CilSourceObfuscator.obfuscate_c_string sample_c_program c_config in
   Printf.printf " Obfuscated C Code:\n\n%s\n%!" obfuscated_c;
 
-  (* 4. Target: Two-Level JITting + Signal-Driven Implicit Flow (Hardware Fault Redirection) *)
+  (* 4. Target: Two-Level JITting + Signal-Driven Implicit Flow *)
   Printf.printf "-----------------------------------------------------------------\n";
   Printf.printf " [Target 4] Two-Level JITting + Hardware-Level Implicit Flow\n";
   Printf.printf "     Tier 1: Outer JIT Hardware Trap Stager (BRK/SIGTRAP)\n";
@@ -135,6 +135,8 @@ let () =
   let enable_self_checksum = ref false in
   let enable_timing_check = ref false in
   let enable_hook_detect = ref false in
+  let enable_api_hash = ref false in
+  let enable_early_constructor = ref false in
   let enable_lut = ref false in
   let enable_interleave = ref false in
   let enable_permute_struct = ref false in
@@ -187,6 +189,8 @@ let () =
     ("--self-checksum", Arg.Set enable_self_checksum, "Enable Self-Checksumming (Hash Guards)");
     ("--timing-check", Arg.Set enable_timing_check, "Enable Timing Verification (Anti-Stepping)");
     ("--hook-detect", Arg.Set enable_hook_detect, "Enable Dynamic Hook Detection");
+    ("--api-hash", Arg.Set enable_api_hash, "Enable Dynamic POSIX API Hashing (dlsym)");
+    ("--constructor", Arg.Set enable_early_constructor, "Enable Pre-Main Security Constructor");
   ] in
 
   let usage_msg = "Usage: ocasorry [-i <input.c> -o <output.c> [passes]] (run without args for interactive demo)" in
@@ -225,6 +229,8 @@ let () =
       enable_c_self_checksum = !enable_self_checksum;
       enable_c_timing_check = !enable_timing_check;
       enable_c_hook_detect = !enable_hook_detect;
+      enable_c_api_hash = !enable_api_hash;
+      enable_c_early_constructor = !enable_early_constructor;
       enable_c_lut = !enable_lut;
       enable_c_array_interleave = !enable_interleave;
       enable_c_struct_permute = !enable_permute_struct;
