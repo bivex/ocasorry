@@ -3,8 +3,27 @@ open GoblintCil.Cil
 (** Domain Service: Granular Function Annotation Inspector
     Parses and verifies GCC/Clang __attribute__((annotate("..."))) directives
     on functions to enable fine-grained, per-function obfuscation & VM routing.
+    Supports comma-separated and semicolon-separated multi-pass declarations:
+    e.g., __attribute__((annotate("ocasorry:cff, poly_mba, relational_morph, anti_debug")))
 *)
 module AnnotationHelper = struct
+  let clean_token (raw : string) : string =
+    let s = String.trim (String.lowercase_ascii raw) in
+    if String.starts_with ~prefix:"ocasorry:" s then
+      String.sub s 9 (String.length s - 9)
+    else if String.starts_with ~prefix:"ocasorry_" s then
+      String.sub s 9 (String.length s - 9)
+    else s
+
+  let split_tokens (raw_str : string) : string list =
+    let raw_list = String.split_on_char ',' raw_str in
+    List.concat_map
+      (fun item ->
+        let sub_list = String.split_on_char ';' item in
+        List.map clean_token sub_list)
+      raw_list
+    |> List.filter (fun s -> s <> "")
+
   let get_annotations (fd : fundec) : string list =
     let type_attrs =
       match fd.svar.vtype with
@@ -19,24 +38,26 @@ module AnnotationHelper = struct
         | _ -> None)
       all_attrs
 
+  let get_tokens (fd : fundec) : string list =
+    let raw_annotations = get_annotations fd in
+    List.concat_map split_tokens raw_annotations
+
   let has_annotation (fd : fundec) (target : string) : bool =
-    let target_lower = String.lowercase_ascii target in
-    List.exists
-      (fun a ->
-        let a_lower = String.lowercase_ascii a in
-        a_lower = target_lower
-        || a_lower = "ocasorry:" ^ target_lower
-        || a_lower = "ocasorry_" ^ target_lower)
-      (get_annotations fd)
+    let target_clean = clean_token target in
+    List.mem target_clean (get_tokens fd)
 
   let has_any_vm_annotation (fd : fundec) : bool =
-    List.exists (fun tag -> has_annotation fd tag)
-      [ "virtualize"; "visa"; "vector_vm";
-        "nested_vm"; "nested";
-        "rolling_vkey"; "rolling_key";
-        "self_mod_vm"; "self_modifying";
-        "ephemeral"; "ephemeral_jit";
-        "jitify"; "jit" ]
+    let tokens = get_tokens fd in
+    List.exists
+      (fun t ->
+        List.mem t
+          [ "virtualize"; "visa"; "vector_vm";
+            "nested_vm"; "nested";
+            "rolling_vkey"; "rolling_key";
+            "self_mod_vm"; "self_modifying";
+            "ephemeral"; "ephemeral_jit";
+            "jitify"; "jit" ])
+      tokens
 
   let should_skip_all (fd : fundec) : bool =
     has_annotation fd "no_obf"

@@ -7,22 +7,26 @@ let run () =
   let c_code = {|
 extern int printf(const char *format, ...);
 
-__attribute__((annotate("ocasorry:visa")))
+/* Comma-separated multi-attribute annotation */
+__attribute__((annotate("ocasorry:visa, anti_debug, timing_check")))
 int target_visa(int a, int b) {
     return (a + b) * 3 ^ 0x5A;
 }
 
-__attribute__((annotate("ocasorry:nested_vm")))
+/* Semicolon & space separated list */
+__attribute__((annotate("ocasorry:nested_vm; poly_mba")))
 int target_nested(int x) {
     return x + 21;
 }
 
-__attribute__((annotate("ocasorry:rolling_vkey")))
+/* Multi-pass comma-separated list */
+__attribute__((annotate("rolling_vkey, relational_morph")))
 int target_rolling(int x) {
     return ((x + 0x5A) ^ 0xA5) * 2;
 }
 
-__attribute__((annotate("ocasorry:no_obf")))
+/* Unobfuscated clean skip */
+__attribute__((annotate("ocasorry:no_obf, skip")))
 int target_clean_skipped(int x) {
     return x + 1000;
 }
