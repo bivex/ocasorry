@@ -15,7 +15,7 @@ module CilBytecodeJIT = Jit_runner_usecase.Make
     (Cil_encoder_adapter.Adapter)
     (Cil_vm_adapter.Adapter)
 
-(* Composition Root 3: George Necula's CIL (C Intermediate Language) Source-to-Source Engine *)
+(* Composition Root 3: George Necula's CIL Source-to-Source Engine *)
 module CilSourceObfuscator = Obfuscate_c_source_usecase.Make
     (System_entropy_adapter.Adapter)
     (Goblint_cil_adapter.Adapter)
@@ -52,7 +52,14 @@ let print_hex_dump (b : bytes) =
   flush stdout
 
 let sample_c_program = {|
+extern int printf(const char *format, ...);
+
 int compute(int x, int y) {
+    if (x > y) {
+        printf("Branch A: x is greater!\n");
+    } else {
+        printf("Branch B: y is greater or equal!\n");
+    }
     int sum = x + y;
     int res = sum ^ 0x5A5A;
     return res;
@@ -61,7 +68,7 @@ int compute(int x, int y) {
 
 let () =
   Printf.printf "=================================================================\n";
-  Printf.printf "  OcaSorry: Multi-Target Obfuscator (ARM64 JIT + CIL Source AST) \n";
+  Printf.printf "  OcaSorry: Advanced Tigress-Level Multi-Target Obfuscator        \n";
   Printf.printf "=================================================================\n\n";
   flush stdout;
 
@@ -108,21 +115,24 @@ let () =
       Printf.printf "  Error: %s\n\n" err;
       flush stdout);
 
-  (* 3. Target: CIL (C Intermediate Language by George Necula) Source-to-Source Obfuscation *)
+  (* 3. Target: CIL Source-to-Source (Tigress Techniques: EncodeLiterals + ImplicitFlow + MBA + CFF) *)
   Printf.printf "-----------------------------------------------------------------\n";
-  Printf.printf " [Target 3] CIL (C Intermediate Language) Source-to-Source Engine\n";
+  Printf.printf " [Target 3] CIL Source-to-Source Engine (Tigress Techniques)\n";
+  Printf.printf "     Passes: EncodeLiterals + ImplicitFlow(Signals) + MBA + CFF\n";
   Printf.printf "-----------------------------------------------------------------\n";
   Printf.printf " Original C Code:\n%s\n" sample_c_program;
   let c_config : Obfuscate_c_source_usecase.c_pipeline_config = {
     enable_c_mba = true;
     enable_c_opaque = true;
     enable_c_flattening = true;
+    enable_c_encode_literals = true;
+    enable_c_implicit_flow = true;
   } in
   let obfuscated_c = CilSourceObfuscator.obfuscate_c_string sample_c_program c_config in
-  Printf.printf " Obfuscated C Code (via CIL AST Visitors: MBA + Opaque + CFF):\n\n%s\n" obfuscated_c;
+  Printf.printf " Obfuscated C Code:\n\n%s\n" obfuscated_c;
   flush stdout;
 
   Printf.printf "=================================================================\n";
-  Printf.printf "  Multi-Target Execution & CIL Transformation Complete!\n";
+  Printf.printf "  Multi-Target Execution & Advanced Obfuscation Complete!\n";
   Printf.printf "=================================================================\n";
   flush stdout
