@@ -1,6 +1,7 @@
 open Ocasorry_lib
 open Cli_helpers
 
+(* Composition Roots *)
 module ArmJIT = Jit_runner_usecase.Make
     (System_entropy_adapter.Adapter)
     (Aarch64_encoder_adapter.Adapter)
@@ -15,9 +16,13 @@ module CilSourceObfuscator = Obfuscate_c_source_usecase.Make
     (System_entropy_adapter.Adapter)
     (Goblint_cil_adapter.Adapter)
 
+module TwoTierJIT = Two_tier_jit_usecase.Make
+    (System_entropy_adapter.Adapter)
+    (Aarch64_encoder_adapter.Adapter)
+
 let () =
   Printf.printf "=================================================================\n";
-  Printf.printf "  OcaSorry: Advanced Multi-Target Obfuscator & Compiler Wrapper  \n";
+  Printf.printf "  OcaSorry: Multi-Target Obfuscator & Multi-Tier JIT Engine     \n";
   Printf.printf "=================================================================\n\n%!";
 
   let x = 100L in
@@ -73,6 +78,24 @@ let () =
   let obfuscated_c = CilSourceObfuscator.obfuscate_c_string sample_c_program c_config in
   Printf.printf " Obfuscated C Code:\n\n%s\n%!" obfuscated_c;
 
+  (* 4. Target: Two-Level JITting + Signal-Driven Implicit Flow (Hardware Fault Redirection) *)
+  Printf.printf "-----------------------------------------------------------------\n";
+  Printf.printf " [Target 4] Two-Level JITting + Hardware-Level Implicit Flow\n";
+  Printf.printf "     Tier 1: Outer JIT Hardware Trap Stager (BRK/SIGTRAP)\n";
+  Printf.printf "     Tier 2: Inner Encrypted Payload (Decrypted & Executed on Fault)\n";
+  Printf.printf "-----------------------------------------------------------------\n%!";
+  (match TwoTierJIT.execute_two_tier_fn2 (build_sample_cfg ()) x y full_obf_config with
+  | Ok res ->
+      Printf.printf "  [Tier 1 Binary Stager] Size: %d bytes\n" (Bytes.length res.tier1_bytes);
+      print_hex_dump res.tier1_bytes;
+      Printf.printf "  [Tier 2 Encrypted Payload] Key: 0x%02X, Size: %d bytes\n"
+        res.encryption_key (Bytes.length res.tier2_encrypted_bytes);
+      print_hex_dump res.tier2_encrypted_bytes;
+      Printf.printf "  Result: %Ld (0x%Lx) -> %s\n\n%!"
+        res.result_val res.result_val
+        (if res.result_val = expected then "PASSED [OK]" else "FAILED [MISMATCH]")
+  | Error err -> Printf.printf "  Error: %s\n\n%!" err);
+
   Printf.printf "=================================================================\n";
-  Printf.printf "  Multi-Target Execution & Advanced Obfuscation Complete!\n";
+  Printf.printf "  All 4 Multi-Target & Multi-Tier Execution Pipelines Complete!  \n";
   Printf.printf "=================================================================\n%!"

@@ -10,7 +10,8 @@ let () =
   Suite_implicit_flow.run ();
   Suite_variable_splitting.run ();
   Suite_compiler_wrapper.run ();
+  Suite_two_tier_jit.run ();
 
   Printf.printf "\n=================================================================\n";
-  Printf.printf "       ALL 7 MODULAR TEST SUITES PASSED SUCCESSFULLY!            \n";
+  Printf.printf "       ALL 8 MODULAR TEST SUITES PASSED SUCCESSFULLY!            \n";
   Printf.printf "=================================================================\n%!"
