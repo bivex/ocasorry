@@ -1,8 +1,8 @@
 open GoblintCil.Cil
 
 (** Domain Service: random_vISA Vector Architecture Virtualizer for CIL AST
-    Translates function logic into randomized 32-bit RISC-V Vector Instruction Bytecode (.vbc)
-    and replaces the function body with a high-performance embedded C11 VCPU Emulator.
+    Translates function logic into packed & encrypted 32-bit RISC-V Vector Instruction Bytecode (.vbc)
+    and replaces the function body with an embedded C11 VCPU Emulator (Fetch-Decode-Execute).
 *)
 module Make (Entropy : Entropy_port.S) = struct
   let vcpu_counter = ref 0
@@ -54,12 +54,23 @@ module Make (Entropy : Entropy_port.S) = struct
         ] else [
           encode_vector_inst ~funct6:0x00 ~vm:1 ~vs2:1 ~vs1_or_imm:0 ~funct3:0 ~vd:2; (* vadd.vv v2, v1, v0 *)
           encode_vector_inst ~funct6:0x25 ~vm:1 ~vs2:2 ~vs1_or_imm:3 ~funct3:0 ~vd:0; (* vmul.vv v0, v2, v3 *)
-          encode_vector_inst ~funct6:0x0B ~vm:1 ~vs2:0 ~vs1_or_imm:0x1A ~funct3:3 ~vd:0; (* vxor.vi v0, v0, 26 *)
+          encode_vector_inst ~funct6:0x0B ~vm:1 ~vs2:0x5A ~vs1_or_imm:0 ~funct3:3 ~vd:0; (* vxor.vi v0, v0, 0x5A *)
         ]
       in
 
+      (* Packing 32-bit Vector Instruction Words with XOR Key Mask *)
+      let pack_key = 0x5A5AA5A5l in
+      let packed_words =
+        List.mapi
+          (fun idx w ->
+            let delta = Int32.mul (Int32.of_int idx) 0x1000193l in
+            let key = Int32.logxor pack_key delta in
+            Int32.logxor w key)
+          vbc_words
+      in
+
       let uint_ty = uintType in
-      let array_type = TArray (uint_ty, Some (integer (List.length vbc_words)), []) in
+      let array_type = TArray (uint_ty, Some (integer (List.length packed_words)), []) in
       let vbc_var = makeGlobalVar vbc_name array_type in
       vbc_var.vstorage <- Static;
 
@@ -69,7 +80,7 @@ module Make (Entropy : Entropy_port.S) = struct
             let u64 = Int64.logand (Int64.of_int32 w) 0xFFFFFFFFL in
             let init_val = SingleInit (Const (CInt (Z.of_int64 u64, IUInt, None))) in
             (Index (integer idx, NoOffset), init_val))
-          vbc_words
+          packed_words
       in
       file.globals <- (GVar (vbc_var, { init = Some (CompoundInit (array_type, init_entries)) }, locUnknown)) :: file.globals;
 
@@ -82,6 +93,9 @@ module Make (Entropy : Entropy_port.S) = struct
       let parity_var = makeLocalVar fd "__vcpu_parity" intType in
       let i_var = makeLocalVar fd "__vcpu_i" intType in
       let ch_var = makeLocalVar fd "__vcpu_ch" intType in
+      let raw_inst = makeLocalVar fd "__vcpu_raw_inst" uintType in
+      let dec_inst = makeLocalVar fd "__vcpu_dec_inst" uintType in
+      let funct6_var = makeLocalVar fd "__vcpu_funct6" uintType in
 
       let init_pc = mkStmtOneInstr (Set (var pc_var, integer 0, locUnknown, locUnknown)) in
 
@@ -147,17 +161,53 @@ module Make (Entropy : Entropy_port.S) = struct
           else
             mkStmtOneInstr (Set (var vreg_v1, integer 20, locUnknown, locUnknown))
         in
-        let step0 =
-          mkStmtOneInstr (Set (var vreg_v2, BinOp (PlusA, Lval (var vreg_v0), Lval (var vreg_v1), intType), locUnknown, locUnknown))
+
+        (* VCPU Fetch & Decode Loop on packed vector words *)
+        let break_vcpu =
+          mkStmt (If (BinOp (Ge, Lval (var pc_var), integer (List.length packed_words), intType),
+                      mkBlock [ mkStmt (Break locUnknown) ],
+                      mkBlock [], locUnknown, locUnknown))
         in
-        let step1 =
-          mkStmtOneInstr (Set (var vreg_v0, BinOp (Mult, Lval (var vreg_v2), integer 3, intType), locUnknown, locUnknown))
+        let fetch_raw =
+          mkStmtOneInstr (Set (var raw_inst, Lval (Var vbc_var, Index (Lval (var pc_var), NoOffset)), locUnknown, locUnknown))
         in
-        let step2 =
-          mkStmtOneInstr (Set (var vreg_v0, BinOp (BXor, Lval (var vreg_v0), integer 0x5A, intType), locUnknown, locUnknown))
+        let decrypt_inst =
+          let key_delta = BinOp (Mult, CastE (uintType, Lval (var pc_var)), Const (CInt (Z.of_int64 0x1000193L, IUInt, None)), uintType) in
+          let key_val = BinOp (BXor, Const (CInt (Z.of_int64 0x5A5AA5A5L, IUInt, None)), key_delta, uintType) in
+          mkStmtOneInstr (Set (var dec_inst, BinOp (BXor, Lval (var raw_inst), key_val, uintType), locUnknown, locUnknown))
         in
+        let extract_funct6 =
+          mkStmtOneInstr (Set (var funct6_var,
+            BinOp (BAnd, BinOp (Shiftrt, Lval (var dec_inst), integer 26, uintType), integer 0x3F, uintType), locUnknown, locUnknown))
+        in
+        let inc_pc =
+          mkStmtOneInstr (Set (var pc_var, BinOp (PlusA, Lval (var pc_var), integer 1, intType), locUnknown, locUnknown))
+        in
+
+        (* funct6 == 0x00: vadd.vv v2 = v1 + v0 *)
+        let case_vadd =
+          mkStmt (If (BinOp (Eq, Lval (var funct6_var), integer 0x00, uintType),
+                      mkBlock [ mkStmtOneInstr (Set (var vreg_v2, BinOp (PlusA, Lval (var vreg_v1), Lval (var vreg_v0), intType), locUnknown, locUnknown)) ],
+                      mkBlock [], locUnknown, locUnknown))
+        in
+        (* funct6 == 0x25: vmul.vv v0 = v2 * 3 *)
+        let case_vmul =
+          mkStmt (If (BinOp (Eq, Lval (var funct6_var), integer 0x25, uintType),
+                      mkBlock [ mkStmtOneInstr (Set (var vreg_v0, BinOp (Mult, Lval (var vreg_v2), integer 3, intType), locUnknown, locUnknown)) ],
+                      mkBlock [], locUnknown, locUnknown))
+        in
+        (* funct6 == 0x0B: vxor.vi v0 = v0 ^ 0x5A *)
+        let case_vxor =
+          mkStmt (If (BinOp (Eq, Lval (var funct6_var), integer 0x0B, uintType),
+                      mkBlock [ mkStmtOneInstr (Set (var vreg_v0, BinOp (BXor, Lval (var vreg_v0), integer 0x5A, intType), locUnknown, locUnknown)) ],
+                      mkBlock [], locUnknown, locUnknown))
+        in
+
+        let vcpu_loop_body = mkBlock [ break_vcpu; fetch_raw; decrypt_inst; extract_funct6; case_vadd; case_vmul; case_vxor; inc_pc ] in
+        let vcpu_loop = mkStmt (Loop (vcpu_loop_body, locUnknown, locUnknown, None, None)) in
         let ret_stmt = mkStmt (Return (Some (Lval (var vreg_v0)), locUnknown, locUnknown)) in
-        fd.sbody <- mkBlock [ init_pc; init_v0; init_v1; step0; step1; step2; ret_stmt ]
+
+        fd.sbody <- mkBlock [ init_pc; init_v0; init_v1; vcpu_loop; ret_stmt ]
       )
     )
 

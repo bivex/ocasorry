@@ -32,8 +32,8 @@ int main(int argc, char **argv) {
 
   let obfuscated_c = CilSourceObfuscator.obfuscate_c_string c_code c_config in
 
-  assert_bool "Nested outer and inner bytecodes generated"
-    (try ignore (Str.search_forward (Str.regexp "__nested_outer_bc") obfuscated_c 0); true with _ -> false);
+  assert_bool "Packed nested outer and inner bytecodes generated"
+    (try ignore (Str.search_forward (Str.regexp "__packed_outer_bc") obfuscated_c 0); true with _ -> false);
 
   let src_file = Filename.temp_file "test_nested_obf_" ".c" in
   let bin_file = Filename.temp_file "test_nested_obf_" ".bin" in
@@ -48,7 +48,7 @@ int main(int argc, char **argv) {
   let test_cases = [ 10; 42; 0; 100 ] in
   List.iter
     (fun x ->
-      let expected = x + 21 in (* 3 outer steps * 7 *)
+      let expected = x + 21 in (* Inner bytecode adds 21 *)
       let run_cmd = Printf.sprintf "%s %d" (Filename.quote bin_file) x in
       let ic = Unix.open_process_in run_cmd in
       let out_line = input_line ic in
