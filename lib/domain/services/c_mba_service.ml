@@ -29,7 +29,7 @@ module Make (Entropy : Entropy_port.S) = struct
                 let xor_part = BinOp (BXor, e1, e2, ty) in
                 BinOp (MinusA, shift_part, xor_part, ty)
           in
-          ChangeDoChildrenPost (new_expr, fun x -> x)
+          ChangeTo new_expr
 
       | BinOp (MinusA, e1, e2, ty) ->
           let variant = Entropy.next_int ~max:2 in
@@ -50,14 +50,14 @@ module Make (Entropy : Entropy_port.S) = struct
                 let right_part = BinOp (BAnd, not_e1, e2, ty) in
                 BinOp (MinusA, left_part, right_part, ty)
           in
-          ChangeDoChildrenPost (new_expr, fun x -> x)
+          ChangeTo new_expr
 
       | BinOp (BXor, e1, e2, ty) ->
           (* e1 ^ e2 = (e1 | e2) - (e1 & e2) *)
           let or_part = BinOp (BOr, e1, e2, ty) in
           let and_part = BinOp (BAnd, e1, e2, ty) in
           let new_expr = BinOp (MinusA, or_part, and_part, ty) in
-          ChangeDoChildrenPost (new_expr, fun x -> x)
+          ChangeTo new_expr
 
       | _ -> DoChildren
   end

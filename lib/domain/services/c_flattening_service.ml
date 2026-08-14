@@ -7,11 +7,19 @@ module Make (Entropy : Entropy_port.S) = struct
     | Return _ -> true
     | _ -> false
 
+  let rec unwrap_blocks (stmts : stmt list) : stmt list =
+    List.concat_map
+      (fun (s : stmt) ->
+        match s.skind with
+        | Block b when s.labels = [] -> unwrap_blocks b.bstmts
+        | _ -> [ s ])
+      stmts
+
   class flattening_visitor = object
     inherit nopCilVisitor
 
     method! vfunc (fd : fundec) : fundec visitAction =
-      let orig_stmts = fd.sbody.bstmts in
+      let orig_stmts = unwrap_blocks fd.sbody.bstmts in
       if List.length orig_stmts >= 2 then (
         (* Create local state variable: int __cff_state; *)
         let state_var = makeLocalVar fd "__cff_state" intType in
