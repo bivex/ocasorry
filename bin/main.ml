@@ -137,6 +137,7 @@ let () =
   let enable_hook_detect = ref false in
   let enable_api_hash = ref false in
   let enable_early_constructor = ref false in
+  let enable_rolling_vkey = ref false in
   let enable_lut = ref false in
   let enable_interleave = ref false in
   let enable_permute_struct = ref false in
@@ -169,6 +170,7 @@ let () =
     ("--virtualize", Arg.Set enable_virtualize, "Enable random_vISA VCPU Bytecode Virtualization");
     ("--nested-vm", Arg.Set enable_nested_vm, "Enable Nested Multi-Layer VM");
     ("--self-mod-vm", Arg.Set enable_self_mod_vm, "Enable Self-Modifying Bytecode VM");
+    ("--rolling-vkey", Arg.Set enable_rolling_vkey, "Enable Stateful Rolling Bytecode Key Chain");
     ("--jitify", Arg.Set enable_jitify, "Enable JIT Bytecode Machine Code Compilation");
     ("--literals", Arg.Set enable_literals, "Enable String Literal Encryption");
     ("--split", Arg.Set enable_split, "Enable Variable Splitting (EncodeData)");
@@ -231,6 +233,7 @@ let () =
       enable_c_hook_detect = !enable_hook_detect;
       enable_c_api_hash = !enable_api_hash;
       enable_c_early_constructor = !enable_early_constructor;
+      enable_c_rolling_vkey = !enable_rolling_vkey;
       enable_c_lut = !enable_lut;
       enable_c_array_interleave = !enable_interleave;
       enable_c_struct_permute = !enable_permute_struct;

@@ -29,6 +29,7 @@ type c_pipeline_config = {
   enable_c_hook_detect : bool;
   enable_c_api_hash : bool;
   enable_c_early_constructor : bool;
+  enable_c_rolling_vkey : bool;
   enable_c_lut : bool;
   enable_c_array_interleave : bool;
   enable_c_struct_permute : bool;
@@ -71,6 +72,7 @@ let default_c_config = {
   enable_c_hook_detect = false;
   enable_c_api_hash = false;
   enable_c_early_constructor = false;
+  enable_c_rolling_vkey = false;
   enable_c_lut = false;
   enable_c_array_interleave = false;
   enable_c_struct_permute = false;
@@ -113,6 +115,7 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
   module HookDetect = C_hook_detect_service.Make (Entropy)
   module ApiHash = C_api_hash_resolver_service.Make (Entropy)
   module EarlyConstructor = C_early_constructor_service.Make (Entropy)
+  module RollingVKey = C_rolling_vkey_service.Make (Entropy)
   module LUT = C_lut_arithmetic_service.Make (Entropy)
   module ArrayInterleave = C_array_interleave_service.Make (Entropy)
   module StructPermute = C_struct_permute_service.Make (Entropy)
@@ -152,6 +155,7 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
     let f = if config.enable_c_virtualize then Virtualize.transform_file f else f in
     let f = if config.enable_c_nested_vm then NestedVM.transform_file f else f in
     let f = if config.enable_c_self_mod_vm then SelfModVM.transform_file f else f in
+    let f = if config.enable_c_rolling_vkey then RollingVKey.transform_file f else f in
     let f = if config.enable_c_jitify then Jitify.transform_file f else f in
     let f = if config.enable_c_anti_debug then AntiDebug.transform_file f else f in
     let f = if config.enable_c_anti_disasm then AntiDisasm.transform_file f else f in
