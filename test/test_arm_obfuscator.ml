@@ -28,7 +28,11 @@ let () =
   Suite_nested_vm.run ();
   Suite_self_mod_vm.run ();
   Suite_jitify.run ();
+  Suite_sigfpe.run ();
+  Suite_sigill.run ();
+  Suite_threaded_flow.run ();
+  Suite_syscall_flow.run ();
 
   Printf.printf "\n=================================================================\n";
-  Printf.printf "       ALL 25 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
+  Printf.printf "       ALL 29 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
   Printf.printf "=================================================================\n%!"

@@ -58,10 +58,10 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 | :---: | :--- | :--- | :--- |
 | `[x]` | **Signal-Driven Implicit Flow (`SIGSEGV`)** | Converts conditional jumps into `NULL` pointer writes intercepted by `sigsetjmp` / `siglongjmp`. | Symbolic Execution (angr, KLEE) |
 | `[x]` | **Hardware CPU Register Redirection** | Modifies `ucontext_t->__ss.__pc` in signal handler to jump directly to decrypted JIT pages without branch instructions. | Native Debuggers & Disassemblers |
-| `[ ]` | **Arithmetic Exception Flow (`SIGFPE`)** | Routes branches through division-by-zero traps (`1 / (cond ? 0 : 1)`). | Static Control Flow Analyzers |
-| `[ ]` | **Illegal Opcode Flow (`SIGILL`)** | Replaces jumps with `__builtin_trap()` / invalid machine opcodes caught by signal handlers. | Decompiler Call-Graph Builders |
-| `[ ]` | **Multi-Threaded Race Implicit Flow** | Transmits branch decisions across thread boundaries using `pthread_mutex_t` and `pthread_cond_wait`. | Concurrency Trackers |
-| `[ ]` | **Syscall Error Return Flow** | Communicates boolean state via error return codes of intentionally failing system calls. | Kernel Trace Analyzers |
+| `[x]` | **Arithmetic Exception Flow (`SIGFPE`)** | Routes branches through division-by-zero / arithmetic traps intercepted by `sigsetjmp` / `siglongjmp`. | Static Control Flow Analyzers |
+| `[x]` | **Illegal Opcode Flow (`SIGILL`)** | Replaces jumps with `__builtin_trap()` / invalid machine opcodes caught by signal handlers. | Decompiler Call-Graph Builders |
+| `[x]` | **Multi-Threaded Race Implicit Flow** | Transmits branch decisions across thread boundaries using `pthread_mutex_t` and `pthread_cond_wait`. | Concurrency Trackers |
+| `[x]` | **Syscall Error Return Flow** | Communicates boolean state via error return codes of intentionally failing system calls. | Kernel Trace Analyzers |
 
 ---
 

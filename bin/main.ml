@@ -119,6 +119,10 @@ let () =
   let enable_literals = ref true in
   let enable_split = ref true in
   let enable_implicit = ref false in
+  let enable_sigfpe = ref false in
+  let enable_sigill = ref false in
+  let enable_threaded = ref false in
+  let enable_syscall = ref false in
   let enable_merge = ref false in
   let enable_outline = ref false in
   let enable_lut = ref false in
@@ -156,7 +160,11 @@ let () =
     ("--jitify", Arg.Set enable_jitify, "Enable JIT Bytecode Machine Code Compilation");
     ("--literals", Arg.Set enable_literals, "Enable String Literal Encryption");
     ("--split", Arg.Set enable_split, "Enable Variable Splitting (EncodeData)");
-    ("--implicit", Arg.Set enable_implicit, "Enable Signal-Driven Implicit Flow");
+    ("--implicit", Arg.Set enable_implicit, "Enable Signal-Driven Implicit Flow (SIGSEGV)");
+    ("--sigfpe", Arg.Set enable_sigfpe, "Enable Arithmetic Exception Flow (SIGFPE)");
+    ("--sigill", Arg.Set enable_sigill, "Enable Illegal Opcode Flow (SIGILL)");
+    ("--threaded-flow", Arg.Set enable_threaded, "Enable Multi-Threaded Race Implicit Flow");
+    ("--syscall-flow", Arg.Set enable_syscall, "Enable Syscall Error Return Flow");
     ("--merge", Arg.Set enable_merge, "Enable Function Merging");
     ("--outline", Arg.Set enable_outline, "Enable Function Outlining");
   ] in
@@ -180,6 +188,10 @@ let () =
       enable_c_flattening = !enable_cff;
       enable_c_encode_literals = !enable_literals;
       enable_c_implicit_flow = !enable_implicit;
+      enable_c_sigfpe_flow = !enable_sigfpe;
+      enable_c_sigill_flow = !enable_sigill;
+      enable_c_threaded_flow = !enable_threaded;
+      enable_c_syscall_flow = !enable_syscall;
       enable_c_encode_data = !enable_split;
       enable_c_merge = !enable_merge;
       enable_c_outline = !enable_outline;

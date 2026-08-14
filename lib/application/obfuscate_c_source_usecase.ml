@@ -10,6 +10,10 @@ type c_pipeline_config = {
   enable_c_flattening : bool;
   enable_c_encode_literals : bool;
   enable_c_implicit_flow : bool;
+  enable_c_sigfpe_flow : bool;
+  enable_c_sigill_flow : bool;
+  enable_c_threaded_flow : bool;
+  enable_c_syscall_flow : bool;
   enable_c_encode_data : bool;
   enable_c_merge : bool;
   enable_c_outline : bool;
@@ -36,6 +40,10 @@ let default_c_config = {
   enable_c_flattening = true;
   enable_c_encode_literals = true;
   enable_c_implicit_flow = false;
+  enable_c_sigfpe_flow = false;
+  enable_c_sigill_flow = false;
+  enable_c_threaded_flow = false;
+  enable_c_syscall_flow = false;
   enable_c_encode_data = true;
   enable_c_merge = false;
   enable_c_outline = false;
@@ -62,6 +70,10 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
   module Flattening = C_flattening_service.Make (Entropy)
   module EncodeLiterals = C_encode_literals_service.Make (Entropy)
   module ImplicitFlow = C_implicit_flow_service.Make (Entropy)
+  module SigFPEFlow = C_sigfpe_flow_service.Make (Entropy)
+  module SigILLFlow = C_sigill_flow_service.Make (Entropy)
+  module ThreadedFlow = C_threaded_implicit_flow_service.Make (Entropy)
+  module SyscallFlow = C_syscall_error_flow_service.Make (Entropy)
   module EncodeData = C_encode_data_service.Make (Entropy)
   module Merge = C_merge_functions_service.Make (Entropy)
   module Outline = C_outline_service.Make (Entropy)
@@ -93,6 +105,10 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
     let f = if config.enable_c_dynamic_opaque then DynOpaque.transform_file f else f in
     let f = if config.enable_c_bogus_cf then BogusCF.transform_file f else f in
     let f = if config.enable_c_implicit_flow then ImplicitFlow.transform_file f else f in
+    let f = if config.enable_c_sigfpe_flow then SigFPEFlow.transform_file f else f in
+    let f = if config.enable_c_sigill_flow then SigILLFlow.transform_file f else f in
+    let f = if config.enable_c_threaded_flow then ThreadedFlow.transform_file f else f in
+    let f = if config.enable_c_syscall_flow then SyscallFlow.transform_file f else f in
     let f = if config.enable_c_indirect_jump then IndirectJump.transform_file f else f in
     let f = if config.enable_c_virtualize then Virtualize.transform_file f else f in
     let f = if config.enable_c_nested_vm then NestedVM.transform_file f else f in
