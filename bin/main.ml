@@ -116,6 +116,7 @@ let () =
   let enable_bcf = ref false in
   let enable_unroll = ref false in
   let enable_fission = ref false in
+  let enable_loop_to_rec = ref false in
   let enable_indirect = ref false in
   let enable_literals = ref true in
   let enable_split = ref true in
@@ -142,6 +143,7 @@ let () =
   let enable_vcpu_scramble = ref false in
   let enable_ephemeral_payload = ref false in
   let enable_instruction_subst = ref false in
+  let enable_instruction_permute = ref false in
   let enable_ghost_code = ref false in
   let enable_live_range_split = ref false in
   let enable_constant_unfold = ref false in
@@ -170,6 +172,7 @@ let () =
     ("--bcf", Arg.Set enable_bcf, "Enable Bogus Control Flow (Code Cloning & Mutation)");
     ("--unroll", Arg.Set enable_unroll, "Enable Loop Unrolling & Jittering");
     ("--fission", Arg.Set enable_fission, "Enable Loop Fission / Segmentation");
+    ("--loop-to-rec", Arg.Set enable_loop_to_rec, "Enable Loop to Tail-Recursion Morphing");
     ("--indirect", Arg.Set enable_indirect, "Enable Indirect Jump Tables (Computed Dispatch)");
     ("--lut", Arg.Set enable_lut, "Enable Lookup Table Arithmetic (LUT)");
     ("--interleave", Arg.Set enable_interleave, "Enable Array Folding & Interleaving");
@@ -183,6 +186,7 @@ let () =
     ("--vcpu-scramble", Arg.Set enable_vcpu_scramble, "Enable Polymorphic VCPU Context & Struct Scrambling");
     ("--ephemeral", Arg.Set enable_ephemeral_payload, "Enable In-Memory Ephemeral Payload Unpacking");
     ("--subst", Arg.Set enable_instruction_subst, "Enable Instruction Substitution");
+    ("--permute-instr", Arg.Set enable_instruction_permute, "Enable Instruction Permutation (Def-Use)");
     ("--ghost", Arg.Set enable_ghost_code, "Enable Dead/Ghost Code Injection (Null-Ring)");
     ("--live-range", Arg.Set enable_live_range_split, "Enable Live Range Splitting");
     ("--unfold-const", Arg.Set enable_constant_unfold, "Enable Constant Unfolding");
@@ -227,6 +231,7 @@ let () =
       enable_c_bogus_cf = !enable_bcf;
       enable_c_loop_unroll = !enable_unroll;
       enable_c_loop_fission = !enable_fission;
+      enable_c_loop_to_recursion = !enable_loop_to_rec;
       enable_c_indirect_jump = !enable_indirect;
       enable_c_flattening = !enable_cff;
       enable_c_encode_literals = !enable_literals;
@@ -254,6 +259,7 @@ let () =
       enable_c_vcpu_scramble = !enable_vcpu_scramble;
       enable_c_ephemeral_payload = !enable_ephemeral_payload;
       enable_c_instruction_subst = !enable_instruction_subst;
+      enable_c_instruction_permute = !enable_instruction_permute;
       enable_c_ghost_code = !enable_ghost_code;
       enable_c_live_range_split = !enable_live_range_split;
       enable_c_constant_unfold = !enable_constant_unfold;

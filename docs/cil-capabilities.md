@@ -6,7 +6,7 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 
 ## 📊 Feature Status Matrix
 
-- `[x]` = **100% Implemented & Verified in OcaSorry (50 Test Suites)**
+- `[x]` = **100% Implemented & Verified in OcaSorry (52 Test Suites)**
 
 ---
 
@@ -118,6 +118,8 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 | :---: | :--- | :--- | :--- |
 | `[x]` | **Stochastic Instruction Substitution** | Replaces operations with randomized selections from orthogonal algebraic classes with Opcode Normalization. | AST Pattern Matchers, Decompilers |
 | `[x]` | **Ghost Code (Opcode Blending & Null-Ring)** | Injects diverse reversible instruction sequences with zero net delta ($\sum \Delta \equiv 0$) and balanced instruction profiles. | ML Classifiers & Taint Analyzers |
+| `[x]` | **Instruction Permutation (Def-Use Scheduling)** | Reorders independent instructions and assignments within basic blocks based on disjoint Def-Use sets. | Static Slicing & Signatures |
 | `[x]` | **Live Range Splitting** | Slices variable lifespans into multiple disjoint phased variables with handover operations. | Variable Recovery Engines |
+| `[x]` | **Algorithmic Morphing (Loop $\to$ Tail-Recursion)** | Replaces iterative loop constructs with auxiliary tail-recursive call trees, destroying natural loop headers and back-edges. | Loop Vectorizers & CFG Analyzers |
 | `[x]` | **Constant Unfolding** | Expands scalar constants through XOR algebraic unfoldings ($C \to (C \oplus K) \oplus K$). | Constant Propagation Optimizers |
 | `[x]` | **Stack Memory Aliasing (S-Box)** | Maps local variables into a unified stack buffer indexed via S-Box permutations. | Stack Frame Recovery |

@@ -7,6 +7,7 @@ type c_pipeline_config = {
   enable_c_bogus_cf : bool;
   enable_c_loop_unroll : bool;
   enable_c_loop_fission : bool;
+  enable_c_loop_to_recursion : bool;
   enable_c_indirect_jump : bool;
   enable_c_flattening : bool;
   enable_c_encode_literals : bool;
@@ -34,6 +35,7 @@ type c_pipeline_config = {
   enable_c_vcpu_scramble : bool;
   enable_c_ephemeral_payload : bool;
   enable_c_instruction_subst : bool;
+  enable_c_instruction_permute : bool;
   enable_c_ghost_code : bool;
   enable_c_live_range_split : bool;
   enable_c_constant_unfold : bool;
@@ -58,6 +60,7 @@ let default_c_config = {
   enable_c_bogus_cf = false;
   enable_c_loop_unroll = false;
   enable_c_loop_fission = false;
+  enable_c_loop_to_recursion = false;
   enable_c_indirect_jump = false;
   enable_c_flattening = true;
   enable_c_encode_literals = true;
@@ -85,6 +88,7 @@ let default_c_config = {
   enable_c_vcpu_scramble = false;
   enable_c_ephemeral_payload = false;
   enable_c_instruction_subst = false;
+  enable_c_instruction_permute = false;
   enable_c_ghost_code = false;
   enable_c_live_range_split = false;
   enable_c_constant_unfold = false;
@@ -109,6 +113,7 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
   module BogusCF = C_bogus_control_flow_service.Make (Entropy)
   module LoopUnroll = C_loop_unroll_service.Make (Entropy)
   module LoopFission = C_loop_fission_service.Make (Entropy)
+  module LoopToRecursion = C_loop_to_recursion_service.Make (Entropy)
   module IndirectJump = C_indirect_jump_service.Make (Entropy)
   module Flattening = C_flattening_service.Make (Entropy)
   module EncodeLiterals = C_encode_literals_service.Make (Entropy)
@@ -136,6 +141,7 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
   module VcpuScramble = C_vcpu_context_scramble_service.Make (Entropy)
   module EphemeralPayload = C_ephemeral_payload_service.Make (Entropy)
   module InstrSubst = C_instruction_subst_service.Make (Entropy)
+  module InstrPermute = C_instruction_permute_service.Make (Entropy)
   module GhostCode = C_ghost_code_service.Make (Entropy)
   module LiveRangeSplit = C_live_range_split_service.Make (Entropy)
   module ConstUnfold = C_constant_unfold_service.Make (Entropy)
@@ -158,12 +164,14 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
     let f = if config.enable_c_bogus_calls then BogusCalls.transform_file f else f in
     let f = if config.enable_c_loop_unroll then LoopUnroll.transform_file f else f in
     let f = if config.enable_c_loop_fission then LoopFission.transform_file f else f in
+    let f = if config.enable_c_loop_to_recursion then LoopToRecursion.transform_file f else f in
     let f = if config.enable_c_array_interleave then ArrayInterleave.transform_file f else f in
     let f = if config.enable_c_pointer_mask then PointerMask.transform_file f else f in
     let f = if config.enable_c_encode_literals then EncodeLiterals.transform_file f else f in
     let f = if config.enable_c_encode_data then EncodeData.transform_file f else f in
     let f = if config.enable_c_homomorphic then Homomorphic.transform_file f else f in
     let f = if config.enable_c_instruction_subst then InstrSubst.transform_file f else f in
+    let f = if config.enable_c_instruction_permute then InstrPermute.transform_file f else f in
     let f = if config.enable_c_constant_unfold then ConstUnfold.transform_file f else f in
     let f = if config.enable_c_polynomial_mba then PolyMBA.transform_file f else f in
     let f = if config.enable_c_lut then LUT.transform_file f else f in

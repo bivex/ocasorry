@@ -53,7 +53,9 @@ let () =
   Suite_constant_unfold.run ();
   Suite_stack_aliasing.run ();
   Suite_diophantine.run ();
+  Suite_loop_to_recursion.run ();
+  Suite_instruction_permute.run ();
 
   Printf.printf "\n=================================================================\n";
-  Printf.printf "       ALL 50 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
+  Printf.printf "       ALL 52 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
   Printf.printf "=================================================================\n%!"
