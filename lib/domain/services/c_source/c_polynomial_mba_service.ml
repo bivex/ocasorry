@@ -2,8 +2,9 @@ open GoblintCil.Cil
 
 (** Domain Service: High-Order Polynomial MBA & Affine Invertible Transformations over Z_{2^n}
     Generates non-linear polynomial expressions and invertible affine layers:
-      y = a^(-1) * ((a * E + b) - b) mod 2^32
-    causing combinatorial explosion in symbolic execution solvers (Z3 / angr / Triton).
+      T = (a * E + b) mod 2^32
+      E' = (a^(-1) * T) - (a^(-1) * b) mod 2^32
+    using unsigned integer arithmetic for well-defined modular wrapping without precedence ambiguities.
 *)
 module Make (Entropy : Entropy_port.S) = struct
   let mod_inv_32 (a : int32) : int32 =
@@ -18,25 +19,30 @@ module Make (Entropy : Entropy_port.S) = struct
     iter 1l 5
 
   (** Wrap an expression E in an Invertible Affine Layer:
-      E' = a_inv * ((a * E + b) - b)
+      E' = (ty)( ((unsigned)(a_inv) * (unsigned)(a * E + b)) - (unsigned)(a_inv * b) )
   *)
   let wrap_affine (e : exp) (ty : typ) : exp =
     let raw_a = Int32.of_int (1 + Entropy.next_int ~max:0x7FFF) in
     let a = Int32.logor raw_a 1l in (* ensure gcd(a, 2^32) = 1 *)
     let a_inv = mod_inv_32 a in
     let b = Int32.of_int (Entropy.next_int ~max:0x3FFFFFFF) in
+    let c = Int32.mul a_inv b in (* constant = a_inv * b mod 2^32 *)
 
-    let exp_a = integer (Int32.to_int a) in
-    let exp_a_inv = integer (Int32.to_int a_inv) in
-    let exp_b = integer (Int32.to_int b) in
+    let u_ty = uintType in
+    let exp_a = CastE (u_ty, integer (Int32.to_int a)) in
+    let exp_a_inv = CastE (u_ty, integer (Int32.to_int a_inv)) in
+    let exp_b = CastE (u_ty, integer (Int32.to_int b)) in
+    let exp_c = CastE (u_ty, integer (Int32.to_int c)) in
+    let e_cast = CastE (u_ty, e) in
 
-    (* Inner: (a * e) + b *)
-    let mul_part = BinOp (Mult, exp_a, e, ty) in
-    let affine_inner = BinOp (PlusA, mul_part, exp_b, ty) in
-    (* Sub: affine_inner - b *)
-    let sub_b = BinOp (MinusA, affine_inner, exp_b, ty) in
-    (* Outer: a_inv * (affine_inner - b) *)
-    BinOp (Mult, exp_a_inv, sub_b, ty)
+    (* Forward: T = (a * e) + b *)
+    let mul_part = BinOp (Mult, exp_a, e_cast, u_ty) in
+    let affine_inner = BinOp (PlusA, mul_part, exp_b, u_ty) in
+
+    (* Inverse: (a_inv * T) - c *)
+    let scaled_t = BinOp (Mult, exp_a_inv, affine_inner, u_ty) in
+    let recovered = BinOp (MinusA, scaled_t, exp_c, u_ty) in
+    CastE (ty, recovered)
 
   (** Rewrite addition: x + y into 2nd/3rd order Polynomial MBA *)
   let rewrite_poly_add (e1 : exp) (e2 : exp) (ty : typ) : exp =
@@ -113,15 +119,15 @@ module Make (Entropy : Entropy_port.S) = struct
 
     method! vexpr (e : exp) : exp visitAction =
       match e with
-      | BinOp (PlusA, e1, e2, ty) ->
+      | BinOp (PlusA, e1, e2, ty) when isIntegralType ty ->
           let transformed = rewrite_poly_add e1 e2 ty in
           ChangeTo transformed
 
-      | BinOp (MinusA, e1, e2, ty) ->
+      | BinOp (MinusA, e1, e2, ty) when isIntegralType ty ->
           let transformed = rewrite_poly_sub e1 e2 ty in
           ChangeTo transformed
 
-      | BinOp (BXor, e1, e2, ty) ->
+      | BinOp (BXor, e1, e2, ty) when isIntegralType ty ->
           let transformed = rewrite_poly_xor e1 e2 ty in
           ChangeTo transformed
 

@@ -20,7 +20,7 @@ module TwoTierJIT = Two_tier_jit_usecase.Make
     (System_entropy_adapter.Adapter)
     (Aarch64_encoder_adapter.Adapter)
 
-let () =
+let run_demo () =
   Printf.printf "=================================================================\n";
   Printf.printf "  OcaSorry: Multi-Target Obfuscator & Multi-Tier JIT Engine     \n";
   Printf.printf "=================================================================\n\n%!";
@@ -102,3 +102,57 @@ let () =
   Printf.printf "=================================================================\n";
   Printf.printf "  All 4 Multi-Target & Multi-Tier Execution Pipelines Complete!  \n";
   Printf.printf "=================================================================\n%!"
+
+let () =
+  let in_file = ref "" in
+  let out_file = ref "" in
+  let enable_mba = ref false in
+  let enable_poly_mba = ref true in
+  let enable_cff = ref true in
+  let enable_opaque = ref true in
+  let enable_literals = ref true in
+  let enable_split = ref true in
+  let enable_implicit = ref false in
+  let enable_merge = ref false in
+  let enable_outline = ref false in
+
+  let speclist = [
+    ("-i", Arg.Set_string in_file, "Input C source file to obfuscate");
+    ("-o", Arg.Set_string out_file, "Output obfuscated C file path");
+    ("--mba", Arg.Set enable_mba, "Enable Linear Mixed Boolean-Arithmetic");
+    ("--poly-mba", Arg.Set enable_poly_mba, "Enable High-Order Polynomial MBA (Anti-Z3)");
+    ("--no-poly-mba", Arg.Clear enable_poly_mba, "Disable High-Order Polynomial MBA");
+    ("--cff", Arg.Set enable_cff, "Enable Control Flow Flattening");
+    ("--no-cff", Arg.Clear enable_cff, "Disable Control Flow Flattening");
+    ("--opaque", Arg.Set enable_opaque, "Enable Invariant Opaque Predicates");
+    ("--no-opaque", Arg.Clear enable_opaque, "Disable Invariant Opaque Predicates");
+    ("--literals", Arg.Set enable_literals, "Enable String Literal Encryption");
+    ("--no-literals", Arg.Clear enable_literals, "Disable String Literal Encryption");
+    ("--split", Arg.Set enable_split, "Enable Variable Splitting (EncodeData)");
+    ("--no-split", Arg.Clear enable_split, "Disable Variable Splitting");
+    ("--implicit", Arg.Set enable_implicit, "Enable Signal-Driven Implicit Flow");
+    ("--merge", Arg.Set enable_merge, "Enable Function Merging");
+    ("--outline", Arg.Set enable_outline, "Enable Function Outlining");
+  ] in
+
+  let usage_msg = "Usage: ocasorry [-i <input.c> -o <output.c> [passes]] (run without args for interactive demo)" in
+  Arg.parse speclist (fun _ -> ()) usage_msg;
+
+  if !in_file = "" then
+    run_demo ()
+  else
+    let target_out = if !out_file = "" then !in_file ^ ".obf.c" else !out_file in
+    let config : Obfuscate_c_source_usecase.c_pipeline_config = {
+      enable_c_mba = !enable_mba;
+      enable_c_polynomial_mba = !enable_poly_mba;
+      enable_c_opaque = !enable_opaque;
+      enable_c_flattening = !enable_cff;
+      enable_c_encode_literals = !enable_literals;
+      enable_c_implicit_flow = !enable_implicit;
+      enable_c_encode_data = !enable_split;
+      enable_c_merge = !enable_merge;
+      enable_c_outline = !enable_outline;
+    } in
+    Printf.printf "[*] Obfuscating: %s -> %s\n%!" !in_file target_out;
+    CilSourceObfuscator.obfuscate_c_file !in_file target_out config;
+    Printf.printf "[+] Done! Obfuscated C source generated successfully.\n%!"
