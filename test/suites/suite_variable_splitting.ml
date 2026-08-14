@@ -26,6 +26,7 @@ int main(int argc, char **argv) {
 
   let c_config : Obfuscate_c_source_usecase.c_pipeline_config = {
     enable_c_mba = false;
+    enable_c_polynomial_mba = false;
     enable_c_opaque = false;
     enable_c_flattening = false;
     enable_c_encode_literals = false;

@@ -11,7 +11,8 @@ let () =
   Suite_variable_splitting.run ();
   Suite_compiler_wrapper.run ();
   Suite_two_tier_jit.run ();
+  Suite_polynomial_mba.run ();
 
   Printf.printf "\n=================================================================\n";
-  Printf.printf "       ALL 8 MODULAR TEST SUITES PASSED SUCCESSFULLY!            \n";
+  Printf.printf "       ALL 9 MODULAR TEST SUITES PASSED SUCCESSFULLY!            \n";
   Printf.printf "=================================================================\n%!"

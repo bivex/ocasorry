@@ -1,5 +1,6 @@
 type c_pipeline_config = {
   enable_c_mba : bool;
+  enable_c_polynomial_mba : bool;
   enable_c_opaque : bool;
   enable_c_flattening : bool;
   enable_c_encode_literals : bool;
@@ -9,6 +10,7 @@ type c_pipeline_config = {
 
 let default_c_config = {
   enable_c_mba = true;
+  enable_c_polynomial_mba = false;
   enable_c_opaque = true;
   enable_c_flattening = true;
   enable_c_encode_literals = true;
@@ -18,6 +20,7 @@ let default_c_config = {
 
 module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
   module MBA = C_mba_service.Make (Entropy)
+  module PolyMBA = C_polynomial_mba_service.Make (Entropy)
   module Opaque = C_opaque_service.Make (Entropy)
   module Flattening = C_flattening_service.Make (Entropy)
   module EncodeLiterals = C_encode_literals_service.Make (Entropy)
@@ -27,6 +30,7 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
   let run_passes (cil_file : GoblintCil.Cil.file) (config : c_pipeline_config) : GoblintCil.Cil.file =
     let f = if config.enable_c_encode_literals then EncodeLiterals.transform_file cil_file else cil_file in
     let f = if config.enable_c_encode_data then EncodeData.transform_file f else f in
+    let f = if config.enable_c_polynomial_mba then PolyMBA.transform_file f else f in
     let f = if config.enable_c_mba then MBA.transform_file f else f in
     let f = if config.enable_c_opaque then Opaque.transform_file f else f in
     let f = if config.enable_c_implicit_flow then ImplicitFlow.transform_file f else f in

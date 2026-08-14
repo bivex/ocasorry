@@ -61,14 +61,15 @@ let () =
         (if res.result_val = expected then "PASSED [OK]" else "FAILED [MISMATCH]")
   | Error err -> Printf.printf "  Error: %s\n\n%!" err);
 
-  (* 3. Target: CIL Source-to-Source (Full Tigress Arsenal) *)
+  (* 3. Target: CIL Source-to-Source (Full Tigress Arsenal + High-Order PolyMBA) *)
   Printf.printf "-----------------------------------------------------------------\n";
   Printf.printf " [Target 3] CIL Source-to-Source Engine (Tigress Techniques)\n";
-  Printf.printf "     Passes: EncodeLiterals + VariableSplitting + Signals + MBA + CFF\n";
+  Printf.printf "     Passes: EncodeLiterals + VariableSplitting + Signals + PolyMBA + CFF\n";
   Printf.printf "-----------------------------------------------------------------\n%!";
   Printf.printf " Original C Code:\n%s\n" sample_c_program;
   let c_config : Obfuscate_c_source_usecase.c_pipeline_config = {
-    enable_c_mba = true;
+    enable_c_mba = false;
+    enable_c_polynomial_mba = true;
     enable_c_opaque = true;
     enable_c_flattening = true;
     enable_c_encode_literals = true;

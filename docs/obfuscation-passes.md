@@ -4,26 +4,46 @@ This document details the transformation algorithms implemented in **OcaSorry**.
 
 ---
 
-## 1. Mixed Boolean-Arithmetic (MBA)
-**Modules**: `lib/domain/services/native/mba_service.ml`, `lib/domain/services/c_source/c_mba_service.ml`
+## 1. High-Order Polynomial MBA & Invertible Affine Transformations (Anti-Z3)
+**Module**: `lib/domain/services/c_source/c_polynomial_mba_service.ml`
 
-MBA replaces simple arithmetic operations with complex, mathematically equivalent Boolean and bitwise expressions.
+Linear MBA can sometimes be simplified by modern SMT-based deobfuscators (e.g. arybo, msynth, Z3). **OcaSorry** generates **High-Order Polynomial MBA expressions** coupled with **Invertible Affine Layers over the ring $\mathbb{Z}_{2^{32}}$**, causing combinatorial state-space explosion in symbolic solvers.
 
-### Linear MBA Identities:
-- **Addition ($x + y$)**:
-  - $(x \oplus y) + 2(x \land y)$
-  - $(x \lor y) + (x \land y)$
-  - $2(x \lor y) - (x \oplus y)$
-- **Subtraction ($x - y$)**:
-  - $(x \oplus y) - 2(\sim x \land y)$
-  - $(x \land \sim y) - (\sim x \land y)$
-- **Bitwise XOR ($x \oplus y$)**:
-  - $(x \lor y) - (x \land y)$
-  - $(x \lor y) + (\sim x \land \sim y) - (-1)$
+### Invertible Affine Layer over $\mathbb{Z}_{2^{32}}$:
+For an expression $E$, an odd multiplier $a$ ($\gcd(a, 2^{32}) = 1$), and a random constant $b$:
+1. We compute modular multiplicative inverse $a^{-1} \pmod{2^{32}}$ via Newton-Raphson iteration:
+   $$x_{k+1} = x_k \cdot (2 - a \cdot x_k) \pmod{2^{32}}$$
+2. Wrap $E$ in an affine permutation layer:
+   $$E' = a^{-1} \cdot \Big( (a \cdot E + b) - b \Big) \pmod{2^{32}}$$
+3. Substitute inner operations with non-linear polynomial identities.
+
+### High-Order Polynomial Identities:
+- **Non-Linear Addition ($x + y$)**:
+  - $a^{-1} \cdot \Big( a \cdot \big( (x \oplus y) + 2(x \land y) \big) + b - b \Big)$
+  - $a^{-1} \cdot \Big( a \cdot \big( 2(x \lor y) - (x \oplus y) \big) + b - b \Big)$
+  - $a^{-1} \cdot \Big( a \cdot \big( (x \lor y) + (x \land y) \big) + b - b \Big)$
+- **Non-Linear Subtraction ($x - y$)**:
+  - $a^{-1} \cdot \Big( a \cdot \big( (x \oplus y) - 2(\sim x \land y) \big) + b - b \Big)$
+  - $a^{-1} \cdot \Big( a \cdot \big( (x \land \sim y) - (\sim x \land y) \big) + b - b \Big)$
+- **Non-Linear Bitwise XOR ($x \oplus y$)**:
+  - $a^{-1} \cdot \Big( a \cdot \big( (x \lor y) - (x \land y) \big) + b - b \Big)$
+  - $a^{-1} \cdot \Big( a \cdot \big( (x \lor y) + (\sim x \land \sim y) + 1 \big) + b - b \Big)$
 
 ---
 
-## 2. Control Flow Flattening (CFF)
+## 2. Linear Mixed Boolean-Arithmetic (MBA)
+**Modules**: `lib/domain/services/native/mba_service.ml`, `lib/domain/services/c_source/c_mba_service.ml`
+
+Linear MBA replaces arithmetic operations with equivalent bitwise formulas:
+- $x + y \iff (x \oplus y) + 2(x \land y)$
+- $x + y \iff (x \lor y) + (x \land y)$
+- $x + y \iff 2(x \lor y) - (x \oplus y)$
+- $x - y \iff (x \oplus y) - 2(\sim x \land y)$
+- $x \oplus y \iff (x \lor y) - (x \land y)$
+
+---
+
+## 3. Control Flow Flattening (CFF)
 **Modules**: `lib/domain/services/native/flattening_service.ml`, `lib/domain/services/c_source/c_flattening_service.ml`
 
 Transforms high-level structured control flow (nested `if`, `while`, `for`) into a flat, single-loop state machine dispatcher:
@@ -33,7 +53,7 @@ Transforms high-level structured control flow (nested `if`, `while`, `for`) into
 
 ---
 
-## 3. Invariant Opaque Predicates
+## 4. Invariant Opaque Predicates
 **Modules**: `lib/domain/services/native/opaque_predicate_service.ml`, `lib/domain/services/c_source/c_opaque_service.ml`
 
 Injects dead code branches guarded by algebraic tautologies:
@@ -42,27 +62,17 @@ Injects dead code branches guarded by algebraic tautologies:
 
 ---
 
-## 4. EncodeLiterals (String Literal Encryption)
+## 5. EncodeLiterals (String Literal Encryption)
 **Module**: `lib/domain/services/c_source/c_encode_literals_service.ml`
 
 - Detects string constants in C AST (`Const (CStr "...")`).
 - Encrypts each character at compile-time with a generated key: $E[i] = S[i] \oplus K$.
 - Replaces string constants with pointers to static byte arrays: `static char __enc_lit_X[]`.
-- Injects a lazy runtime decryptor guard in the function prologue:
-  ```c
-  static int __init_lit_1 = 0;
-  if (!__init_lit_1) {
-      for (int i = 0; i < len; i++) {
-          __dec_lit_1[i] = __enc_lit_1[i] ^ key;
-      }
-      __init_lit_1 = 1;
-  }
-  ```
-- Strips open-text strings completely from the executable `.rodata` section.
+- Injects a lazy runtime decryptor guard in the function prologue, stripping open-text strings completely from the executable `.rodata` section.
 
 ---
 
-## 5. Variable Splitting & Data Encoding (`EncodeData`)
+## 6. Variable Splitting & Data Encoding (`EncodeData`)
 **Module**: `lib/domain/services/c_source/c_encode_data_service.ml`
 
 Splits local scalar integer variables $v$ into two distinct variables $(v_{s1}, v_{s2})$:
@@ -70,11 +80,10 @@ Splits local scalar integer variables $v$ into two distinct variables $(v_{s1}, 
 - Assignment $v = \text{expr}$ is rewritten as:
   $$\text{temp} = \text{expr}, \quad v_{s2} = \text{temp} \gg 1, \quad v_{s1} = \text{temp} - (\text{temp} \gg 1)$$
 - Every read access to $v$ becomes $(v_{s1} + v_{s2})$.
-- Prevents memory scanning tools and symbolic execution engines from tracking the true variable value.
 
 ---
 
-## 6. C-Level Implicit Flow (Signals)
+## 7. C-Level Implicit Flow (Signals)
 **Module**: `lib/domain/services/c_source/c_implicit_flow_service.ml`
 
 Replaces explicit conditional jumps with signal-driven control flow:

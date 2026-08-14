@@ -21,6 +21,7 @@ let () =
   );
 
   let enable_mba = ref true in
+  let enable_poly_mba = ref false in
   let enable_cff = ref true in
   let enable_opaque = ref true in
   let enable_literals = ref true in
@@ -36,6 +37,7 @@ let () =
       match arg with
       | "--ocasorry-disable" -> disable_all := true
       | "--ocasorry-no-mba" -> enable_mba := false
+      | "--ocasorry-poly-mba" -> enable_poly_mba := true
       | "--ocasorry-no-cff" -> enable_cff := false
       | "--ocasorry-no-opaque" -> enable_opaque := false
       | "--ocasorry-no-literals" -> enable_literals := false
@@ -47,6 +49,7 @@ let () =
             temp_files := tmp_c :: !temp_files;
             let config : Obfuscate_c_source_usecase.c_pipeline_config = {
               enable_c_mba = !enable_mba;
+              enable_c_polynomial_mba = !enable_poly_mba;
               enable_c_opaque = !enable_opaque;
               enable_c_flattening = !enable_cff;
               enable_c_encode_literals = !enable_literals;
