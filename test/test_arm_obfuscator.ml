@@ -32,7 +32,10 @@ let () =
   Suite_sigill.run ();
   Suite_threaded_flow.run ();
   Suite_syscall_flow.run ();
+  Suite_inline.run ();
+  Suite_call_flatten.run ();
+  Suite_bogus_calls.run ();
 
   Printf.printf "\n=================================================================\n";
-  Printf.printf "       ALL 29 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
+  Printf.printf "       ALL 32 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
   Printf.printf "=================================================================\n%!"

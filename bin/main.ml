@@ -125,6 +125,9 @@ let () =
   let enable_syscall = ref false in
   let enable_merge = ref false in
   let enable_outline = ref false in
+  let enable_inline = ref false in
+  let enable_call_flatten = ref false in
+  let enable_bogus_calls = ref false in
   let enable_lut = ref false in
   let enable_interleave = ref false in
   let enable_permute_struct = ref false in
@@ -167,6 +170,9 @@ let () =
     ("--syscall-flow", Arg.Set enable_syscall, "Enable Syscall Error Return Flow");
     ("--merge", Arg.Set enable_merge, "Enable Function Merging");
     ("--outline", Arg.Set enable_outline, "Enable Function Outlining");
+    ("--inline", Arg.Set enable_inline, "Enable Function Inlining");
+    ("--call-flatten", Arg.Set enable_call_flatten, "Enable Call Graph Flattening (Indirect Calls)");
+    ("--bogus-calls", Arg.Set enable_bogus_calls, "Enable Cross-Function Bogus Call Injection");
   ] in
 
   let usage_msg = "Usage: ocasorry [-i <input.c> -o <output.c> [passes]] (run without args for interactive demo)" in
@@ -195,6 +201,9 @@ let () =
       enable_c_encode_data = !enable_split;
       enable_c_merge = !enable_merge;
       enable_c_outline = !enable_outline;
+      enable_c_inline = !enable_inline;
+      enable_c_call_flatten = !enable_call_flatten;
+      enable_c_bogus_calls = !enable_bogus_calls;
       enable_c_lut = !enable_lut;
       enable_c_array_interleave = !enable_interleave;
       enable_c_struct_permute = !enable_permute_struct;

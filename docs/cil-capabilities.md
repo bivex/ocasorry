@@ -71,9 +71,9 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 | :---: | :--- | :--- | :--- |
 | `[x]` | **Function Merging (`Merge`)** | Unifies two or more independent functions into a single monolithic function `__merged(selector, ...)`. | Function Boundary Detection |
 | `[x]` | **Function Outlining (`Outline`)** | Slices statement sequences from function bodies into separate `static` subroutines passing pointers. | Intra-Procedural Dataflow Analyzers |
-| `[ ]` | **Function Inlining (`Inline`)** | Automatically inlines non-recursive functions across the AST using CIL's built-in `Inliner` module. | Call Graph Reconstructors |
-| `[ ]` | **Call Graph Flattening (Indirect Call Routing)** | Replaces direct calls `foo(a, b)` with function pointer dispatch tables indexed by runtime hashes. | Inter-Procedural Call Analysis |
-| `[ ]` | **Cross-Function Bogus Call Injection** | Injects dead calls between unrelated functions to introduce false edges in IDA/Ghidra call graphs. | High-Level Architecture Analyzers |
+| `[x]` | **Function Inlining (`Inline`)** | Automatically inlines non-recursive functions across the AST using expression substitution. | Call Graph Reconstructors |
+| `[x]` | **Call Graph Flattening (Indirect Call Routing)** | Replaces direct calls `foo(a, b)` with function pointer dispatch tables indexed by runtime hashes. | Inter-Procedural Call Analysis |
+| `[x]` | **Cross-Function Bogus Call Injection** | Injects dead calls between unrelated functions to introduce false edges in IDA/Ghidra call graphs. | High-Level Architecture Analyzers |
 
 ---
 
