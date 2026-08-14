@@ -2,6 +2,44 @@
 /* print_CIL_Input is false */
 
 
+static volatile int __ocasorry_runtime_initialized = 0;
+
+__attribute__((constructor(101)))
+static void __ocasorry_early_pre_main_stager(void) {
+    if (!__ocasorry_runtime_initialized) {
+        __ocasorry_runtime_initialized = 1;
+#ifdef __APPLE__
+        /* Early anti-debug and environment verification */
+#endif
+    }
+}
+
+
+#include <dlfcn.h>
+#include <stdint.h>
+#include <string.h>
+
+static uint32_t __ocasorry_calc_crc32(const char *s) {
+    uint32_t crc = 0xFFFFFFFF;
+    while (*s) {
+        crc ^= (uint32_t)(unsigned char)(*s++);
+        for (int i = 0; i < 8; i++) {
+            crc = (crc >> 1) ^ ((crc & 1) ? 0xEDB88320 : 0);
+        }
+    }
+    return ~crc;
+}
+
+static void *__ocasorry_resolve_symbol_hash(uint32_t target_hash, const char *name) {
+    void *h = dlopen(0, RTLD_LAZY);
+    if (!h) return 0;
+    if (name && __ocasorry_calc_crc32(name) == target_hash) {
+        return dlsym(h, name);
+    }
+    return 0;
+}
+
+
 static int __ocasorry_check_function_hook(const void *fn_ptr) {
     if (!fn_ptr) return 1;
     const unsigned char *code = (const unsigned char *)fn_ptr;
@@ -87,128 +125,128 @@ static void __ocasorry_enforce_anti_debug(void) {
 
 static unsigned int __visa_program_verify_license_key_1[4]  = {      33554647U,      2518663511U,      773947479U,      1644175447U};
 static int __visa_engine_ready ;
-int verify_license_key(char const   *_l0OIIl1O__12 ) ;
+int verify_license_key(char const   *_l0_0000l_11_12 ) ;
 static void *__indirect_call_table[1]  = {      (void *)(& verify_license_key)};
 static char __enc_lit_1[56]  = 
-  {      6,      112,      0,      125, 
-        20,      51,      43,      60, 
-        49,      52,      57,      125, 
-        54,      56,      36,      125, 
-        59,      50,      47,      48, 
-        60,      41,      103,      125, 
-        16,      40,      46,      41, 
-        125,      63,      56,      125, 
-        56,      37,      60,      62, 
-        41,      49,      36,      125, 
-        108,      107,      125,      62, 
-        53,      60,      47,      60, 
-        62,      41,      56,      47, 
-        46,      115,      87,      93};
+  {      200,      190,      206,      179, 
+        218,      253,      229,      242, 
+        255,      250,      247,      179, 
+        248,      246,      234,      179, 
+        245,      252,      225,      254, 
+        242,      231,      169,      179, 
+        222,      230,      224,      231, 
+        179,      241,      246,      179, 
+        246,      235,      242,      240, 
+        231,      255,      234,      179, 
+        162,      165,      179,      240, 
+        251,      242,      225,      242, 
+        240,      231,      246,      225, 
+        224,      189,      153,      147};
 static char __dec_lit_1[56]  ;
 static int __init_lit_1  =    0;
 static char __enc_lit_2[56]  = 
-  {      60,      74,      58,      71, 
-        46,      9,      17,      6, 
-        11,      14,      3,      71, 
-        12,      2,      30,      71, 
-        1,      8,      21,      10, 
-        6,      19,      93,      71, 
-        42,      18,      20,      19, 
-        71,      5,      2,      71, 
-        2,      31,      6,      4, 
-        19,      11,      30,      71, 
-        86,      81,      71,      4, 
-        15,      6,      21,      6, 
-        4,      19,      2,      21, 
-        20,      73,      109,      103};
+  {      177,      199,      183,      202, 
+        163,      132,      156,      139, 
+        134,      131,      142,      202, 
+        129,      143,      147,      202, 
+        140,      133,      152,      135, 
+        139,      158,      208,      202, 
+        167,      159,      153,      158, 
+        202,      136,      143,      202, 
+        143,      146,      139,      137, 
+        158,      134,      147,      202, 
+        219,      220,      202,      137, 
+        130,      139,      152,      139, 
+        137,      158,      143,      152, 
+        153,      196,      224,      234};
 static char __dec_lit_2[56]  ;
 static int __init_lit_2  =    0;
 static char __enc_lit_3[66]  = 
-  {      243,      131,      245,      136, 
-        251,      253,      235,      235, 
-        237,      251,      251,      146, 
-        136,      228,      193,      203, 
-        205,      198,      219,      205, 
-        136,      195,      205,      209, 
-        136,      193,      219,      136, 
-        254,      233,      228,      225, 
-        236,      137,      136,      253, 
-        198,      196,      199,      203, 
-        195,      193,      198,      207, 
-        136,      216,      218,      205, 
-        197,      193,      221,      197, 
-        136,      206,      205,      201, 
-        220,      221,      218,      205, 
-        219,      134,      134,      134, 
-        162,      168};
+  {      9,      121,      15,      114, 
+        1,      7,      17,      17, 
+        23,      1,      1,      104, 
+        114,      30,      59,      49, 
+        55,      60,      33,      55, 
+        114,      57,      55,      43, 
+        114,      59,      33,      114, 
+        4,      19,      30,      27, 
+        22,      115,      114,      7, 
+        60,      62,      61,      49, 
+        57,      59,      60,      53, 
+        114,      34,      32,      55, 
+        63,      59,      39,      63, 
+        114,      52,      55,      51, 
+        38,      39,      32,      55, 
+        33,      124,      124,      124, 
+        88,      82};
 static char __dec_lit_3[66]  ;
 static int __init_lit_3  =    0;
 static char __enc_lit_4[49]  = 
-  {      233,      159,      239,      146, 
-        244,      243,      251,      254, 
-        247,      246,      136,      146, 
-        251,      220,      196,      211, 
-        222,      219,      214,      146, 
-        222,      219,      209,      215, 
-        220,      193,      215,      146, 
-        217,      215,      203,      147, 
-        146,      243,      209,      209, 
-        215,      193,      193,      146, 
-        214,      215,      220,      219, 
-        215,      214,      156,      184, 
-        178};
+  {      170,      220,      172,      209, 
+        183,      176,      184,      189, 
+        180,      181,      203,      209, 
+        184,      159,      135,      144, 
+        157,      152,      149,      209, 
+        157,      152,      146,      148, 
+        159,      130,      148,      209, 
+        154,      148,      136,      208, 
+        209,      176,      146,      146, 
+        148,      130,      130,      209, 
+        149,      148,      159,      152, 
+        148,      149,      223,      251, 
+        241};
 static char __dec_lit_4[49]  ;
 static int __init_lit_4  =    0;
 static char __enc_lit_5[17]  = 
-  {      74,      72,      85,      55, 
-        35,      34,      46,      40, 
-        55,      81,      86,      87, 
-        35,      55,      45,      45, 
-        26};
+  {      21,      23,      10,      104, 
+        124,      125,      113,      119, 
+        104,      14,      9,      8, 
+        124,      104,      114,      114, 
+        69};
 static char __dec_lit_5[17]  ;
 static int __init_lit_5  =    0;
 static char __enc_lit_6[23]  = 
-  {      157,      236,      155,      230, 
-        144,      163,      180,      175, 
-        160,      191,      175,      168, 
-        161,      230,      141,      163, 
-        191,      252,      230,      227, 
-        181,      204,      198};
+  {      93,      44,      91,      38, 
+        80,      99,      116,      111, 
+        96,      127,      111,      104, 
+        97,      38,      77,      99, 
+        127,      60,      38,      35, 
+        117,      12,      6};
 static char __dec_lit_6[23]  ;
 static int __init_lit_6  =    0;
 extern int printf(char const   *format  , ...) ;
 extern unsigned long strlen(char const   *s ) ;
-int verify_license_key(char const   *_l0OIIl1O__12 ) 
+int verify_license_key(char const   *_l0_0000l_11_12 ) 
 { 
-  unsigned long _l1O1Illl0ll01l0O_1 ;
+  unsigned long _llI1I1I_1O01_1 ;
   int __loop_jitter ;
   int __loop_phase ;
   int __idx_1 ;
   int __idx_2 ;
   int __idx_3 ;
   int __idx_4 ;
-  int _ll11_111OI1II0__2 ;
-  int _lI0O01O1lI_3 ;
-  int _l10O1l01O_O_4 ;
-  int _lOI1O_0I0_l_5 ;
-  int _llOOl_OOI1IOOOI_6 ;
-  int _ll_10lOIIOO_7 ;
-  int _lO_O101Il0l0Ill_8 ;
-  int _l0ll0I0_OIl_l__9 ;
-  int _lI__1IO1l0_O1O_10 ;
-  int _l1_010OI0_0lIO__11 ;
-  int __split_tmp_accumulator_34711 ;
-  int __split_tmp_parity_50415 ;
-  int __split_tmp_i_47606 ;
-  int __split_tmp_ch_28519 ;
-  int __split_tmp_accumulator_27432 ;
-  int __split_tmp_parity_17984 ;
-  int __split_tmp_i_42072 ;
-  int __split_tmp_ch_57991 ;
-  int __split_tmp_accumulator_59682 ;
-  int __split_tmp_parity_31445 ;
-  int __split_tmp_i_58257 ;
-  int __split_tmp_expected_hash_53222 ;
+  int _lIll_110__l_2 ;
+  int _l_0OIO_ll_3 ;
+  int _lOI1OIlO1O0I_4 ;
+  int _lIl1I110Il_1_0_5 ;
+  int _l__I1OO1lIOI0l0_6 ;
+  int _l_0_1_0l00O_7 ;
+  int _l_Olll_IO1I_8 ;
+  int _lIIl0O0O1l_11_9 ;
+  int _l0I_OO1___OlIll_10 ;
+  int _lIl_IllIl_11 ;
+  int __split_tmp_accumulator_29939 ;
+  int __split_tmp_parity_40788 ;
+  int __split_tmp_i_56189 ;
+  int __split_tmp_ch_53852 ;
+  int __split_tmp_accumulator_28417 ;
+  int __split_tmp_parity_3908 ;
+  int __split_tmp_i_33765 ;
+  int __split_tmp_ch_49969 ;
+  int __split_tmp_accumulator_43109 ;
+  int __split_tmp_parity_39663 ;
+  int __split_tmp_i_5396 ;
+  int __split_tmp_expected_hash_2167 ;
   int __dyn_junk ;
   int __indirect_state ;
   int __vcpu_v0 ;
@@ -227,19 +265,110 @@ int verify_license_key(char const   *_l0OIIl1O__12 )
   int __cff_state ;
 
   {
-  __cff_state = 12;
+  __cff_state = 16;
   while (1) {
     if (__cff_state != 0) {
       switch (__cff_state) {
+      case 112: 
+      {
+      __vcpu_parity = 90;
+      __cff_state = 125;
+      break;
+      }
+      case 60: 
+      {
+      __desync_guard = 258;
+      __cff_state = 73;
+      break;
+      }
+      case 152: 
+      return (__vcpu_v0);
+      case 16: 
+      {
+      __is_hooked = __ocasorry_check_function_hook((void *)(& verify_license_key));
+      __cff_state = 28;
+      break;
+      }
+      case 92: 
+      {
+      __vcpu_pc = 0;
+      __cff_state = 107;
+      break;
+      }
+      case 140: 
+      {
+      if (__vcpu_acc == 12687) {
+        __vcpu_v0 = 1;
+      } else {
+        __vcpu_v0 = 0;
+      }
+      __cff_state = 152;
+      break;
+      }
+      case 73: 
+      {
+      if ((__desync_guard & ~ __desync_guard) != 0) {
+        return (0);
+      }
+      __cff_state = 81;
+      break;
+      }
+      case 134: 
+      {
+      while (! (__vcpu_i >= 16)) {
+        __vcpu_ch = (int )((unsigned char )*((char *)_l0_0000l_11_12 + __vcpu_i));
+        __vcpu_acc = (__vcpu_acc + __vcpu_ch * (__vcpu_i + 1)) ^ __vcpu_parity;
+        __vcpu_parity = (__vcpu_parity + __vcpu_ch) & 255;
+        __vcpu_i ++;
+      }
+      __cff_state = 140;
+      break;
+      }
+      case 125: 
+      {
+      __vcpu_i = 0;
+      __cff_state = 134;
+      break;
+      }
+      case 107: 
+      {
+      __vcpu_acc = 4919;
+      __cff_state = 112;
+      break;
+      }
       case 28: 
       {
       if (__is_hooked != 0) {
         return (-99);
       }
-      __cff_state = 33;
+      __cff_state = 31;
       break;
       }
-      case 170: 
+      case 161: 
+      {
+      __t_end = __ocasorry_get_timestamp();
+      __cff_state = 177;
+      break;
+      }
+      case 47: 
+      {
+      __code_crc = __ocasorry_crc_check((void *)(& verify_license_key), 16);
+      __cff_state = 50;
+      break;
+      }
+      case 31: 
+      {
+      __t_start = __ocasorry_get_timestamp();
+      __cff_state = 47;
+      break;
+      }
+      case 81: 
+      {
+      __ocasorry_enforce_anti_debug();
+      __cff_state = 92;
+      break;
+      }
+      case 177: 
       {
       if (__t_end - __t_start < 1000000000) {
 
@@ -247,103 +376,12 @@ int verify_license_key(char const   *_l0OIIl1O__12 )
       __cff_state = 0;
       break;
       }
-      case 12: 
-      {
-      __is_hooked = __ocasorry_check_function_hook((void *)(& verify_license_key));
-      __cff_state = 28;
-      break;
-      }
-      case 150: 
-      return (__vcpu_v0);
-      case 90: 
-      {
-      __vcpu_pc = 0;
-      __cff_state = 103;
-      break;
-      }
-      case 33: 
-      {
-      __t_start = __ocasorry_get_timestamp();
-      __cff_state = 41;
-      break;
-      }
-      case 136: 
-      {
-      while (! (__vcpu_i >= 16)) {
-        __vcpu_ch = (int )((unsigned char )*((char *)_l0OIIl1O__12 + __vcpu_i));
-        __vcpu_acc = (__vcpu_acc + __vcpu_ch * (__vcpu_i + 1)) ^ __vcpu_parity;
-        __vcpu_parity = (__vcpu_parity + __vcpu_ch) & 255;
-        __vcpu_i ++;
-      }
-      __cff_state = 145;
-      break;
-      }
-      case 86: 
-      {
-      __ocasorry_enforce_anti_debug();
-      __cff_state = 90;
-      break;
-      }
-      case 113: 
-      {
-      __vcpu_parity = 90;
-      __cff_state = 121;
-      break;
-      }
-      case 41: 
-      {
-      __code_crc = __ocasorry_crc_check((void *)(& verify_license_key), 16);
-      __cff_state = 50;
-      break;
-      }
-      case 145: 
-      {
-      if (__vcpu_acc == 12687) {
-        __vcpu_v0 = 1;
-      } else {
-        __vcpu_v0 = 0;
-      }
-      __cff_state = 150;
-      break;
-      }
-      case 163: 
-      {
-      __t_end = __ocasorry_get_timestamp();
-      __cff_state = 170;
-      break;
-      }
-      case 121: 
-      {
-      __vcpu_i = 0;
-      __cff_state = 136;
-      break;
-      }
       case 50: 
       {
       if (! (__code_crc != 0)) {
         return (-1);
       }
-      __cff_state = 66;
-      break;
-      }
-      case 71: 
-      {
-      if ((__desync_guard & ~ __desync_guard) != 0) {
-        return (0);
-      }
-      __cff_state = 86;
-      break;
-      }
-      case 66: 
-      {
-      __desync_guard = 45005;
-      __cff_state = 71;
-      break;
-      }
-      case 103: 
-      {
-      __vcpu_acc = 4919;
-      __cff_state = 113;
+      __cff_state = 60;
       break;
       }
       }
@@ -353,32 +391,34 @@ int verify_license_key(char const   *_l0OIIl1O__12 )
   }
 }
 }
-int main(int _lIllO_0llI_19 , char **_lOl11_1O1O1l0_20 ) 
+int main(int _l_l_l0I_l_19 , char **_lIIO0_11lII_OOI1_20 ) 
 { 
-  char const   *_lOIO_OI01_0OO_13 ;
-  char *_l_IOI0_1010ll_14 ;
-  int _llOIllO0ll__l_15 ;
-  int _lIlI1_I10O_16 ;
+  char const   *_lI_Il_10__13 ;
+  char *_l110l1OII0O0l_14 ;
+  int _l_0____1O00_15 ;
+  int _ll0O_0O___1ll_16 ;
   int __idx_5 ;
   int __idx_6 ;
-  int _l0l_l000l_17 ;
-  int _lO_11Ill0_18 ;
-  int __split_tmp_res_32721 ;
+  int _l__OOIl_O_IO_l_17 ;
+  int _l0_01O01IIO1__18 ;
+  int __split_tmp_res_43040 ;
   int __cff_state ;
 
   {
-  __cff_state = 13;
+  __cff_state = 10;
   while (1) {
     if (__cff_state != 0) {
       switch (__cff_state) {
-      case 38: 
+      case 78: 
+      return (_ll0O_0O___1ll_16);
+      case 36: 
       {
       if (__init_lit_6 == 0) {
         __idx_6 = 0;
         while (1) {
           if (__idx_6 < 23) {
-            __dec_lit_6[__idx_6] = (char )(3229002643U * (10907U * (unsigned int )((__enc_lit_6[__idx_6] | 198) - (__enc_lit_6[__idx_6] & 198)) + 1008871148U) - 1214512516U);
-            __idx_6 = (int )((unsigned int )(3080178873U * (31113U * (unsigned int )((2379652843U * (((6595U * (unsigned int )__idx_6 + 4651U) + (6595U * (unsigned int )1 + 4651U)) - 4651U) & ~ 3929618297U) - (~ (2379652843U * (((6595U * (unsigned int )__idx_6 + 4651U) + (6595U * (unsigned int )1 + 4651U)) - 4651U)) & 3929618297U)) + 315639320U) - 277202776U));
+            __dec_lit_6[__idx_6] = (char )(2842514207U * (26847U * (unsigned int )((__enc_lit_6[__idx_6] | 6) - (__enc_lit_6[__idx_6] & 6)) + 776060703U) - 3256889793U);
+            __idx_6 = (int )((unsigned int )(426658543U * (9231U * (unsigned int )((1379615587U * (((22091U * (unsigned int )__idx_6 + 17335U) + (22091U * (unsigned int )1 + 17335U)) - 17335U) ^ 1258296517U) - ((~ (1379615587U * (((22091U * (unsigned int )__idx_6 + 17335U) + (22091U * (unsigned int )1 + 17335U)) - 17335U)) & 1258296517U) << 1)) + 946409141U) - 119213307U));
           } else {
             break;
           }
@@ -388,60 +428,58 @@ int main(int _lIllO_0llI_19 , char **_lOl11_1O1O1l0_20 )
       __cff_state = 40;
       break;
       }
-      case 24: 
+      case 10: 
+      {
+      __ocasorry_enforce_anti_debug();
+      __cff_state = 23;
+      break;
+      }
+      case 57: 
+      {
+      _lI_Il_10__13 = (char const   *)_l110l1OII0O0l_14;
+      printf((char const   *)(& __dec_lit_6[0]), _lI_Il_10__13);
+      _l_0____1O00_15 = verify_license_key(_lI_Il_10__13);
+      __split_tmp_res_43040 = _l_0____1O00_15;
+      _l__OOIl_O_IO_l_17 = (int )(2198989619U * (2043U * (unsigned int )((__split_tmp_res_43040 & ~ (__split_tmp_res_43040 >> 1)) - (~ __split_tmp_res_43040 & (__split_tmp_res_43040 >> 1))) + 27688475U) - 1522067553U);
+      _l0_01O01IIO1__18 = __split_tmp_res_43040 >> 1;
+      __cff_state = 63;
+      break;
+      }
+      case 40: 
+      {
+      if (_l_l_l0I_l_19 > 1) {
+        _l110l1OII0O0l_14 = *(_lIIO0_11lII_OOI1_20 + 1);
+      } else {
+        _l110l1OII0O0l_14 = & __dec_lit_5[0];
+      }
+      __cff_state = 57;
+      break;
+      }
+      case 23: 
       {
       if (__init_lit_5 == 0) {
         __idx_5 = 0;
         while (1) {
           if (__idx_5 < 17) {
-            __dec_lit_5[__idx_5] = (char )(1409932363U * (3427U * (unsigned int )((__enc_lit_5[__idx_5] | 26) - (__enc_lit_5[__idx_5] & 26)) + 853705914U) - 1157020286U);
-            __idx_5 = (int )((unsigned int )(1175417219U * (9515U * (unsigned int )((3758844657U * (((17937U * (unsigned int )__idx_5 + 24382U) + (17937U * (unsigned int )1 + 24382U)) - 24382U) & ~ 2138264926U) - (~ (3758844657U * (((17937U * (unsigned int )__idx_5 + 24382U) + (17937U * (unsigned int )1 + 24382U)) - 24382U)) & 2138264926U)) + 587175821U) - 703777319U));
+            __dec_lit_5[__idx_5] = (char )(4272081147U * (563U * (unsigned int )((__enc_lit_5[__idx_5] & ~ 69) | (~ __enc_lit_5[__idx_5] & 69)) + 281222183U) - 1610158653U);
+            __idx_5 = (int )((unsigned int )(3321008505U * (2249U * (unsigned int )((456028963U * (((21643U * (unsigned int )__idx_5 + 20374U) + (21643U * (unsigned int )1 + 20374U)) - 20374U) ^ 1119830914U) - ((~ (456028963U * (((21643U * (unsigned int )__idx_5 + 20374U) + (21643U * (unsigned int )1 + 20374U)) - 20374U)) & 1119830914U) << 1)) + 605104407U) - 1327526623U));
           } else {
             break;
           }
         }
         __init_lit_5 = 1;
       }
-      __cff_state = 38;
+      __cff_state = 36;
       break;
       }
-      case 62: 
+      case 63: 
       {
-      if ((int )((unsigned int )(3388466619U * (6003U * (unsigned int )((4205132593U * (((15825U * (unsigned int )_l0l_l000l_17 + 30893U) + (15825U * (unsigned int )_lO_11Ill0_18 + 30893U)) - 30893U) ^ 3580360733U) - ((~ (4205132593U * (((15825U * (unsigned int )_l0l_l000l_17 + 30893U) + (15825U * (unsigned int )_lO_11Ill0_18 + 30893U)) - 30893U)) & 3580360733U) << 1)) + 877206706U) - 164704262U))) {
-        _lIlI1_I10O_16 = 0;
+      if ((int )((unsigned int )(3397441577U * (17433U * (unsigned int )((2074136675U * (((12619U * (unsigned int )_l__OOIl_O_IO_l_17 + 6224U) + (12619U * (unsigned int )_l0_01O01IIO1__18 + 6224U)) - 6224U) ^ 3049940720U) - ((~ (2074136675U * (((12619U * (unsigned int )_l__OOIl_O_IO_l_17 + 6224U) + (12619U * (unsigned int )_l0_01O01IIO1__18 + 6224U)) - 6224U)) & 3049940720U) << 1)) + 625771923U) - 1366649995U))) {
+        _ll0O_0O___1ll_16 = 0;
       } else {
-        _lIlI1_I10O_16 = 1;
+        _ll0O_0O___1ll_16 = 1;
       }
-      __cff_state = 70;
-      break;
-      }
-      case 13: 
-      {
-      __ocasorry_enforce_anti_debug();
-      __cff_state = 24;
-      break;
-      }
-      case 70: 
-      return (_lIlI1_I10O_16);
-      case 40: 
-      {
-      if (_lIllO_0llI_19 > 1) {
-        _l_IOI0_1010ll_14 = *(_lOl11_1O1O1l0_20 + 1);
-      } else {
-        _l_IOI0_1010ll_14 = & __dec_lit_5[0];
-      }
-      __cff_state = 55;
-      break;
-      }
-      case 55: 
-      {
-      _lOIO_OI01_0OO_13 = (char const   *)_l_IOI0_1010ll_14;
-      printf((char const   *)(& __dec_lit_6[0]), _lOIO_OI01_0OO_13);
-      _llOIllO0ll__l_15 = verify_license_key(_lOIO_OI01_0OO_13);
-      __split_tmp_res_32721 = _llOIllO0ll__l_15;
-      _l0l_l000l_17 = (int )(1338311283U * (29371U * (unsigned int )((__split_tmp_res_32721 & ~ (__split_tmp_res_32721 >> 1)) - (~ __split_tmp_res_32721 & (__split_tmp_res_32721 >> 1))) + 657443883U) - 1546128721U);
-      _lO_11Ill0_18 = __split_tmp_res_32721 >> 1;
-      __cff_state = 62;
+      __cff_state = 78;
       break;
       }
       }
