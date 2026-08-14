@@ -3,6 +3,7 @@
 (library
  (name ocasorry_lib)
  (public_name ocasorry.lib)
+ (libraries goblint-cil)
  (foreign_stubs
   (language c)
   (names mmap_stubs)))
