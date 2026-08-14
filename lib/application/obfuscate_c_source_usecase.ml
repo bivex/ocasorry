@@ -13,6 +13,11 @@ type c_pipeline_config = {
   enable_c_encode_data : bool;
   enable_c_merge : bool;
   enable_c_outline : bool;
+  enable_c_lut : bool;
+  enable_c_array_interleave : bool;
+  enable_c_struct_permute : bool;
+  enable_c_pointer_mask : bool;
+  enable_c_homomorphic : bool;
 }
 
 let default_c_config = {
@@ -30,6 +35,11 @@ let default_c_config = {
   enable_c_encode_data = true;
   enable_c_merge = false;
   enable_c_outline = false;
+  enable_c_lut = false;
+  enable_c_array_interleave = false;
+  enable_c_struct_permute = false;
+  enable_c_pointer_mask = false;
+  enable_c_homomorphic = false;
 }
 
 module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
@@ -47,15 +57,25 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
   module EncodeData = C_encode_data_service.Make (Entropy)
   module Merge = C_merge_functions_service.Make (Entropy)
   module Outline = C_outline_service.Make (Entropy)
+  module LUT = C_lut_arithmetic_service.Make (Entropy)
+  module ArrayInterleave = C_array_interleave_service.Make (Entropy)
+  module StructPermute = C_struct_permute_service.Make (Entropy)
+  module PointerMask = C_pointer_masking_service.Make (Entropy)
+  module Homomorphic = C_homomorphic_service.Make (Entropy)
 
   let run_passes (cil_file : GoblintCil.Cil.file) (config : c_pipeline_config) : GoblintCil.Cil.file =
-    let f = if config.enable_c_merge then Merge.transform_file cil_file else cil_file in
+    let f = if config.enable_c_struct_permute then StructPermute.transform_file cil_file else cil_file in
+    let f = if config.enable_c_merge then Merge.transform_file f else f in
     let f = if config.enable_c_outline then Outline.transform_file f else f in
     let f = if config.enable_c_loop_unroll then LoopUnroll.transform_file f else f in
     let f = if config.enable_c_loop_fission then LoopFission.transform_file f else f in
+    let f = if config.enable_c_array_interleave then ArrayInterleave.transform_file f else f in
+    let f = if config.enable_c_pointer_mask then PointerMask.transform_file f else f in
     let f = if config.enable_c_encode_literals then EncodeLiterals.transform_file f else f in
     let f = if config.enable_c_encode_data then EncodeData.transform_file f else f in
+    let f = if config.enable_c_homomorphic then Homomorphic.transform_file f else f in
     let f = if config.enable_c_polynomial_mba then PolyMBA.transform_file f else f in
+    let f = if config.enable_c_lut then LUT.transform_file f else f in
     let f = if config.enable_c_mba then MBA.transform_file f else f in
     let f = if config.enable_c_opaque then Opaque.transform_file f else f in
     let f = if config.enable_c_dynamic_opaque then DynOpaque.transform_file f else f in

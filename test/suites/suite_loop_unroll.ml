@@ -26,20 +26,13 @@ int main(int argc, char **argv) {
 |} in
 
   let c_config : Obfuscate_c_source_usecase.c_pipeline_config = {
+    Obfuscate_c_source_usecase.default_c_config with
     enable_c_mba = false;
-    enable_c_polynomial_mba = false;
     enable_c_opaque = false;
-    enable_c_dynamic_opaque = false;
-    enable_c_bogus_cf = false;
     enable_c_loop_unroll = true;
-    enable_c_loop_fission = false;
-    enable_c_indirect_jump = false;
     enable_c_flattening = false;
     enable_c_encode_literals = false;
-    enable_c_implicit_flow = false;
     enable_c_encode_data = false;
-    enable_c_merge = false;
-    enable_c_outline = false;
   } in
 
   let obfuscated_c = CilSourceObfuscator.obfuscate_c_string c_code c_config in

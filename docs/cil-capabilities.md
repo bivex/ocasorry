@@ -44,11 +44,11 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 | `[x]` | **High-Order Polynomial MBA (Anti-Z3)** | Injects non-linear polynomial expressions over $\mathbb{Z}_{2^{32}}$ and Invertible Affine Layers ($E' = a^{-1}(aE + b) - (a^{-1}b)$). | SMT / Symbolic Solvers (Z3, Triton) |
 | `[x]` | **EncodeLiterals (String Encryption)** | Replaces static string literals with encrypted byte arrays and inserts lazy constructor / prologue decryptors. | Strings Analyzers (`strings`, Binwalk) |
 | `[x]` | **Variable Splitting (`EncodeData`)** | Splits scalar local variables $v$ into $(v_{s1}, v_{s2})$ maintaining $v = v_{s1} + v_{s2}$ on all reads and writes. | Memory Scanners (Cheat Engine) |
-| `[ ]` | **Lookup Table Arithmetic (LUT)** | Converts arithmetic operations into 256-byte or 65536-byte precomputed tables stored in `static` memory. | Algebraic Deobfuscators |
-| `[ ]` | **Array Folding & Interleaving** | Merges multiple 1D arrays into a single interleaved multidimensional array with hashed index lookups. | Dataflow Analysis |
-| `[ ]` | **Struct Field Permutation & Padding** | Reorders fields in `CompInfo` structs, injects random padding bytes, and rewrites field accesses via pointer offsets. | Struct Layout Recovery |
-| `[ ]` | **Pointer Swizzling / Pointer Masking** | Stores raw pointers XOR-masked with a secret key (`uintptr_t`), unmasking them at dereference sites (`*(int*)(p ^ MASK)`). | Pointer Analysis / Taint Tracking |
-| `[ ]` | **Homomorphic Data Encoding** | Rewrites scalar values into $(a \cdot x + b) \bmod m$ and lifts all arithmetic operators into the transformed domain. | Dynamic Binary Instrumentation (DBI) |
+| `[x]` | **Lookup Table Arithmetic (LUT)** | Converts arithmetic operations into 256-byte precomputed tables stored in `static` memory. | Algebraic Deobfuscators |
+| `[x]` | **Array Folding & Interleaving** | Merges multiple array index accesses into scaled interleaved strides. | Dataflow Analysis |
+| `[x]` | **Struct Field Permutation & Padding** | Reorders fields in `CompInfo` structs, injects random padding bytes, and scrambles field layout. | Struct Layout Recovery |
+| `[x]` | **Pointer Swizzling / Pointer Masking** | Stores raw pointers XOR-masked with a secret key (`uintptr_t`), unmasking them at dereference sites (`*(int*)(p ^ MASK)`). | Pointer Analysis / Taint Tracking |
+| `[x]` | **Homomorphic Data Encoding** | Rewrites scalar values into $(a \cdot x + b) \bmod m$ and lifts all arithmetic operators into the transformed domain. | Dynamic Binary Instrumentation (DBI) |
 
 ---
 

@@ -19,7 +19,12 @@ let () =
   Suite_loop_unroll.run ();
   Suite_loop_fission.run ();
   Suite_indirect_jump.run ();
+  Suite_lut.run ();
+  Suite_array_interleave.run ();
+  Suite_struct_permute.run ();
+  Suite_pointer_mask.run ();
+  Suite_homomorphic.run ();
 
   Printf.printf "\n=================================================================\n";
-  Printf.printf "       ALL 16 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
+  Printf.printf "       ALL 21 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
   Printf.printf "=================================================================\n%!"

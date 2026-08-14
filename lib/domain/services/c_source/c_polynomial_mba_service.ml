@@ -18,8 +18,12 @@ module Make (Entropy : Entropy_port.S) = struct
     in
     iter 1l 5
 
+  let uint32_exp (v : int32) : exp =
+    let u64 = Int64.logand (Int64.of_int32 v) 0xFFFFFFFFL in
+    Const (CInt (Z.of_int64 u64, IUInt, None))
+
   (** Wrap an expression E in an Invertible Affine Layer:
-      E' = (ty)( ((unsigned)(a_inv) * (unsigned)(a * E + b)) - (unsigned)(a_inv * b) )
+      E' = (ty)( (a_inv * (a * E + b)) - (a_inv * b) )
   *)
   let wrap_affine (e : exp) (ty : typ) : exp =
     let raw_a = Int32.of_int (1 + Entropy.next_int ~max:0x7FFF) in
@@ -29,10 +33,10 @@ module Make (Entropy : Entropy_port.S) = struct
     let c = Int32.mul a_inv b in (* constant = a_inv * b mod 2^32 *)
 
     let u_ty = uintType in
-    let exp_a = CastE (u_ty, integer (Int32.to_int a)) in
-    let exp_a_inv = CastE (u_ty, integer (Int32.to_int a_inv)) in
-    let exp_b = CastE (u_ty, integer (Int32.to_int b)) in
-    let exp_c = CastE (u_ty, integer (Int32.to_int c)) in
+    let exp_a = uint32_exp a in
+    let exp_a_inv = uint32_exp a_inv in
+    let exp_b = uint32_exp b in
+    let exp_c = uint32_exp c in
     let e_cast = CastE (u_ty, e) in
 
     (* Forward: T = (a * e) + b *)
@@ -46,7 +50,7 @@ module Make (Entropy : Entropy_port.S) = struct
 
   (** Rewrite addition: x + y into 2nd/3rd order Polynomial MBA *)
   let rewrite_poly_add (e1 : exp) (e2 : exp) (ty : typ) : exp =
-    let choice = Entropy.next_int ~max:3 in
+    let choice = Entropy.next_int ~max:2 in
     match choice with
     | 0 ->
         (* Identity 1: (x ^ y) + 2*(x & y) with Affine wrapping *)
@@ -56,16 +60,8 @@ module Make (Entropy : Entropy_port.S) = struct
         let sum_part = BinOp (PlusA, xor_part, shift_and, ty) in
         wrap_affine sum_part ty
 
-    | 1 ->
-        (* Identity 2: 2*(x | y) - (x ^ y) *)
-        let or_part = BinOp (BOr, e1, e2, ty) in
-        let double_or = BinOp (Shiftlt, or_part, integer 1, ty) in
-        let xor_part = BinOp (BXor, e1, e2, ty) in
-        let res = BinOp (MinusA, double_or, xor_part, ty) in
-        wrap_affine res ty
-
     | _ ->
-        (* Identity 3: (x | y) + (x & y) *)
+        (* Identity 2: (x | y) + (x & y) with Affine wrapping *)
         let or_part = BinOp (BOr, e1, e2, ty) in
         let and_part = BinOp (BAnd, e1, e2, ty) in
         let res = BinOp (PlusA, or_part, and_part, ty) in

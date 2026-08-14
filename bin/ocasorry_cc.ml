@@ -34,6 +34,11 @@ let () =
   let enable_implicit = ref false in
   let enable_merge = ref false in
   let enable_outline = ref false in
+  let enable_lut = ref false in
+  let enable_interleave = ref false in
+  let enable_permute_struct = ref false in
+  let enable_pointer_mask = ref false in
+  let enable_homomorphic = ref false in
   let disable_all = ref false in
 
   let compiler_args = ref [] in
@@ -52,6 +57,11 @@ let () =
       | "--ocasorry-unroll" -> enable_unroll := true
       | "--ocasorry-fission" -> enable_fission := true
       | "--ocasorry-indirect" -> enable_indirect := true
+      | "--ocasorry-lut" -> enable_lut := true
+      | "--ocasorry-interleave" -> enable_interleave := true
+      | "--ocasorry-permute-struct" -> enable_permute_struct := true
+      | "--ocasorry-pointer-mask" -> enable_pointer_mask := true
+      | "--ocasorry-homomorphic" -> enable_homomorphic := true
       | "--ocasorry-no-literals" -> enable_literals := false
       | "--ocasorry-no-split" -> enable_split := false
       | "--ocasorry-implicit" -> enable_implicit := true
@@ -76,6 +86,11 @@ let () =
               enable_c_encode_data = !enable_split;
               enable_c_merge = !enable_merge;
               enable_c_outline = !enable_outline;
+              enable_c_lut = !enable_lut;
+              enable_c_array_interleave = !enable_interleave;
+              enable_c_struct_permute = !enable_permute_struct;
+              enable_c_pointer_mask = !enable_pointer_mask;
+              enable_c_homomorphic = !enable_homomorphic;
             } in
             if is_verbose then
               Printf.eprintf "[ocasorry-cc] Obfuscating source: %s -> %s\n%!" arg tmp_c;

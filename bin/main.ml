@@ -82,6 +82,11 @@ let run_demo () =
     enable_c_encode_data = true;
     enable_c_merge = false;
     enable_c_outline = false;
+    enable_c_lut = false;
+    enable_c_array_interleave = false;
+    enable_c_struct_permute = false;
+    enable_c_pointer_mask = false;
+    enable_c_homomorphic = false;
   } in
   let obfuscated_c = CilSourceObfuscator.obfuscate_c_string sample_c_program c_config in
   Printf.printf " Obfuscated C Code:\n\n%s\n%!" obfuscated_c;
@@ -125,6 +130,11 @@ let () =
   let enable_implicit = ref false in
   let enable_merge = ref false in
   let enable_outline = ref false in
+  let enable_lut = ref false in
+  let enable_interleave = ref false in
+  let enable_permute_struct = ref false in
+  let enable_pointer_mask = ref false in
+  let enable_homomorphic = ref false in
 
   let speclist = [
     ("-i", Arg.Set_string in_file, "Input C source file to obfuscate");
@@ -140,6 +150,11 @@ let () =
     ("--unroll", Arg.Set enable_unroll, "Enable Loop Unrolling & Jittering");
     ("--fission", Arg.Set enable_fission, "Enable Loop Fission / Segmentation");
     ("--indirect", Arg.Set enable_indirect, "Enable Indirect Jump Tables (Computed Dispatch)");
+    ("--lut", Arg.Set enable_lut, "Enable Lookup Table Arithmetic (LUT)");
+    ("--interleave", Arg.Set enable_interleave, "Enable Array Folding & Interleaving");
+    ("--permute-struct", Arg.Set enable_permute_struct, "Enable Struct Field Permutation & Padding");
+    ("--pointer-mask", Arg.Set enable_pointer_mask, "Enable Pointer Swizzling & Masking");
+    ("--homomorphic", Arg.Set enable_homomorphic, "Enable Homomorphic Data Encoding");
     ("--literals", Arg.Set enable_literals, "Enable String Literal Encryption");
     ("--split", Arg.Set enable_split, "Enable Variable Splitting (EncodeData)");
     ("--implicit", Arg.Set enable_implicit, "Enable Signal-Driven Implicit Flow");
@@ -169,6 +184,11 @@ let () =
       enable_c_encode_data = !enable_split;
       enable_c_merge = !enable_merge;
       enable_c_outline = !enable_outline;
+      enable_c_lut = !enable_lut;
+      enable_c_array_interleave = !enable_interleave;
+      enable_c_struct_permute = !enable_permute_struct;
+      enable_c_pointer_mask = !enable_pointer_mask;
+      enable_c_homomorphic = !enable_homomorphic;
     } in
     Printf.printf "[*] Obfuscating: %s -> %s\n%!" !in_file target_out;
     CilSourceObfuscator.obfuscate_c_file !in_file target_out config;
