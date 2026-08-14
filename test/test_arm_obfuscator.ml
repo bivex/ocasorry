@@ -3,10 +3,15 @@ open Types
 open Ast
 open Cfg
 
-module JIT = Jit_runner_usecase.Make
+module ArmJIT = Jit_runner_usecase.Make
     (System_entropy_adapter.Adapter)
     (Aarch64_encoder_adapter.Adapter)
     (Posix_mmap_adapter.Adapter)
+
+module CilJIT = Jit_runner_usecase.Make
+    (System_entropy_adapter.Adapter)
+    (Cil_encoder_adapter.Adapter)
+    (Cil_vm_adapter.Adapter)
 
 let assert_eq msg expected actual =
   if expected <> actual then (
@@ -33,15 +38,15 @@ let test_add () =
   List.iter
     (fun (x, y) ->
       let expected = Int64.add x y in
-      (* Obfuscate with full pipeline *)
-      let config : Obfuscation_pipeline.pipeline_config = {
-        enable_mba = true;
-        enable_opaque = true;
-        enable_flattening = true;
-      } in
-      match JIT.obfuscate_and_run_fn2 cfg x y config with
-      | Ok res -> assert_eq (Printf.sprintf "test_add(%Ld, %Ld)" x y) expected res.result_val
-      | Error err -> failwith ("JIT error: " ^ err))
+      let config = Obfuscation_pipeline.default_config in
+      (* Test ARM64 Target *)
+      (match ArmJIT.obfuscate_and_run_fn2 cfg x y config with
+      | Ok res -> assert_eq (Printf.sprintf "ARM64: test_add(%Ld, %Ld)" x y) expected res.result_val
+      | Error err -> failwith ("ARM64 error: " ^ err));
+      (* Test CIL Target *)
+      (match CilJIT.obfuscate_and_run_fn2 cfg x y config with
+      | Ok res -> assert_eq (Printf.sprintf "CIL:   test_add(%Ld, %Ld)" x y) expected res.result_val
+      | Error err -> failwith ("CIL error: " ^ err)))
     test_cases
 
 (** Test 2: Subtraction f(x, y) = x - y with MBA *)
@@ -64,9 +69,12 @@ let test_sub_mba () =
         enable_opaque = false;
         enable_flattening = false;
       } in
-      match JIT.obfuscate_and_run_fn2 cfg x y config with
-      | Ok res -> assert_eq (Printf.sprintf "test_sub_mba(%Ld, %Ld)" x y) expected res.result_val
-      | Error err -> failwith ("JIT error: " ^ err))
+      (match ArmJIT.obfuscate_and_run_fn2 cfg x y config with
+      | Ok res -> assert_eq (Printf.sprintf "ARM64: test_sub_mba(%Ld, %Ld)" x y) expected res.result_val
+      | Error err -> failwith ("ARM64 error: " ^ err));
+      (match CilJIT.obfuscate_and_run_fn2 cfg x y config with
+      | Ok res -> assert_eq (Printf.sprintf "CIL:   test_sub_mba(%Ld, %Ld)" x y) expected res.result_val
+      | Error err -> failwith ("CIL error: " ^ err)))
     test_cases
 
 (** Test 3: Multi-block Control Flow with Flattening *)
@@ -103,15 +111,18 @@ let test_multiblock_flattening () =
   let step2 = Int64.add step1 1337L in
   let expected = Int64.logxor step2 1337L in
   let config = Obfuscation_pipeline.default_config in
-  match JIT.obfuscate_and_run_fn2 cfg x y config with
-  | Ok res -> assert_eq "test_multiblock_flattening" expected res.result_val
-  | Error err -> failwith ("JIT error: " ^ err)
+  (match ArmJIT.obfuscate_and_run_fn2 cfg x y config with
+  | Ok res -> assert_eq "ARM64: test_multiblock_flattening" expected res.result_val
+  | Error err -> failwith ("ARM64 error: " ^ err));
+  (match CilJIT.obfuscate_and_run_fn2 cfg x y config with
+  | Ok res -> assert_eq "CIL:   test_multiblock_flattening" expected res.result_val
+  | Error err -> failwith ("CIL error: " ^ err))
 
 let () =
-  Printf.printf "=== Running ARM64 Obfuscator Test Suite ===\n";
+  Printf.printf "=== Running Multi-Target Obfuscator Test Suite (ARM64 & CIL) ===\n";
   flush stdout;
   test_add ();
   test_sub_mba ();
   test_multiblock_flattening ();
-  Printf.printf "=== All 8 tests passed successfully! ===\n";
+  Printf.printf "=== All Multi-Target tests passed successfully! ===\n";
   flush stdout
