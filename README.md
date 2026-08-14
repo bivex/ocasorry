@@ -11,6 +11,7 @@ It combines **C Source-to-Source AST transformations** (powered by George Necula
 Detailed technical documentation is available in the [`docs/`](file:///Volumes/External/Code/ocasorry/docs/) directory:
 
 - 🏛️ **[Hexagonal Architecture & DDD](file:///Volumes/External/Code/ocasorry/docs/architecture.md)**: Layer partitioning, Entities, Ports (SPI), and Domain Services.
+- 🌀 **[Polymorphic Virtualization & random_vISA](file:///Volumes/External/Code/ocasorry/docs/virtualization-and-random-visa.md)**: Per-build synthetic vector ISA, nested multi-layer VM, self-modifying bytecode, and JIT compilation.
 - ⚡ **[Obfuscation Passes & Math](file:///Volumes/External/Code/ocasorry/docs/obfuscation-passes.md)**: MBA identities, Control Flow Flattening, Opaque Predicates, `EncodeLiterals`, `EncodeData` (Variable Splitting), Function Merging/Outlining, and C Implicit Flow.
 - 🔄 **[Two-Level JITting & Hardware Signal Flow](file:///Volumes/External/Code/ocasorry/docs/two-tier-jit.md)**: Staging architecture, Apple Silicon W^X cache management, and `ucontext_t` PC redirection.
 - 🛠️ **[Compiler Wrapper (`ocasorry-cc`)](file:///Volumes/External/Code/ocasorry/docs/compiler-wrapper.md)**: Integration guide for Makefiles, CMake, flags, and options.
