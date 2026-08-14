@@ -1,5 +1,4 @@
-open Domain.Cfg
-open Domain.Ports
+open Cfg
 
 type pipeline_config = {
   enable_mba : bool;
@@ -14,9 +13,9 @@ let default_config = {
 }
 
 module Make (Entropy : Entropy_port.S) = struct
-  module MBA = Domain.Services.Mba_service.Make (Entropy)
-  module Opaque = Domain.Services.Opaque_predicate_service.Make (Entropy)
-  module Flattening = Domain.Services.Flattening_service.Make (Entropy)
+  module MBA = Mba_service.Make (Entropy)
+  module Opaque = Opaque_predicate_service.Make (Entropy)
+  module Flattening = Flattening_service.Make (Entropy)
 
   let run (cfg : CFG.t) (config : pipeline_config) : CFG.t =
     let cfg = if config.enable_mba then MBA.transform_cfg cfg else cfg in

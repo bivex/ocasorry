@@ -17,18 +17,13 @@ module Make (Entropy : Entropy_port.S) = struct
     ] in
     BasicBlock.create ~id ~instructions:junk_words
 
-  (** Inserts invariant predicate: (X0 * (X0 + 1)) is always even -> (X0 * (X0 + 1)) & 1 == 0 *)
+  (** Inserts invariant algebraic predicate: (X0 & ~X0) == 0 (always zero for all integers) *)
   let insert_invariant_predicate (block : BasicBlock.t) (dead_label : label) : BasicBlock.t =
     let predicate_prologue = [
-      (* scratch_temp = X0 + 1 *)
-      AddImm (scratch_temp, X0, 1);
-      (* scratch_pred = scratch_temp & X0 (if n is odd, n+1 is even; parity product lower bit is 0) *)
-      And (scratch_pred, scratch_temp, X0);
-      (* scratch_pred = scratch_pred & 1 *)
-      And (scratch_pred, scratch_pred, scratch_pred);
-      CmpImm (scratch_pred, 0);
-      (* If not equal (impossible), branch to dead block *)
-      Bcc (NE, dead_label);
+      Mvn (scratch_temp, X0);              (* scratch_temp = ~X0 *)
+      And (scratch_pred, X0, scratch_temp);(* scratch_pred = X0 & ~X0 -> 0 *)
+      CmpImm (scratch_pred, 0);            (* compare with 0 *)
+      Bcc (NE, dead_label);                (* NE is impossible, never jumps to dead block *)
     ] in
     { block with instructions = predicate_prologue @ block.instructions }
 
