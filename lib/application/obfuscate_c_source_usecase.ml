@@ -3,6 +3,7 @@ type c_pipeline_config = {
   enable_c_polynomial_mba : bool;
   enable_c_opaque : bool;
   enable_c_dynamic_opaque : bool;
+  enable_c_diophantine : bool;
   enable_c_bogus_cf : bool;
   enable_c_loop_unroll : bool;
   enable_c_loop_fission : bool;
@@ -53,6 +54,7 @@ let default_c_config = {
   enable_c_polynomial_mba = false;
   enable_c_opaque = true;
   enable_c_dynamic_opaque = false;
+  enable_c_diophantine = false;
   enable_c_bogus_cf = false;
   enable_c_loop_unroll = false;
   enable_c_loop_fission = false;
@@ -103,6 +105,7 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
   module PolyMBA = C_polynomial_mba_service.Make (Entropy)
   module Opaque = C_opaque_service.Make (Entropy)
   module DynOpaque = C_dynamic_opaque_service.Make (Entropy)
+  module Diophantine = C_diophantine_opaque_service.Make (Entropy)
   module BogusCF = C_bogus_control_flow_service.Make (Entropy)
   module LoopUnroll = C_loop_unroll_service.Make (Entropy)
   module LoopFission = C_loop_fission_service.Make (Entropy)
@@ -169,6 +172,7 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
     let f = if config.enable_c_live_range_split then LiveRangeSplit.transform_file f else f in
     let f = if config.enable_c_opaque then Opaque.transform_file f else f in
     let f = if config.enable_c_dynamic_opaque then DynOpaque.transform_file f else f in
+    let f = if config.enable_c_diophantine then Diophantine.transform_file f else f in
     let f = if config.enable_c_bogus_cf then BogusCF.transform_file f else f in
     let f = if config.enable_c_implicit_flow then ImplicitFlow.transform_file f else f in
     let f = if config.enable_c_sigfpe_flow then SigFPEFlow.transform_file f else f in

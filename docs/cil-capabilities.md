@@ -6,7 +6,7 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 
 ## 📊 Feature Status Matrix
 
-- `[x]` = **100% Implemented & Verified in OcaSorry (49 Test Suites)**
+- `[x]` = **100% Implemented & Verified in OcaSorry (50 Test Suites)**
 
 ---
 
@@ -30,6 +30,7 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 | `[x]` | **Control Flow Flattening (`Flatten`)** | Collapses all structured basic blocks (`bstmts`) into a single-loop state machine (`while(1) switch(__cff_state)`). | Control Flow Graph (CFG) Analysis |
 | `[x]` | **Invariant Opaque Predicates** | Injects algebraic tautologies (`(x & ~x) != 0`) guarding junk / trap code. | Static Disassemblers |
 | `[x]` | **Dynamic / Math-Property Opaque Predicates** | Generates dynamic invariants based on integer arithmetic properties (`(x*(x+1)) % 2 == 0`, `((x<<2)+2) % 2 == 0`). | SMT / SAT Solvers (Z3) |
+| `[x]` | **Diophantine Opaque Predicates** | Injects unsolvable integer equations ($x^2 \equiv 2 \pmod 4$) and product invariants ($x(x+1)(x+2) \equiv 0 \pmod 6$). | SMT Solvers & Symbolic Analyzers |
 | `[x]` | **Bogus Control Flow (BCF Code Cloning)** | Clones real basic blocks, alters constants slightly, and guards fake copies with dynamic opaque predicates. | Pattern Matchers, Decompilers |
 | `[x]` | **Loop Unrolling & Jittering** | Duplicates loop bodies (`Loop`) by a factor of 2 and inserts randomized non-interfering jitter computations. | Loop Invariant Analyzers |
 | `[x]` | **Loop Fission & Segmentation** | Splits multi-statement loop bodies into sequenced segmented loop execution phases. | Loop Vectorizers / Analyzers |
@@ -111,12 +112,12 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 
 ---
 
-## 9. 🧬 Code Morphing Engine (Multi-Level Mutation)
+## 9. 🧬 Code Morphing Engine (Multi-Level Mutation & Opcode Normalization)
 
 | Status | Technique | CIL AST Mechanism | Resilience Target |
 | :---: | :--- | :--- | :--- |
-| `[x]` | **Instruction Substitution** | Replaces arithmetic operations with equivalent substitution schemes (`x + 1` $\to$ `-~x`, `x ^ y` $\to$ `(x | y) - (x & y)`). | AST Rule Matchers, Decompilers |
-| `[x]` | **Ghost / Dead Code (Null-Ring)** | Injects reversible instruction sequences with zero net delta ($\sum \Delta \equiv 0$). | Static Taint Analyzers |
-| `[x]` | **Live Range Splitting** | Slices variable lifespans into multiple disjoint phased variables with handover expressions. | Variable Recovery Engines |
+| `[x]` | **Stochastic Instruction Substitution** | Replaces operations with randomized selections from orthogonal algebraic classes with Opcode Normalization. | AST Pattern Matchers, Decompilers |
+| `[x]` | **Ghost Code (Opcode Blending & Null-Ring)** | Injects diverse reversible instruction sequences with zero net delta ($\sum \Delta \equiv 0$) and balanced instruction profiles. | ML Classifiers & Taint Analyzers |
+| `[x]` | **Live Range Splitting** | Slices variable lifespans into multiple disjoint phased variables with handover operations. | Variable Recovery Engines |
 | `[x]` | **Constant Unfolding** | Expands scalar constants through XOR algebraic unfoldings ($C \to (C \oplus K) \oplus K$). | Constant Propagation Optimizers |
 | `[x]` | **Stack Memory Aliasing (S-Box)** | Maps local variables into a unified stack buffer indexed via S-Box permutations. | Stack Frame Recovery |
