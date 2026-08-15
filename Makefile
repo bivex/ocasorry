@@ -21,10 +21,32 @@ PROFILE      ?= fortress-256k
 SPEC         ?= $(EXAMPLES)/ml_optimized/visa.json
 PASSES       ?= --virtualize --rolling-vkey --bcf --cff --anti-debug --egraph-mba --anti-vtil
 
-.PHONY: build ml-verify ml-dataset ml-optimize ml-architect ml-synthesize ml-bridge ml-specs ml-pipeline obfuscate compile-obf help
+# Full 4-Tier Federated VCPU Virtualization flags
+VFLAGS       ?= --virtualize --nested-vm --rolling-vkey --ephemeral --literals --cff --irreducible-loop --bcf --anti-debug --anti-disasm --timing-check --api-hash --constructor --rename --strip
+
+.PHONY: build ml-verify ml-dataset ml-optimize ml-architect ml-synthesize ml-bridge ml-specs ml-pipeline obfuscate compile-obf virtualize help
 
 build:  ## Build OCaml binaries (required before ml-dataset / obfuscation)
 	eval $$(opam env) && dune build
+
+virtualize: build  ## Full 4-Tier Federated VCPU Virtualization + compilation (Usage: make virtualize IN=file.c BIN=app.bin)
+	@test -f $(SPEC) || (echo "[*] Spec not found, generating ML specs..." && $(PYTHON3) $(TOOLS)/sail_params_to_synth.py --run)
+	@echo "======================================================================"
+	@echo "  💎 Vectis: 4-Tier Federated VCPU Virtualization Cascade"
+	@echo "======================================================================"
+	@echo "  Input Source : $(IN)"
+	@echo "  Output C     : $(OUT)"
+	@echo "  Binary Target: $(BIN)"
+	@echo "  vISA Spec    : $(SPEC)"
+	@echo "  VM Profile   : $(PROFILE)"
+	@echo "----------------------------------------------------------------------"
+	$(VECTIS_BIN) -i $(IN) -o $(OUT) --visa-spec $(SPEC) --vm-profile $(PROFILE) $(VFLAGS)
+	@echo "[✓] Virtualized C source emitted -> $(OUT)"
+	@echo "[*] Compiling with clang -w -O2 -fvisibility=hidden..."
+	clang -w -O2 -fvisibility=hidden $(OUT) -o $(BIN)
+	@codesign -f -s - $(BIN) 2>/dev/null || true
+	@echo "[✓] Virtualized binary compiled successfully -> $(BIN)"
+	@echo "======================================================================"
 
 obfuscate: build  ## Obfuscate C file with ML-optimized vISA (Usage: make obfuscate IN=file.c OUT=out.c)
 	@test -f $(SPEC) || (echo "[*] Spec not found, generating ML specs..." && $(PYTHON3) $(TOOLS)/sail_params_to_synth.py --run)
