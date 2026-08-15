@@ -1,0 +1,36 @@
+{
+  "profile": "colossus-1m",
+  "confidence_pct": 58.72,
+  "resilience_score": 100.0,
+  "vcpu_params": {
+    "dispatch": 495,
+    "mba_depth": 4,
+    "decoys": 67,
+    "sbox_luts": 21,
+    "virtual_regs": 64
+  },
+  "tier_distribution": [
+    {
+      "tier": "visa",
+      "confidence": 50.1
+    },
+    {
+      "tier": "nested_vm",
+      "confidence": 0.0
+    },
+    {
+      "tier": "rolling_vkey",
+      "confidence": 49.9
+    },
+    {
+      "tier": "ephemeral_jit",
+      "confidence": 0.0
+    }
+  ],
+  "adversary_resilience": {
+    "D810_Pattern_Matching": "Defeated (Karatsuba + Cross-Halfword Products)",
+    "Z3_SMT_Symbolic_Execution": "Immune (Branch Explosion 2^67)",
+    "Taint_Flow_Analysis": "Immune (Dynamic Permutation over 64 VRegs)"
+  },
+  "cli_flags": "--virtualize --bcf --cff --anti-debug --vm-profile colossus --rolling-vkey"
+}
