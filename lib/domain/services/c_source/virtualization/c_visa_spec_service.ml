@@ -317,19 +317,57 @@ module Make (Entropy : Entropy_port.S) = struct
             compile_exp e1 dst free_reg;
             let t_reg = free_reg in
             compile_exp e2 t_reg (free_reg + 1);
-            let funct6 =
-              match bin_op with
-              | PlusA -> op.vadd_vv
-              | MinusA -> op.vsub_vv
-              | Mult -> op.vmul_vv
-              | BXor -> op.vxor_vv
-              | BAnd -> op.vand_vv
-              | BOr -> op.vor_vv
-              | Shiftlt -> op.vsll_vv
-              | Shiftrt -> op.vsrl_vv
-              | _ -> op.vadd_vv
-            in
-            emit (Spec.encode_inst spec ~funct6 ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
+            (match bin_op with
+             | PlusA ->
+                 (* Vector 1: Micro-Op RISC MBA Synthesis for Addition *)
+                 let choice = Entropy.next_int ~max:3 in
+                 if choice = 0 then (
+                   (* Direct vadd *)
+                   emit (Spec.encode_inst spec ~funct6:op.vadd_vv ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
+                 ) else if choice = 1 then (
+                   (* MBA Identity 1: (x ^ y) + 2*(x & y) *)
+                   let t1 = free_reg + 1 in
+                   let t2 = free_reg + 2 in
+                   emit (Spec.encode_inst spec ~funct6:op.vand_vv ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(t1 land 0x1F));
+                   emit (Spec.encode_inst spec ~funct6:op.vxor_vv ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F));
+                   emit (Spec.encode_inst spec ~funct6:op.vli_vi ~vm:0 ~vs2:1 ~vs1_or_imm:0 ~funct3:0 ~vd:(t2 land 0x1F));
+                   emit (Spec.encode_inst spec ~funct6:op.vsll_vv ~vm:1 ~vs2:(t2 land 0x1F) ~vs1_or_imm:(t1 land 0x1F) ~funct3:0 ~vd:(t1 land 0x1F));
+                   emit (Spec.encode_inst spec ~funct6:op.vadd_vv ~vm:1 ~vs2:(t1 land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
+                 ) else (
+                   (* MBA Identity 2: (x | y) + (x & y) *)
+                   let t1 = free_reg + 1 in
+                   emit (Spec.encode_inst spec ~funct6:op.vand_vv ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(t1 land 0x1F));
+                   emit (Spec.encode_inst spec ~funct6:op.vor_vv ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F));
+                   emit (Spec.encode_inst spec ~funct6:op.vadd_vv ~vm:1 ~vs2:(t1 land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
+                 )
+             | BXor ->
+                 (* Vector 1: Micro-Op RISC MBA Synthesis for XOR *)
+                 let choice = Entropy.next_int ~max:2 in
+                 if choice = 0 then (
+                   (* Direct vxor *)
+                   emit (Spec.encode_inst spec ~funct6:op.vxor_vv ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
+                 ) else (
+                   (* MBA XOR Identity: (x | y) - (x & y) *)
+                   let t1 = free_reg + 1 in
+                   emit (Spec.encode_inst spec ~funct6:op.vand_vv ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(t1 land 0x1F));
+                   emit (Spec.encode_inst spec ~funct6:op.vor_vv ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F));
+                   emit (Spec.encode_inst spec ~funct6:op.vsub_vv ~vm:1 ~vs2:(t1 land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
+                 )
+             | MinusA ->
+                 emit (Spec.encode_inst spec ~funct6:op.vsub_vv ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
+             | Mult ->
+                 emit (Spec.encode_inst spec ~funct6:op.vmul_vv ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
+             | BAnd ->
+                 emit (Spec.encode_inst spec ~funct6:op.vand_vv ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
+             | BOr ->
+                 emit (Spec.encode_inst spec ~funct6:op.vor_vv ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
+             | Shiftlt ->
+                 emit (Spec.encode_inst spec ~funct6:op.vsll_vv ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
+             | Shiftrt ->
+                 emit (Spec.encode_inst spec ~funct6:op.vsrl_vv ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
+             | _ ->
+                 emit (Spec.encode_inst spec ~funct6:op.vadd_vv ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
+            )
         | CastE (_, _, e1) ->
             compile_exp e1 dst free_reg
         | _ -> ()
@@ -439,12 +477,16 @@ module Make (Entropy : Entropy_port.S) = struct
         | _ -> "int"
       in
 
+      (* Vector 3: Entangled Register Affine Key Parameters *)
+      let reg_mask_base = Int64.logand (Int64.abs (Entropy.next_int64 ())) 0xFFFFFFFFFFFFL in
+      let reg_mask_step = [| 0x9E3779B97F4A7C15L; 0x517CC1B727220A95L; 0x6C62272E07BB0142L |].(Entropy.next_int ~max:3) in
+
       let arg_inits =
         List.mapi
           (fun idx p ->
-            if isIntegralType p.vtype then Printf.sprintf "    __vregs[%d] = (unsigned long long)%s;" idx p.vname
-            else if isPointerType p.vtype then Printf.sprintf "    __vregs[%d] = (unsigned long long)(uintptr_t)%s;" idx p.vname
-            else Printf.sprintf "    __vregs[%d] = 0;" idx)
+            if isIntegralType p.vtype then Printf.sprintf "    __VREG_SET(%d, (unsigned long long)%s);" idx p.vname
+            else if isPointerType p.vtype then Printf.sprintf "    __VREG_SET(%d, (unsigned long long)(uintptr_t)%s);" idx p.vname
+            else Printf.sprintf "    __VREG_SET(%d, 0);" idx)
           fd.sformals
         |> String.concat "\n"
       in
@@ -472,7 +514,14 @@ module Make (Entropy : Entropy_port.S) = struct
 
 __attribute__((visibility("default")))
 %s %s(%s) {
-    unsigned long long __vregs[%d] = {0};
+    unsigned long long __vregs[%d];
+    #define __VREG_MASK(r) (0x%LxULL + ((unsigned long long)(r) * 0x%LxULL))
+    #define __VREG_GET(r) (__vregs[(r)] ^ __VREG_MASK(r))
+    #define __VREG_SET(r, val) do { __vregs[(r)] = ((unsigned long long)(val)) ^ __VREG_MASK(r); } while(0)
+
+    for (int __i = 0; __i < %d; __i++) {
+        __vregs[__i] = __VREG_MASK(__i);
+    }
 %s
     const char *__ptr_ctx = (const char *)%s;
     unsigned int __pc = 0;
@@ -517,53 +566,53 @@ __attribute__((visibility("default")))
     __VISA_DISPATCH();
 
 __h_vadd:
-    __vregs[__vd] = __vregs[__vs1] + __vregs[__vs2];
+    __VREG_SET(__vd, __VREG_GET(__vs1) + __VREG_GET(__vs2));
     __VISA_DISPATCH();
 
 __h_vsub:
-    __vregs[__vd] = __vregs[__vs1] - __vregs[__vs2];
+    __VREG_SET(__vd, __VREG_GET(__vs1) - __VREG_GET(__vs2));
     __VISA_DISPATCH();
 
 __h_vmul:
-    __vregs[__vd] = __vregs[__vs1] * __vregs[__vs2];
+    __VREG_SET(__vd, __VREG_GET(__vs1) * __VREG_GET(__vs2));
     __VISA_DISPATCH();
 
 __h_vxor:
-    __vregs[__vd] = __vregs[__vs1] ^ __vregs[__vs2];
+    __VREG_SET(__vd, __VREG_GET(__vs1) ^ __VREG_GET(__vs2));
     __VISA_DISPATCH();
 
 __h_vand:
-    __vregs[__vd] = __vregs[__vs1] & __vregs[__vs2];
+    __VREG_SET(__vd, __VREG_GET(__vs1) & __VREG_GET(__vs2));
     __VISA_DISPATCH();
 
 __h_vor:
-    __vregs[__vd] = __vregs[__vs1] | __vregs[__vs2];
+    __VREG_SET(__vd, __VREG_GET(__vs1) | __VREG_GET(__vs2));
     __VISA_DISPATCH();
 
 __h_vsll:
-    __vregs[__vd] = __vregs[__vs1] << __vregs[__vs2];
+    __VREG_SET(__vd, __VREG_GET(__vs1) << __VREG_GET(__vs2));
     __VISA_DISPATCH();
 
 __h_vsrl:
-    __vregs[__vd] = (unsigned long long)(__vregs[__vs1] >> __vregs[__vs2]);
+    __VREG_SET(__vd, (unsigned long long)(__VREG_GET(__vs1) >> __VREG_GET(__vs2)));
     __VISA_DISPATCH();
 
 __h_vli:
-    __vregs[__vd] = (unsigned long long)((__vm << 13) | (__funct3 << 10) | (__vs1 << 5) | __vs2);
+    __VREG_SET(__vd, (unsigned long long)((__vm << 13) | (__funct3 << 10) | (__vs1 << 5) | __vs2));
     __VISA_DISPATCH();
 
 __h_vmv:
-    __vregs[__vd] = __vregs[__vs1];
+    __VREG_SET(__vd, __VREG_GET(__vs1));
     __VISA_DISPATCH();
 
 __h_vle8:
     if (__ptr_ctx) {
-        __vregs[__vd] = (unsigned long long)((const unsigned char *)__ptr_ctx)[__vregs[__vs2]];
+        __VREG_SET(__vd, (unsigned long long)((const unsigned char *)__ptr_ctx)[__VREG_GET(__vs2)]);
     }
     __VISA_DISPATCH();
 
 __h_vbge:
-    if (__vregs[__vs1] >= __vregs[__vs2]) {
+    if (__VREG_GET(__vs1) >= __VREG_GET(__vs2)) {
         __pc = (%d);
     }
     __VISA_DISPATCH();
@@ -576,7 +625,7 @@ __h_default:
     __VISA_DISPATCH();
 
 __h_vret: ;
-    unsigned long long __res_val = __vregs[0];
+    unsigned long long __res_val = __VREG_GET(0);
     __builtin_memset(__vregs, 0, sizeof(__vregs));
     return (%s)__res_val;
 }
@@ -584,6 +633,9 @@ __h_vret: ;
         ret_type_str
         fd.svar.vname
         fn_params
+        vreg_total
+        reg_mask_base
+        reg_mask_step
         vreg_total
         arg_inits
         ptr_arg
