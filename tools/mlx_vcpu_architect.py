@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-OcaSorry - MLX Neural VCPU & Profile Architect (Apple Silicon Accelerated)
-Deep Multi-Head Policy Network built with Apple MLX that designs optimal
-multi-tier VCPU architectures, ISA parameters, and hardening profiles.
+mlx_vcpu_architect.py — OcaSorry MLX Neural VCPU & Profile Architect
+Deep Multi-Head Policy Network on Apple Silicon Metal GPU.
+Proper ML: 85/15 train/val split, checkpointing at best-val, Dropout,
+early stopping with patience, cosine-annealing LR, z-score input standardization.
 """
 
-import os, sys, json, time, argparse
-from typing import Dict, Any, List, Tuple
+import os, sys, copy, json, time, argparse
 import numpy as np
 
 try:
@@ -14,195 +14,272 @@ try:
     import mlx.nn as nn
     import mlx.optimizers as opt
 except ImportError:
-    print("[!] Error: MLX is required. Install via: pip install mlx")
-    sys.exit(1)
+    print("[!] MLX required: pip install mlx"); sys.exit(1)
 
-PROFILE_NAMES = [
-    "micro-1k", "compact", "standard", "hardened-128k",
-    "fortress-256k", "titan-512k", "colossus-1m", "singularity-5m"
-]
-VCPU_TIER_TYPES = ["visa", "nested_vm", "rolling_vkey", "ephemeral_jit"]
-MODEL_WEIGHTS_PATH = os.path.join(os.path.dirname(__file__), "mlx_vcpu_model.npz")
+PROFILE_NAMES   = ["micro-1k","compact","standard","hardened-128k",
+                   "fortress-256k","titan-512k","colossus-1m","singularity-5m"]
+VCPU_TIER_TYPES = ["visa","nested_vm","rolling_vkey","ephemeral_jit"]
+WEIGHTS_PATH    = os.path.join(os.path.dirname(__file__), "mlx_vcpu_model.npz")
+
+# ─── Architecture ─────────────────────────────────────────────────────────────
 
 class VCPUArchitectMLX(nn.Module):
-    """Deep Multi-Head Neural Architecture for VCPU Synthesis (1 KB to 5 MB)"""
-    def __init__(self, in_features: int = 6, hidden_dim: int = 256):
+    """4-head MLP: profile classifier | param regressor | tier policy | security score"""
+    def __init__(self, in_dim=6, h=256, drop_p=0.1):
         super().__init__()
-        self.fc1 = nn.Linear(in_features, hidden_dim)
-        self.ln1 = nn.LayerNorm(hidden_dim)
-        self.fc2 = nn.Linear(hidden_dim, hidden_dim)
-        self.ln2 = nn.LayerNorm(hidden_dim)
-        self.fc3 = nn.Linear(hidden_dim, hidden_dim)
-        self.ln3 = nn.LayerNorm(hidden_dim)
-        self.fc4 = nn.Linear(hidden_dim, hidden_dim)
-        self.ln4 = nn.LayerNorm(hidden_dim)
+        self.fc1, self.ln1 = nn.Linear(in_dim, h), nn.LayerNorm(h)
+        self.fc2, self.ln2 = nn.Linear(h, h),      nn.LayerNorm(h)
+        self.fc3, self.ln3 = nn.Linear(h, h),      nn.LayerNorm(h)
+        self.fc4, self.ln4 = nn.Linear(h, h),      nn.LayerNorm(h)
+        self.drop = nn.Dropout(drop_p)
+        self.head_prof = nn.Linear(h, len(PROFILE_NAMES))
+        self.head_par  = nn.Linear(h, 5)
+        self.head_tier = nn.Linear(h, 4)
+        self.head_sec  = nn.Linear(h, 1)
 
-        self.head_profile = nn.Linear(hidden_dim, len(PROFILE_NAMES))
-        self.head_params = nn.Linear(hidden_dim, 5)
-        self.head_tiers = nn.Linear(hidden_dim, 4)
-        self.head_security = nn.Linear(hidden_dim, 1)
+    def __call__(self, x):
+        h1 = self.drop(nn.gelu(self.ln1(self.fc1(x))))
+        h2 = h1 + self.drop(nn.gelu(self.ln2(self.fc2(h1))))
+        h3 = h2 + self.drop(nn.gelu(self.ln3(self.fc3(h2))))
+        h4 = h3 + self.drop(nn.gelu(self.ln4(self.fc4(h3))))
+        return (self.head_prof(h4),
+                nn.sigmoid(self.head_par(h4)),
+                self.head_tier(h4),
+                nn.sigmoid(self.head_sec(h4)) * 100.0)
 
-    def __call__(self, x: mx.array) -> Tuple[mx.array, mx.array, mx.array, mx.array]:
-        h1 = nn.gelu(self.ln1(self.fc1(x)))
-        h2 = h1 + nn.gelu(self.ln2(self.fc2(h1)))
-        h3 = h2 + nn.gelu(self.ln3(self.fc3(h2)))
-        h4 = h3 + nn.gelu(self.ln4(self.fc4(h3)))
-        return (self.head_profile(h4),
-                nn.sigmoid(self.head_params(h4)),
-                self.head_tiers(h4),
-                nn.sigmoid(self.head_security(h4)) * 100.0)
+# ─── Dataset ──────────────────────────────────────────────────────────────────
 
-def generate_synthetic_compiler_dataset(n_samples: int = 25000):
-    np.random.seed(42)
-    log2_sizes = np.random.uniform(0.0, 12.32, n_samples)
-    sizes_kb = np.exp2(log2_sizes)
-    log10_latencies = np.random.uniform(1.0, 6.0, n_samples)
-    threat_levels = np.random.randint(1, 5, n_samples).astype(np.float32)
-    complexities = np.random.uniform(1.0, 10.0, n_samples)
-    ast_nodes = np.random.uniform(10.0, 5000.0, n_samples)
-    loop_counts = np.random.randint(0, 50, n_samples).astype(np.float32)
+def _make_dataset(n=25_000, seed=42):
+    rng = np.random.RandomState(seed)
+    log2_sz = rng.uniform(0.0, 12.32, n)
+    sz_kb   = np.exp2(log2_sz)
+    log10_l = rng.uniform(1.0, 6.0, n)
+    threat  = rng.randint(1, 5, n).astype(np.float32)
+    compl   = rng.uniform(1.0, 10.0, n)
+    ast     = rng.uniform(10.0, 5000.0, n)
+    loops   = rng.randint(0, 50, n).astype(np.float32)
 
-    X = np.zeros((n_samples, 6), dtype=np.float32)
-    X[:, 0] = log2_sizes / 12.32
-    X[:, 1] = (log10_latencies - 1.0) / 5.0
-    X[:, 2] = (threat_levels - 1.0) / 3.0
-    X[:, 3] = (complexities - 1.0) / 9.0
-    X[:, 4] = (ast_nodes - 10.0) / 4990.0
-    X[:, 5] = loop_counts / 50.0
+    X = np.stack([log2_sz / 12.32, (log10_l - 1.) / 5., (threat - 1.) / 3.,
+                  (compl - 1.) / 9., (ast - 10.) / 4990., loops / 50.], axis=1).astype(np.float32)
 
-    y_profile = np.zeros((n_samples,), dtype=np.int32)
-    y_params = np.zeros((n_samples, 5), dtype=np.float32)
-    y_tiers = np.zeros((n_samples, 4), dtype=np.float32)
-    y_sec = np.zeros((n_samples, 1), dtype=np.float32)
-
-    cfg = [
-        (16.0,   0, 32,   1, 0,   0,  8,  [1.0, 0, 0, 0], 35.0, 5.0),
-        (64.0,   1, 64,   1, 2,   0,  16, [0.8, 0.2, 0, 0], 50.0, 4.0),
-        (128.0,  2, 64,   2, 5,   1,  32, [0.4, 0.3, 0.2, 0.1], 65.0, 3.0),
-        (256.0,  3, 128,  2, 10,  4,  48, [0.3, 0.3, 0.2, 0.2], 78.0, 2.5),
-        (512.0,  4, 256,  3, 25,  8,  64, [0.25, 0.25, 0.25, 0.25], 88.0, 1.5),
-        (1024.0, 5, 512,  4, 50,  16, 64, [0.25, 0.25, 0.25, 0.25], 94.0, 1.2),
-        (2048.0, 6, 512,  4, 100, 32, 64, [0.25, 0.25, 0.25, 0.25], 97.5, 0.5),
-        (9999.0, 7, 1024, 4, 200, 64, 64, [0.25, 0.25, 0.25, 0.25], 99.8, 0.0)
+    # (max_kb, profile_idx, dispatch, mba, decoys, luts, vregs, tiers, base_sec, sec_mult)
+    RULES = [
+        (16.,   0, 32,   1,  0,   0,  8,  [1., 0., 0., 0.],         35., 5.),
+        (64.,   1, 64,   1,  2,   0,  16, [.8, .2, .0, .0],         50., 4.),
+        (128.,  2, 64,   2,  5,   1,  32, [.4, .3, .2, .1],         65., 3.),
+        (256.,  3, 128,  2,  10,  4,  48, [.3, .3, .2, .2],         78., 2.5),
+        (512.,  4, 256,  3,  25,  8,  64, [.25,.25,.25,.25],        88., 1.5),
+        (1024., 5, 512,  4,  50,  16, 64, [.25,.25,.25,.25],        94., 1.2),
+        (2048., 6, 512,  4,  100, 32, 64, [.25,.25,.25,.25],        97.5, .5),
+        (1e9,   7, 1024, 4,  200, 64, 64, [.25,.25,.25,.25],        99.8, .0),
     ]
 
-    for i in range(n_samples):
-        sz = sizes_kb[i]
-        th = threat_levels[i]
-        for max_sz, p_idx, d, mba, dec, lut, vr, trs, base_s, s_mult in cfg:
-            if sz < max_sz:
-                y_profile[i] = p_idx
-                y_params[i] = [(d - 32) / 992.0, (mba - 1) / 3.0, dec / 200.0, lut / 64.0, (vr - 8) / 56.0]
-                y_tiers[i] = trs
-                y_sec[i, 0] = min(base_s + (th * s_mult), 100.0)
+    yp  = np.zeros(n, dtype=np.int32)
+    ypar= np.zeros((n, 5), dtype=np.float32)
+    yt  = np.zeros((n, 4), dtype=np.float32)
+    ys  = np.zeros((n, 1), dtype=np.float32)
+
+    for i in range(n):
+        for max_kb, pi, d, mba, dec, lut, vr, trs, bs, sm in RULES:
+            if sz_kb[i] < max_kb:
+                yp[i] = pi
+                ypar[i] = [(d-32)/992., (mba-1)/3., dec/200., lut/64., (vr-8)/56.]
+                yt[i]   = trs
+                ys[i,0] = min(bs + threat[i] * sm, 100.)
                 break
+    return X, yp, ypar, yt, ys
 
-    return X, y_profile, y_params, y_tiers, y_sec
+def _split(X, *Ys, val_frac=0.15, seed=42):
+    n = len(X)
+    rng = np.random.RandomState(seed)
+    idx = rng.permutation(n)
+    nv  = max(1, int(n * val_frac))
+    vi, ti = idx[:nv], idx[nv:]
 
-def train_mlx_model(model: VCPUArchitectMLX, epochs: int = 25, batch_size: int = 128):
-    print("[*] Generating 1 KB to 5 MB compiler telemetry dataset (25,000 samples)...")
-    X_np, yp_np, ypar_np, yt_np, ys_np = generate_synthetic_compiler_dataset(25000)
-    X, yp, ypar, yt, ys = mx.array(X_np), mx.array(yp_np), mx.array(ypar_np), mx.array(yt_np), mx.array(ys_np)
+    # Standardize on train only
+    mu  = X[ti].mean(0, keepdims=True)
+    sig = X[ti].std(0, keepdims=True) + 1e-6
+    Xtr = mx.array((X[ti] - mu) / sig)
+    Xvl = mx.array((X[vi] - mu) / sig)
+    return (Xtr, Xvl, mu, sig,
+            *[( mx.array(Y[ti]), mx.array(Y[vi]) ) for Y in Ys])
 
-    optimizer = opt.AdamW(learning_rate=1.5e-3, weight_decay=1e-4)
+# ─── Training ─────────────────────────────────────────────────────────────────
 
-    def loss_fn(m, x_b, yp_b, ypar_b, ytier_b, ysec_b):
-        logits_p, pred_par, logits_t, pred_sec = m(x_b)
-        return (nn.losses.cross_entropy(logits_p, yp_b, reduction="mean") +
-                2.0 * nn.losses.mse_loss(pred_par, ypar_b, reduction="mean") +
-                1.5 * nn.losses.mse_loss(nn.softmax(logits_t, axis=-1), ytier_b, reduction="mean") +
-                0.5 * nn.losses.mse_loss(pred_sec, ysec_b, reduction="mean") / 100.0)
+def train_vcpu_model(model, epochs=40, batch_size=256, lr=2e-3, patience=8, seed=42):
+    print("[*] Generating 25 000-sample VCPU compiler telemetry dataset...", flush=True)
+    X, yp, ypar, yt, ys = _make_dataset(seed=seed)
+    Xtr, Xvl, mu, sig, (yp_tr,yp_vl), (ypar_tr,ypar_vl), (yt_tr,yt_vl), (ys_tr,ys_vl) = \
+        _split(X, yp, ypar, yt, ys, val_frac=0.15, seed=seed)
 
-    loss_and_grad_fn = nn.value_and_grad(model, loss_fn)
-    n_batches = len(X) // batch_size
-    print(f"[*] Training MLX Neural Network on Apple Silicon Metal GPU ({epochs} epochs)...")
+    n_tr = Xtr.shape[0]
+    optimizer = opt.AdamW(learning_rate=lr, weight_decay=1e-4)
+
+    def loss_fn(m, xb, ypb, yparb, ytb, ysb):
+        lp, pp, lt, ps = m(xb)
+        return (nn.losses.cross_entropy(lp, ypb, reduction="mean")
+                + 2.0 * nn.losses.mse_loss(pp, yparb, reduction="mean")
+                + 1.5 * nn.losses.mse_loss(nn.softmax(lt, axis=-1), ytb, reduction="mean")
+                + 0.5 * nn.losses.mse_loss(ps, ysb, reduction="mean") / 100.)
+
+    loss_and_grad = nn.value_and_grad(model, loss_fn)
+    best_val, best_w, no_imp = float('inf'), None, 0
     t0 = time.time()
-    for epoch in range(epochs):
-        perm = np.random.permutation(len(X))
-        epoch_loss = 0.0
-        for b in range(n_batches):
-            idx = mx.array(perm[b * batch_size : (b + 1) * batch_size])
-            loss, grads = loss_and_grad_fn(model, X[idx], yp[idx], ypar[idx], yt[idx], ys[idx])
+
+    print(f"[*] Training on Metal GPU | epochs={epochs} | train={n_tr} | val={Xvl.shape[0]} | lr_init={lr}", flush=True)
+
+    for ep in range(1, epochs + 1):
+        # Cosine LR
+        cos_lr = lr * 0.5 * (1. + np.cos(np.pi * ep / epochs))
+        optimizer.learning_rate = max(cos_lr, 5e-5)
+
+        perm = np.random.permutation(n_tr)
+        for i in range(0, n_tr, batch_size):
+            b = mx.array(perm[i:i+batch_size])
+            loss, grads = loss_and_grad(model, Xtr[b], yp_tr[b], ypar_tr[b], yt_tr[b], ys_tr[b])
             optimizer.update(model, grads)
             mx.eval(model.parameters(), optimizer.state)
-            epoch_loss += float(loss)
-        if (epoch + 1) % 5 == 0 or epoch == epochs - 1:
-            print(f"  [Epoch {epoch+1:2d}/{epochs}] Loss: {epoch_loss/n_batches:.4f}")
-    print(f"[+] MLX Training Completed in {time.time() - t0:.2f}s")
-    model.save_weights(MODEL_WEIGHTS_PATH)
-    print(f"[+] Model weights saved -> {MODEL_WEIGHTS_PATH}\n")
 
-def design_vcpu_profile(model: VCPUArchitectMLX, target_size_kb: float, latency_budget_us: float,
-                        threat_level: int, func_complexity: float, ast_nodes: int, loop_count: int):
-    log2_size = np.log2(max(target_size_kb, 0.5))
-    log10_lat = np.log10(max(latency_budget_us, 1.0))
-    feat = np.array([[log2_size / 12.32, (log10_lat - 1.0) / 5.0, (threat_level - 1.0) / 3.0,
-                      (func_complexity - 1.0) / 9.0, (ast_nodes - 10.0) / 4990.0, loop_count / 50.0]], dtype=np.float32)
-    logits_p, reg_params, logits_t, sec_score = model(mx.array(feat))
-    mx.eval(logits_p, reg_params, logits_t, sec_score)
+        # Genuine validation (eval mode — dropout disabled)
+        model.eval()
+        val_loss = float(loss_fn(model, Xvl, yp_vl, ypar_vl, yt_vl, ys_vl))
+        model.train()
 
-    p_probs = np.array(nn.softmax(logits_p, axis=-1))[0]
-    p_idx = int(np.argmax(p_probs))
-    t_probs = np.array(nn.softmax(logits_t, axis=-1))[0]
-    params = np.array(reg_params)[0]
+        if val_loss < best_val:
+            best_val = val_loss
+            best_w   = copy.deepcopy(model.parameters())
+            no_imp   = 0
+        else:
+            no_imp  += 1
 
-    dispatch = int(round(32 + (params[0] * 992.0)))
-    mba = max(1, min(4, int(round(1 + (params[1] * 3.0)))))
-    decoys = int(round(params[2] * 200.0))
-    luts = int(round(params[3] * 64.0))
-    vregs = int(round(8 + (params[4] * 56.0)))
-    profile = PROFILE_NAMES[p_idx]
+        if ep % 5 == 0 or ep == epochs or no_imp == patience:
+            bar_f = ep * 20 // epochs
+            bar   = "=" * bar_f + "-" * (20 - bar_f)
+            tr_loss = float(loss_fn(model, Xtr[:512], yp_tr[:512], ypar_tr[:512], yt_tr[:512], ys_tr[:512]))
+            print(f"  [Ep {ep:3d}/{epochs:3d}] [{bar}] "
+                  f"Tr: {tr_loss:.4f} | Val: {val_loss:.4f} (Best: {best_val:.4f}) | {time.time()-t0:.1f}s", flush=True)
 
-    flags = f"--virtualize --timing-check --bcf --cff --anti-debug --vm-profile {profile.split('-')[0]}"
-    if t_probs[1] > 0.15: flags += " --nested-vm"
-    if t_probs[2] > 0.15: flags += " --rolling-vkey"
-    if t_probs[3] > 0.15: flags += " --ephemeral"
+        if no_imp >= patience and ep >= 10:
+            print(f"  [!] Early stopping at epoch {ep} (best val: {best_val:.4f})", flush=True)
+            break
+
+    if best_w:
+        model.update(best_w); mx.eval(model.parameters())
+
+    model.save_weights(WEIGHTS_PATH)
+    print(f"[+] Model saved -> {WEIGHTS_PATH}  (best val loss: {best_val:.4f})\n", flush=True)
+    return mu, sig
+
+# ─── Inference ────────────────────────────────────────────────────────────────
+
+def design_vcpu(model, mu, sig, target_kb=512., latency_us=2500., threat=3,
+                complexity=7.5, ast_nodes=350, loops=6):
+    raw = np.array([[np.log2(max(target_kb,.5))/12.32,
+                     (np.log10(max(latency_us,1.))-1.)/5.,
+                     (threat-1.)/3., (complexity-1.)/9.,
+                     (ast_nodes-10.)/4990., loops/50.]], dtype=np.float32)
+    x = mx.array((raw - mu) / sig)
+
+    model.eval()
+    lp, pp, lt, ps = model(x)
+    mx.eval(lp, pp, lt, ps)
+    model.train()
+
+    p_probs = np.array(nn.softmax(lp, axis=-1))[0]
+    t_probs = np.array(nn.softmax(lt, axis=-1))[0]
+    params  = np.array(pp)[0]
+    pi      = int(np.argmax(p_probs))
+
+    d    = int(round(32 + params[0] * 992.))
+    mba  = max(1, min(4, int(round(1 + params[1] * 3.))))
+    dec  = int(round(params[2] * 200.))
+    luts = int(round(params[3] * 64.))
+    vr   = int(round(8 + params[4] * 56.))
+
+    flags = f"--virtualize --bcf --cff --anti-debug --vm-profile {PROFILE_NAMES[pi].split('-')[0]}"
+    if t_probs[1] > .15: flags += " --nested-vm"
+    if t_probs[2] > .15: flags += " --rolling-vkey"
+    if t_probs[3] > .15: flags += " --ephemeral"
 
     return {
-        "neural_designed_profile": profile,
-        "profile_confidence_pct": round(float(p_probs[p_idx] * 100.0), 2),
-        "predicted_resilience_score": round(float(sec_score[0, 0]), 2),
-        "synthesized_vcpu_isa_params": {
-            "dispatch_size": dispatch, "mba_depth": mba, "decoy_density": decoys,
-            "sbox_lut_count": luts, "virtual_registers": vregs
+        "profile":           PROFILE_NAMES[pi],
+        "confidence_pct":    round(float(p_probs[pi]*100.), 2),
+        "resilience_score":  round(float(ps[0, 0]), 2),
+        "vcpu_params":       {"dispatch": d, "mba_depth": mba, "decoys": dec,
+                              "sbox_luts": luts, "virtual_regs": vr},
+        "tier_distribution": [{"tier": VCPU_TIER_TYPES[i],
+                                "confidence": round(float(t_probs[i]*100.), 2)} for i in range(4)],
+        "adversary_resilience": {
+            "D810_Pattern_Matching":     "Defeated (Karatsuba + Cross-Halfword Products)",
+            "Z3_SMT_Symbolic_Execution": f"Immune (Branch Explosion 2^{min(dec,197)})",
+            "Taint_Flow_Analysis":       f"Immune (Dynamic Permutation over {vr} VRegs)",
         },
-        "multi_vcpu_cascade_distribution": [
-            {"tier_type": VCPU_TIER_TYPES[i], "confidence": round(float(t_probs[i] * 100.0), 2)}
-            for i in range(4)
-        ],
-        "adversary_attack_resilience": {
-            "D810_Pattern_Matching": "Defeated (Karatsuba + Cross-Halfword Products)",
-            "Z3_SMT_Symbolic_Execution": f"Immune (Branch Explosion 2^{min(decoys, 197)})",
-            "Hardware_Jitter_Analysis": "Immune (Silent State Poisoning CNTVCT_EL0)",
-            "Taint_Flow_Analysis": f"Immune (Dynamic Permutation over {vregs} VRegs)"
-        },
-        "recommended_cli_flags": flags
+        "cli_flags": flags,
     }
 
+# ─── Main ─────────────────────────────────────────────────────────────────────
+
 def main():
-    p = argparse.ArgumentParser(description="OcaSorry MLX Neural VCPU Architect")
-    p.add_argument("--target-size", type=float, default=512.0)
-    p.add_argument("--latency-budget", type=float, default=2500.0)
-    p.add_argument("--threat", type=int, default=3)
-    p.add_argument("--complexity", type=float, default=7.5)
-    p.add_argument("--ast-nodes", type=int, default=350)
-    p.add_argument("--loops", type=int, default=6)
-    p.add_argument("--retrain", action="store_true")
-    p.add_argument("--epochs", type=int, default=25)
-    p.add_argument("--export-json", type=str, default="")
-    args = p.parse_args()
+    ap = argparse.ArgumentParser(description="OcaSorry MLX Neural VCPU Architect")
+    ap.add_argument("--target-size",    type=float, default=512.,    metavar="KB")
+    ap.add_argument("--latency-budget", type=float, default=2500.,   metavar="US")
+    ap.add_argument("--threat",         type=int,   default=3,       choices=[1,2,3,4])
+    ap.add_argument("--complexity",     type=float, default=7.5)
+    ap.add_argument("--ast-nodes",      type=int,   default=350)
+    ap.add_argument("--loops",          type=int,   default=6)
+    ap.add_argument("--epochs",         type=int,   default=40)
+    ap.add_argument("--seed",           type=int,   default=42)
+    ap.add_argument("--retrain",        action="store_true")
+    ap.add_argument("--export-json",    type=str,   default="")
+    args = ap.parse_args()
 
-    model = VCPUArchitectMLX(in_features=6, hidden_dim=256)
-    if os.path.exists(MODEL_WEIGHTS_PATH) and not args.retrain:
-        try: model.load_weights(MODEL_WEIGHTS_PATH)
-        except Exception: train_mlx_model(model, epochs=args.epochs)
-    else: train_mlx_model(model, epochs=args.epochs)
+    np.random.seed(args.seed)
+    mx.random.seed(args.seed)
 
-    res = design_vcpu_profile(model, args.target_size, args.latency_budget, args.threat, args.complexity, args.ast_nodes, args.loops)
-    print("=" * 78 + f"\n  Optimal Hardening Profile : {res['neural_designed_profile'].upper()} (Confidence: {res['profile_confidence_pct']}%)")
-    print(f"  SMT & D810 Resilience     : {res['predicted_resilience_score']}%\n  Recommended CLI: {res['recommended_cli_flags']}\n" + "=" * 78)
+    model = VCPUArchitectMLX(in_dim=6, h=256, drop_p=0.1)
+
+    # Standardization stats (mean/std) must accompany weights
+    stats_path = WEIGHTS_PATH.replace(".npz", "_stats.json")
+
+    if os.path.exists(WEIGHTS_PATH) and os.path.exists(stats_path) and not args.retrain:
+        try:
+            model.load_weights(WEIGHTS_PATH)
+            s    = json.load(open(stats_path))
+            mu   = np.array(s["mean"], dtype=np.float32)
+            sig  = np.array(s["std"],  dtype=np.float32)
+            print(f"[+] Loaded pre-trained weights ({WEIGHTS_PATH})", flush=True)
+        except Exception:
+            mu, sig = train_vcpu_model(model, epochs=args.epochs, seed=args.seed)
+            json.dump({"mean": mu.flatten().tolist(), "std": sig.flatten().tolist()},
+                      open(stats_path, "w"))
+    else:
+        mu, sig = train_vcpu_model(model, epochs=args.epochs, seed=args.seed)
+        json.dump({"mean": mu.flatten().tolist(), "std": sig.flatten().tolist()},
+                  open(stats_path, "w"))
+
+    res = design_vcpu(model, mu, sig,
+                      target_kb=args.target_size, latency_us=args.latency_budget,
+                      threat=args.threat, complexity=args.complexity,
+                      ast_nodes=args.ast_nodes, loops=args.loops)
+
+    print("=" * 70)
+    print(f"  Profile      : {res['profile'].upper()}  (confidence {res['confidence_pct']}%)")
+    print(f"  Resilience   : {res['resilience_score']}%")
+    print(f"  Dispatch     : {res['vcpu_params']['dispatch']} slots")
+    print(f"  MBA Depth    : {res['vcpu_params']['mba_depth']}")
+    print(f"  Decoys       : {res['vcpu_params']['decoys']} traps")
+    print(f"  SBox LUTs    : {res['vcpu_params']['sbox_luts']}")
+    print(f"  VRegs        : {res['vcpu_params']['virtual_regs']}")
+    print("  VCPU Cascade :")
+    for t in res["tier_distribution"]:
+        bar = "█" * int(t["confidence"] // 5)
+        print(f"    {t['tier']:15s} {t['confidence']:5.1f}% [{bar}]")
+    print(f"  CLI          : ocasorry {res['cli_flags']}")
+    print("=" * 70)
+
     if args.export_json:
-        with open(args.export_json, "w") as f: json.dump(res, f, indent=2)
+        json.dump(res, open(args.export_json, "w"), indent=2)
+        print(f"[+] Exported -> {args.export_json}")
 
 if __name__ == "__main__":
     main()
