@@ -7,14 +7,16 @@ open GoblintCil.Cil
 module Make (Entropy : Entropy_port.S) = struct
   let jit_counter = ref 0
 
-  let should_transform (fd : fundec) : bool =
+  let should_transform (fd : fundec) ~(global : bool) : bool =
     if fd.svar.vname = "main" || String.starts_with ~prefix:"__" fd.svar.vname then false
+    else if C_annotation_service.AnnotationHelper.should_skip_all fd then false
     else if C_annotation_service.AnnotationHelper.has_annotation fd "jitify"
             || C_annotation_service.AnnotationHelper.has_annotation fd "jit" then true
+    else if global && not (C_annotation_service.AnnotationHelper.has_any_vm_annotation fd) then true
     else false
 
-  let transform_function (file : file) (fd : fundec) : unit =
-    if not (should_transform fd) then ()
+  let transform_function (file : file) ~(global : bool) (fd : fundec) : unit =
+    if not (should_transform fd ~global) then ()
     else (
       incr jit_counter;
       let jit_buf_name = Printf.sprintf "__jit_code_%d" !jit_counter in
@@ -52,7 +54,7 @@ module Make (Entropy : Entropy_port.S) = struct
       fd.sbody <- mkBlock [ compute_jit; ret_stmt ]
     )
 
-  let transform_file (f : file) : file =
+  let transform_file ?(global : bool = true) (f : file) : file =
     let funcs =
       List.filter_map
         (function
@@ -60,6 +62,6 @@ module Make (Entropy : Entropy_port.S) = struct
           | _ -> None)
         f.globals
     in
-    List.iter (transform_function f) funcs;
+    List.iter (transform_function f ~global) funcs;
     f
 end

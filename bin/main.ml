@@ -166,6 +166,7 @@ let () =
   let enable_jitify = ref false in
   let enable_egraph_mba = ref false in
   let egraph_depth = ref 3 in
+  let enable_eh_shadow = ref false in
   let visa_spec_file = ref "" in
   let vm_profile = ref "" in
 
@@ -228,6 +229,7 @@ let () =
     ("--strip", Arg.Set enable_strip, "Enable Source Directives Stripping");
     ("--anti-debug", Arg.Set enable_anti_debug, "Enable Anti-Debug Injection (sysctl P_TRACED)");
     ("--anti-disasm", Arg.Set enable_anti_disasm, "Enable Anti-Disassembly (Junk Byte Desync)");
+    ("--eh-shadow", Arg.Set enable_eh_shadow, "Enable ABI-Compliant Exception Handling (EH) Shadowing (XuanJia/arXiv:2601.10261)");
     ("--self-checksum", Arg.Set enable_self_checksum, "Enable Self-Checksumming (Hash Guards)");
     ("--timing-check", Arg.Set enable_timing_check, "Enable Timing Verification (Anti-Stepping)");
     ("--hook-detect", Arg.Set enable_hook_detect, "Enable Dynamic Hook Detection");
@@ -253,6 +255,7 @@ let () =
       enable_c_float_mba = !enable_float_mba;
       enable_c_egraph_mba = !enable_egraph_mba;
       c_egraph_depth = !egraph_depth;
+      enable_c_eh_shadow = !enable_eh_shadow;
       enable_c_opaque = !enable_opaque;
       enable_c_dynamic_opaque = !enable_dyn_opaque;
       enable_c_diophantine = !enable_diophantine;

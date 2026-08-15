@@ -58,6 +58,7 @@ type c_pipeline_config = {
   enable_c_jitify : bool;
   enable_c_egraph_mba : bool;
   c_egraph_depth : int;
+  enable_c_eh_shadow : bool;
   c_vm_profile : string option;
 }
 
@@ -67,6 +68,7 @@ let default_c_config = {
   enable_c_float_mba = false;
   enable_c_egraph_mba = false;
   c_egraph_depth = 3;
+  enable_c_eh_shadow = false;
   c_vm_profile = None;
   enable_c_opaque = true;
   enable_c_dynamic_opaque = false;
@@ -183,6 +185,7 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
   module SelfModVM = C_self_modifying_vm_service.Make (Entropy)
   module Jitify = C_jitify_service.Make (Entropy)
   module EGraphMBA = C_egraph_mba_service.Make (Entropy)
+  module EHShadow = C_eh_shadowing_service.Make (Entropy)
 
   let run_passes (cil_file : GoblintCil.Cil.file) (config : c_pipeline_config) : GoblintCil.Cil.file =
     (match config.c_vm_profile with
@@ -236,6 +239,7 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
     let f = if config.enable_c_stack_aliasing then StackAliasing.transform_file f else f in
     let f = if config.enable_c_ephemeral_payload then EphemeralPayload.transform_file f else f in
     let f = if config.enable_c_jitify then Jitify.transform_file f else f in
+    let f = EHShadow.transform_file ~global:config.enable_c_eh_shadow f in
     let f = if config.enable_c_anti_debug then AntiDebug.transform_file f else f in
     let f = if config.enable_c_anti_disasm then AntiDisasm.transform_file f else f in
     let f = if config.enable_c_self_checksum then SelfChecksum.transform_file f else f in
