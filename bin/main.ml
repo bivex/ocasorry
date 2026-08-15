@@ -170,7 +170,7 @@ let () =
   let enable_loki_invariants = ref false in
   let enable_micro_dispatcher = ref false in
   let enable_anti_vtil = ref false in
-  let visa_spec_file = ref "" in
+  let visa_spec_files = ref [] in
   let vm_profile = ref "" in
 
   let speclist = [
@@ -242,14 +242,20 @@ let () =
     ("--api-hash", Arg.Set enable_api_hash, "Enable Dynamic POSIX API Hashing (dlsym)");
     ("--constructor", Arg.Set enable_early_constructor, "Enable Pre-Main Security Constructor");
     ("--vm-profile", Arg.Set_string vm_profile, "Set VM profile: compact, standard, hardened-128k, fortress-256k, titan-512k, colossus-1m");
-    ("--visa-spec", Arg.Set_string visa_spec_file, "Path to Python/Sail generated JSON ISA specification file");
+    ("--visa-spec", Arg.String (fun s -> visa_spec_files := s :: !visa_spec_files), "Path to JSON ISA specification file (can be repeated)");
+    ("--visa-specs-dir", Arg.String (fun dir ->
+      if Sys.file_exists dir && Sys.is_directory dir then
+        Sys.readdir dir
+        |> Array.iter (fun f ->
+          if Filename.check_suffix f ".json" then
+            visa_spec_files := Filename.concat dir f :: !visa_spec_files
+        )), "Directory containing multiple JSON ISA specification files");
   ] in
 
   let usage_msg = "Usage: ocasorry [-i <input.c> -o <output.c> [passes]] (run without args for interactive demo)" in
   Arg.parse speclist (fun _ -> ()) usage_msg;
 
-  if !visa_spec_file <> "" then
-    ignore (C_visa_spec_service.VisaSpec.load_from_file !visa_spec_file);
+  List.iter (fun f -> ignore (C_visa_spec_service.VisaSpec.load_from_file f)) (List.rev !visa_spec_files);
 
   if !in_file = "" then
     run_demo ()

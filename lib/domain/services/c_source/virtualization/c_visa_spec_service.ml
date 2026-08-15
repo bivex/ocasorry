@@ -118,7 +118,14 @@ module Make (Entropy : Entropy_port.S) = struct
       incr vcpu_counter;
       generate_visa_runtime file;
 
-      let spec = Spec.get_active_spec () in
+      (* Per-function ISA selection via annotation "ocasorry:visa:ISA_NAME".
+         Falls back to active_spec if no specific ISA is named. *)
+      let isa_annotation =
+        C_annotation_service.AnnotationHelper.get_annotations fd
+        |> List.find_opt (fun s -> String.length s > 5 && String.sub s 0 5 = "visa:")
+        |> Option.map (fun s -> String.sub s 5 (String.length s - 5))
+      in
+      let spec = Spec.get_spec_for_annotation isa_annotation in
       let op   = spec.opcodes in
       let lay  = spec.layout in
 
