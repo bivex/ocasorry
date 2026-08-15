@@ -38,6 +38,8 @@ module Make (Entropy : Entropy_port.S) = struct
 #include <stdint.h>
 #include <string.h>
 
+/* Hash-only resolver: no plaintext symbol name ever leaves the binary in call sites.
+   The resolver scans a static candidate table keyed by CRC32, resolving purely by hash. */
 static uint32_t __ocasorry_calc_crc32(const char *s) {
     uint32_t crc = 0xFFFFFFFF;
     while (*s) {
@@ -49,17 +51,47 @@ static uint32_t __ocasorry_calc_crc32(const char *s) {
     return ~crc;
 }
 
-static void *__ocasorry_resolve_symbol_hash(uint32_t target_hash, const char *name) {
-    if (!name) return 0;
-    if (__ocasorry_calc_crc32(name) == target_hash) {
+static void *__ocasorry_resolve_symbol_hash(uint32_t target_hash) {
+    /* Candidate symbol names stored as XOR-obfuscated byte arrays (key=0xA5).
+       No plaintext strings appear in __cstring / __data sections.
+       Sentinel 0xA5 = (0x00 ^ 0xA5) marks end of each name. */
+    static const unsigned char __c0[] = {0xd5,0xd7,0xcc,0xcb,0xd1,0xc3,0xA5}; /* printf */
+    static const unsigned char __c1[] = {0xd5,0xd0,0xd1,0xd6,0xA5};           /* puts */
+    static const unsigned char __c2[] = {0xc0,0xdd,0xcc,0xd1,0xA5};           /* exit */
+    static const unsigned char __c3[] = {0xc8,0xc4,0xc9,0xc9,0xca,0xc6,0xA5};/* malloc */
+    static const unsigned char __c4[] = {0xc3,0xd7,0xc0,0xc0,0xA5};          /* free */
+    static const unsigned char __c5[] = {0xc8,0xc0,0xc8,0xd6,0xc0,0xd1,0xA5};/* memset */
+    static const unsigned char __c6[] = {0xc8,0xc0,0xc8,0xc6,0xd5,0xdc,0xA5};/* memcpy */
+    static const unsigned char __c7[] = {0xd6,0xd1,0xd7,0xc9,0xc0,0xcb,0xA5};/* strlen */
+    static const unsigned char __c8[] = {0xc3,0xca,0xd5,0xc0,0xcb,0xA5};     /* fopen */
+    static const unsigned char __c9[] = {0xd6,0xd5,0xd7,0xcc,0xcb,0xd1,0xc3,0xA5};       /* sprintf */
+    static const unsigned char __ca[] = {0xd6,0xcb,0xd5,0xd7,0xcc,0xcb,0xd1,0xc3,0xA5};  /* snprintf */
+    static const unsigned char __cb[] = {0xc4,0xc7,0xca,0xd7,0xd1,0xA5};     /* abort */
+
+    static const unsigned char * const __enc[] = {
+        __c0, __c1, __c2, __c3, __c4, __c5, __c6, __c7, __c8, __c9, __ca, __cb, 0
+    };
+
+    for (int i = 0; __enc[i] != 0; i++) {
+        /* Decode name on the stack at runtime — never stored as plaintext */
+        char name[32];
+        int j = 0;
+        while (__enc[i][j] != 0xA5 && j < 31) {
+            name[j] = (char)(__enc[i][j] ^ 0xA5);
+            j++;
+        }
+        name[j] = '\0';
+
+        if (__ocasorry_calc_crc32(name) == target_hash) {
 #ifdef RTLD_DEFAULT
-        void *sym = dlsym(RTLD_DEFAULT, name);
+            void *sym = dlsym(RTLD_DEFAULT, name);
 #else
-        void *sym = dlsym((void*)-2, name);
+            void *sym = dlsym((void*)-2, name);
 #endif
-        if (sym) return sym;
-        void *h = dlopen(0, RTLD_LAZY);
-        if (h) return dlsym(h, name);
+            if (sym) return sym;
+            void *h = dlopen(0, 1);
+            if (h) return dlsym(h, name);
+        }
     }
     return 0;
 }
@@ -78,7 +110,7 @@ static void *__ocasorry_resolve_symbol_hash(uint32_t target_hash, const char *na
           let hash_val = Hashtbl.find target_symbols fn_var.vname in
           let resolve_fn =
             makeGlobalVar "__ocasorry_resolve_symbol_hash"
-              (TFun (voidPtrType, Some [ ("target_hash", uintType, []); ("name", charConstPtrType, []) ], false, []))
+              (TFun (voidPtrType, Some [ ("target_hash", uintType, []) ], false, []))
           in
           
           let var_name = Printf.sprintf "__resolved_%s" fn_var.vname in
@@ -90,7 +122,7 @@ static void *__ocasorry_resolve_symbol_hash(uint32_t target_hash, const char *na
 
           let call_resolve =
             Call (Some (var resolved_ptr), Lval (var resolve_fn),
-                  [ kinteger64 IUInt hash_val; mkString fn_var.vname ], loc, loc)
+                  [ kinteger64 IUInt hash_val ], loc, loc)
           in
 
           let target_fun_type = fn_var.vtype in

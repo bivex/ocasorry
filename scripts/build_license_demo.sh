@@ -67,6 +67,7 @@ echo -e "${C_BLUE}[2/4] Applying 4-VCPU Virtualization with Synthesized ISAs...$
     --nested-vm \
     --rolling-vkey \
     --ephemeral \
+    --literals \
     --cff \
     --irreducible-loop \
     --bcf \
@@ -83,13 +84,19 @@ echo -e "\n${C_GREEN}[+] Obfuscated C source generated -> ${OUTPUT_C}${C_RESET}\
 
 # Step 4: Compile with Clang & Ad-Hoc Sign on macOS
 echo -e "${C_BLUE}[3/4] Compiling native AArch64 binary with clang -O2...${C_RESET}"
-clang -w -O2 "${OUTPUT_C}" -o "${OUTPUT_BIN}"
+# -fvisibility=hidden: all __ocasorry_* statics get hidden visibility -> no export table entry
+clang -w -O2 -fvisibility=hidden "${OUTPUT_C}" -o "${OUTPUT_BIN}"
 
 if [[ "$(uname)" == "Darwin" ]] && command -v codesign &>/dev/null; then
     codesign -f -s - "${OUTPUT_BIN}" >/dev/null 2>&1 || true
 fi
 
-echo -e "${C_GREEN}[+] Native executable compiled -> ${OUTPUT_BIN}${C_RESET}\n"
+# strip -x removes all local (non-global) symbols: __ocasorry_enforce_anti_debug,
+# __ocasorry_resolve_symbol_hash, __ocasorry_calc_crc32, etc. are fully erased from symtab.
+strip -x "${OUTPUT_BIN}" 2>/dev/null || true
+
+echo -e "${C_GREEN}[+] Native executable compiled & stripped -> ${OUTPUT_BIN}${C_RESET}\n"
+echo -e "${C_GREEN}    (strip -x applied: __ocasorry_* local symbols removed from symtab)${C_RESET}\n"
 
 # Step 5: Verification test vectors
 echo -e "${C_BLUE}[4/4] Running Validation Test Vectors on 4-VCPU Binary...${C_RESET}"

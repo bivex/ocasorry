@@ -43,8 +43,8 @@ int vcpu4_ephemeral_jit(int h3) {
     return (h3 == 25352) ? 1 : 0;
 }
 
-/* Master Federated Verifier with CFF, Irreducible Loops, and BCF */
-__attribute__((annotate("ocasorry:cff, irreducible_loop, bcf")))
+/* Master Federated Verifier with CFF, Irreducible Loops, BCF, and String Encryption */
+__attribute__((annotate("ocasorry:cff, irreducible_loop, bcf, literals")))
 int verify_license_key(const char *license_key) {
     if (license_key == (void*)0 || strlen(license_key) != 16) {
         printf("[-] Invalid key format: Must be exactly 16 characters.\n");
@@ -66,8 +66,18 @@ int verify_license_key(const char *license_key) {
     }
 }
 
+__attribute__((annotate("ocasorry:literals, api_hash")))
 int main(int argc, char **argv) {
-    const char *key = (argc > 1) ? argv[1] : "PRO-9842-KLM9-77";
+    /* Default key decoded at runtime from XOR bytes — volatile prevents compiler plaintext optimization.
+       python3: [hex(ord(c)^0x5A) for c in "PRO-9842-KLM9-77"] */
+    static const volatile unsigned char __dk[16] = {
+        0x0a,0x08,0x15,0x77,0x63,0x62,0x6e,0x68,0x77,0x11,0x16,0x17,0x63,0x77,0x6d,0x6d
+    };
+    volatile char __dk_buf[17];
+    for (volatile int __i = 0; __i < 16; __i++) __dk_buf[__i] = (char)(__dk[__i] ^ (volatile unsigned char)0x5A);
+    __dk_buf[16] = '\0';
+
+    const char *key = (argc > 1) ? argv[1] : (const char *)__dk_buf;
     printf("[*] Verifying Key: %s\n", key);
     int res = verify_license_key(key);
     return res ? 0 : 1;

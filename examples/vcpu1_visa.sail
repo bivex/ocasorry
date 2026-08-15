@@ -43,20 +43,20 @@ function decode(inst : bits(32)) -> option(ast) = {
     let imm14  : bits(14)  = inst[25..12];
 
     match unsigned(funct6) {
-        16 => Some(VADD_VV(vd, vs1, vs2)),
-        14 => Some(VSUB_VV(vd, vs1, vs2)),
-        61 => Some(VMUL_VV(vd, vs1, vs2)),
-        2 => Some(VXOR_VV(vd, vs1, vs2)),
-        34 => Some(VAND_VV(vd, vs1, vs2)),
-        0  => Some(VOR_VV(vd, vs1, vs2)),
-        10 => Some(VSLL_VV(vd, vs1, vs2)),
-        25 => Some(VSRL_VV(vd, vs1, vs2)),
-        58  => Some(VLI_VI(vd, imm14)),
-        8  => Some(VMV_VV(vd, vs1)),
-        32  => Some(VLE8_V(vd, vs2)),
-        44  => Some(VRET_V(vd)),
-        6 => Some(VBGE_VV(vs1, vs2)),
-        29      => Some(VJ(inst)),
+        6 => Some(VADD_VV(vd, vs1, vs2)),
+        52 => Some(VSUB_VV(vd, vs1, vs2)),
+        44 => Some(VMUL_VV(vd, vs1, vs2)),
+        9 => Some(VXOR_VV(vd, vs1, vs2)),
+        29 => Some(VAND_VV(vd, vs1, vs2)),
+        58  => Some(VOR_VV(vd, vs1, vs2)),
+        48 => Some(VSLL_VV(vd, vs1, vs2)),
+        42 => Some(VSRL_VV(vd, vs1, vs2)),
+        2  => Some(VLI_VI(vd, imm14)),
+        60  => Some(VMV_VV(vd, vs1)),
+        15  => Some(VLE8_V(vd, vs2)),
+        53  => Some(VRET_V(vd)),
+        25 => Some(VBGE_VV(vs1, vs2)),
+        14      => Some(VJ(inst)),
         _ => None()
     }
 }
