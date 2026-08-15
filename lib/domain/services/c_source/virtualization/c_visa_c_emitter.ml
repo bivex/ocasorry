@@ -9,6 +9,7 @@ let emit_function_body
     ~(fn_name : string)
     ~(fn_params : string)
     ~(vreg_total : int)
+    ~(vreg_rot_seed : int)
     ~(reg_mask_base : int64)
     ~(reg_mask_step : int64)
     ~(arg_inits : string)
@@ -32,12 +33,13 @@ let emit_function_body
 __attribute__((visibility("default")))
 %s %s(%s) {
     unsigned long long __vregs[%d];
-    #define __VREG_MASK(r) (0x%LxULL + ((unsigned long long)(r) * 0x%LxULL))
-    #define __VREG_GET(r) (__vregs[(r)] ^ __VREG_MASK(r))
-    #define __VREG_SET(r, val) do { __vregs[(r)] = ((unsigned long long)(val)) ^ __VREG_MASK(r); } while(0)
+    #define __VREG_ROT(r) (((unsigned int)(r) + %uU) & 0x3FU)
+    #define __VREG_MASK(r) (0x%LxULL + ((unsigned long long)__VREG_ROT(r) * 0x%LxULL))
+    #define __VREG_GET(r) (__vregs[__VREG_ROT(r)] ^ __VREG_MASK(r))
+    #define __VREG_SET(r, val) do { __vregs[__VREG_ROT(r)] = ((unsigned long long)(val)) ^ __VREG_MASK(r); } while(0)
 
     for (int __i = 0; __i < %d; __i++) {
-        __vregs[__i] = __VREG_MASK(__i);
+        __vregs[__i] = (0x%LxULL + ((unsigned long long)__i * 0x%LxULL));
     }
 
     /* Vector 2: Dual Shadow Stack (VSP_data + VSP_ctrl) */
@@ -287,9 +289,12 @@ __h_vret: ;
     fn_name
     fn_params
     vreg_total
+    vreg_rot_seed
     reg_mask_base
     reg_mask_step
     vreg_total
+    reg_mask_base
+    reg_mask_step
     word_count
     vbc_name
     ptr_arg

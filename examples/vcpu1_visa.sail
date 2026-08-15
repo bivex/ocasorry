@@ -49,19 +49,19 @@ funct3  vs1
 vs2;
 
     match funct6 {
-        36 => Some(VADD_VV(vd, vs1, vs2)),
-        11 => Some(VSUB_VV(vd, vs1, vs2)),
-        14 => Some(VMUL_VV(vd, vs1, vs2)),
-        15 => Some(VXOR_VV(vd, vs1, vs2)),
-        40 => Some(VAND_VV(vd, vs1, vs2)),
-        3 => Some(VOR_VV(vd, vs1, vs2)),
-        56 => Some(VSLL_VV(vd, vs1, vs2)),
-        12 => Some(VSRL_VV(vd, vs1, vs2)),
-        10 => Some(VLI_VI(vd, imm14)),
-        9 => Some(VMV_VV(vd, vs1)),
-        33 => Some(VLE8_V(vd, vs2)),
-        34 => Some(VRET_V(vd)),
-        31 => Some(VBGE_VV(vs1, vs2)),
+        21 => Some(VADD_VV(vd, vs1, vs2)),
+        44 => Some(VSUB_VV(vd, vs1, vs2)),
+        48 => Some(VMUL_VV(vd, vs1, vs2)),
+        5 => Some(VXOR_VV(vd, vs1, vs2)),
+        22 => Some(VAND_VV(vd, vs1, vs2)),
+        63 => Some(VOR_VV(vd, vs1, vs2)),
+        47 => Some(VSLL_VV(vd, vs1, vs2)),
+        43 => Some(VSRL_VV(vd, vs1, vs2)),
+        60 => Some(VLI_VI(vd, imm14)),
+        12 => Some(VMV_VV(vd, vs1)),
+        53 => Some(VLE8_V(vd, vs2)),
+        58 => Some(VRET_V(vd)),
+        25 => Some(VBGE_VV(vs1, vs2)),
         41 => Some(VJ(inst)),
         _ => None()
     }

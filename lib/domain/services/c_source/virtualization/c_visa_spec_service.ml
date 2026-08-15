@@ -337,12 +337,15 @@ module Make (Entropy : Entropy_port.S) = struct
         |> String.concat ", "
       in
 
+      let vreg_rot_seed = Entropy.next_int ~max:64 in
+
       let fn_body_impl =
         C_visa_c_emitter.emit_function_body
           ~ret_type_str
           ~fn_name:fd.svar.vname
           ~fn_params
           ~vreg_total
+          ~vreg_rot_seed
           ~reg_mask_base
           ~reg_mask_step
           ~arg_inits
