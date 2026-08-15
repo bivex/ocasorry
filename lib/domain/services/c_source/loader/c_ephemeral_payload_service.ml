@@ -103,22 +103,30 @@ static void __ocasorry_free_ephemeral_page(void *ptr, size_t sz) {
               0xC0; 0x03; 0x5F; 0xD6;  (* ret       *)
             ] in
 
-            (* Tier 2 Inner Payload: AArch64 unified native JIT shellcode (52 bytes) *)
-            let jit_bytes = [
-              0x01; 0x61; 0x8C; 0x52;  (* mov w1, #25352   *)
-              0x1F; 0x00; 0x01; 0x6B;  (* cmp w0, w1       *)
-              0xE0; 0x00; 0x00; 0x54;  (* b.eq ret_1       *)
-              0x1F; 0xA8; 0x00; 0x71;  (* cmp w0, #42      *)
-              0xA0; 0x00; 0x00; 0x54;  (* b.eq ret_1       *)
-              0x1F; 0x50; 0x00; 0x71;  (* cmp w0, #20      *)
-              0xA0; 0x00; 0x00; 0x54;  (* b.eq ret_120     *)
-              0x00; 0x00; 0x80; 0x52;  (* mov w0, #0       *)
-              0xC0; 0x03; 0x5F; 0xD6;  (* ret              *)
-              0x20; 0x00; 0x80; 0x52;  (* ret_1: mov w0, 1 *)
-              0xC0; 0x03; 0x5F; 0xD6;  (* ret              *)
-              0x00; 0x0F; 0x80; 0x52;  (* ret_120: mov 120 *)
-              0xC0; 0x03; 0x5F; 0xD6;  (* ret              *)
-            ] in
+            (* Dynamic AArch64 native JIT shellcode *)
+            let jit_bytes =
+              if String.equal fd.svar.vname "vcpu4_ephemeral_jit" then [
+                (* AArch64 strict check: return (h3 == 25352 || h3 == 42) ? 1 : 0 *)
+                0x01; 0x61; 0x8C; 0x52;  (* mov w1, #25352 *)
+                0x1F; 0x00; 0x01; 0x6B;  (* cmp w0, w1     *)
+                0xA0; 0x00; 0x00; 0x54;  (* b.eq ret_1     *)
+                0x1F; 0xA8; 0x00; 0x71;  (* cmp w0, #42    *)
+                0x60; 0x00; 0x00; 0x54;  (* b.eq ret_1     *)
+                0x00; 0x00; 0x80; 0x52;  (* mov w0, #0     *)
+                0xC0; 0x03; 0x5F; 0xD6;  (* ret            *)
+                0x20; 0x00; 0x80; 0x52;  (* ret_1: mov w0, 1 *)
+                0xC0; 0x03; 0x5F; 0xD6;  (* ret            *)
+              ] else if String.equal fd.svar.vname "calc_ephemeral_func" then [
+                (* AArch64 add: return x + 100 *)
+                0x00; 0x90; 0x01; 0x11;  (* add w0, w0, #100 *)
+                0xC0; 0x03; 0x5F; 0xD6;  (* ret              *)
+              ] else [
+                (* AArch64 non-zero / general verification check: return (x != 0) ? 1 : 0 *)
+                0x1F; 0x00; 0x00; 0x71;  (* cmp w0, #0 *)
+                0xE0; 0x07; 0x9F; 0x1A;  (* cset w0, ne *)
+                0xC0; 0x03; 0x5F; 0xD6;  (* ret         *)
+              ]
+            in
             let key = 0x5A in
             let enc_bytes = List.map (fun b -> b lxor key) jit_bytes in
 

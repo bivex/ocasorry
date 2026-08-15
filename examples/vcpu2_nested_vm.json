@@ -3,8 +3,8 @@
   "vcpu_type": "nested_vm",
   "isa_name": "NestedVM_Hierarchical_Arch",
   "isa_version": "2.0",
-  "outer_key": 98,
-  "inner_key": 159,
+  "outer_key": 117,
+  "inner_key": 229,
   "outer_opcodes": {
     "op_out_setup": 16,
     "op_out_dispatch": 48,
@@ -12,7 +12,6 @@
     "op_out_halt": 255
   },
   "inner_opcodes": {
-    "op_in_nop": 0,
     "op_in_load_arg": 1,
     "op_in_load_const": 2,
     "op_in_add": 3,
@@ -20,6 +19,5 @@
     "op_in_xor": 5,
     "op_in_mul": 6,
     "op_in_ret": 15
-  },
-  "inner_registers": 8
+  }
 }
