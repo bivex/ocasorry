@@ -134,7 +134,7 @@ module Make (Entropy : Entropy_port.S) = struct
       (* ---------------------------------------------------- *)
       (* Inner Interpreter Loop Construction                  *)
       (* ---------------------------------------------------- *)
-      let inner_fetch_raw = CastE (intType, Lval (Var inner_var, Index (Lval (var inner_pc), NoOffset))) in
+      let inner_fetch_raw = CastE (Explicit, intType, Lval (Var inner_var, Index (Lval (var inner_pc), NoOffset))) in
       let inner_key_formula =
         BinOp (BAnd, BinOp (PlusA, Lval (var inner_key_var), BinOp (Mult, Lval (var inner_pc), integer 31, intType), intType),
                integer 0xFF, intType)
@@ -150,13 +150,13 @@ module Make (Entropy : Entropy_port.S) = struct
       let inner_case_load_arg =
         let fetch_arg =
           mkStmtOneInstr (Set (var arg_idx,
-            BinOp (BXor, CastE (intType, Lval (Var inner_var, Index (Lval (var inner_pc), NoOffset))),
+            BinOp (BXor, CastE (Explicit, intType, Lval (Var inner_var, Index (Lval (var inner_pc), NoOffset))),
                    BinOp (BAnd, BinOp (PlusA, Lval (var inner_key_var), BinOp (Mult, Lval (var inner_pc), integer 31, intType), intType), integer 0xFF, intType), intType), locUnknown, locUnknown))
         in
         let inc1 = mkStmtOneInstr (Set (var inner_pc, BinOp (PlusA, Lval (var inner_pc), integer 1, intType), locUnknown, locUnknown)) in
         let fetch_dst =
           mkStmtOneInstr (Set (var reg_dst,
-            BinOp (BXor, CastE (intType, Lval (Var inner_var, Index (Lval (var inner_pc), NoOffset))),
+            BinOp (BXor, CastE (Explicit, intType, Lval (Var inner_var, Index (Lval (var inner_pc), NoOffset))),
                    BinOp (BAnd, BinOp (PlusA, Lval (var inner_key_var), BinOp (Mult, Lval (var inner_pc), integer 31, intType), intType), integer 0xFF, intType), intType), locUnknown, locUnknown))
         in
         let inc2 = mkStmtOneInstr (Set (var inner_pc, BinOp (PlusA, Lval (var inner_pc), integer 1, intType), locUnknown, locUnknown)) in
@@ -183,13 +183,13 @@ module Make (Entropy : Entropy_port.S) = struct
       let inner_case_load_const =
         let fetch_imm =
           mkStmtOneInstr (Set (var imm_val,
-            BinOp (BXor, CastE (intType, Lval (Var inner_var, Index (Lval (var inner_pc), NoOffset))),
+            BinOp (BXor, CastE (Explicit, intType, Lval (Var inner_var, Index (Lval (var inner_pc), NoOffset))),
                    BinOp (BAnd, BinOp (PlusA, Lval (var inner_key_var), BinOp (Mult, Lval (var inner_pc), integer 31, intType), intType), integer 0xFF, intType), intType), locUnknown, locUnknown))
         in
         let inc1 = mkStmtOneInstr (Set (var inner_pc, BinOp (PlusA, Lval (var inner_pc), integer 1, intType), locUnknown, locUnknown)) in
         let fetch_dst =
           mkStmtOneInstr (Set (var reg_dst,
-            BinOp (BXor, CastE (intType, Lval (Var inner_var, Index (Lval (var inner_pc), NoOffset))),
+            BinOp (BXor, CastE (Explicit, intType, Lval (Var inner_var, Index (Lval (var inner_pc), NoOffset))),
                    BinOp (BAnd, BinOp (PlusA, Lval (var inner_key_var), BinOp (Mult, Lval (var inner_pc), integer 31, intType), intType), integer 0xFF, intType), intType), locUnknown, locUnknown))
         in
         let inc2 = mkStmtOneInstr (Set (var inner_pc, BinOp (PlusA, Lval (var inner_pc), integer 1, intType), locUnknown, locUnknown)) in
@@ -206,19 +206,19 @@ module Make (Entropy : Entropy_port.S) = struct
       let make_inner_alu_case op_code bin_op =
         let fetch_dst =
           mkStmtOneInstr (Set (var reg_dst,
-            BinOp (BXor, CastE (intType, Lval (Var inner_var, Index (Lval (var inner_pc), NoOffset))),
+            BinOp (BXor, CastE (Explicit, intType, Lval (Var inner_var, Index (Lval (var inner_pc), NoOffset))),
                    BinOp (BAnd, BinOp (PlusA, Lval (var inner_key_var), BinOp (Mult, Lval (var inner_pc), integer 31, intType), intType), integer 0xFF, intType), intType), locUnknown, locUnknown))
         in
         let inc1 = mkStmtOneInstr (Set (var inner_pc, BinOp (PlusA, Lval (var inner_pc), integer 1, intType), locUnknown, locUnknown)) in
         let fetch_s1 =
           mkStmtOneInstr (Set (var reg_s1,
-            BinOp (BXor, CastE (intType, Lval (Var inner_var, Index (Lval (var inner_pc), NoOffset))),
+            BinOp (BXor, CastE (Explicit, intType, Lval (Var inner_var, Index (Lval (var inner_pc), NoOffset))),
                    BinOp (BAnd, BinOp (PlusA, Lval (var inner_key_var), BinOp (Mult, Lval (var inner_pc), integer 31, intType), intType), integer 0xFF, intType), intType), locUnknown, locUnknown))
         in
         let inc2 = mkStmtOneInstr (Set (var inner_pc, BinOp (PlusA, Lval (var inner_pc), integer 1, intType), locUnknown, locUnknown)) in
         let fetch_s2 =
           mkStmtOneInstr (Set (var reg_s2,
-            BinOp (BXor, CastE (intType, Lval (Var inner_var, Index (Lval (var inner_pc), NoOffset))),
+            BinOp (BXor, CastE (Explicit, intType, Lval (Var inner_var, Index (Lval (var inner_pc), NoOffset))),
                    BinOp (BAnd, BinOp (PlusA, Lval (var inner_key_var), BinOp (Mult, Lval (var inner_pc), integer 31, intType), intType), integer 0xFF, intType), intType), locUnknown, locUnknown))
         in
         let inc3 = mkStmtOneInstr (Set (var inner_pc, BinOp (PlusA, Lval (var inner_pc), integer 1, intType), locUnknown, locUnknown)) in
@@ -241,7 +241,7 @@ module Make (Entropy : Entropy_port.S) = struct
       let inner_case_ret =
         let fetch_src =
           mkStmtOneInstr (Set (var reg_s1,
-            BinOp (BXor, CastE (intType, Lval (Var inner_var, Index (Lval (var inner_pc), NoOffset))),
+            BinOp (BXor, CastE (Explicit, intType, Lval (Var inner_var, Index (Lval (var inner_pc), NoOffset))),
                    BinOp (BAnd, BinOp (PlusA, Lval (var inner_key_var), BinOp (Mult, Lval (var inner_pc), integer 31, intType), intType), integer 0xFF, intType), intType), locUnknown, locUnknown))
         in
         let inc1 = mkStmtOneInstr (Set (var inner_pc, BinOp (PlusA, Lval (var inner_pc), integer 1, intType), locUnknown, locUnknown)) in
@@ -270,7 +270,7 @@ module Make (Entropy : Entropy_port.S) = struct
       (* ---------------------------------------------------- *)
       (* Outer Master Interpreter Loop Construction           *)
       (* ---------------------------------------------------- *)
-      let outer_fetch_raw = CastE (intType, Lval (Var outer_var, Index (Lval (var outer_pc), NoOffset))) in
+      let outer_fetch_raw = CastE (Explicit, intType, Lval (Var outer_var, Index (Lval (var outer_pc), NoOffset))) in
       let outer_key_formula =
         BinOp (BAnd, BinOp (PlusA, integer outer_key, BinOp (Mult, Lval (var outer_pc), integer 17, intType), intType),
                integer 0xFF, intType)
@@ -296,7 +296,7 @@ module Make (Entropy : Entropy_port.S) = struct
       let outer_case_mutate =
         let fetch_delta =
           mkStmtOneInstr (Set (var imm_val,
-            BinOp (BXor, CastE (intType, Lval (Var outer_var, Index (Lval (var outer_pc), NoOffset))),
+            BinOp (BXor, CastE (Explicit, intType, Lval (Var outer_var, Index (Lval (var outer_pc), NoOffset))),
                    BinOp (BAnd, BinOp (PlusA, integer outer_key, BinOp (Mult, Lval (var outer_pc), integer 17, intType), intType), integer 0xFF, intType), intType), locUnknown, locUnknown))
         in
         let inc1 = mkStmtOneInstr (Set (var outer_pc, BinOp (PlusA, Lval (var outer_pc), integer 1, intType), locUnknown, locUnknown)) in

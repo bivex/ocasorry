@@ -36,7 +36,7 @@ static void __implicit_signal_handler(int sig) {
                 let ptr_var = makeLocalVar fd "__implicit_ptr" (TPtr (intType, [ Attr ("volatile", []) ])) in
 
                 (* volatile int *__implicit_ptr = (cond) ? NULL : &__implicit_dummy; *)
-                let null_ptr_exp = CastE (TPtr (intType, []), integer 0) in
+                let null_ptr_exp = CastE (Explicit, TPtr (intType, []), integer 0) in
                 let dummy_addr_exp = AddrOf (var dummy_var) in
                 let question_exp = Question (cond, null_ptr_exp, dummy_addr_exp, TPtr (intType, [])) in
                 let set_ptr =

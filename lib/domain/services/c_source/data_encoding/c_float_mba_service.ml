@@ -32,8 +32,8 @@ module Make (Entropy : Entropy_port.S) = struct
 
           let e1_scaled = BinOp (Mult, e1, scale_const, ty) in
           let e2_scaled = BinOp (Mult, e2, scale_const, ty) in
-          let e1_lifted = CastE (i64_typ, e1_scaled) in
-          let e2_lifted = CastE (i64_typ, e2_scaled) in
+          let e1_lifted = CastE (Explicit, i64_typ, e1_scaled) in
+          let e2_lifted = CastE (Explicit, i64_typ, e2_scaled) in
 
           (* MBA addition: (a ^ b) + 2 * (a & b) *)
           let xor_part = BinOp (BXor, e1_lifted, e2_lifted, i64_typ) in
@@ -42,7 +42,7 @@ module Make (Entropy : Entropy_port.S) = struct
           let two_and = BinOp (Mult, two, and_part, i64_typ) in
           let sum_lifted = BinOp (PlusA, xor_part, two_and, i64_typ) in
 
-          let sum_float = CastE (ty, sum_lifted) in
+          let sum_float = CastE (Explicit, ty, sum_lifted) in
           let result = BinOp (Div, sum_float, scale_const, ty) in
           ChangeTo result
 
@@ -53,8 +53,8 @@ module Make (Entropy : Entropy_port.S) = struct
 
           let e1_scaled = BinOp (Mult, e1, scale_const, ty) in
           let e2_scaled = BinOp (Mult, e2, scale_const, ty) in
-          let e1_lifted = CastE (i64_typ, e1_scaled) in
-          let e2_lifted = CastE (i64_typ, e2_scaled) in
+          let e1_lifted = CastE (Explicit, i64_typ, e1_scaled) in
+          let e2_lifted = CastE (Explicit, i64_typ, e2_scaled) in
 
           (* MBA subtraction: (a ^ b) - 2 * (~a & b) *)
           let xor_part = BinOp (BXor, e1_lifted, e2_lifted, i64_typ) in
@@ -64,7 +64,7 @@ module Make (Entropy : Entropy_port.S) = struct
           let two_and = BinOp (Mult, two, not_and, i64_typ) in
           let diff_lifted = BinOp (MinusA, xor_part, two_and, i64_typ) in
 
-          let diff_float = CastE (ty, diff_lifted) in
+          let diff_float = CastE (Explicit, ty, diff_lifted) in
           let result = BinOp (Div, diff_float, scale_const, ty) in
           ChangeTo result
 

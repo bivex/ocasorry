@@ -32,7 +32,7 @@ static int __ocasorry_check_function_hook(const void *fn_ptr) {
 
         let hook_fn = makeGlobalVar "__ocasorry_check_function_hook" (TFun (intType, Some [ ("fn_ptr", voidPtrType, []) ], false, [])) in
         let is_hooked_var = makeLocalVar fd "__is_hooked" intType in
-        let fn_ptr = CastE (voidPtrType, AddrOf (var fd.svar)) in
+        let fn_ptr = CastE (Explicit, voidPtrType, AddrOf (var fd.svar)) in
         let call_hook_check =
           mkStmtOneInstr (Call (Some (var is_hooked_var), Lval (var hook_fn), [ fn_ptr ], locUnknown, locUnknown))
         in

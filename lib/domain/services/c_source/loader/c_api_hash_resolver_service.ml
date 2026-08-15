@@ -126,7 +126,7 @@ static void *__ocasorry_resolve_symbol_hash(uint32_t target_hash) {
           in
 
           let target_fun_type = fn_var.vtype in
-          let cast_fn_ptr = CastE (TPtr (target_fun_type, []), Lval (var resolved_ptr)) in
+          let cast_fn_ptr = CastE (Explicit, TPtr (target_fun_type, []), Lval (var resolved_ptr)) in
           let call_indirect =
             Call (ret_opt, Lval (Mem cast_fn_ptr, NoOffset), args, loc, loc)
           in

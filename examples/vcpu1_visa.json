@@ -5,7 +5,7 @@
   "isa_version": "2.0",
   "word_bits": 32,
   "reg_count": 16,
-  "pack_key": 2200325074,
+  "pack_key": 4088060774,
   "delta_key": 2654435769,
   "layout": {
     "funct6_shift": 26,
@@ -15,7 +15,7 @@
     "vs1_shift": 15,
     "funct3_shift": 12,
     "vd_shift": 7,
-    "opcode_val": 123
+    "opcode_val": 87
   },
   "bitfields": {
     "funct6": {
@@ -55,23 +55,23 @@
     }
   },
   "opcodes": {
-    "vadd_vv": 42,
-    "vsub_vv": 15,
-    "vmul_vv": 49,
-    "vxor_vv": 16,
-    "vand_vv": 52,
-    "vor_vv": 38,
-    "vsll_vv": 58,
+    "vadd_vv": 38,
+    "vsub_vv": 62,
+    "vmul_vv": 61,
+    "vxor_vv": 30,
+    "vand_vv": 13,
+    "vor_vv": 36,
+    "vsll_vv": 24,
     "vsrl_vv": 29,
-    "vli_vi": 61,
-    "vmv_vv": 7,
-    "vle8_v": 10,
-    "vse8_v": 32,
-    "vret_v": 56,
-    "vbge_vv": 12,
-    "vblt_vv": 11,
-    "vbeq_vv": 60,
-    "vbne_vv": 13,
-    "vj": 54
+    "vli_vi": 48,
+    "vmv_vv": 8,
+    "vle8_v": 60,
+    "vse8_v": 53,
+    "vret_v": 6,
+    "vbge_vv": 15,
+    "vblt_vv": 58,
+    "vbeq_vv": 23,
+    "vbne_vv": 20,
+    "vj": 52
   }
 }

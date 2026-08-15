@@ -56,10 +56,10 @@ module Make (Entropy : Entropy_port.S) = struct
                     mkBlock [ mkStmt (Break locUnknown) ],
                     mkBlock [], locUnknown, locUnknown))
       in
-      let read_raw = CastE (intType, Lval (Var bc_var, Index (Lval (var pc_var), NoOffset))) in
+      let read_raw = CastE (Explicit, intType, Lval (Var bc_var, Index (Lval (var pc_var), NoOffset))) in
       let decrypt_op = mkStmtOneInstr (Set (var cur_op, BinOp (BXor, read_raw, integer key, intType), locUnknown, locUnknown)) in
 
-      let re_enc = CastE (uchar_ty, BinOp (BXor, Lval (var cur_op), integer 0xA5, intType)) in
+      let re_enc = CastE (Explicit, uchar_ty, BinOp (BXor, Lval (var cur_op), integer 0xA5, intType)) in
       let write_back = mkStmtOneInstr (Set ((Var bc_var, Index (Lval (var pc_var), NoOffset)), re_enc, locUnknown, locUnknown)) in
 
       let exec_step =

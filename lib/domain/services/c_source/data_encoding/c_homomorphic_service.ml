@@ -32,21 +32,19 @@ module Make (Entropy : Entropy_port.S) = struct
           let a_odd = Int32.logor a 1l in
           let a_inv = mod_inv_32 a_odd in
           let b = Int32.of_int (100 + Entropy.next_int ~max:0x7FFF) in
-          let c = Int32.mul a_inv b in
 
           let u_ty = uintType in
           let exp_a = uint32_exp a_odd in
           let exp_a_inv = uint32_exp a_inv in
           let exp_b = uint32_exp b in
-          let exp_c = uint32_exp c in
 
-          let e1_h = BinOp (PlusA, BinOp (Mult, exp_a, CastE (u_ty, e1), u_ty), exp_b, u_ty) in
-          let e2_h = BinOp (PlusA, BinOp (Mult, exp_a, CastE (u_ty, e2), u_ty), exp_b, u_ty) in
+          let e1_h = BinOp (PlusA, BinOp (Mult, exp_a, CastE (Explicit, u_ty, e1), u_ty), exp_b, u_ty) in
+          let e2_h = BinOp (PlusA, BinOp (Mult, exp_a, CastE (Explicit, u_ty, e2), u_ty), exp_b, u_ty) in
+
+          (* Homomorphic sum: H(e1 + e2) = e1_h + e2_h - b *)
           let sum_h = BinOp (MinusA, BinOp (PlusA, e1_h, e2_h, u_ty), exp_b, u_ty) in
-
-          (* Decode: (a_inv * sum_h) - c *)
-          let decoded = BinOp (MinusA, BinOp (Mult, exp_a_inv, sum_h, u_ty), exp_c, u_ty) in
-          ChangeTo (CastE (ty, decoded))
+          let decoded = BinOp (Mult, exp_a_inv, BinOp (MinusA, sum_h, exp_b, u_ty), u_ty) in
+          ChangeTo (CastE (Explicit, ty, decoded))
 
       | _ -> DoChildren
   end

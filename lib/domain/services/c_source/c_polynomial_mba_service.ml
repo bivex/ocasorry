@@ -37,7 +37,7 @@ module Make (Entropy : Entropy_port.S) = struct
     let exp_a_inv = uint32_exp a_inv in
     let exp_b = uint32_exp b in
     let exp_c = uint32_exp c in
-    let e_cast = CastE (u_ty, e) in
+    let e_cast = CastE (Explicit, u_ty, e) in
 
     (* Forward: T = (a * e) + b *)
     let mul_part = BinOp (Mult, exp_a, e_cast, u_ty) in
@@ -46,7 +46,7 @@ module Make (Entropy : Entropy_port.S) = struct
     (* Inverse: (a_inv * T) - c *)
     let scaled_t = BinOp (Mult, exp_a_inv, affine_inner, u_ty) in
     let recovered = BinOp (MinusA, scaled_t, exp_c, u_ty) in
-    CastE (ty, recovered)
+    CastE (Explicit, ty, recovered)
 
   (** Rewrite addition: x + y into 2nd/3rd order Polynomial MBA *)
   let rewrite_poly_add (e1 : exp) (e2 : exp) (ty : typ) : exp =

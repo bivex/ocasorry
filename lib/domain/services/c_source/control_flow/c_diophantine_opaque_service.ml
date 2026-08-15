@@ -22,7 +22,7 @@ module Make (Entropy : Entropy_port.S) = struct
                   let typ = typeOfLval dest in
                   if isIntegralType typ then (
                     let uint_ty = uintType in
-                    let x_u = CastE (uint_ty, Lval dest) in
+                    let x_u = CastE (Explicit, uint_ty, Lval dest) in
                     let one_u = Const (CInt (Z.of_int 1, IUInt, None)) in
                     let two_u = Const (CInt (Z.of_int 2, IUInt, None)) in
                     let four_u = Const (CInt (Z.of_int 4, IUInt, None)) in

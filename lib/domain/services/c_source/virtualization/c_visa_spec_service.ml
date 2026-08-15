@@ -273,7 +273,7 @@ module Make (Entropy : Entropy_port.S) = struct
 
       let rec extract_ptr_var = function
         | Lval (Var v, NoOffset) -> Some v
-        | CastE (_, e) -> extract_ptr_var e
+        | CastE (_, _, e) -> extract_ptr_var e
         | _ -> None
       in
 
@@ -330,7 +330,7 @@ module Make (Entropy : Entropy_port.S) = struct
               | _ -> op.vadd_vv
             in
             emit (Spec.encode_inst spec ~funct6 ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
-        | CastE (_, e1) ->
+        | CastE (_, _, e1) ->
             compile_exp e1 dst free_reg
         | _ -> ()
       in

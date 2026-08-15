@@ -47,20 +47,20 @@ function decode(inst) = {
     let imm14 : bits(14) = vm @ funct3 @ vs1 @ vs2;
 
     match funct6 {
-        17 => Some(VADD_VV(vd, vs1, vs2)),
-        52 => Some(VSUB_VV(vd, vs1, vs2)),
-        9 => Some(VMUL_VV(vd, vs1, vs2)),
-        15 => Some(VXOR_VV(vd, vs1, vs2)),
-        46 => Some(VAND_VV(vd, vs1, vs2)),
-        23  => Some(VOR_VV(vd, vs1, vs2)),
-        57 => Some(VSLL_VV(vd, vs1, vs2)),
-        26 => Some(VSRL_VV(vd, vs1, vs2)),
-        21  => Some(VLI_VI(vd, imm14)),
-        35  => Some(VMV_VV(vd, vs1)),
-        55  => Some(VLE8_V(vd, vs2)),
-        7  => Some(VRET_V(vd)),
-        32 => Some(VBGE_VV(vs1, vs2)),
-        3      => Some(VJ(inst)),
+        21 => Some(VADD_VV(vd, vs1, vs2)),
+        61 => Some(VSUB_VV(vd, vs1, vs2)),
+        58 => Some(VMUL_VV(vd, vs1, vs2)),
+        48 => Some(VXOR_VV(vd, vs1, vs2)),
+        50 => Some(VAND_VV(vd, vs1, vs2)),
+        43  => Some(VOR_VV(vd, vs1, vs2)),
+        23 => Some(VSLL_VV(vd, vs1, vs2)),
+        47 => Some(VSRL_VV(vd, vs1, vs2)),
+        29  => Some(VLI_VI(vd, imm14)),
+        7  => Some(VMV_VV(vd, vs1)),
+        53  => Some(VLE8_V(vd, vs2)),
+        13  => Some(VRET_V(vd)),
+        33 => Some(VBGE_VV(vs1, vs2)),
+        31      => Some(VJ(inst)),
         _ => None()
     }
 }

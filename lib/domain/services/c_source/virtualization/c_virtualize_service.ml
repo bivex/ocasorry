@@ -92,7 +92,7 @@ module Make (Entropy : Entropy_port.S) = struct
 
       (* Fetch: op = __vm_bytecode[pc++] *)
       let fetch_op =
-        mkStmtOneInstr (Set (var op_var, CastE (intType, Lval (Var bc_var, Index (Lval (var pc_var), NoOffset))), locUnknown, locUnknown))
+        mkStmtOneInstr (Set (var op_var, CastE (Explicit, intType, Lval (Var bc_var, Index (Lval (var pc_var), NoOffset))), locUnknown, locUnknown))
       in
       let inc_pc =
         mkStmtOneInstr (Set (var pc_var, BinOp (PlusA, Lval (var pc_var), integer 1, intType), locUnknown, locUnknown))
@@ -117,7 +117,7 @@ module Make (Entropy : Entropy_port.S) = struct
       in
 
       let case_store_reg =
-        let reg_idx_exp = CastE (intType, Lval (Var bc_var, Index (Lval (var pc_var), NoOffset))) in
+        let reg_idx_exp = CastE (Explicit, intType, Lval (Var bc_var, Index (Lval (var pc_var), NoOffset))) in
         let dec_sp = mkStmtOneInstr (Set (var sp_var, BinOp (MinusA, Lval (var sp_var), integer 1, intType), locUnknown, locUnknown)) in
         let popped_val = Lval (Var stack_var, Index (Lval (var sp_var), NoOffset)) in
         let store = mkStmtOneInstr (Set ((Var regs_var, Index (reg_idx_exp, NoOffset)), popped_val, locUnknown, locUnknown)) in
@@ -129,7 +129,7 @@ module Make (Entropy : Entropy_port.S) = struct
       in
 
       let case_load_reg =
-        let reg_idx_exp = CastE (intType, Lval (Var bc_var, Index (Lval (var pc_var), NoOffset))) in
+        let reg_idx_exp = CastE (Explicit, intType, Lval (Var bc_var, Index (Lval (var pc_var), NoOffset))) in
         let reg_val = Lval (Var regs_var, Index (reg_idx_exp, NoOffset)) in
         let push = mkStmtOneInstr (Set ((Var stack_var, Index (Lval (var sp_var), NoOffset)), reg_val, locUnknown, locUnknown)) in
         let inc_sp = mkStmtOneInstr (Set (var sp_var, BinOp (PlusA, Lval (var sp_var), integer 1, intType), locUnknown, locUnknown)) in
@@ -141,7 +141,7 @@ module Make (Entropy : Entropy_port.S) = struct
       in
 
       let case_const =
-        let c_byte0 = CastE (intType, Lval (Var bc_var, Index (Lval (var pc_var), NoOffset))) in
+        let c_byte0 = CastE (Explicit, intType, Lval (Var bc_var, Index (Lval (var pc_var), NoOffset))) in
         let push = mkStmtOneInstr (Set ((Var stack_var, Index (Lval (var sp_var), NoOffset)), c_byte0, locUnknown, locUnknown)) in
         let inc_sp = mkStmtOneInstr (Set (var sp_var, BinOp (PlusA, Lval (var sp_var), integer 1, intType), locUnknown, locUnknown)) in
         let inc_pc_const = mkStmtOneInstr (Set (var pc_var, BinOp (PlusA, Lval (var pc_var), integer 4, intType), locUnknown, locUnknown)) in

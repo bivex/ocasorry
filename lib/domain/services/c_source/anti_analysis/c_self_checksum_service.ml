@@ -32,7 +32,7 @@ static unsigned int __ocasorry_crc_check(const unsigned char *p, int len) {
 
         let crc_fn = makeGlobalVar "__ocasorry_crc_check" (TFun (uintType, Some [ ("p", voidPtrType, []); ("len", intType, []) ], false, [])) in
         let hash_var = makeLocalVar fd "__code_crc" uintType in
-        let fn_ptr = CastE (voidPtrType, AddrOf (var fd.svar)) in
+        let fn_ptr = CastE (Explicit, voidPtrType, AddrOf (var fd.svar)) in
         let call_crc =
           mkStmtOneInstr (Call (Some (var hash_var), Lval (var crc_fn), [ fn_ptr; integer 16 ], locUnknown, locUnknown))
         in

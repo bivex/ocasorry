@@ -36,7 +36,7 @@ module Make (Entropy : Entropy_port.S) = struct
           let lut_var = create_lut_for_xor file mask in
           let byte_idx = BinOp (BAnd, e1, integer 0xFF, intType) in
           let lut_access = Lval (Var lut_var, Index (byte_idx, NoOffset)) in
-          let casted = CastE (ty, lut_access) in
+          let casted = CastE (Explicit, ty, lut_access) in
           ChangeTo casted
       | _ -> DoChildren
   end

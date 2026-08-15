@@ -15,7 +15,7 @@ module Make (Entropy : Entropy_port.S) = struct
             let idx = Hashtbl.find fn_map fn_var.vname in
             let table_elem = Lval (Var table_var, Index (integer idx, NoOffset)) in
             let fn_ptr_type = TPtr (fn_var.vtype, []) in
-            let cast_fn_ptr = CastE (fn_ptr_type, table_elem) in
+            let cast_fn_ptr = CastE (Explicit, fn_ptr_type, table_elem) in
             let indirect_lval = (Mem cast_fn_ptr, NoOffset) in
             let new_call = Call (ret_opt, Lval indirect_lval, args, loc, eloc) in
             ChangeTo (mkStmtOneInstr new_call)
@@ -47,7 +47,7 @@ module Make (Entropy : Entropy_port.S) = struct
         List.mapi
           (fun i v ->
             let addr = AddrOf (Var v, NoOffset) in
-            (Index (integer i, NoOffset), SingleInit (CastE (void_ptr_ty, addr))))
+            (Index (integer i, NoOffset), SingleInit (CastE (Explicit, void_ptr_ty, addr))))
           funcs
       in
 

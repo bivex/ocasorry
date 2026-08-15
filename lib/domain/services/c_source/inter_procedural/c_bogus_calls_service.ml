@@ -18,7 +18,7 @@ module Make (Entropy : Entropy_port.S) = struct
             List.map
               (fun p ->
                 if isIntegralType p.vtype then integer 0
-                else CastE (p.vtype, integer 0))
+                else CastE (Explicit, p.vtype, integer 0))
               target_fn.sformals
           in
           let bogus_call = Call (None, Lval (var target_fn.svar), dummy_args, locUnknown, locUnknown) in
