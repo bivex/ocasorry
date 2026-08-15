@@ -2,9 +2,9 @@
   "vcpu_tier": 5,
   "vcpu_type": "rolling_vkey",
   "isa_name": "RollingVKey_AES_SubBytesR2_Arch",
-  "vkey_seed": 2701794988,
-  "lcg_multiplier": 65,
-  "lcg_delta": 2654435769,
+  "vkey_seed": 3135645575,
+  "lcg_multiplier": 33,
+  "lcg_delta": 2246822507,
   "opcodes": {
     "op_add_imm": 1,
     "op_xor_imm": 2,
