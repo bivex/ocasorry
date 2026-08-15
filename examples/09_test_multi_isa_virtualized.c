@@ -2,11 +2,11 @@
 /* print_CIL_Input is false */
 
 static unsigned int __visa_program_compute_tier2_2[8]  = 
-  {      2216883747U,      1785139912U,      599667001U,      921032046U, 
-        4139283255U,      1307613028U,      1089128533U,      2914998002U};
+  {      1785139912U,      599667001U,      921032046U,      4139283255U, 
+        1307613028U,      1089128533U,      2914998002U,      2216883747U};
 static unsigned int __visa_program_compute_tier1_1[8]  = 
-  {      50441065U,      2854755202U,      1283621983U,      4187530544U, 
-        3122762061U,      1619361638U,      3286375675U,      76188692U};
+  {      2854755202U,      1283621983U,      3986203952U,      3122762061U, 
+        1619361638U,      3286375675U,      76188692U,      50441065U};
 static int __visa_engine_ready ;
 
 #include <stdint.h>
@@ -24,13 +24,13 @@ static const unsigned char __vm_sbox_0[256] = {
         unsigned char __b[1024];
         unsigned long long __q[128];
     } __vbank;
-    #define __VREG_ROT(r) (((unsigned int)(r) + 51U) & 0x3FU)
-    #define __VREG_MASK(r) (0x6351ca5ea577ULL + ((unsigned long long)__VREG_ROT(r) * 0x9e3779b97f4a7c15ULL))
+    #define __VREG_ROT(r) (((unsigned int)(r) + 48U) & 0x3FU)
+    #define __VREG_MASK(r) (0x443a2fb6a4beULL + ((unsigned long long)__VREG_ROT(r) * 0x6c62272e07bb0142ULL))
     #define __VREG_GET(r) (__vbank.__q[__VREG_ROT(r)] ^ __VREG_MASK(r))
     #define __VREG_SET(r, val) do { __vbank.__q[__VREG_ROT(r)] = ((unsigned long long)(val)) ^ __VREG_MASK(r); } while(0)
 
     for (int __i = 0; __i < 128; __i++) {
-        __vbank.__q[__i] = (0x6351ca5ea577ULL + ((unsigned long long)__i * 0x9e3779b97f4a7c15ULL));
+        __vbank.__q[__i] = (0x443a2fb6a4beULL + ((unsigned long long)__i * 0x6c62272e07bb0142ULL));
     }
 
     /* Vector 2: Dual Shadow Stack (VSP_data + VSP_ctrl) */
@@ -60,11 +60,11 @@ static const unsigned char __vm_sbox_0[256] = {
         (unsigned long long)(uintptr_t)(0 != 0 ? (const void *)0 : (const void *)&__vbc_live);
     const unsigned long long __vbc_hash_0 = __vbc_live[0] ^ (unsigned long long)__vbc_live[1];
     const unsigned long long __cfi_canary =
-        0x6351ca5ea577ULL
+        0x443a2fb6a4beULL
         ^ (__fn_addr_entropy * 0x9E3779B97F4A7C15ULL)
         ^ (__vbc_hash_0 * 0x517CC1B727220A95ULL);
 
-    __vstack_ctrl[__vsp_c++] = __cfi_canary ^ 0x409ac756b5b4c6abULL;
+    __vstack_ctrl[__vsp_c++] = __cfi_canary ^ 0xb2cf99c1cd45bbfcULL;
 
     __VREG_SET(1, (unsigned long long)a);
     __VREG_SET(4, (unsigned long long)b);
@@ -107,7 +107,7 @@ static const unsigned char __vm_sbox_0[256] = {
 
     #define __VISA_DISPATCH() do { \
         if (__pc >= 8) goto __h_vret; \
-        unsigned int __slot = ((__pc * 29U) + 5U) % 8U; \
+        unsigned int __slot = ((__pc * 37U) + 4U) % 8U; \
         __raw = __vbc_live[__slot]; \
         __key = 0xFA85FEEDU ^ (__pc * 0x9E3779B9U); \
         __inst = __raw ^ __key; \
@@ -247,7 +247,7 @@ __h_default:
 
 __h_vret: ;
     /* Verify Shadow Control Stack CFI Canary */
-    if (__vsp_c == 0 || ((__vstack_ctrl[--__vsp_c] ^ 0x409ac756b5b4c6abULL) != __cfi_canary)) {
+    if (__vsp_c == 0 || ((__vstack_ctrl[--__vsp_c] ^ 0xb2cf99c1cd45bbfcULL) != __cfi_canary)) {
         __builtin_trap();
     }
     /* Vector 12: Microarchitectural Timer Check & Silent State Poisoning */
@@ -298,13 +298,13 @@ static const unsigned char __vm_sbox_0[256] = {
         unsigned char __b[1024];
         unsigned long long __q[128];
     } __vbank;
-    #define __VREG_ROT(r) (((unsigned int)(r) + 44U) & 0x3FU)
-    #define __VREG_MASK(r) (0x5e7b3b4ea4ebULL + ((unsigned long long)__VREG_ROT(r) * 0x517cc1b727220a95ULL))
+    #define __VREG_ROT(r) (((unsigned int)(r) + 24U) & 0x3FU)
+    #define __VREG_MASK(r) (0x8954c04bdfa8ULL + ((unsigned long long)__VREG_ROT(r) * 0x6c62272e07bb0142ULL))
     #define __VREG_GET(r) (__vbank.__q[__VREG_ROT(r)] ^ __VREG_MASK(r))
     #define __VREG_SET(r, val) do { __vbank.__q[__VREG_ROT(r)] = ((unsigned long long)(val)) ^ __VREG_MASK(r); } while(0)
 
     for (int __i = 0; __i < 128; __i++) {
-        __vbank.__q[__i] = (0x5e7b3b4ea4ebULL + ((unsigned long long)__i * 0x517cc1b727220a95ULL));
+        __vbank.__q[__i] = (0x8954c04bdfa8ULL + ((unsigned long long)__i * 0x6c62272e07bb0142ULL));
     }
 
     /* Vector 2: Dual Shadow Stack (VSP_data + VSP_ctrl) */
@@ -334,11 +334,11 @@ static const unsigned char __vm_sbox_0[256] = {
         (unsigned long long)(uintptr_t)(0 != 0 ? (const void *)0 : (const void *)&__vbc_live);
     const unsigned long long __vbc_hash_0 = __vbc_live[0] ^ (unsigned long long)__vbc_live[1];
     const unsigned long long __cfi_canary =
-        0x5e7b3b4ea4ebULL
+        0x8954c04bdfa8ULL
         ^ (__fn_addr_entropy * 0x9E3779B97F4A7C15ULL)
         ^ (__vbc_hash_0 * 0x517CC1B727220A95ULL);
 
-    __vstack_ctrl[__vsp_c++] = __cfi_canary ^ 0x8fd17f58eddcb02bULL;
+    __vstack_ctrl[__vsp_c++] = __cfi_canary ^ 0xb2cf99c1cd45bbfcULL;
 
     __VREG_SET(5, (unsigned long long)x);
     __VREG_SET(0, (unsigned long long)y);
@@ -381,7 +381,7 @@ static const unsigned char __vm_sbox_0[256] = {
 
     #define __VISA_DISPATCH() do { \
         if (__pc >= 8) goto __h_vret; \
-        unsigned int __slot = ((__pc * 5U) + 6U) % 8U; \
+        unsigned int __slot = ((__pc * 53U) + 5U) % 8U; \
         __raw = __vbc_live[__slot]; \
         __key = 0x36E849E2U ^ (__pc * 0x45D9F3BU); \
         __inst = __raw ^ __key; \
@@ -521,7 +521,7 @@ __h_default:
 
 __h_vret: ;
     /* Verify Shadow Control Stack CFI Canary */
-    if (__vsp_c == 0 || ((__vstack_ctrl[--__vsp_c] ^ 0x8fd17f58eddcb02bULL) != __cfi_canary)) {
+    if (__vsp_c == 0 || ((__vstack_ctrl[--__vsp_c] ^ 0xb2cf99c1cd45bbfcULL) != __cfi_canary)) {
         __builtin_trap();
     }
     /* Vector 12: Microarchitectural Timer Check & Silent State Poisoning */
