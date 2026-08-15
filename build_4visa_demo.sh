@@ -1,1 +1,0 @@
-scripts/build_4visa_demo.sh

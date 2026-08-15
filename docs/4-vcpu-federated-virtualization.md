@@ -112,7 +112,7 @@ $$
 
 Execute the automated build pipeline script:
 ```bash
-./build_license_demo.sh
+./scripts/build_license_demo.sh
 ```
 
 This script:

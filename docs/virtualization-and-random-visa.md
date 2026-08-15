@@ -352,10 +352,10 @@ The randomized `funct6` opcode values in the decoder are generated fresh per `vi
 
 ### Example: Running the Full 4-VCPU Pipeline
 
-The `build_license_demo.sh` script exercises the complete synthesis-to-binary pipeline:
+The `scripts/build_license_demo.sh` script exercises the complete synthesis-to-binary pipeline:
 
 ```bash
-./build_license_demo.sh
+./scripts/build_license_demo.sh
 # Step 1: visa_synthesizer.py --output-dir examples/ (all 4 tiers)
 # Step 2: ocasorry -i 01_license_keygen.c --visa-spec vcpu1_visa.json \
 #           --virtualize --nested-vm --rolling-vkey --ephemeral --cff ...
