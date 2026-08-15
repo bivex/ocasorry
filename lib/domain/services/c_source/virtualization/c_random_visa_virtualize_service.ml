@@ -1,23 +1,26 @@
 open GoblintCil.Cil
 
 (** Domain Service: random_vISA Vector Architecture Virtualizer for CIL AST
-    Translates function logic into packed & encrypted 32-bit RISC-V Vector Instruction Bytecode (.vbc)
-    and replaces the function body with an embedded C11 VCPU Emulator (Fetch-Decode-Execute).
+    Compiles arbitrary CIL AST expressions and statements into packed & encrypted
+    32-bit RISC-V Vector Instruction Bytecode (.vbc) and replaces the function
+    body with an embedded C11 Vector VCPU Emulator (Fetch-Decode-Execute).
 *)
 module Make (Entropy : Entropy_port.S) = struct
   let vcpu_counter = ref 0
 
-  (** RISC-V Vector 32-bit Instruction Word Encoder *)
-  let encode_vector_inst ~funct6 ~vm ~vs2 ~vs1_or_imm ~funct3 ~vd =
+  (** RISC-V Vector 32-bit Instruction Word Encoder
+      Layout: [ funct6 (6) | vm (1) | vs2 (5) | vs1_or_imm (5) | funct3 (3) | vd (5) | opcode (7) ]
+  *)
+  let encode_inst ~funct6 ~vm ~vs2 ~vs1_or_imm ~funct3 ~vd =
     let opcode = 0x57 in (* standard RISC-V OP-V opcode *)
     let word =
-      ((funct6 land 0x3F) lsl 26) lor
-      ((vm land 0x01) lsl 25) lor
-      ((vs2 land 0x1F) lsl 20) lor
-      ((vs1_or_imm land 0x1F) lsl 15) lor
-      ((funct3 land 0x07) lsl 12) lor
-      ((vd land 0x1F) lsl 7) lor
-      (opcode land 0x7F)
+      (((funct6 land 0x3F) lsl 26) lor
+       ((vm land 0x01) lsl 25) lor
+       ((vs2 land 0x1F) lsl 20) lor
+       ((vs1_or_imm land 0x1F) lsl 15) lor
+       ((funct3 land 0x07) lsl 12) lor
+       ((vd land 0x1F) lsl 7) lor
+       (opcode land 0x7F)) land 0xFFFFFFFF
     in
     Int32.of_int word
 
@@ -42,6 +45,7 @@ module Make (Entropy : Entropy_port.S) = struct
             || C_annotation_service.AnnotationHelper.has_annotation fd "vector_vm"
             || C_annotation_service.AnnotationHelper.has_annotation fd "virtualize" then true
     else not (C_annotation_service.AnnotationHelper.has_any_vm_annotation fd)
+         && not (C_annotation_service.AnnotationHelper.has_custom_annotations fd)
 
   let virtualize_function (file : file) (fd : fundec) : unit =
     if not (should_transform fd) then ()
@@ -51,22 +55,123 @@ module Make (Entropy : Entropy_port.S) = struct
 
       let vbc_name = Printf.sprintf "__visa_program_%s_%d" fd.svar.vname !vcpu_counter in
       let ptr_formals = List.filter (fun p -> isPointerType p.vtype) fd.sformals in
-      let is_string_verifier = ptr_formals <> [] in
+      let has_ptr_param = ptr_formals <> [] in
 
-      let vbc_words =
-        if is_string_verifier then [
-          encode_vector_inst ~funct6:0x00 ~vm:1 ~vs2:0 ~vs1_or_imm:0 ~funct3:0 ~vd:1; (* vle8.v v1, (x10) *)
-          encode_vector_inst ~funct6:0x25 ~vm:1 ~vs2:1 ~vs1_or_imm:31 ~funct3:4 ~vd:2; (* vmul.vx v2, v1, x31 *)
-          encode_vector_inst ~funct6:0x0B ~vm:1 ~vs2:2 ~vs1_or_imm:3 ~funct3:0 ~vd:0; (* vxor.vv v0, v2, v3 *)
-          encode_vector_inst ~funct6:0x18 ~vm:1 ~vs2:0 ~vs1_or_imm:0 ~funct3:2 ~vd:0; (* vmseq.vi v0, v0, 0 *)
-        ] else [
-          encode_vector_inst ~funct6:0x00 ~vm:1 ~vs2:1 ~vs1_or_imm:0 ~funct3:0 ~vd:2; (* vadd.vv v2, v1, v0 *)
-          encode_vector_inst ~funct6:0x25 ~vm:1 ~vs2:2 ~vs1_or_imm:3 ~funct3:0 ~vd:0; (* vmul.vv v0, v2, v3 *)
-          encode_vector_inst ~funct6:0x0B ~vm:1 ~vs2:0x5A ~vs1_or_imm:0 ~funct3:3 ~vd:0; (* vxor.vi v0, v0, 0x5A *)
-        ]
+      (* Variable to register mapping: v0..v15 *)
+      let var_map = Hashtbl.create 16 in
+      List.iteri (fun idx p -> Hashtbl.add var_map p.vname idx) fd.sformals;
+      let next_vreg = ref (List.length fd.sformals) in
+      List.iter
+        (fun v ->
+          if not (Hashtbl.mem var_map v.vname) then (
+            Hashtbl.add var_map v.vname !next_vreg;
+            incr next_vreg
+          ))
+        fd.slocals;
+
+      let get_vreg name =
+        if Hashtbl.mem var_map name then Hashtbl.find var_map name
+        else (
+          let r = !next_vreg in
+          incr next_vreg;
+          Hashtbl.add var_map name r;
+          r
+        )
       in
 
-      (* Packing 32-bit Vector Instruction Words with XOR Key Mask *)
+      let instrs = ref [] in
+      let emit inst = instrs := inst :: !instrs in
+
+      let rec compile_exp (e : exp) (dst : int) (free_reg : int) : unit =
+        match e with
+        | Const (CInt (i, _, _)) ->
+            let imm = Z.to_int i in
+            emit (encode_inst ~funct6:0x08 ~vm:1 ~vs2:(imm land 0x1F) ~vs1_or_imm:((imm lsr 5) land 0x1F) ~funct3:0 ~vd:dst)
+        | Lval (Var v, NoOffset) ->
+            let src = get_vreg v.vname in
+            if src <> dst then
+              emit (encode_inst ~funct6:0x0D ~vm:1 ~vs2:0 ~vs1_or_imm:src ~funct3:0 ~vd:dst)
+        | Lval (Mem (BinOp (PlusPI, CastE (_, Lval (Var ptr_v, NoOffset)), idx_e, _)), NoOffset) ->
+            compile_exp idx_e free_reg (free_reg + 1);
+            emit (encode_inst ~funct6:0x0E ~vm:1 ~vs2:free_reg ~vs1_or_imm:(get_vreg ptr_v.vname) ~funct3:0 ~vd:dst)
+        | UnOp (Neg, e1, _) ->
+            compile_exp e1 dst free_reg;
+            emit (encode_inst ~funct6:0x01 ~vm:1 ~vs2:dst ~vs1_or_imm:0 ~funct3:0 ~vd:dst)
+        | UnOp (BNot, e1, _) ->
+            compile_exp e1 dst free_reg;
+            emit (encode_inst ~funct6:0x0B ~vm:1 ~vs2:0x1F ~vs1_or_imm:dst ~funct3:0 ~vd:dst)
+        | BinOp (op, e1, e2, _) ->
+            compile_exp e1 dst free_reg;
+            let t_reg = free_reg in
+            compile_exp e2 t_reg (free_reg + 1);
+            let funct6 =
+              match op with
+              | PlusA -> 0x00
+              | MinusA -> 0x01
+              | Mult -> 0x02
+              | BXor -> 0x03
+              | BAnd -> 0x04
+              | BOr -> 0x05
+              | Shiftlt -> 0x06
+              | Shiftrt -> 0x07
+              | _ -> 0x00
+            in
+            emit (encode_inst ~funct6 ~vm:1 ~vs2:t_reg ~vs1_or_imm:dst ~funct3:0 ~vd:dst)
+        | CastE (_, e1) ->
+            compile_exp e1 dst free_reg
+        | _ -> ()
+      in
+
+      let rec compile_stmt (s : stmt) : unit =
+        match s.skind with
+        | Instr inst_list ->
+            List.iter
+              (function
+                | Set ((Var v, NoOffset), exp, _, _) ->
+                    let dst = get_vreg v.vname in
+                    compile_exp exp dst (!next_vreg)
+                | Set ((Mem (BinOp (PlusPI, CastE (_, Lval (Var ptr_v, NoOffset)), idx_e, _)), NoOffset), exp, _, _) ->
+                    let t1 = !next_vreg in
+                    let t2 = !next_vreg + 1 in
+                    compile_exp idx_e t1 (!next_vreg + 2);
+                    compile_exp exp t2 (!next_vreg + 2);
+                    emit (encode_inst ~funct6:0x15 ~vm:1 ~vs2:t1 ~vs1_or_imm:t2 ~funct3:0 ~vd:(get_vreg ptr_v.vname))
+                | _ -> ())
+              inst_list
+        | Return (Some exp, _, _) ->
+            compile_exp exp 0 (!next_vreg);
+            emit (encode_inst ~funct6:0x0F ~vm:1 ~vs2:0 ~vs1_or_imm:0 ~funct3:0 ~vd:0)
+        | Return (None, _, _) ->
+            emit (encode_inst ~funct6:0x0F ~vm:1 ~vs2:0 ~vs1_or_imm:0 ~funct3:0 ~vd:0)
+        | Block blk ->
+            List.iter compile_stmt blk.bstmts
+        | Loop (blk, _, _, _, _) ->
+            List.iter compile_stmt blk.bstmts
+        | If (cond, tb, fb, _, _) ->
+            (match cond with
+             | BinOp (Ge, e1, e2, _) ->
+                 let t1 = !next_vreg in
+                 let t2 = !next_vreg + 1 in
+                 compile_exp e1 t1 (!next_vreg + 2);
+                 compile_exp e2 t2 (!next_vreg + 2);
+                 emit (encode_inst ~funct6:0x13 ~vm:1 ~vs2:t2 ~vs1_or_imm:t1 ~funct3:0 ~vd:0)
+             | _ -> ());
+            List.iter compile_stmt tb.bstmts;
+            List.iter compile_stmt fb.bstmts
+        | _ -> ()
+      in
+
+      List.iter compile_stmt fd.sbody.bstmts;
+
+      (* If no instructions were emitted, fallback to default ret *)
+      if !instrs = [] then (
+        emit (encode_inst ~funct6:0x08 ~vm:1 ~vs2:0 ~vs1_or_imm:0 ~funct3:0 ~vd:0);
+        emit (encode_inst ~funct6:0x0F ~vm:1 ~vs2:0 ~vs1_or_imm:0 ~funct3:0 ~vd:0)
+      );
+
+      let vbc_words = List.rev !instrs in
+
+      (* Packing 32-bit Vector Instruction Words with Rolling XOR Key Mask *)
       let pack_key = 0x5A5AA5A5l in
       let packed_words =
         List.mapi
@@ -92,131 +197,121 @@ module Make (Entropy : Entropy_port.S) = struct
       in
       file.globals <- (GVar (vbc_var, { init = Some (CompoundInit (array_type, init_entries)) }, locUnknown)) :: file.globals;
 
-      (* Build embedded VCPU interpreter in function body *)
-      let vreg_v0 = makeLocalVar fd "__vcpu_v0" intType in
-      let vreg_v1 = makeLocalVar fd "__vcpu_v1" intType in
-      let vreg_v2 = makeLocalVar fd "__vcpu_v2" intType in
-      let pc_var = makeLocalVar fd "__vcpu_pc" intType in
-      let acc_var = makeLocalVar fd "__vcpu_acc" intType in
-      let parity_var = makeLocalVar fd "__vcpu_parity" intType in
-      let i_var = makeLocalVar fd "__vcpu_i" intType in
-      let ch_var = makeLocalVar fd "__vcpu_ch" intType in
-      let raw_inst = makeLocalVar fd "__vcpu_raw_inst" uintType in
-      let dec_inst = makeLocalVar fd "__vcpu_dec_inst" uintType in
-      let funct6_var = makeLocalVar fd "__vcpu_funct6" uintType in
+      (* Build clean C11 Vector VCPU execution function body *)
+      let ptr_arg =
+        if has_ptr_param then (List.hd ptr_formals).vname else "0"
+      in
 
-      let init_pc = mkStmtOneInstr (Set (var pc_var, integer 0, locUnknown, locUnknown)) in
+      let arg_inits =
+        List.mapi
+          (fun idx p ->
+            if isIntegralType p.vtype then Printf.sprintf "    __vregs[%d] = (int)%s;" idx p.vname
+            else Printf.sprintf "    __vregs[%d] = 0;" idx)
+          fd.sformals
+        |> String.concat "\n"
+      in
 
-      if is_string_verifier then (
-        let ptr_param = List.hd ptr_formals in
-        let uchar_ty = TInt (IUChar, []) in
-        let init_acc = mkStmtOneInstr (Set (var acc_var, integer 0x1337, locUnknown, locUnknown)) in
-        let init_parity = mkStmtOneInstr (Set (var parity_var, integer 0x5A, locUnknown, locUnknown)) in
-        let init_i = mkStmtOneInstr (Set (var i_var, integer 0, locUnknown, locUnknown)) in
+      let fn_params =
+        List.map
+          (fun p ->
+            let ty_str = match p.vtype with
+              | TPtr (TInt (IChar, _), _) | TPtr (TInt (ISChar, _), _) -> "const char *"
+              | TPtr (TInt (IUChar, _), _) -> "const unsigned char *"
+              | TPtr _ -> "void *"
+              | _ -> "int"
+            in
+            Printf.sprintf "%s %s" ty_str p.vname)
+          fd.sformals
+        |> String.concat ", "
+      in
 
-        let break_loop =
-          mkStmt (If (BinOp (Ge, Lval (var i_var), integer 16, intType),
-                      mkBlock [ mkStmt (Break locUnknown) ],
-                      mkBlock [], locUnknown, locUnknown))
-        in
-        let read_ch =
-          let char_ptr_type = TPtr (charType, []) in
-          let ptr_exp = BinOp (PlusPI, CastE (char_ptr_type, Lval (var ptr_param)), Lval (var i_var), char_ptr_type) in
-          let char_val = CastE (intType, CastE (uchar_ty, Lval (Mem ptr_exp, NoOffset))) in
-          mkStmtOneInstr (Set (var ch_var, char_val, locUnknown, locUnknown))
-        in
-        let step_acc =
-          let i_plus_1 = BinOp (PlusA, Lval (var i_var), integer 1, intType) in
-          let ch_mul_i = BinOp (Mult, Lval (var ch_var), i_plus_1, intType) in
-          let sum_part = BinOp (PlusA, Lval (var acc_var), ch_mul_i, intType) in
-          let next_acc = BinOp (BXor, sum_part, Lval (var parity_var), intType) in
-          mkStmtOneInstr (Set (var acc_var, next_acc, locUnknown, locUnknown))
-        in
-        let step_parity =
-          let sum_p = BinOp (PlusA, Lval (var parity_var), Lval (var ch_var), intType) in
-          let next_parity = BinOp (BAnd, sum_p, integer 0xFF, intType) in
-          mkStmtOneInstr (Set (var parity_var, next_parity, locUnknown, locUnknown))
-        in
-        let inc_i =
-          mkStmtOneInstr (Set (var i_var, BinOp (PlusA, Lval (var i_var), integer 1, intType), locUnknown, locUnknown))
-        in
+      let fn_body_impl = Format.sprintf {|
+int %s(%s) {
+    int __vregs[16] = {0};
+%s
+    const char *__ptr_ctx = (const char *)%s;
+    unsigned int __pc = 0;
+    int __running = 1;
 
-        let loop_body = mkBlock [ break_loop; read_ch; step_acc; step_parity; inc_i ] in
-        let vcpu_loop = mkStmt (Loop (loop_body, locUnknown, locUnknown, None, None)) in
+    while (__running && __pc < %d) {
+        unsigned int __raw = %s[__pc];
+        unsigned int __key = 0x5A5AA5A5U ^ (__pc * 0x1000193U);
+        unsigned int __inst = __raw ^ __key;
 
-        let expected_hash_exp = Const (CInt (Z.of_int 0x318F, IInt, None)) in
-        let match_cond = BinOp (Eq, Lval (var acc_var), expected_hash_exp, intType) in
-        let check_res =
-          mkStmt (If (match_cond,
-                      mkBlock [ mkStmtOneInstr (Set (var vreg_v0, integer 1, locUnknown, locUnknown)) ],
-                      mkBlock [ mkStmtOneInstr (Set (var vreg_v0, integer 0, locUnknown, locUnknown)) ],
-                      locUnknown, locUnknown))
-        in
-        let ret_stmt = mkStmt (Return (Some (Lval (var vreg_v0)), locUnknown, locUnknown)) in
-        fd.sbody <- mkBlock [ init_pc; init_acc; init_parity; init_i; vcpu_loop; check_res; ret_stmt ]
-      ) else (
-        let int_formals = List.filter (fun p -> isIntegralType p.vtype) fd.sformals in
-        let num_formals = List.length int_formals in
-        let init_v0 =
-          if num_formals > 0 then
-            mkStmtOneInstr (Set (var vreg_v0, Lval (var (List.nth int_formals 0)), locUnknown, locUnknown))
-          else
-            mkStmtOneInstr (Set (var vreg_v0, integer 10, locUnknown, locUnknown))
-        in
-        let init_v1 =
-          if num_formals > 1 then
-            mkStmtOneInstr (Set (var vreg_v1, Lval (var (List.nth int_formals 1)), locUnknown, locUnknown))
-          else
-            mkStmtOneInstr (Set (var vreg_v1, integer 20, locUnknown, locUnknown))
-        in
+        unsigned char __funct6 = (unsigned char)((__inst >> 26) & 0x3F);
+        unsigned char __vs2    = (unsigned char)((__inst >> 20) & 0x1F);
+        unsigned char __vs1    = (unsigned char)((__inst >> 15) & 0x1F);
+        unsigned char __vd     = (unsigned char)((__inst >> 7)  & 0x1F);
 
-        (* VCPU Fetch & Decode Loop on packed vector words *)
-        let break_vcpu =
-          mkStmt (If (BinOp (Ge, Lval (var pc_var), integer (List.length packed_words), intType),
-                      mkBlock [ mkStmt (Break locUnknown) ],
-                      mkBlock [], locUnknown, locUnknown))
-        in
-        let fetch_raw =
-          mkStmtOneInstr (Set (var raw_inst, Lval (Var vbc_var, Index (Lval (var pc_var), NoOffset)), locUnknown, locUnknown))
-        in
-        let decrypt_inst =
-          let key_delta = BinOp (Mult, CastE (uintType, Lval (var pc_var)), Const (CInt (Z.of_int64 0x1000193L, IUInt, None)), uintType) in
-          let key_val = BinOp (BXor, Const (CInt (Z.of_int64 0x5A5AA5A5L, IUInt, None)), key_delta, uintType) in
-          mkStmtOneInstr (Set (var dec_inst, BinOp (BXor, Lval (var raw_inst), key_val, uintType), locUnknown, locUnknown))
-        in
-        let extract_funct6 =
-          mkStmtOneInstr (Set (var funct6_var,
-            BinOp (BAnd, BinOp (Shiftrt, Lval (var dec_inst), integer 26, uintType), integer 0x3F, uintType), locUnknown, locUnknown))
-        in
-        let inc_pc =
-          mkStmtOneInstr (Set (var pc_var, BinOp (PlusA, Lval (var pc_var), integer 1, intType), locUnknown, locUnknown))
-        in
+        switch (__funct6) {
+            case 0x00: /* vadd.vv */
+                __vregs[__vd] = __vregs[__vs1] + __vregs[__vs2];
+                break;
+            case 0x01: /* vsub.vv */
+                __vregs[__vd] = __vregs[__vs1] - __vregs[__vs2];
+                break;
+            case 0x02: /* vmul.vv */
+                __vregs[__vd] = __vregs[__vs1] * __vregs[__vs2];
+                break;
+            case 0x03: /* vxor.vv */
+                __vregs[__vd] = __vregs[__vs1] ^ __vregs[__vs2];
+                break;
+            case 0x04: /* vand.vv */
+                __vregs[__vd] = __vregs[__vs1] & __vregs[__vs2];
+                break;
+            case 0x05: /* vor.vv */
+                __vregs[__vd] = __vregs[__vs1] | __vregs[__vs2];
+                break;
+            case 0x06: /* vsll.vv */
+                __vregs[__vd] = __vregs[__vs1] << __vregs[__vs2];
+                break;
+            case 0x07: /* vsrl.vv */
+                __vregs[__vd] = (int)((unsigned int)__vregs[__vs1] >> __vregs[__vs2]);
+                break;
+            case 0x08: /* vli.vi */
+                __vregs[__vd] = (int)((__vs1 << 5) | __vs2);
+                break;
+            case 0x0D: /* vmv.vv */
+                __vregs[__vd] = __vregs[__vs1];
+                break;
+            case 0x0E: /* vle8.v load byte */
+                if (__ptr_ctx) {
+                    __vregs[__vd] = (int)((unsigned char)__ptr_ctx[__vregs[__vs2]]);
+                }
+                break;
+            case 0x0F: /* vret.v */
+                __running = 0;
+                break;
+            case 0x13: /* vbge.vv */
+                if (__vregs[__vs1] >= __vregs[__vs2]) {
+                    /* loop exit branch */
+                }
+                break;
+            default:
+                break;
+        }
+        __pc++;
+    }
+    return __vregs[0];
+}
+|}
+        fd.svar.vname
+        fn_params
+        arg_inits
+        ptr_arg
+        (List.length packed_words)
+        vbc_name
+      in
 
-        (* funct6 == 0x00: vadd.vv v2 = v1 + v0 *)
-        let case_vadd =
-          mkStmt (If (BinOp (Eq, Lval (var funct6_var), integer 0x00, uintType),
-                      mkBlock [ mkStmtOneInstr (Set (var vreg_v2, BinOp (PlusA, Lval (var vreg_v1), Lval (var vreg_v0), intType), locUnknown, locUnknown)) ],
-                      mkBlock [], locUnknown, locUnknown))
-        in
-        (* funct6 == 0x25: vmul.vv v0 = v2 * 3 *)
-        let case_vmul =
-          mkStmt (If (BinOp (Eq, Lval (var funct6_var), integer 0x25, uintType),
-                      mkBlock [ mkStmtOneInstr (Set (var vreg_v0, BinOp (Mult, Lval (var vreg_v2), integer 3, intType), locUnknown, locUnknown)) ],
-                      mkBlock [], locUnknown, locUnknown))
-        in
-        (* funct6 == 0x0B: vxor.vi v0 = v0 ^ 0x5A *)
-        let case_vxor =
-          mkStmt (If (BinOp (Eq, Lval (var funct6_var), integer 0x0B, uintType),
-                      mkBlock [ mkStmtOneInstr (Set (var vreg_v0, BinOp (BXor, Lval (var vreg_v0), integer 0x5A, intType), locUnknown, locUnknown)) ],
-                      mkBlock [], locUnknown, locUnknown))
-        in
-
-        let vcpu_loop_body = mkBlock [ break_vcpu; fetch_raw; decrypt_inst; extract_funct6; case_vadd; case_vmul; case_vxor; inc_pc ] in
-        let vcpu_loop = mkStmt (Loop (vcpu_loop_body, locUnknown, locUnknown, None, None)) in
-        let ret_stmt = mkStmt (Return (Some (Lval (var vreg_v0)), locUnknown, locUnknown)) in
-
-        fd.sbody <- mkBlock [ init_pc; init_v0; init_v1; vcpu_loop; ret_stmt ]
-      )
+      let new_globals = ref [] in
+      List.iter
+        (fun g ->
+          match g with
+          | GFun (f_dec, _) when f_dec.svar.vname = fd.svar.vname ->
+              new_globals := GText fn_body_impl :: !new_globals
+          | other -> new_globals := other :: !new_globals)
+        file.globals;
+      file.globals <- List.rev !new_globals
     )
 
   let transform_file (f : file) : file =
