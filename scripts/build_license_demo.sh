@@ -35,6 +35,7 @@ OUTPUT_BIN="${ROOT_DIR}/examples/01_license_keygen_virtualized.bin"
 OBF_BIN="${ROOT_DIR}/_build/default/bin/main.exe"
 VISA_JSON="${ROOT_DIR}/examples/generated_visa_spec.json"
 VISA_SAIL="${ROOT_DIR}/examples/generated_visa_spec.sail"
+EXAMPLES_DIR="${ROOT_DIR}/examples"
 
 export PATH="${HOME}/.opam/default/bin:${PATH}:/opt/homebrew/bin:/usr/local/bin"
 
@@ -49,17 +50,19 @@ echo -e "${C_YELLOW}[*] Building OcaSorry compiler toolchain via dune...${C_RESE
 (cd "${ROOT_DIR}" && dune build)
 echo -e "${C_GREEN}[+] Dune build complete!${C_RESET}\n"
 
-# Step 2: Synthesize a randomized Vector ISA with Python & Sail
-echo -e "${C_BLUE}[1/4] Synthesizing Formal Sail / JSON Vector ISA Architecture...${C_RESET}"
-python3 "${ROOT_DIR}/tools/visa_synthesizer.py" -o "${VISA_JSON}" -s "${VISA_SAIL}" --name="vISA_License_Cascade_Arch"
-echo -e "${C_GREEN}[+] Synthesized ISA Spec -> ${VISA_JSON}${C_RESET}"
-echo -e "${C_GREEN}[+] Formal Sail Spec -> ${VISA_SAIL}${C_RESET}\n"
+# Step 2: Synthesize formal Sail & JSON specifications for all 4 VCPU Tiers
+echo -e "${C_BLUE}[1/4] Synthesizing Formal Sail Specifications for all 4 VCPUs...${C_RESET}"
+python3 "${ROOT_DIR}/tools/visa_synthesizer.py" --output-dir "${EXAMPLES_DIR}" --name="vISA_License_Cascade_Arch"
+echo -e "${C_GREEN}[+] VCPU 1 Sail Spec -> ${EXAMPLES_DIR}/vcpu1_visa.sail${C_RESET}"
+echo -e "${C_GREEN}[+] VCPU 2 Sail Spec -> ${EXAMPLES_DIR}/vcpu2_nested_vm.sail${C_RESET}"
+echo -e "${C_GREEN}[+] VCPU 3 Sail Spec -> ${EXAMPLES_DIR}/vcpu3_rolling_vkey.sail${C_RESET}"
+echo -e "${C_GREEN}[+] VCPU 4 Sail Spec -> ${EXAMPLES_DIR}/vcpu4_ephemeral_jit.sail${C_RESET}\n"
 
 # Step 3: Obfuscate source code with 4-VCPU Architecture and Arsenal Defenses
-echo -e "${C_BLUE}[2/4] Applying 4-VCPU Virtualization with Synthesized ISA...${C_RESET}"
+echo -e "${C_BLUE}[2/4] Applying 4-VCPU Virtualization with Synthesized ISAs...${C_RESET}"
 
 "${OBF_BIN}" -i "${INPUT_SRC}" -o "${OUTPUT_C}" \
-    --visa-spec "${VISA_JSON}" \
+    --visa-spec "${EXAMPLES_DIR}/vcpu1_visa.json" \
     --virtualize \
     --nested-vm \
     --rolling-vkey \

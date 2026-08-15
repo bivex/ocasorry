@@ -1,0 +1,15 @@
+{
+  "vcpu_tier": 4,
+  "vcpu_type": "ephemeral_jit",
+  "isa_name": "Ephemeral_JIT_Security_Arch",
+  "isa_version": "1.0",
+  "payload_size": 16,
+  "xor_key": 90,
+  "expected_input": 25352,
+  "operations": {
+    "op_alloc_page": 1,
+    "op_decrypt_payload": 2,
+    "op_execute_verify": 3,
+    "op_wipe_zero": 4
+  }
+}

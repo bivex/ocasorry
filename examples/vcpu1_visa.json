@@ -1,0 +1,40 @@
+{
+  "vcpu_tier": 1,
+  "vcpu_type": "random_visa",
+  "isa_name": "vISA_License_Cascade_Arch",
+  "isa_version": "1.0",
+  "word_bits": 32,
+  "reg_count": 16,
+  "pack_key": 2629484640,
+  "delta_key": 569420461,
+  "layout": {
+    "funct6_shift": 26,
+    "funct6_mask": 63,
+    "vm_shift": 25,
+    "vs2_shift": 20,
+    "vs1_shift": 15,
+    "funct3_shift": 12,
+    "vd_shift": 7,
+    "opcode_val": 123
+  },
+  "opcodes": {
+    "vadd_vv": 29,
+    "vsub_vv": 20,
+    "vmul_vv": 50,
+    "vxor_vv": 52,
+    "vand_vv": 16,
+    "vor_vv": 61,
+    "vsll_vv": 62,
+    "vsrl_vv": 39,
+    "vli_vi": 46,
+    "vmv_vv": 33,
+    "vle8_v": 19,
+    "vse8_v": 2,
+    "vret_v": 43,
+    "vbge_vv": 0,
+    "vblt_vv": 15,
+    "vbeq_vv": 12,
+    "vbne_vv": 40,
+    "vj": 34
+  }
+}

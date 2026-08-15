@@ -1,0 +1,16 @@
+{
+  "vcpu_tier": 3,
+  "vcpu_type": "rolling_vkey",
+  "isa_name": "RollingVKey_Stateful_Arch",
+  "isa_version": "1.0",
+  "initial_vkey": 1511506901,
+  "multiplier": 33,
+  "entropy_constant": 2654435769,
+  "opcodes": {
+    "op_add_imm": 1,
+    "op_xor_imm": 2,
+    "op_mul_imm": 3,
+    "op_halt": 255
+  },
+  "registers": 4
+}

@@ -2,18 +2,28 @@ open Ocasorry_lib
 open Helpers
 
 let run () =
-  Printf.printf "\n--- [Suite 61] Python/Sail Dynamic random_vISA Synthesizer Tests ---\n%!";
+  Printf.printf "\n--- [Suite 61] Python/Sail Dynamic 4-VCPU Architecture Synthesizer Tests ---\n%!";
 
-  let spec_json_path = Filename.temp_file "custom_visa_" ".json" in
-  let spec_sail_path = Filename.temp_file "custom_visa_" ".sail" in
+  let tmp_dir = Filename.temp_file "custom_4vcpu_" "" in
+  (try Sys.remove tmp_dir with _ -> ());
+  Unix.mkdir tmp_dir 0o755;
 
-  (* 1. Run Python synthesizer to generate random ISA specification and formal Sail file *)
-  let gen_cmd = Printf.sprintf "python3 tools/visa_synthesizer.py -o %s -s %s --name=vISA_Custom_Demo_Arch"
-    (Filename.quote spec_json_path) (Filename.quote spec_sail_path) in
+  let spec_json_path = Filename.concat tmp_dir "vcpu1_visa.json" in
+  let spec_sail_path = Filename.concat tmp_dir "vcpu1_visa.sail" in
+  let nested_sail_path = Filename.concat tmp_dir "vcpu2_nested_vm.sail" in
+  let rolling_sail_path = Filename.concat tmp_dir "vcpu3_rolling_vkey.sail" in
+  let ephemeral_sail_path = Filename.concat tmp_dir "vcpu4_ephemeral_jit.sail" in
+
+  (* 1. Run Python synthesizer to generate all 4 Sail specifications *)
+  let gen_cmd = Printf.sprintf "python3 tools/visa_synthesizer.py --output-dir %s --name=vISA_Custom_Demo_Arch"
+    (Filename.quote tmp_dir) in
   let gen_res = Sys.command gen_cmd in
-  assert_bool "Python ISA Synthesizer executed successfully" (gen_res = 0);
-  assert_bool "Generated JSON ISA spec exists" (Sys.file_exists spec_json_path);
-  assert_bool "Generated formal Sail spec exists" (Sys.file_exists spec_sail_path);
+  assert_bool "Python 4-VCPU Synthesizer executed successfully" (gen_res = 0);
+  assert_bool "Generated VCPU 1 Sail spec exists" (Sys.file_exists spec_sail_path);
+  assert_bool "Generated VCPU 2 Nested VM Sail spec exists" (Sys.file_exists nested_sail_path);
+  assert_bool "Generated VCPU 3 Rolling Key Sail spec exists" (Sys.file_exists rolling_sail_path);
+  assert_bool "Generated VCPU 4 Ephemeral JIT Sail spec exists" (Sys.file_exists ephemeral_sail_path);
+  assert_bool "Generated VCPU 1 JSON ISA spec exists" (Sys.file_exists spec_json_path);
 
   (* 2. Load dynamic specification into OcaSorry engine *)
   let loaded_spec = C_visa_spec_service.VisaSpec.load_from_file spec_json_path in
@@ -80,7 +90,10 @@ int main(int argc, char **argv) {
   (* Reset to default spec *)
   C_visa_spec_service.VisaSpec.set_active_spec C_visa_spec_service.VisaSpec.default_spec;
 
-  (try Sys.remove spec_json_path with _ -> ());
-  (try Sys.remove spec_sail_path with _ -> ());
   (try Sys.remove src_file with _ -> ());
-  (try Sys.remove bin_file with _ -> ())
+  (try Sys.remove bin_file with _ -> ());
+  (try
+    let files = Sys.readdir tmp_dir in
+    Array.iter (fun f -> Sys.remove (Filename.concat tmp_dir f)) files;
+    Unix.rmdir tmp_dir
+   with _ -> ())
