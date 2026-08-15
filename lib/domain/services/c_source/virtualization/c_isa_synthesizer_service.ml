@@ -175,6 +175,7 @@ module Make (Entropy : Entropy_port.S) = struct
         ~op_vret_v
         ~op_vbge_vv
         ~op_vj
+        ~rng:(fun () -> Entropy.next_int ~max:0x3FFFFFFF)
     in
 
     (spec, json_str, sail_str)
@@ -216,7 +217,8 @@ module Make (Entropy : Entropy_port.S) = struct
   }
 }|} vm_name outer_key inner_key in
 
-    let sail_str = C_isa_sail_templates.render_nested_vm_sail ~vm_name in
+    let sail_str = C_isa_sail_templates.render_nested_vm_sail ~vm_name
+        ~rng:(fun () -> Entropy.next_int ~max:0x3FFFFFFF) in
     (json_str, sail_str)
 
   (* ============================================================================== *)
@@ -250,7 +252,8 @@ module Make (Entropy : Entropy_port.S) = struct
   }
 }|} tier vm_name vkey_seed lcg_mult lcg_delta in
 
-    let sail_str = C_isa_sail_templates.render_rolling_vkey_sail ~vm_name ~tier ~lcg_mult ~lcg_delta in
+    let sail_str = C_isa_sail_templates.render_rolling_vkey_sail ~vm_name ~tier ~lcg_mult ~lcg_delta
+        ~rng:(fun () -> Entropy.next_int ~max:0x3FFFFFFF) in
     (json_str, sail_str)
 
   (* ============================================================================== *)
@@ -279,7 +282,8 @@ module Make (Entropy : Entropy_port.S) = struct
   }
 }|} tier vm_name session_key in
 
-    let sail_str = C_isa_sail_templates.render_ephemeral_jit_sail ~vm_name ~tier in
+    let sail_str = C_isa_sail_templates.render_ephemeral_jit_sail ~vm_name ~tier
+        ~rng:(fun () -> Entropy.next_int ~max:0x3FFFFFFF) in
     (json_str, sail_str)
 
   (* ============================================================================== *)
