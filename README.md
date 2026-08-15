@@ -15,6 +15,7 @@ It combines **C Source AST transformations** (powered by George Necula's [CIL / 
 | 🌀 [Polymorphic Virtualization & random_vISA](docs/virtualization-and-random-visa.md) | Per-build synthetic vector ISA, nested VM, self-modifying bytecode, JIT |
 | ⚡ [Obfuscation Passes & Math](docs/obfuscation-passes.md) | All 56+ transformation passes with equations and module references |
 | 🔑 [License Keygen Documentation](docs/license-keygen.md) | 4-VCPU cascade math, meet-in-the-middle solver, Python & C keygen tools |
+| 🧬 [ISA Generation Pipeline](docs/isa-generation-pipeline.md) | End-to-end architectural guide: Sail/JSON synthesis to target C11 runtime |
 | 🔄 [Two-Level JIT & Hardware Signal Flow](docs/two-tier-jit.md) | Staging architecture, Apple Silicon W^X cache, `ucontext_t` PC redirection |
 | 🛠️ [Compiler Wrapper (`ocasorry-cc`)](docs/compiler-wrapper.md) | Integration guide: Makefiles, CMake, flags, options |
 | 📋 [CIL Capabilities & Roadmap](docs/cil-capabilities.md) | Complete checkbox roadmap of all 61+ techniques via Goblint-CIL |
