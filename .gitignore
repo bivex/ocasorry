@@ -6,3 +6,6 @@ _build/
 *.swp
 *~
 __pycache__/
+*.bin
+*.obf.c
+*.dylib
