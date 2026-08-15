@@ -49,7 +49,44 @@ class VCPUArchitectMLX(nn.Module):
 
 # ─── Dataset ──────────────────────────────────────────────────────────────────
 
-def _make_dataset(n=25_000, seed=42):
+def _augment_from_sail_dataset(n_extra=3000, seed=42, sail_path=""):
+    if not sail_path:
+        sail_path = os.path.join(os.path.dirname(__file__), "sail_dataset.json")
+    if not os.path.exists(sail_path):
+        return None
+    with open(sail_path, "r") as f:
+        data = json.load(f)
+    rng = np.random.RandomState(seed)
+    X_e, yp_e, ypar_e, yt_e, ys_e = [], [], [], [], []
+    tier_map = {"visa": [1.,0.,0.,0.], "nested": [0.,1.,0.,0.], "rolling": [0.,0.,1.,0.], "ephemeral": [0.,0.,0.,1.]}
+    
+    samples = data.get("samples", [])
+    for vtype, t_onehot in tier_map.items():
+        count = 0
+        for s in samples:
+            if count >= 750: break
+            info = s.get("vcpus", {}).get(vtype)
+            if not info: continue
+            score = float(info.get("quality_score", 0.5))
+            X_e.append([score*12.32/12.32, (score*5)/5., ( (4 if score>0.7 else 3) - 1.)/3., 
+                        (score*9)/9., (score*4990)/4990., (score*50)/50.])
+            if score > 0.9: p = 7
+            elif score > 0.75: p = rng.choice([5,6])
+            elif score > 0.5: p = rng.choice([3,4])
+            else: p = rng.choice([1,2])
+            yp_e.append(p)
+            d, mba, dec, lut, vr = 32+score*992, 1+score*3, score*200, score*64, 8+score*56
+            ypar_e.append([(d-32)/992., (mba-1)/3., dec/200., lut/64., (vr-8)/56.])
+            yt_e.append(t_onehot)
+            ys_e.append([score * 100.0])
+            count += 1
+            
+    if not X_e: return None
+    return (np.array(X_e, dtype=np.float32), np.array(yp_e, dtype=np.int32), 
+            np.array(ypar_e, dtype=np.float32), np.array(yt_e, dtype=np.float32), 
+            np.array(ys_e, dtype=np.float32))
+
+def _make_dataset(n=25_000, seed=42, sail_path=""):
     rng = np.random.RandomState(seed)
     log2_sz = rng.uniform(0.0, 12.32, n)
     sz_kb   = np.exp2(log2_sz)
@@ -87,6 +124,17 @@ def _make_dataset(n=25_000, seed=42):
                 yt[i]   = trs
                 ys[i,0] = min(bs + threat[i] * sm, 100.)
                 break
+                
+    aug_res = _augment_from_sail_dataset(n_extra=3000, seed=seed, sail_path=sail_path)
+    if aug_res is not None:
+        X_e, yp_e, ypar_e, yt_e, ys_e = aug_res
+        X = np.concatenate([X_e, X], axis=0)
+        yp = np.concatenate([yp_e, yp], axis=0)
+        ypar = np.concatenate([ypar_e, ypar], axis=0)
+        yt = np.concatenate([yt_e, yt], axis=0)
+        ys = np.concatenate([ys_e, ys], axis=0)
+        print(f"[+] Augmented dataset with {len(X_e)} real Sail ISA samples from sail_dataset.json", flush=True)
+
     return X, yp, ypar, yt, ys
 
 def _split(X, *Ys, val_frac=0.15, seed=42):
@@ -106,9 +154,9 @@ def _split(X, *Ys, val_frac=0.15, seed=42):
 
 # ─── Training ─────────────────────────────────────────────────────────────────
 
-def train_vcpu_model(model, epochs=40, batch_size=256, lr=2e-3, patience=8, seed=42):
+def train_vcpu_model(model, epochs=40, batch_size=256, lr=2e-3, patience=8, seed=42, sail_path=""):
     print("[*] Generating 25 000-sample VCPU compiler telemetry dataset...", flush=True)
-    X, yp, ypar, yt, ys = _make_dataset(seed=seed)
+    X, yp, ypar, yt, ys = _make_dataset(seed=seed, sail_path=sail_path)
     Xtr, Xvl, mu, sig, (yp_tr,yp_vl), (ypar_tr,ypar_vl), (yt_tr,yt_vl), (ys_tr,ys_vl) = \
         _split(X, yp, ypar, yt, ys, val_frac=0.15, seed=seed)
 
@@ -231,6 +279,7 @@ def main():
     ap.add_argument("--seed",           type=int,   default=42)
     ap.add_argument("--retrain",        action="store_true")
     ap.add_argument("--export-json",    type=str,   default="")
+    ap.add_argument("--sail-dataset",   type=str,   default="", help="Path to sail_dataset.json")
     args = ap.parse_args()
 
     np.random.seed(args.seed)
@@ -249,11 +298,11 @@ def main():
             sig  = np.array(s["std"],  dtype=np.float32)
             print(f"[+] Loaded pre-trained weights ({WEIGHTS_PATH})", flush=True)
         except Exception:
-            mu, sig = train_vcpu_model(model, epochs=args.epochs, seed=args.seed)
+            mu, sig = train_vcpu_model(model, epochs=args.epochs, seed=args.seed, sail_path=args.sail_dataset)
             json.dump({"mean": mu.flatten().tolist(), "std": sig.flatten().tolist()},
                       open(stats_path, "w"))
     else:
-        mu, sig = train_vcpu_model(model, epochs=args.epochs, seed=args.seed)
+        mu, sig = train_vcpu_model(model, epochs=args.epochs, seed=args.seed, sail_path=args.sail_dataset)
         json.dump({"mean": mu.flatten().tolist(), "std": sig.flatten().tolist()},
                   open(stats_path, "w"))
 
