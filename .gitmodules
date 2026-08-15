@@ -1,0 +1,3 @@
+[submodule "tools/d810"]
+	path = tools/d810
+	url = https://gitlab.com/eshard/d810.git
