@@ -17,7 +17,7 @@ union rolling_ast = {
 }
 
 function evolve_key(decrypted_word : bits(32)) -> unit = {
-    VKey = (VKey * 17) ^ (decrypted_word + 2246822507);
+    VKey = (VKey * 65) ^ (decrypted_word + 2246822507);
 }
 
 function execute_rolling(op : rolling_ast) -> unit = {

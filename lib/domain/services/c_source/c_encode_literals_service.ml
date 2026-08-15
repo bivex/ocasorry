@@ -32,9 +32,10 @@ module Make (Entropy : Entropy_port.S) = struct
           let dec_var_name = Printf.sprintf "__dec_lit_%d" str_count in
           let init_var_name = Printf.sprintf "__init_lit_%d" str_count in
 
-          let char_arr_ty = TArray (charType, Some (integer total_len), []) in
+          let volatile_char = typeAddAttributes [ Attr ("volatile", []) ] charType in
+          let char_arr_ty = TArray (volatile_char, Some (integer total_len), []) in
 
-          (* static unsigned char __enc_lit_X[] = { ... }; *)
+          (* static volatile unsigned char __enc_lit_X[] = { ... }; *)
           let enc_init_list =
             List.map (fun b -> (NoOffset, SingleInit (integer b))) enc_bytes
           in
@@ -42,12 +43,13 @@ module Make (Entropy : Entropy_port.S) = struct
           enc_var.vstorage <- Static;
           enc_var.vinit.init <- Some (CompoundInit (char_arr_ty, enc_init_list));
 
-          (* static char __dec_lit_X[N]; *)
+          (* static volatile char __dec_lit_X[N]; *)
           let dec_var = makeGlobalVar dec_var_name char_arr_ty in
           dec_var.vstorage <- Static;
 
-          (* static int __init_lit_X = 0; *)
-          let init_var = makeGlobalVar init_var_name intType in
+          (* static volatile int __init_lit_X = 0; *)
+          let volatile_int = typeAddAttributes [ Attr ("volatile", []) ] intType in
+          let init_var = makeGlobalVar init_var_name volatile_int in
           init_var.vstorage <- Static;
           init_var.vinit.init <- Some (SingleInit (integer 0));
 
@@ -100,8 +102,9 @@ module Make (Entropy : Entropy_port.S) = struct
             | None -> (32, 0x5A)
           in
 
-          (* Local index var for loop: int __idx_X; *)
-          let idx_var = makeLocalVar fd (Printf.sprintf "__idx_%d" id) intType in
+          (* Local index var for loop: volatile int __idx_X; *)
+          let volatile_int = typeAddAttributes [ Attr ("volatile", []) ] intType in
+          let idx_var = makeLocalVar fd (Printf.sprintf "__idx_%d" id) volatile_int in
 
           (* Loop body: __dec_lit[i] = __enc_lit[i] ^ key; *)
           let dec_elem = (Var dec_v, Index (Lval (var idx_var), NoOffset)) in
