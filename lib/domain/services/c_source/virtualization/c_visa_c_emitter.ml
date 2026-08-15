@@ -43,6 +43,7 @@ __attribute__((visibility("default")))
     unsigned long long __vstack_ctrl[32] = {0};
     unsigned int __vsp_d = 0;
     unsigned int __vsp_c = 0;
+    unsigned long long __vm_state_acc = 0x9E3779B97F4A7C15ULL;
 
     const char *__ptr_ctx = (const char *)%s;
     const unsigned long long __cfi_canary = 0x%LxULL ^ ((uintptr_t)__ptr_ctx * 0x9E3779B97F4A7C15ULL);
@@ -87,43 +88,70 @@ __attribute__((visibility("default")))
         __funct3 = (unsigned char)((__inst >> %d) & 0x07); \
         __vd     = (unsigned char)((__inst >> %d)  & 0x1F); \
         __pc++; \
+        __vm_state_acc = (__vm_state_acc ^ (__vd + __funct6)) * 0x517CC1B727220A95ULL; \
         goto *__dispatch_table[__funct6 & 0x3F]; \
     } while (0)
 
     /* Enter Direct Threading pipeline */
     __VISA_DISPATCH();
 
-__h_vadd:
-    __VREG_SET(__vd, __VREG_GET(__vs1) + __VREG_GET(__vs2));
+__h_vadd: {
+    unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
+    /* Non-Linear MBA ADD: (a ^ b) + ((a & b) << 1) */
+    __VREG_SET(__vd, (__a ^ __b) + ((__a & __b) << 1));
     __VISA_DISPATCH();
+}
 
-__h_vsub:
-    __VREG_SET(__vd, __VREG_GET(__vs1) - __VREG_GET(__vs2));
+__h_vsub: {
+    unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
+    /* Non-Linear MBA SUB: (a ^ b) - ((~a & b) << 1) */
+    __VREG_SET(__vd, (__a ^ __b) - ((~__a & __b) << 1));
     __VISA_DISPATCH();
+}
 
-__h_vmul:
-    __VREG_SET(__vd, __VREG_GET(__vs1) * __VREG_GET(__vs2));
+__h_vmul: {
+    unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
+    /* 64-bit Decomposed Karatsuba Multiplier */
+    unsigned long long __al = __a & 0xFFFFFFFFULL, __ah = __a >> 32;
+    unsigned long long __bl = __b & 0xFFFFFFFFULL, __bh = __b >> 32;
+    unsigned long long __p0 = __al * __bl;
+    unsigned long long __p1 = (__al * __bh) + (__ah * __bl);
+    __VREG_SET(__vd, __p0 + (__p1 << 32));
     __VISA_DISPATCH();
+}
 
-__h_vxor:
-    __VREG_SET(__vd, __VREG_GET(__vs1) ^ __VREG_GET(__vs2));
+__h_vxor: {
+    unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
+    /* Non-Linear MBA XOR: (a | b) - (a & b) */
+    __VREG_SET(__vd, (__a | __b) - (__a & __b));
     __VISA_DISPATCH();
+}
 
-__h_vand:
-    __VREG_SET(__vd, __VREG_GET(__vs1) & __VREG_GET(__vs2));
+__h_vand: {
+    unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
+    /* Non-Linear MBA AND: (a | b) - (a ^ b) */
+    __VREG_SET(__vd, (__a | __b) - (__a ^ __b));
     __VISA_DISPATCH();
+}
 
-__h_vor:
-    __VREG_SET(__vd, __VREG_GET(__vs1) | __VREG_GET(__vs2));
+__h_vor: {
+    unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
+    /* Non-Linear MBA OR: (a & b) + (a ^ b) */
+    __VREG_SET(__vd, (__a & __b) + (__a ^ __b));
     __VISA_DISPATCH();
+}
 
-__h_vsll:
-    __VREG_SET(__vd, __VREG_GET(__vs1) << __VREG_GET(__vs2));
+__h_vsll: {
+    unsigned long long __a = __VREG_GET(__vs1), __sh = __VREG_GET(__vs2) & 0x3FULL;
+    __VREG_SET(__vd, __a << __sh);
     __VISA_DISPATCH();
+}
 
-__h_vsrl:
-    __VREG_SET(__vd, (unsigned long long)(__VREG_GET(__vs1) >> __VREG_GET(__vs2)));
+__h_vsrl: {
+    unsigned long long __a = __VREG_GET(__vs1), __sh = __VREG_GET(__vs2) & 0x3FULL;
+    __VREG_SET(__vd, (unsigned long long)(__a >> __sh));
     __VISA_DISPATCH();
+}
 
 __h_vli:
     __VREG_SET(__vd, (unsigned long long)((__vm << 13) | (__funct3 << 10) | (__vs1 << 5) | __vs2));
