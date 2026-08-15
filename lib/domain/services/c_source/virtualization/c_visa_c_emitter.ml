@@ -47,6 +47,10 @@ __attribute__((visibility("default")))
     unsigned int __vsp_c = 0;
     unsigned long long __vm_state_acc = 0x9E3779B97F4A7C15ULL;
 
+    /* Vector 8: Ephemeral Self-Scrubbing Bytecode Scratchpad */
+    unsigned int __vbc_live[%d];
+    memcpy(__vbc_live, %s, sizeof(__vbc_live));
+
     const char *__ptr_ctx = (const char *)%s;
     const unsigned long long __cfi_canary = 0x%LxULL ^ ((uintptr_t)__ptr_ctx * 0x9E3779B97F4A7C15ULL);
 
@@ -81,7 +85,7 @@ __attribute__((visibility("default")))
     #define __VISA_DISPATCH() do { \
         if (__pc >= %d) goto __h_vret; \
         unsigned int __slot = ((__pc * %uU) + %uU) %% %uU; \
-        __raw = %s[__slot]; \
+        __raw = __vbc_live[__slot]; \
         __key = 0x%LxU ^ (__pc * 0x%LxU); \
         __inst = __raw ^ __key; \
         __funct6 = (unsigned char)((__inst >> %d) & 0x%X); \
@@ -114,12 +118,8 @@ __h_vsub: {
 
 __h_vmul: {
     unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
-    /* 64-bit Decomposed Karatsuba Multiplier */
-    unsigned long long __al = __a & 0xFFFFFFFFULL, __ah = __a >> 32;
-    unsigned long long __bl = __b & 0xFFFFFFFFULL, __bh = __b >> 32;
-    unsigned long long __p0 = __al * __bl;
-    unsigned long long __p1 = (__al * __bh) + (__ah * __bl);
-    __VREG_SET(__vd, __p0 + (__p1 << 32));
+    /* 64-bit Modular Multiplier */
+    __VREG_SET(__vd, (unsigned long long)(__a * __b));
     __VISA_DISPATCH();
 }
 
@@ -196,6 +196,7 @@ __h_vret: ;
     }
     unsigned long long __res_val = __VREG_GET(%d);
     __builtin_memset(__vregs, 0, sizeof(__vregs));
+    __builtin_memset(__vbc_live, 0, sizeof(__vbc_live));
     __builtin_memset(__vstack_data, 0, sizeof(__vstack_data));
     __builtin_memset(__vstack_ctrl, 0, sizeof(__vstack_ctrl));
     return (%s)__res_val;
@@ -208,6 +209,8 @@ __h_vret: ;
     reg_mask_base
     reg_mask_step
     vreg_total
+    word_count
+    vbc_name
     ptr_arg
     cfi_seed
     cfi_xor
@@ -231,7 +234,6 @@ __h_vret: ;
     affine_p
     affine_s
     word_count
-    vbc_name
     pack_key
     delta_key
     lay.funct6_shift lay.funct6_mask

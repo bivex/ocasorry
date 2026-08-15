@@ -200,59 +200,66 @@ static void __ocasorry_free_ephemeral_page(void *ptr, size_t sz) {
     }
 }
 
-static unsigned int __visa_program_vcpu6_shift_mix_r2_3[9]  = 
-  {      3548941711U,      3619801909U,      4184910166U,      211938140U, 
-        3070831178U,      3819333744U,      4247697133U,      3305245083U, 
-        218057217U};
-static unsigned int __visa_program_vcpu3_shift_mix_r1_2[11]  = 
-  {      3407310192U,      4247697133U,      3704572673U,      3949317941U, 
-        4184910166U,      1819093706U,      3663965182U,      1895958683U, 
-        3104607247U,      3733260963U,      2938498012U};
-static unsigned int __visa_program_vcpu1_expand_key_1[12]  = 
-  {      3637463553U,      989852926U,      1895958683U,      1925221104U, 
-        4247697133U,      1526279114U,      3598781091U,      2940808156U, 
-        3612278325U,      2766555478U,      2033286031U,      3307791716U};
+static unsigned int __visa_program_vcpu6_shift_mix_r2_3[26]  = 
+  {      2908326644U,      3325029359U,      3688279020U,      3016817927U, 
+        4200127922U,      160748991U,      3894584106U,      1346601175U, 
+        1063748034U,      1420657661U,      1050739066U,      2772904725U, 
+        715073792U,      3856263693U,      3504657464U,      4136557395U, 
+        1962107728U,      2438561995U,      558390246U,      3067908579U, 
+        3072928542U,      1108315017U,      831394102U,      3909670049U, 
+        140672860U,      4259774937U};
+static unsigned int __visa_program_vcpu3_shift_mix_r1_2[12]  = 
+  {      2346840931U,      57115074U,      1373387533U,      2005216108U, 
+        1346601303U,      2683327670U,      1697065237U,      2019235024U, 
+        2866205759U,      3559473018U,      4259709273U,      3675575992U};
+static unsigned int __visa_program_vcpu1_expand_key_1[24]  = 
+  {      1420723197U,      293975004U,      538429667U,      2502263106U, 
+        3995353377U,      715073792U,      1346601559U,      868341686U, 
+        3111594773U,      4046132084U,      4136557139U,      626774522U, 
+        1855668825U,      1196808120U,      1727715719U,      1634581990U, 
+        1314533901U,      3957730156U,      3339422411U,      3933479850U, 
+        479361289U,      1402012368U,      2516047807U,      4050762142U};
 static int __visa_engine_ready ;
 static char volatile   __enc_lit_1[34]  = 
-  {      121,      15,      127,      2, 
-        116,      97,      114,      119, 
-        2,      26,      2,      113, 
-        71,      65,      87,      80, 
-        75,      86,      91,      2, 
-        97,      74,      71,      65, 
-        73,      2,      100,      67, 
-        75,      78,      71,      70, 
-        40,      34};
+  {      236,      154,      234,      151, 
+        225,      244,      231,      226, 
+        151,      143,      151,      228, 
+        210,      212,      194,      197, 
+        222,      195,      206,      151, 
+        244,      223,      210,      212, 
+        220,      151,      241,      214, 
+        222,      219,      210,      211, 
+        189,      183};
 static char volatile   __dec_lit_1[34]  ;
 static int volatile   __init_lit_1  =    0;
 static char volatile   __enc_lit_2[53]  = 
-  {      30,      111,      24,      101, 
-        125,      104,      19,      6, 
-        21,      16,      101,      21, 
-        41,      36,      44,      43, 
-        49,      32,      61,      49, 
-        101,      7,      41,      42, 
-        38,      46,      101,      127, 
-        101,      30,      9,      127, 
-        101,      117,      61,      96, 
-        117,      125,      29,      105, 
-        101,      23,      127,      101, 
-        117,      61,      96,      117, 
-        125,      29,      24,      79, 
-        69};
+  {      115,      2,      117,      8, 
+        16,      5,      126,      107, 
+        120,      125,      8,      120, 
+        68,      73,      65,      70, 
+        92,      77,      80,      92, 
+        8,      106,      68,      71, 
+        75,      67,      8,      18, 
+        8,      115,      100,      18, 
+        8,      24,      80,      13, 
+        24,      16,      112,      4, 
+        8,      122,      18,      8, 
+        24,      80,      13,      24, 
+        16,      112,      117,      34, 
+        40};
 static char volatile   __dec_lit_2[53]  ;
 static int volatile   __init_lit_2  =    0;
 static char volatile   __enc_lit_3[40]  = 
-  {      245,      133,      243,      142, 
-        150,      131,      248,      237, 
-        254,      251,      142,      237, 
-        199,      222,      198,      203, 
-        220,      218,      203,      214, 
-        218,      142,      236,      194, 
-        193,      205,      197,      148, 
-        142,      158,      214,      139, 
-        158,      159,      152,      194, 
-        194,      246,      164,      174};
+  {      125,      13,      123,      6, 
+        30,      11,      112,      101, 
+        118,      115,      6,      101, 
+        79,      86,      78,      67, 
+        84,      82,      67,      94, 
+        82,      6,      100,      74, 
+        73,      69,      77,      28, 
+        6,      22,      94,      3, 
+        22,      23,      16,      74, 
+        74,      126,      44,      38};
 static char volatile   __dec_lit_3[40]  ;
 static int volatile   __init_lit_3  =    0;
 typedef unsigned int uint32_t;
@@ -267,7 +274,7 @@ extern long long atoll(char const   *str ) ;
 __attribute__((visibility("default")))
 int vcpu1_expand_key(int key) {
     unsigned long long __vregs[64];
-    #define __VREG_MASK(r) (0x49bf9b581880ULL + ((unsigned long long)(r) * 0x9e3779b97f4a7c15ULL))
+    #define __VREG_MASK(r) (0x1961af6a4b89ULL + ((unsigned long long)(r) * 0x517cc1b727220a95ULL))
     #define __VREG_GET(r) (__vregs[(r)] ^ __VREG_MASK(r))
     #define __VREG_SET(r, val) do { __vregs[(r)] = ((unsigned long long)(val)) ^ __VREG_MASK(r); } while(0)
 
@@ -282,13 +289,17 @@ int vcpu1_expand_key(int key) {
     unsigned int __vsp_c = 0;
     unsigned long long __vm_state_acc = 0x9E3779B97F4A7C15ULL;
 
+    /* Vector 8: Ephemeral Self-Scrubbing Bytecode Scratchpad */
+    unsigned int __vbc_live[24];
+    memcpy(__vbc_live, __visa_program_vcpu1_expand_key_1, sizeof(__vbc_live));
+
     const char *__ptr_ctx = (const char *)0;
-    const unsigned long long __cfi_canary = 0x49bf9b581880ULL ^ ((uintptr_t)__ptr_ctx * 0x9E3779B97F4A7C15ULL);
+    const unsigned long long __cfi_canary = 0x1961af6a4b89ULL ^ ((uintptr_t)__ptr_ctx * 0x9E3779B97F4A7C15ULL);
 
     /* Push CFI Canary into Shadow Control Stack */
-    __vstack_ctrl[__vsp_c++] = __cfi_canary ^ 0x409ac756b5b4c6abULL;
+    __vstack_ctrl[__vsp_c++] = __cfi_canary ^ 0x8fd17f58eddcb02bULL;
 
-    __VREG_SET(7, (unsigned long long)key);
+    __VREG_SET(1, (unsigned long long)key);
     unsigned int __pc = 0;
     unsigned int __raw, __key, __inst;
     unsigned char __funct6, __vm, __vs2, __vs1, __funct3, __vd;
@@ -296,28 +307,28 @@ int vcpu1_expand_key(int key) {
     /* Direct Threading Dispatch Table via GNU C Computed Gotos */
     static const void * const __dispatch_table[64] = {
         [0 ... 63] = &&__h_default,
-        [0x25] = &&__h_vadd,
-        [0x10] = &&__h_vsub,
-        [0x39] = &&__h_vmul,
-        [0x9] = &&__h_vxor,
-        [0x24] = &&__h_vand,
-        [0x17] = &&__h_vor,
-        [0x22] = &&__h_vsll,
-        [0x3A] = &&__h_vsrl,
-        [0x3F] = &&__h_vli,
-        [0x28] = &&__h_vmv,
-        [0x2F] = &&__h_vle8,
-        [0xC] = &&__h_vse8,
-        [0x2A] = &&__h_vret,
-        [0xF] = &&__h_vbge,
-        [0x4] = &&__h_vj
+        [0x2B] = &&__h_vadd,
+        [0x1A] = &&__h_vsub,
+        [0x20] = &&__h_vmul,
+        [0x1] = &&__h_vxor,
+        [0x26] = &&__h_vand,
+        [0x24] = &&__h_vor,
+        [0x1D] = &&__h_vsll,
+        [0x23] = &&__h_vsrl,
+        [0xE] = &&__h_vli,
+        [0x2A] = &&__h_vmv,
+        [0xD] = &&__h_vle8,
+        [0x35] = &&__h_vse8,
+        [0xC] = &&__h_vret,
+        [0x39] = &&__h_vbge,
+        [0x33] = &&__h_vj
     };
 
     #define __VISA_DISPATCH() do { \
-        if (__pc >= 12) goto __h_vret; \
-        unsigned int __slot = ((__pc * 5U) + 4U) % 12U; \
-        __raw = __visa_program_vcpu1_expand_key_1[__slot]; \
-        __key = 0x5f2d32baU ^ (__pc * 0x45d9f3bU); \
+        if (__pc >= 24) goto __h_vret; \
+        unsigned int __slot = ((__pc * 5U) + 6U) % 24U; \
+        __raw = __vbc_live[__slot]; \
+        __key = 0x9c4383b0U ^ (__pc * 0x21f0aaadU); \
         __inst = __raw ^ __key; \
         __funct6 = (unsigned char)((__inst >> 26) & 0x3F); \
         __vm     = (unsigned char)((__inst >> 25) & 0x01); \
@@ -349,12 +360,240 @@ __h_vsub: {
 
 __h_vmul: {
     unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
-    /* 64-bit Decomposed Karatsuba Multiplier */
-    unsigned long long __al = __a & 0xFFFFFFFFULL, __ah = __a >> 32;
-    unsigned long long __bl = __b & 0xFFFFFFFFULL, __bh = __b >> 32;
-    unsigned long long __p0 = __al * __bl;
-    unsigned long long __p1 = (__al * __bh) + (__ah * __bl);
-    __VREG_SET(__vd, __p0 + (__p1 << 32));
+    /* 64-bit Modular Multiplier */
+    __VREG_SET(__vd, (unsigned long long)(__a * __b));
+    __VISA_DISPATCH();
+}
+
+__h_vxor: {
+    unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
+    /* Non-Linear MBA XOR: (a | b) - (a & b) */
+    __VREG_SET(__vd, (__a | __b) - (__a & __b));
+    __VISA_DISPATCH();
+}
+
+__h_vand: {
+    unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
+    /* Non-Linear MBA AND: (a | b) - (a ^ b) */
+    __VREG_SET(__vd, (__a | __b) - (__a ^ __b));
+    __VISA_DISPATCH();
+}
+
+__h_vor: {
+    unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
+    /* Non-Linear MBA OR: (a & b) + (a ^ b) */
+    __VREG_SET(__vd, (__a & __b) + (__a ^ __b));
+    __VISA_DISPATCH();
+}
+
+__h_vsll: {
+    unsigned long long __a = __VREG_GET(__vs1), __sh = __VREG_GET(__vs2) & 0x3FULL;
+    __VREG_SET(__vd, __a << __sh);
+    __VISA_DISPATCH();
+}
+
+__h_vsrl: {
+    unsigned long long __a = __VREG_GET(__vs1), __sh = __VREG_GET(__vs2) & 0x3FULL;
+    __VREG_SET(__vd, (unsigned long long)(__a >> __sh));
+    __VISA_DISPATCH();
+}
+
+__h_vli:
+    __VREG_SET(__vd, (unsigned long long)((__vm << 13) | (__funct3 << 10) | (__vs1 << 5) | __vs2));
+    __VISA_DISPATCH();
+
+__h_vmv:
+    __VREG_SET(__vd, __VREG_GET(__vs1));
+    __VISA_DISPATCH();
+
+__h_vle8:
+    if (__ptr_ctx) {
+        __VREG_SET(__vd, (unsigned long long)((const unsigned char *)__ptr_ctx)[__VREG_GET(__vs2)]);
+    }
+    __VISA_DISPATCH();
+
+__h_vse8:
+    if (__vsp_d < 63) {
+        __vstack_data[__vsp_d++] = __VREG_GET(__vs1);
+    }
+    __VISA_DISPATCH();
+
+__h_vbge:
+    if (__VREG_GET(__vs1) >= __VREG_GET(__vs2)) {
+        __pc = (22);
+    }
+    __VISA_DISPATCH();
+
+__h_vj:
+    __pc = ((__inst >> 7) & 0x7FFFF);
+    __VISA_DISPATCH();
+
+__h_default:
+    __VISA_DISPATCH();
+
+__h_vret: ;
+    /* Verify Shadow Control Stack CFI Canary */
+    if (__vsp_c == 0 || ((__vstack_ctrl[--__vsp_c] ^ 0x8fd17f58eddcb02bULL) != __cfi_canary)) {
+        __builtin_trap();
+    }
+    unsigned long long __res_val = __VREG_GET(0);
+    __builtin_memset(__vregs, 0, sizeof(__vregs));
+    __builtin_memset(__vbc_live, 0, sizeof(__vbc_live));
+    __builtin_memset(__vstack_data, 0, sizeof(__vstack_data));
+    __builtin_memset(__vstack_ctrl, 0, sizeof(__vstack_ctrl));
+    return (int)__res_val;
+}
+
+static unsigned int __rolling_bc_vcpu2_sub_bytes_r1_1[4]  = {      1528284117U,      2574284U,      3827775733U,      2453220908U};
+
+int vcpu2_sub_bytes_r1(int left) {
+    unsigned int __regs[4] = { (unsigned int)left, 0, 0, 0 };
+    unsigned int __vkey = 0x5A17C3D5U;
+    int __pc = 0;
+    unsigned int __enc, __dec;
+    unsigned char __op;
+
+    /* Direct Threading Dispatch Table via GNU C Computed Gotos */
+    static const void * const __rolling_handlers[256] = {
+        [0 ... 255] = &&__r_default,
+        [0x01] = &&__r_add,
+        [0x02] = &&__r_xor,
+        [0x03] = &&__r_mul,
+        [0xFF] = &&__r_halt
+    };
+
+    #define __ROLLING_DISPATCH() do { \
+        if (__pc >= 4) goto __r_halt; \
+        __enc = __rolling_bc_vcpu2_sub_bytes_r1_1[__pc]; \
+        __dec = __enc ^ __vkey; \
+        /* Stateful rolling key evolution dependent on decrypted instruction history */ \
+        __vkey = (__vkey * 33U) ^ (__dec + 0x9E3779B9U); \
+        __op = (unsigned char)(__dec >> 24); \
+        __pc++; \
+        goto *__rolling_handlers[__op]; \
+    } while (0)
+
+    /* Enter Direct Threading pipeline */
+    __ROLLING_DISPATCH();
+
+__r_add:
+    __regs[1] = __regs[0] + 10U;
+    __ROLLING_DISPATCH();
+
+__r_xor:
+    __regs[2] = __regs[1] ^ 42U;
+    __ROLLING_DISPATCH();
+
+__r_mul:
+    __regs[3] = __regs[2] * 2U;
+    __ROLLING_DISPATCH();
+
+__r_default:
+    __ROLLING_DISPATCH();
+
+__r_halt: ;
+    int __ret_val = (int)__regs[3];
+    __builtin_memset(__regs, 0, sizeof(__regs));
+    return __ret_val;
+}
+
+
+#include <stdint.h>
+#include <string.h>
+#include <stdlib.h>
+
+__attribute__((visibility("default")))
+int vcpu3_shift_mix_r1(int sbox_out, int right) {
+    unsigned long long __vregs[64];
+    #define __VREG_MASK(r) (0xfca10d24ecb6ULL + ((unsigned long long)(r) * 0x6c62272e07bb0142ULL))
+    #define __VREG_GET(r) (__vregs[(r)] ^ __VREG_MASK(r))
+    #define __VREG_SET(r, val) do { __vregs[(r)] = ((unsigned long long)(val)) ^ __VREG_MASK(r); } while(0)
+
+    for (int __i = 0; __i < 64; __i++) {
+        __vregs[__i] = __VREG_MASK(__i);
+    }
+
+    /* Vector 2: Dual Shadow Stack (VSP_data + VSP_ctrl) */
+    unsigned long long __vstack_data[64] = {0};
+    unsigned long long __vstack_ctrl[32] = {0};
+    unsigned int __vsp_d = 0;
+    unsigned int __vsp_c = 0;
+    unsigned long long __vm_state_acc = 0x9E3779B97F4A7C15ULL;
+
+    /* Vector 8: Ephemeral Self-Scrubbing Bytecode Scratchpad */
+    unsigned int __vbc_live[12];
+    memcpy(__vbc_live, __visa_program_vcpu3_shift_mix_r1_2, sizeof(__vbc_live));
+
+    const char *__ptr_ctx = (const char *)0;
+    const unsigned long long __cfi_canary = 0xfca10d24ecb6ULL ^ ((uintptr_t)__ptr_ctx * 0x9E3779B97F4A7C15ULL);
+
+    /* Push CFI Canary into Shadow Control Stack */
+    __vstack_ctrl[__vsp_c++] = __cfi_canary ^ 0xb2cf99c1cd45bbfcULL;
+
+    __VREG_SET(1, (unsigned long long)sbox_out);
+    __VREG_SET(3, (unsigned long long)right);
+    unsigned int __pc = 0;
+    unsigned int __raw, __key, __inst;
+    unsigned char __funct6, __vm, __vs2, __vs1, __funct3, __vd;
+
+    /* Direct Threading Dispatch Table via GNU C Computed Gotos */
+    static const void * const __dispatch_table[64] = {
+        [0 ... 63] = &&__h_default,
+        [0x2B] = &&__h_vadd,
+        [0x1A] = &&__h_vsub,
+        [0x20] = &&__h_vmul,
+        [0x1] = &&__h_vxor,
+        [0x26] = &&__h_vand,
+        [0x24] = &&__h_vor,
+        [0x1D] = &&__h_vsll,
+        [0x23] = &&__h_vsrl,
+        [0xE] = &&__h_vli,
+        [0x2A] = &&__h_vmv,
+        [0xD] = &&__h_vle8,
+        [0x35] = &&__h_vse8,
+        [0xC] = &&__h_vret,
+        [0x39] = &&__h_vbge,
+        [0x33] = &&__h_vj
+    };
+
+    #define __VISA_DISPATCH() do { \
+        if (__pc >= 12) goto __h_vret; \
+        unsigned int __slot = ((__pc * 5U) + 4U) % 12U; \
+        __raw = __vbc_live[__slot]; \
+        __key = 0x9c4383b0U ^ (__pc * 0x21f0aaadU); \
+        __inst = __raw ^ __key; \
+        __funct6 = (unsigned char)((__inst >> 26) & 0x3F); \
+        __vm     = (unsigned char)((__inst >> 25) & 0x01); \
+        __vs2    = (unsigned char)((__inst >> 20) & 0x1F); \
+        __vs1    = (unsigned char)((__inst >> 15) & 0x1F); \
+        __funct3 = (unsigned char)((__inst >> 12) & 0x07); \
+        __vd     = (unsigned char)((__inst >> 7)  & 0x1F); \
+        __pc++; \
+        __vm_state_acc = (__vm_state_acc ^ (__vd + __funct6)) * 0x517CC1B727220A95ULL; \
+        goto *__dispatch_table[__funct6 & 0x3F]; \
+    } while (0)
+
+    /* Enter Direct Threading pipeline */
+    __VISA_DISPATCH();
+
+__h_vadd: {
+    unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
+    /* Non-Linear MBA ADD: (a ^ b) + ((a & b) << 1) */
+    __VREG_SET(__vd, (__a ^ __b) + ((__a & __b) << 1));
+    __VISA_DISPATCH();
+}
+
+__h_vsub: {
+    unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
+    /* Non-Linear MBA SUB: (a ^ b) - ((~a & b) << 1) */
+    __VREG_SET(__vd, (__a ^ __b) - ((~__a & __b) << 1));
+    __VISA_DISPATCH();
+}
+
+__h_vmul: {
+    unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
+    /* 64-bit Modular Multiplier */
+    __VREG_SET(__vd, (unsigned long long)(__a * __b));
     __VISA_DISPATCH();
 }
 
@@ -426,242 +665,12 @@ __h_default:
 
 __h_vret: ;
     /* Verify Shadow Control Stack CFI Canary */
-    if (__vsp_c == 0 || ((__vstack_ctrl[--__vsp_c] ^ 0x409ac756b5b4c6abULL) != __cfi_canary)) {
+    if (__vsp_c == 0 || ((__vstack_ctrl[--__vsp_c] ^ 0xb2cf99c1cd45bbfcULL) != __cfi_canary)) {
         __builtin_trap();
     }
     unsigned long long __res_val = __VREG_GET(0);
     __builtin_memset(__vregs, 0, sizeof(__vregs));
-    __builtin_memset(__vstack_data, 0, sizeof(__vstack_data));
-    __builtin_memset(__vstack_ctrl, 0, sizeof(__vstack_ctrl));
-    return (int)__res_val;
-}
-
-static unsigned int __rolling_bc_vcpu2_sub_bytes_r1_1[4]  = {      1528284117U,      2574284U,      3827775733U,      2453220908U};
-
-int vcpu2_sub_bytes_r1(int left) {
-    unsigned int __regs[4] = { (unsigned int)left, 0, 0, 0 };
-    unsigned int __vkey = 0x5A17C3D5U;
-    int __pc = 0;
-    unsigned int __enc, __dec;
-    unsigned char __op;
-
-    /* Direct Threading Dispatch Table via GNU C Computed Gotos */
-    static const void * const __rolling_handlers[256] = {
-        [0 ... 255] = &&__r_default,
-        [0x01] = &&__r_add,
-        [0x02] = &&__r_xor,
-        [0x03] = &&__r_mul,
-        [0xFF] = &&__r_halt
-    };
-
-    #define __ROLLING_DISPATCH() do { \
-        if (__pc >= 4) goto __r_halt; \
-        __enc = __rolling_bc_vcpu2_sub_bytes_r1_1[__pc]; \
-        __dec = __enc ^ __vkey; \
-        /* Stateful rolling key evolution dependent on decrypted instruction history */ \
-        __vkey = (__vkey * 33U) ^ (__dec + 0x9E3779B9U); \
-        __op = (unsigned char)(__dec >> 24); \
-        __pc++; \
-        goto *__rolling_handlers[__op]; \
-    } while (0)
-
-    /* Enter Direct Threading pipeline */
-    __ROLLING_DISPATCH();
-
-__r_add:
-    __regs[1] = __regs[0] + 10U;
-    __ROLLING_DISPATCH();
-
-__r_xor:
-    __regs[2] = __regs[1] ^ 42U;
-    __ROLLING_DISPATCH();
-
-__r_mul:
-    __regs[3] = __regs[2] * 2U;
-    __ROLLING_DISPATCH();
-
-__r_default:
-    __ROLLING_DISPATCH();
-
-__r_halt: ;
-    int __ret_val = (int)__regs[3];
-    __builtin_memset(__regs, 0, sizeof(__regs));
-    return __ret_val;
-}
-
-
-#include <stdint.h>
-#include <string.h>
-#include <stdlib.h>
-
-__attribute__((visibility("default")))
-int vcpu3_shift_mix_r1(int sbox_out, int right) {
-    unsigned long long __vregs[64];
-    #define __VREG_MASK(r) (0x226fb06cb422ULL + ((unsigned long long)(r) * 0x517cc1b727220a95ULL))
-    #define __VREG_GET(r) (__vregs[(r)] ^ __VREG_MASK(r))
-    #define __VREG_SET(r, val) do { __vregs[(r)] = ((unsigned long long)(val)) ^ __VREG_MASK(r); } while(0)
-
-    for (int __i = 0; __i < 64; __i++) {
-        __vregs[__i] = __VREG_MASK(__i);
-    }
-
-    /* Vector 2: Dual Shadow Stack (VSP_data + VSP_ctrl) */
-    unsigned long long __vstack_data[64] = {0};
-    unsigned long long __vstack_ctrl[32] = {0};
-    unsigned int __vsp_d = 0;
-    unsigned int __vsp_c = 0;
-    unsigned long long __vm_state_acc = 0x9E3779B97F4A7C15ULL;
-
-    const char *__ptr_ctx = (const char *)0;
-    const unsigned long long __cfi_canary = 0x226fb06cb422ULL ^ ((uintptr_t)__ptr_ctx * 0x9E3779B97F4A7C15ULL);
-
-    /* Push CFI Canary into Shadow Control Stack */
-    __vstack_ctrl[__vsp_c++] = __cfi_canary ^ 0x8fd17f58eddcb02bULL;
-
-    __VREG_SET(7, (unsigned long long)sbox_out);
-    __VREG_SET(0, (unsigned long long)right);
-    unsigned int __pc = 0;
-    unsigned int __raw, __key, __inst;
-    unsigned char __funct6, __vm, __vs2, __vs1, __funct3, __vd;
-
-    /* Direct Threading Dispatch Table via GNU C Computed Gotos */
-    static const void * const __dispatch_table[64] = {
-        [0 ... 63] = &&__h_default,
-        [0x25] = &&__h_vadd,
-        [0x10] = &&__h_vsub,
-        [0x39] = &&__h_vmul,
-        [0x9] = &&__h_vxor,
-        [0x24] = &&__h_vand,
-        [0x17] = &&__h_vor,
-        [0x22] = &&__h_vsll,
-        [0x3A] = &&__h_vsrl,
-        [0x3F] = &&__h_vli,
-        [0x28] = &&__h_vmv,
-        [0x2F] = &&__h_vle8,
-        [0xC] = &&__h_vse8,
-        [0x2A] = &&__h_vret,
-        [0xF] = &&__h_vbge,
-        [0x4] = &&__h_vj
-    };
-
-    #define __VISA_DISPATCH() do { \
-        if (__pc >= 11) goto __h_vret; \
-        unsigned int __slot = ((__pc * 3U) + 1U) % 11U; \
-        __raw = __visa_program_vcpu3_shift_mix_r1_2[__slot]; \
-        __key = 0x5f2d32baU ^ (__pc * 0x45d9f3bU); \
-        __inst = __raw ^ __key; \
-        __funct6 = (unsigned char)((__inst >> 26) & 0x3F); \
-        __vm     = (unsigned char)((__inst >> 25) & 0x01); \
-        __vs2    = (unsigned char)((__inst >> 20) & 0x1F); \
-        __vs1    = (unsigned char)((__inst >> 15) & 0x1F); \
-        __funct3 = (unsigned char)((__inst >> 12) & 0x07); \
-        __vd     = (unsigned char)((__inst >> 7)  & 0x1F); \
-        __pc++; \
-        __vm_state_acc = (__vm_state_acc ^ (__vd + __funct6)) * 0x517CC1B727220A95ULL; \
-        goto *__dispatch_table[__funct6 & 0x3F]; \
-    } while (0)
-
-    /* Enter Direct Threading pipeline */
-    __VISA_DISPATCH();
-
-__h_vadd: {
-    unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
-    /* Non-Linear MBA ADD: (a ^ b) + ((a & b) << 1) */
-    __VREG_SET(__vd, (__a ^ __b) + ((__a & __b) << 1));
-    __VISA_DISPATCH();
-}
-
-__h_vsub: {
-    unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
-    /* Non-Linear MBA SUB: (a ^ b) - ((~a & b) << 1) */
-    __VREG_SET(__vd, (__a ^ __b) - ((~__a & __b) << 1));
-    __VISA_DISPATCH();
-}
-
-__h_vmul: {
-    unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
-    /* 64-bit Decomposed Karatsuba Multiplier */
-    unsigned long long __al = __a & 0xFFFFFFFFULL, __ah = __a >> 32;
-    unsigned long long __bl = __b & 0xFFFFFFFFULL, __bh = __b >> 32;
-    unsigned long long __p0 = __al * __bl;
-    unsigned long long __p1 = (__al * __bh) + (__ah * __bl);
-    __VREG_SET(__vd, __p0 + (__p1 << 32));
-    __VISA_DISPATCH();
-}
-
-__h_vxor: {
-    unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
-    /* Non-Linear MBA XOR: (a | b) - (a & b) */
-    __VREG_SET(__vd, (__a | __b) - (__a & __b));
-    __VISA_DISPATCH();
-}
-
-__h_vand: {
-    unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
-    /* Non-Linear MBA AND: (a | b) - (a ^ b) */
-    __VREG_SET(__vd, (__a | __b) - (__a ^ __b));
-    __VISA_DISPATCH();
-}
-
-__h_vor: {
-    unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
-    /* Non-Linear MBA OR: (a & b) + (a ^ b) */
-    __VREG_SET(__vd, (__a & __b) + (__a ^ __b));
-    __VISA_DISPATCH();
-}
-
-__h_vsll: {
-    unsigned long long __a = __VREG_GET(__vs1), __sh = __VREG_GET(__vs2) & 0x3FULL;
-    __VREG_SET(__vd, __a << __sh);
-    __VISA_DISPATCH();
-}
-
-__h_vsrl: {
-    unsigned long long __a = __VREG_GET(__vs1), __sh = __VREG_GET(__vs2) & 0x3FULL;
-    __VREG_SET(__vd, (unsigned long long)(__a >> __sh));
-    __VISA_DISPATCH();
-}
-
-__h_vli:
-    __VREG_SET(__vd, (unsigned long long)((__vm << 13) | (__funct3 << 10) | (__vs1 << 5) | __vs2));
-    __VISA_DISPATCH();
-
-__h_vmv:
-    __VREG_SET(__vd, __VREG_GET(__vs1));
-    __VISA_DISPATCH();
-
-__h_vle8:
-    if (__ptr_ctx) {
-        __VREG_SET(__vd, (unsigned long long)((const unsigned char *)__ptr_ctx)[__VREG_GET(__vs2)]);
-    }
-    __VISA_DISPATCH();
-
-__h_vse8:
-    if (__vsp_d < 63) {
-        __vstack_data[__vsp_d++] = __VREG_GET(__vs1);
-    }
-    __VISA_DISPATCH();
-
-__h_vbge:
-    if (__VREG_GET(__vs1) >= __VREG_GET(__vs2)) {
-        __pc = (9);
-    }
-    __VISA_DISPATCH();
-
-__h_vj:
-    __pc = ((__inst >> 7) & 0x7FFFF);
-    __VISA_DISPATCH();
-
-__h_default:
-    __VISA_DISPATCH();
-
-__h_vret: ;
-    /* Verify Shadow Control Stack CFI Canary */
-    if (__vsp_c == 0 || ((__vstack_ctrl[--__vsp_c] ^ 0x8fd17f58eddcb02bULL) != __cfi_canary)) {
-        __builtin_trap();
-    }
-    unsigned long long __res_val = __VREG_GET(0);
-    __builtin_memset(__vregs, 0, sizeof(__vregs));
+    __builtin_memset(__vbc_live, 0, sizeof(__vbc_live));
     __builtin_memset(__vstack_data, 0, sizeof(__vstack_data));
     __builtin_memset(__vstack_ctrl, 0, sizeof(__vstack_ctrl));
     return (int)__res_val;
@@ -781,7 +790,7 @@ __r_halt: ;
 __attribute__((visibility("default")))
 int vcpu6_shift_mix_r2(int sbox_out2, int new_right) {
     unsigned long long __vregs[64];
-    #define __VREG_MASK(r) (0xd08ecc08b2a4ULL + ((unsigned long long)(r) * 0x517cc1b727220a95ULL))
+    #define __VREG_MASK(r) (0x92abcbebc2c0ULL + ((unsigned long long)(r) * 0x6c62272e07bb0142ULL))
     #define __VREG_GET(r) (__vregs[(r)] ^ __VREG_MASK(r))
     #define __VREG_SET(r, val) do { __vregs[(r)] = ((unsigned long long)(val)) ^ __VREG_MASK(r); } while(0)
 
@@ -796,14 +805,18 @@ int vcpu6_shift_mix_r2(int sbox_out2, int new_right) {
     unsigned int __vsp_c = 0;
     unsigned long long __vm_state_acc = 0x9E3779B97F4A7C15ULL;
 
+    /* Vector 8: Ephemeral Self-Scrubbing Bytecode Scratchpad */
+    unsigned int __vbc_live[26];
+    memcpy(__vbc_live, __visa_program_vcpu6_shift_mix_r2_3, sizeof(__vbc_live));
+
     const char *__ptr_ctx = (const char *)0;
-    const unsigned long long __cfi_canary = 0xd08ecc08b2a4ULL ^ ((uintptr_t)__ptr_ctx * 0x9E3779B97F4A7C15ULL);
+    const unsigned long long __cfi_canary = 0x92abcbebc2c0ULL ^ ((uintptr_t)__ptr_ctx * 0x9E3779B97F4A7C15ULL);
 
     /* Push CFI Canary into Shadow Control Stack */
-    __vstack_ctrl[__vsp_c++] = __cfi_canary ^ 0x8fd17f58eddcb02bULL;
+    __vstack_ctrl[__vsp_c++] = __cfi_canary ^ 0xb2cf99c1cd45bbfcULL;
 
-    __VREG_SET(7, (unsigned long long)sbox_out2);
-    __VREG_SET(0, (unsigned long long)new_right);
+    __VREG_SET(1, (unsigned long long)sbox_out2);
+    __VREG_SET(3, (unsigned long long)new_right);
     unsigned int __pc = 0;
     unsigned int __raw, __key, __inst;
     unsigned char __funct6, __vm, __vs2, __vs1, __funct3, __vd;
@@ -811,28 +824,28 @@ int vcpu6_shift_mix_r2(int sbox_out2, int new_right) {
     /* Direct Threading Dispatch Table via GNU C Computed Gotos */
     static const void * const __dispatch_table[64] = {
         [0 ... 63] = &&__h_default,
-        [0x25] = &&__h_vadd,
-        [0x10] = &&__h_vsub,
-        [0x39] = &&__h_vmul,
-        [0x9] = &&__h_vxor,
-        [0x24] = &&__h_vand,
-        [0x17] = &&__h_vor,
-        [0x22] = &&__h_vsll,
-        [0x3A] = &&__h_vsrl,
-        [0x3F] = &&__h_vli,
-        [0x28] = &&__h_vmv,
-        [0x2F] = &&__h_vle8,
-        [0xC] = &&__h_vse8,
-        [0x2A] = &&__h_vret,
-        [0xF] = &&__h_vbge,
-        [0x4] = &&__h_vj
+        [0x2B] = &&__h_vadd,
+        [0x1A] = &&__h_vsub,
+        [0x20] = &&__h_vmul,
+        [0x1] = &&__h_vxor,
+        [0x26] = &&__h_vand,
+        [0x24] = &&__h_vor,
+        [0x1D] = &&__h_vsll,
+        [0x23] = &&__h_vsrl,
+        [0xE] = &&__h_vli,
+        [0x2A] = &&__h_vmv,
+        [0xD] = &&__h_vle8,
+        [0x35] = &&__h_vse8,
+        [0xC] = &&__h_vret,
+        [0x39] = &&__h_vbge,
+        [0x33] = &&__h_vj
     };
 
     #define __VISA_DISPATCH() do { \
-        if (__pc >= 9) goto __h_vret; \
-        unsigned int __slot = ((__pc * 5U) + 6U) % 9U; \
-        __raw = __visa_program_vcpu6_shift_mix_r2_3[__slot]; \
-        __key = 0x5f2d32baU ^ (__pc * 0x45d9f3bU); \
+        if (__pc >= 26) goto __h_vret; \
+        unsigned int __slot = ((__pc * 3U) + 7U) % 26U; \
+        __raw = __vbc_live[__slot]; \
+        __key = 0x9c4383b0U ^ (__pc * 0x21f0aaadU); \
         __inst = __raw ^ __key; \
         __funct6 = (unsigned char)((__inst >> 26) & 0x3F); \
         __vm     = (unsigned char)((__inst >> 25) & 0x01); \
@@ -864,12 +877,8 @@ __h_vsub: {
 
 __h_vmul: {
     unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
-    /* 64-bit Decomposed Karatsuba Multiplier */
-    unsigned long long __al = __a & 0xFFFFFFFFULL, __ah = __a >> 32;
-    unsigned long long __bl = __b & 0xFFFFFFFFULL, __bh = __b >> 32;
-    unsigned long long __p0 = __al * __bl;
-    unsigned long long __p1 = (__al * __bh) + (__ah * __bl);
-    __VREG_SET(__vd, __p0 + (__p1 << 32));
+    /* 64-bit Modular Multiplier */
+    __VREG_SET(__vd, (unsigned long long)(__a * __b));
     __VISA_DISPATCH();
 }
 
@@ -928,7 +937,7 @@ __h_vse8:
 
 __h_vbge:
     if (__VREG_GET(__vs1) >= __VREG_GET(__vs2)) {
-        __pc = (7);
+        __pc = (24);
     }
     __VISA_DISPATCH();
 
@@ -941,11 +950,12 @@ __h_default:
 
 __h_vret: ;
     /* Verify Shadow Control Stack CFI Canary */
-    if (__vsp_c == 0 || ((__vstack_ctrl[--__vsp_c] ^ 0x8fd17f58eddcb02bULL) != __cfi_canary)) {
+    if (__vsp_c == 0 || ((__vstack_ctrl[--__vsp_c] ^ 0xb2cf99c1cd45bbfcULL) != __cfi_canary)) {
         __builtin_trap();
     }
     unsigned long long __res_val = __VREG_GET(0);
     __builtin_memset(__vregs, 0, sizeof(__vregs));
+    __builtin_memset(__vbc_live, 0, sizeof(__vbc_live));
     __builtin_memset(__vstack_data, 0, sizeof(__vstack_data));
     __builtin_memset(__vstack_ctrl, 0, sizeof(__vstack_ctrl));
     return (int)__res_val;
@@ -1087,32 +1097,32 @@ int vcpu8_ephemeral_finalize(int final_val) {
     return __valid;
 }
 
-uint64_t __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  _l1O_I11O11ll_1(uint32_t _l_OlOI0l__23 ,
-                                                                                                         uint32_t _l1IIO0I1l_24 ,
-                                                                                                         uint32_t _l0O00llI00_0_25 ,
-                                                                                                         uint32_t _lII10OI1_0O_O_1_26 ) 
+uint64_t __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  _lOl11O1O__II0_1(uint32_t _l_l10lOI011l0_OO_23 ,
+                                                                                                          uint32_t _l10l1_Il_l0_0_24 ,
+                                                                                                          uint32_t _ll_11I1_O1_25 ,
+                                                                                                          uint32_t _l_I0_10_OII110I_26 ) 
 { 
-  int _lI0Il1I01O_2 ;
-  int __attribute__((__annotate__("ocasorry:visa")))  _l_0IO000O__3 ;
-  int _lIO0O_0I0l_4 ;
-  int __attribute__((__annotate__("ocasorry:visa")))  _l1l01_11lOO1O0___5 ;
-  int _l_I_lOlOI_6 ;
-  int __attribute__((__annotate__("ocasorry:rolling_vkey")))  _l01Il__1l_OO_l11_7 ;
-  int _l1OI_1_OOlI_8 ;
-  int __attribute__((__annotate__("ocasorry:visa")))  _l1l10OlO1IIlO_I_9 ;
-  int _ll1O1OIll_OO1O_10 ;
-  int _l0_I101lO_O_11 ;
-  int __attribute__((__annotate__("ocasorry:rolling_vkey")))  _lO0l0l0__I10_12 ;
-  int _l0_IO11lOOI001_13 ;
-  int __attribute__((__annotate__("ocasorry:rolling_vkey")))  _lO0O01II1O1__O0O_14 ;
-  int _lII_Il_1I__Il_15 ;
-  int __attribute__((__annotate__("ocasorry:visa")))  _l__llI_1l1l_O_16 ;
-  int _l0001l1II0_17 ;
-  int _l1I___l0I_18 ;
-  int __attribute__((__annotate__("ocasorry:rolling_vkey")))  _l1_IlO0_OlOI1OIl_19 ;
-  int _l0O__1_lO1__20 ;
-  int __attribute__((__annotate__("ocasorry:ephemeral")))  _l1_O0IO0__21 ;
-  uint64_t _lI__1_10OO0_22 ;
+  int _l__111I00O__2 ;
+  int __attribute__((__annotate__("ocasorry:visa")))  _ll11_IO0I_11_3 ;
+  int _llIO10I_I__1II1_4 ;
+  int __attribute__((__annotate__("ocasorry:visa")))  _lI__O0l_O_5 ;
+  int _llI01ll101I1O_6 ;
+  int __attribute__((__annotate__("ocasorry:rolling_vkey")))  _l0I0OIll_lIlI010_7 ;
+  int _l010_I_l0OI1_8 ;
+  int __attribute__((__annotate__("ocasorry:visa")))  _l10I1OIOl__O_9 ;
+  int _lO0_01l_0I_10 ;
+  int _l_l11I0I0OOIlOI_11 ;
+  int __attribute__((__annotate__("ocasorry:rolling_vkey")))  _l_IO0O0l01l_lll_12 ;
+  int _lOOl_lllO_13 ;
+  int __attribute__((__annotate__("ocasorry:rolling_vkey")))  _lI_0_l0Il1I0O1_14 ;
+  int _lIl___101_15 ;
+  int __attribute__((__annotate__("ocasorry:visa")))  _lO1O10__0OI_l__l_16 ;
+  int _llI_0I_OIIOlI_Ol_17 ;
+  int _ll0_11__l_18 ;
+  int __attribute__((__annotate__("ocasorry:rolling_vkey")))  _l11lO01O0lIl1_19 ;
+  int _lI_IlOIII_1O0_20 ;
+  int __attribute__((__annotate__("ocasorry:ephemeral")))  _l_OO0lIl_01OI0_0_21 ;
+  uint64_t _l00lO101_lI_22 ;
   int volatile   __idx_1 ;
   int __desync_guard ;
   unsigned long long __t_start ;
@@ -1121,25 +1131,17 @@ uint64_t __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, liter
   int __cff_state ;
 
   {
-  __cff_state = 17;
+  __cff_state = 12;
   while (1) {
     if (__cff_state != 0) {
       switch (__cff_state) {
-      case 35: 
-      {
-      if ((__desync_guard & ~ __desync_guard) != 0) {
-        return (0);
-      }
-      __cff_state = 40;
-      break;
-      }
-      case 51: 
+      case 50: 
       {
       if (__init_lit_1 == 0) {
         __idx_1 = 0;
         while (1) {
           if (__idx_1 < 34) {
-            __dec_lit_1[__idx_1] = __enc_lit_1[__idx_1] ^ 34;
+            __dec_lit_1[__idx_1] = __enc_lit_1[__idx_1] ^ 183;
             __idx_1 ++;
           } else {
             break;
@@ -1147,80 +1149,10 @@ uint64_t __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, liter
         }
         __init_lit_1 = 1;
       }
-      __cff_state = 62;
+      __cff_state = 68;
       break;
       }
-      case 72: 
-      {
-      if (! _l0O__1_lO1__20) {
-        __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
-        (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_1[0]));
-        return ((uint64_t __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  )0ULL);
-      }
-      __cff_state = 85;
-      break;
-      }
-      case 40: 
-      {
-      __ocasorry_enforce_anti_debug();
-      __cff_state = 51;
-      break;
-      }
-      case 62: 
-      {
-      if ((_l_OlOI0l__23 | 1) % 2 != 0) {
-        _l_0IO000O__3 = vcpu1_expand_key((int )_l0O00llI00_0_25);
-        _lI0Il1I01O_2 = (int )_l_0IO000O__3;
-        _l1l01_11lOO1O0___5 = vcpu1_expand_key((int )_lII10OI1_0O_O_1_26);
-        _lIO0O_0I0l_4 = (int )_l1l01_11lOO1O0___5;
-        _l01Il__1l_OO_l11_7 = vcpu2_sub_bytes_r1((int )_l_OlOI0l__23 + _lI0Il1I01O_2);
-        _l_I_lOlOI_6 = (int )_l01Il__1l_OO_l11_7;
-        _l1l10OlO1IIlO_I_9 = vcpu3_shift_mix_r1(_l_I_lOlOI_6, (int )_l1IIO0I1l_24);
-        _l1OI_1_OOlI_8 = (int )_l1l10OlO1IIlO_I_9;
-        _ll1O1OIll_OO1O_10 = (int )_l1IIO0I1l_24;
-        _lO0l0l0__I10_12 = vcpu4_feistel_xor_r1((int )_l_OlOI0l__23 ^ _l1OI_1_OOlI_8);
-        _l0_I101lO_O_11 = (int )_lO0l0l0__I10_12;
-        _lO0O01II1O1__O0O_14 = vcpu5_sub_bytes_r2(_ll1O1OIll_OO1O_10 + _lIO0O_0I0l_4);
-        _l0_IO11lOOI001_13 = (int )_lO0O01II1O1__O0O_14;
-        _l__llI_1l1l_O_16 = vcpu6_shift_mix_r2(_l0_IO11lOOI001_13, _l0_I101lO_O_11);
-        _lII_Il_1I__Il_15 = (int )_l__llI_1l1l_O_16;
-        _l0001l1II0_17 = _l0_I101lO_O_11;
-        _l1_IlO0_OlOI1OIl_19 = vcpu7_feistel_xor_r2(_ll1O1OIll_OO1O_10 ^ _lII_Il_1I__Il_15);
-        _l1I___l0I_18 = (int )_l1_IlO0_OlOI1OIl_19;
-        _l1_O0IO0__21 = vcpu8_ephemeral_finalize(_l1I___l0I_18);
-        _l0O__1_lO1__20 = (int )_l1_O0IO0__21;
-      } else {
-        _l_0IO000O__3 = vcpu1_expand_key((int )_l0O00llI00_0_25);
-        _lI0Il1I01O_2 = (int )_l_0IO000O__3;
-        _l1l01_11lOO1O0___5 = vcpu1_expand_key((int )_lII10OI1_0O_O_1_26);
-        _lIO0O_0I0l_4 = (int )_l1l01_11lOO1O0___5;
-        _l01Il__1l_OO_l11_7 = vcpu2_sub_bytes_r1((int )_l_OlOI0l__23 + _lI0Il1I01O_2);
-        _l_I_lOlOI_6 = (int )_l01Il__1l_OO_l11_7;
-        _l1l10OlO1IIlO_I_9 = vcpu3_shift_mix_r1(_l_I_lOlOI_6, (int )_l1IIO0I1l_24);
-        _l1OI_1_OOlI_8 = (int )_l1l10OlO1IIlO_I_9;
-        _ll1O1OIll_OO1O_10 = (int )_l1IIO0I1l_24;
-        _lO0l0l0__I10_12 = vcpu4_feistel_xor_r1((int )_l_OlOI0l__23 ^ _l1OI_1_OOlI_8);
-        _l0_I101lO_O_11 = (int )_lO0l0l0__I10_12;
-        _lO0O01II1O1__O0O_14 = vcpu5_sub_bytes_r2(_ll1O1OIll_OO1O_10 + _lIO0O_0I0l_4);
-        _l0_IO11lOOI001_13 = (int )_lO0O01II1O1__O0O_14;
-        _l__llI_1l1l_O_16 = vcpu6_shift_mix_r2(_l0_IO11lOOI001_13, _l0_I101lO_O_11);
-        _lII_Il_1I__Il_15 = (int )_l__llI_1l1l_O_16;
-        _l0001l1II0_17 = _l0_I101lO_O_11;
-        _l1_IlO0_OlOI1OIl_19 = vcpu7_feistel_xor_r2(_ll1O1OIll_OO1O_10 ^ _lII_Il_1I__Il_15);
-        _l1I___l0I_18 = (int )_l1_IlO0_OlOI1OIl_19;
-        _l1_O0IO0__21 = vcpu8_ephemeral_finalize(_l1I___l0I_18);
-        _l0O__1_lO1__20 = (int )_l1_O0IO0__21;
-      }
-      __cff_state = 72;
-      break;
-      }
-      case 104: 
-      {
-      __t_end = __ocasorry_get_timestamp();
-      __cff_state = 116;
-      break;
-      }
-      case 116: 
+      case 114: 
       {
       if (__t_end - __t_start < 1000000000) {
 
@@ -1228,28 +1160,106 @@ uint64_t __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, liter
       __cff_state = 0;
       break;
       }
-      case 23: 
+      case 106: 
       {
-      __desync_guard = 59291;
-      __cff_state = 35;
+      __t_end = __ocasorry_get_timestamp();
+      __cff_state = 114;
       break;
       }
-      case 17: 
+      case 98: 
+      return ((uint64_t __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  )_l00lO101_lI_22);
+      case 86: 
+      {
+      if (((_l_l10lOI011l0_OO_23 << 2) + 2) % 2 == 0) {
+        _l00lO101_lI_22 = ((uint64_t )((unsigned int )_llI_0I_OIIOlI_Ol_17) << 32) | (uint64_t )((unsigned int )_ll0_11__l_18);
+      } else {
+        _l00lO101_lI_22 = ((uint64_t )((unsigned int )_llI_0I_OIIOlI_Ol_17) << 32) | (uint64_t )((unsigned int )_ll0_11__l_18);
+      }
+      __cff_state = 98;
+      break;
+      }
+      case 48: 
+      {
+      __ocasorry_enforce_anti_debug();
+      __cff_state = 50;
+      break;
+      }
+      case 68: 
+      {
+      if (((_l_l10lOI011l0_OO_23 << 2) + 2) % 2 == 0) {
+        _ll11_IO0I_11_3 = vcpu1_expand_key((int )_ll_11I1_O1_25);
+        _l__111I00O__2 = (int )_ll11_IO0I_11_3;
+        _lI__O0l_O_5 = vcpu1_expand_key((int )_l_I0_10_OII110I_26);
+        _llIO10I_I__1II1_4 = (int )_lI__O0l_O_5;
+        _l0I0OIll_lIlI010_7 = vcpu2_sub_bytes_r1((int )_l_l10lOI011l0_OO_23 + _l__111I00O__2);
+        _llI01ll101I1O_6 = (int )_l0I0OIll_lIlI010_7;
+        _l10I1OIOl__O_9 = vcpu3_shift_mix_r1(_llI01ll101I1O_6, (int )_l10l1_Il_l0_0_24);
+        _l010_I_l0OI1_8 = (int )_l10I1OIOl__O_9;
+        _lO0_01l_0I_10 = (int )_l10l1_Il_l0_0_24;
+        _l_IO0O0l01l_lll_12 = vcpu4_feistel_xor_r1((int )_l_l10lOI011l0_OO_23 ^ _l010_I_l0OI1_8);
+        _l_l11I0I0OOIlOI_11 = (int )_l_IO0O0l01l_lll_12;
+        _lI_0_l0Il1I0O1_14 = vcpu5_sub_bytes_r2(_lO0_01l_0I_10 + _llIO10I_I__1II1_4);
+        _lOOl_lllO_13 = (int )_lI_0_l0Il1I0O1_14;
+        _lO1O10__0OI_l__l_16 = vcpu6_shift_mix_r2(_lOOl_lllO_13, _l_l11I0I0OOIlOI_11);
+        _lIl___101_15 = (int )_lO1O10__0OI_l__l_16;
+        _llI_0I_OIIOlI_Ol_17 = _l_l11I0I0OOIlOI_11;
+        _l11lO01O0lIl1_19 = vcpu7_feistel_xor_r2(_lO0_01l_0I_10 ^ _lIl___101_15);
+        _ll0_11__l_18 = (int )_l11lO01O0lIl1_19;
+        _l_OO0lIl_01OI0_0_21 = vcpu8_ephemeral_finalize(_ll0_11__l_18);
+        _lI_IlOIII_1O0_20 = (int )_l_OO0lIl_01OI0_0_21;
+      } else {
+        _ll11_IO0I_11_3 = vcpu1_expand_key((int )_ll_11I1_O1_25);
+        _l__111I00O__2 = (int )_ll11_IO0I_11_3;
+        _lI__O0l_O_5 = vcpu1_expand_key((int )_l_I0_10_OII110I_26);
+        _llIO10I_I__1II1_4 = (int )_lI__O0l_O_5;
+        _l0I0OIll_lIlI010_7 = vcpu2_sub_bytes_r1((int )_l_l10lOI011l0_OO_23 + _l__111I00O__2);
+        _llI01ll101I1O_6 = (int )_l0I0OIll_lIlI010_7;
+        _l10I1OIOl__O_9 = vcpu3_shift_mix_r1(_llI01ll101I1O_6, (int )_l10l1_Il_l0_0_24);
+        _l010_I_l0OI1_8 = (int )_l10I1OIOl__O_9;
+        _lO0_01l_0I_10 = (int )_l10l1_Il_l0_0_24;
+        _l_IO0O0l01l_lll_12 = vcpu4_feistel_xor_r1((int )_l_l10lOI011l0_OO_23 ^ _l010_I_l0OI1_8);
+        _l_l11I0I0OOIlOI_11 = (int )_l_IO0O0l01l_lll_12;
+        _lI_0_l0Il1I0O1_14 = vcpu5_sub_bytes_r2(_lO0_01l_0I_10 + _llIO10I_I__1II1_4);
+        _lOOl_lllO_13 = (int )_lI_0_l0Il1I0O1_14;
+        _lO1O10__0OI_l__l_16 = vcpu6_shift_mix_r2(_lOOl_lllO_13, _l_l11I0I0OOIlOI_11);
+        _lIl___101_15 = (int )_lO1O10__0OI_l__l_16;
+        _llI_0I_OIIOlI_Ol_17 = _l_l11I0I0OOIlOI_11;
+        _l11lO01O0lIl1_19 = vcpu7_feistel_xor_r2(_lO0_01l_0I_10 ^ _lIl___101_15);
+        _ll0_11__l_18 = (int )_l11lO01O0lIl1_19;
+        _l_OO0lIl_01OI0_0_21 = vcpu8_ephemeral_finalize(_ll0_11__l_18);
+        _lI_IlOIII_1O0_20 = (int )_l_OO0lIl_01OI0_0_21;
+      }
+      __cff_state = 71;
+      break;
+      }
+      case 71: 
+      {
+      if (! _lI_IlOIII_1O0_20) {
+        __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+        (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_1[0]));
+        return ((uint64_t __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  )0ULL);
+      }
+      __cff_state = 86;
+      break;
+      }
+      case 12: 
       {
       __t_start = __ocasorry_get_timestamp();
-      __cff_state = 23;
+      __cff_state = 21;
       break;
       }
-      case 97: 
-      return ((uint64_t __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  )_lI__1_10OO0_22);
-      case 85: 
+      case 37: 
       {
-      if ((_l_OlOI0l__23 * (_l_OlOI0l__23 + 1)) % 2 == 0) {
-        _lI__1_10OO0_22 = ((uint64_t )((unsigned int )_l0001l1II0_17) << 32) | (uint64_t )((unsigned int )_l1I___l0I_18);
-      } else {
-        _lI__1_10OO0_22 = ((uint64_t )((unsigned int )_l0001l1II0_17) << 32) | (uint64_t )((unsigned int )_l1I___l0I_18);
+      if ((__desync_guard & ~ __desync_guard) != 0) {
+        return (0);
       }
-      __cff_state = 97;
+      __cff_state = 48;
+      break;
+      }
+      case 21: 
+      {
+      __desync_guard = 8974;
+      __cff_state = 37;
       break;
       }
       }
@@ -1259,16 +1269,16 @@ uint64_t __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, liter
   }
 }
 }
-int main(int _ll_lI__IO_Il_35 , char **_lOI0IIO1I_36 ) 
+int main(int _llOIl_l11O1_O_35 , char **_llOlI_I0lO_36 ) 
 { 
-  uint32_t _lIllI0IlO11010__27 ;
-  uint32_t _l0_l0l0I_10IIO_28 ;
-  uint32_t _lO1_I_IIO0O0__0_29 ;
-  uint32_t _l0_I_O1lOl0I_30 ;
-  long long _l__011I_00_31 ;
-  long long _l1l01IIl_1l1_32 ;
-  uint64_t _lO0OOI10ll1_l1_33 ;
-  uint64_t __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  _l0OI1_lII_OO_34 ;
+  uint32_t _lOl__OIlOO0l0_0_27 ;
+  uint32_t _lOO1I1OlIlO0_28 ;
+  uint32_t _l0_0_O__OIIOO11_29 ;
+  uint32_t _ll00_IlI_l_I_30 ;
+  long long _lIIl_ll0ll_I__31 ;
+  long long _lO_0O__1IO0_32 ;
+  uint64_t _lI1I11101l0_I_33 ;
+  uint64_t __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  _lO0O_00_I1l_O_0I_34 ;
   int volatile   __idx_2 ;
   int volatile   __idx_3 ;
   void *__resolved_printf ;
@@ -1279,7 +1289,7 @@ int main(int _ll_lI__IO_Il_35 , char **_lOI0IIO1I_36 )
     __idx_2 = 0;
     while (1) {
       if (__idx_2 < 53) {
-        __dec_lit_2[__idx_2] = __enc_lit_2[__idx_2] ^ 69;
+        __dec_lit_2[__idx_2] = __enc_lit_2[__idx_2] ^ 40;
         __idx_2 ++;
       } else {
         break;
@@ -1291,7 +1301,7 @@ int main(int _ll_lI__IO_Il_35 , char **_lOI0IIO1I_36 )
     __idx_3 = 0;
     while (1) {
       if (__idx_3 < 40) {
-        __dec_lit_3[__idx_3] = __enc_lit_3[__idx_3] ^ 174;
+        __dec_lit_3[__idx_3] = __enc_lit_3[__idx_3] ^ 38;
         __idx_3 ++;
       } else {
         break;
@@ -1299,28 +1309,28 @@ int main(int _ll_lI__IO_Il_35 , char **_lOI0IIO1I_36 )
     }
     __init_lit_3 = 1;
   }
-  _lIllI0IlO11010__27 = (uint32_t )0x12345678;
-  _l0_l0l0I_10IIO_28 = 0x9ABCDEF0;
-  _lO1_I_IIO0O0__0_29 = 0xDEADBEEF;
-  _l0_I_O1lOl0I_30 = 0xCAFEBABE;
-  if (_ll_lI__IO_Il_35 > 1) {
-    _l__011I_00_31 = atoll((char const   *)*(_lOI0IIO1I_36 + 1));
-    _lIllI0IlO11010__27 = (uint32_t )_l__011I_00_31;
+  _lOl__OIlOO0l0_0_27 = (uint32_t )0x12345678;
+  _lOO1I1OlIlO0_28 = 0x9ABCDEF0;
+  _l0_0_O__OIIOO11_29 = 0xDEADBEEF;
+  _ll00_IlI_l_I_30 = 0xCAFEBABE;
+  if (_llOIl_l11O1_O_35 > 1) {
+    _lIIl_ll0ll_I__31 = atoll((char const   *)*(_llOlI_I0lO_36 + 1));
+    _lOl__OIlOO0l0_0_27 = (uint32_t )_lIIl_ll0ll_I__31;
   }
-  if (_ll_lI__IO_Il_35 > 2) {
-    _l1l01IIl_1l1_32 = atoll((char const   *)*(_lOI0IIO1I_36 + 2));
-    _l0_l0l0I_10IIO_28 = (uint32_t )_l1l01IIl_1l1_32;
+  if (_llOIl_l11O1_O_35 > 2) {
+    _lO_0O__1IO0_32 = atoll((char const   *)*(_llOlI_I0lO_36 + 2));
+    _lOO1I1OlIlO0_28 = (uint32_t )_lO_0O__1IO0_32;
   }
   __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
   (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_2[0]),
-                                                               _lIllI0IlO11010__27,
-                                                               _l0_l0l0I_10IIO_28);
-  _l0OI1_lII_OO_34 = _l1O_I11O11ll_1(_lIllI0IlO11010__27, _l0_l0l0I_10IIO_28, _lO1_I_IIO0O0__0_29,
-                                     _l0_I_O1lOl0I_30);
-  _lO0OOI10ll1_l1_33 = (uint64_t )_l0OI1_lII_OO_34;
+                                                               _lOl__OIlOO0l0_0_27,
+                                                               _lOO1I1OlIlO0_28);
+  _lO0O_00_I1l_O_0I_34 = _lOl11O1O__II0_1(_lOl__OIlOO0l0_0_27, _lOO1I1OlIlO0_28, _l0_0_O__OIIOO11_29,
+                                          _ll00_IlI_l_I_30);
+  _lI1I11101l0_I_33 = (uint64_t )_lO0O_00_I1l_O_0I_34;
   __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
   (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_3[0]),
-                                                               _lO0OOI10ll1_l1_33);
+                                                               _lI1I11101l0_I_33);
   return (0);
 }
 }
