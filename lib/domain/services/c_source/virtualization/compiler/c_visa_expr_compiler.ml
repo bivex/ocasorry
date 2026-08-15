@@ -100,9 +100,12 @@ module Make (Entropy : Entropy_port.S) = struct
                  emit2 op.C_visa_spec.vle8_v free_reg (get_vreg ptr_v.vname) dst
              | None -> ())
 
-    | Lval (Mem (Lval (Var ptr_v, NoOffset)), NoOffset) ->
-        emit_vli_14 spec op instrs 0 free_reg;
-        emit2 op.C_visa_spec.vle8_v free_reg (get_vreg ptr_v.vname) dst
+    | Lval (Mem ptr_e, NoOffset) ->
+        (match extract_ptr_var ptr_e with
+         | Some ptr_v ->
+             emit_vli_14 spec op instrs 0 free_reg;
+             emit2 op.C_visa_spec.vle8_v free_reg (get_vreg ptr_v.vname) dst
+         | None -> ())
 
     | UnOp (Neg, e1, _) ->
         compile_exp spec op instrs get_vreg e1 dst free_reg;

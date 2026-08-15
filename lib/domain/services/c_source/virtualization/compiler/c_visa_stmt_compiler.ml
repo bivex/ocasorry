@@ -85,15 +85,6 @@ module Make (Entropy : Entropy_port.S) = struct
         flush ();
         (t1, 0, Ne)
 
-  let maybe_inject_decoy spec _op (pb : patch_buf) _get_vreg =
-    if Entropy.next_int ~max:10 < 3 then (
-      let instrs = ref [] in
-      let count = 1 + Entropy.next_int ~max:3 in
-      let module D = C_visa_decoy_generator.Make (Entropy) in
-      D.emit_opaque_decoy_cluster spec instrs ~count;
-      List.iter (fun w -> ignore (buf_push pb w)) (List.rev !instrs)
-    )
-
   let rec extract_ptr_var = function
     | Lval (Var v, NoOffset) -> Some v
     | CastE (_, _, e) -> extract_ptr_var e
@@ -105,7 +96,6 @@ module Make (Entropy : Entropy_port.S) = struct
       get_vreg next_vreg (s : stmt) : unit =
     let emit w  = ignore (buf_push pb w) in
     let emit_i w = let idx = buf_push pb w in idx in
-    maybe_inject_decoy spec op pb get_vreg;
     let instrs = ref [] in
     let flush () =
       List.iter (fun w -> emit w) (List.rev !instrs);
@@ -167,14 +157,19 @@ module Make (Entropy : Entropy_port.S) = struct
         List.iter (fun b_idx -> buf_patch pb b_idx (encode_jump spec op loop_end)) !(ctx.break_indices)
 
     | If (cond, then_blk, else_blk, _, _) ->
-        let (t1, t2, _cmp_kind) =
-          compile_cond spec op pb get_vreg next_vreg cond
-        in
-        let branch_idx = emit_i (encode_branch_ge spec op t1 t2 0) in
+        let instrs = ref [] in
+        let c_reg = !next_vreg in
+        let z_reg = !next_vreg + 1 in
+        let fr    = !next_vreg + 2 in
+        ExprC.compile_exp spec op instrs get_vreg cond c_reg fr;
+        ExprC.emit_vli_14 spec op instrs 0 z_reg;
+        List.iter (fun w -> emit w) (List.rev !instrs);
+        (* Branch to else_start if (0 >= c_reg), i.e., when condition is FALSE (c_reg == 0) *)
+        let branch_idx = emit_i (encode_branch_ge spec op z_reg c_reg 0) in
         List.iter (compile_stmt spec op pb get_vreg next_vreg) then_blk.bstmts;
         let jump_idx = emit_i (encode_jump spec op 0) in
         let else_start = pb.len in
-        buf_patch pb branch_idx (encode_branch_ge spec op t1 t2 else_start);
+        buf_patch pb branch_idx (encode_branch_ge spec op z_reg c_reg else_start);
         List.iter (compile_stmt spec op pb get_vreg next_vreg) else_blk.bstmts;
         let after_else = pb.len in
         buf_patch pb jump_idx (encode_jump spec op after_else)

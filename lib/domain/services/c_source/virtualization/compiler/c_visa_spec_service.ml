@@ -97,10 +97,15 @@ module Make (Entropy : Entropy_port.S) = struct
       vbc_words;
     (Array.to_list permuted_arr, affine_p, affine_s)
 
-  let type_to_str = function
+  let rec type_to_str = function
+    | TNamed (ti, _) -> type_to_str ti.ttype
     | TInt (IULongLong, _) | TInt (ILongLong, _) -> "unsigned long long"
     | TInt (IULong, _) | TInt (ILong, _) -> "unsigned long"
     | TInt (IUInt, _) -> "unsigned int"
+    | TInt (IChar, _) | TInt (ISChar, _) -> "char"
+    | TInt (IUChar, _) -> "unsigned char"
+    | TInt (IShort, _) -> "short"
+    | TInt (IUShort, _) -> "unsigned short"
     | TPtr (TInt ((IChar | ISChar), _), _) -> "const char *"
     | TPtr (TInt (IUChar, _), _) -> "const unsigned char *"
     | TPtr _ -> "void *"
