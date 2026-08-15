@@ -10,6 +10,7 @@ module VisaSpec = C_visa_spec
 
 module Make (Entropy : Entropy_port.S) = struct
   module Spec = C_visa_spec
+  module DecoyGen = C_visa_decoy_generator.Make (Entropy)
 
   let vcpu_counter = ref 0
 
@@ -200,7 +201,15 @@ module Make (Entropy : Entropy_port.S) = struct
         | _ -> ()
       in
 
+      let maybe_inject_decoy () =
+        if Entropy.next_int ~max:10 < 4 then (
+          let count = 2 + Entropy.next_int ~max:4 in
+          DecoyGen.emit_opaque_decoy_cluster spec instrs ~count
+        )
+      in
+
       let rec compile_stmt (s : stmt) : unit =
+        maybe_inject_decoy ();
         match s.skind with
         | Instr inst_list ->
             List.iter
@@ -247,6 +256,7 @@ module Make (Entropy : Entropy_port.S) = struct
       in
 
       List.iter compile_stmt fd.sbody.bstmts;
+      maybe_inject_decoy ();
 
       if !instrs = [] then (
         emit (Spec.encode_inst spec ~funct6:op.vli_vi ~vm:0 ~vs2:0 ~vs1_or_imm:0 ~funct3:0 ~vd:0);
