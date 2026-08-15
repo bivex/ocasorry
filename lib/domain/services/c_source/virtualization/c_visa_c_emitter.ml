@@ -79,8 +79,15 @@ __attribute__((visibility("default")))
     unsigned int __vbc_live[%d];
     memcpy(__vbc_live, %s, sizeof(__vbc_live));
 
-    const char *__ptr_ctx = (const char *)%s;
-    const unsigned long long __cfi_canary = 0x%LxULL ^ ((uintptr_t)__ptr_ctx * 0x9E3779B97F4A7C15ULL);
+    /* Fix: CFI canary mixes static build entropy + function address + vbc hash
+       so it is never a compile-time constant even for non-pointer functions. */
+    const unsigned long long __fn_addr_entropy =
+        (unsigned long long)(uintptr_t)(%s != 0 ? (const void *)%s : (const void *)&__vbc_live);
+    const unsigned long long __vbc_hash_0 = __vbc_live[0] ^ (unsigned long long)__vbc_live[%d > 1 ? 1 : 0];
+    const unsigned long long __cfi_canary =
+        0x%LxULL
+        ^ (__fn_addr_entropy * 0x9E3779B97F4A7C15ULL)
+        ^ (__vbc_hash_0 * 0x517CC1B727220A95ULL);
 
     /* Push CFI Canary into Shadow Control Stack */
     __vstack_ctrl[__vsp_c++] = __cfi_canary ^ 0x%LxULL;
@@ -276,8 +283,11 @@ __h_vmv_alt1:
     __VISA_DISPATCH();
 
 __h_vle8:
-    if (__ptr_ctx) {
-        __VREG_SET(__vd, (unsigned long long)((const unsigned char *)__ptr_ctx)[__VREG_GET(__vs2)]);
+    {
+        const unsigned char *__load_base = (const unsigned char *)(uintptr_t)__VREG_GET(__vs1);
+        if (__load_base) {
+            __VREG_SET(__vd, (unsigned long long)__load_base[__VREG_GET(__vs2)]);
+        }
     }
     __VISA_DISPATCH();
 
@@ -287,15 +297,20 @@ __h_vse8:
     }
     __VISA_DISPATCH();
 
-__h_vbge:
+__h_vbge: {
+    /* Decode 19-bit target from instruction bits [25:7] — fixed from 5-bit */
+    unsigned int __branch_target = (__inst >> 7) & 0x7FFFFU;
     if (__VREG_GET(__vs1) >= __VREG_GET(__vs2)) {
-        __pc = (unsigned int)((%d) + ((__vm_state_acc * (__vm_state_acc + 1ULL)) & 1ULL));
+        __pc = (unsigned int)((__branch_target) + ((__vm_state_acc * (__vm_state_acc + 1ULL)) & 1ULL));
     }
     __VISA_DISPATCH();
+}
 
-__h_vj:
-    __pc = (unsigned int)(((__inst >> 7) & 0x7FFFF) + ((__vm_state_acc * (__vm_state_acc + 1ULL)) & 1ULL));
+__h_vj: {
+    unsigned int __jump_target = (__inst >> 7) & 0x7FFFFU;
+    __pc = (unsigned int)((__jump_target) + ((__vm_state_acc * (__vm_state_acc + 1ULL)) & 1ULL));
     __VISA_DISPATCH();
+}
 
 __h_default:
     __builtin_trap();
@@ -346,6 +361,8 @@ __h_vret: ;
     word_count
     vbc_name
     ptr_arg
+    ptr_arg        (* repeated: ternary condition value *)
+    word_count     (* for __vbc_live[%d > 1 ? 1 : 0] *)
     cfi_seed
     cfi_xor
     arg_inits
@@ -392,7 +409,6 @@ __h_vret: ;
     lay.vd_shift
     (prof.dispatch_size - 1)
     trap_code
-    (word_count - 2)
     cfi_xor
     out_reg
     ret_type_str
