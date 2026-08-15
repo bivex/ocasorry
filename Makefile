@@ -11,10 +11,35 @@ OPAM_ENV     := $(shell opam env 2>/dev/null)
 
 export $(OPAM_ENV)
 
-.PHONY: build ml-verify ml-dataset ml-optimize ml-architect ml-synthesize ml-bridge ml-pipeline ml-help
+VECTIS_BIN   := _build/default/bin/main.exe
 
-build:  ## Build OCaml binaries (required before ml-dataset)
+# Configurable parameters for obfuscation
+IN           ?= $(EXAMPLES)/02_aes_sbox_mini.c
+OUT          ?= /tmp/vectis_obfuscated.c
+BIN          ?= /tmp/vectis_obfuscated.bin
+PROFILE      ?= fortress-256k
+SPEC         ?= $(EXAMPLES)/ml_optimized/visa.json
+PASSES       ?= --virtualize --rolling-vkey --bcf --cff --anti-debug --egraph-mba --anti-vtil
+
+.PHONY: build ml-verify ml-dataset ml-optimize ml-architect ml-synthesize ml-bridge ml-specs ml-pipeline obfuscate compile-obf help
+
+build:  ## Build OCaml binaries (required before ml-dataset / obfuscation)
 	eval $$(opam env) && dune build
+
+obfuscate: build  ## Obfuscate C file with ML-optimized vISA (Usage: make obfuscate IN=file.c OUT=out.c)
+	@test -f $(SPEC) || (echo "[*] Spec not found, generating ML specs..." && $(PYTHON3) $(TOOLS)/sail_params_to_synth.py --run)
+	@echo "[Vectis] Obfuscating $(IN) -> $(OUT)"
+	@echo "         Profile: [$(PROFILE)] | Spec: [$(SPEC)]"
+	$(VECTIS_BIN) -i $(IN) -o $(OUT) --visa-spec $(SPEC) --vm-profile $(PROFILE) $(PASSES)
+	@echo "[✓] Successfully obfuscated -> $(OUT)"
+
+compile-obf: obfuscate  ## Obfuscate and compile to binary with Clang (Usage: make compile-obf IN=file.c BIN=app.bin)
+	@echo "[Vectis] Compiling $(OUT) -> $(BIN) with clang -O2..."
+	clang -O2 $(OUT) -o $(BIN)
+	@echo "[✓] Executable ready -> $(BIN)"
+
+ml-specs: build  ## Generate all 4 ML-optimized vISA specs to examples/ml_optimized/
+	$(PYTHON3) $(TOOLS)/sail_params_to_synth.py --run
 
 ml-verify:  ## Formally verify all Sail ISA specs (Z3 QFBV)
 	@echo "[Vectis] Verifying Sail ISA specs..."
@@ -37,8 +62,12 @@ ml-synthesize:  ## RL-synthesize MBA-hardened C11 VCPU kernels for all tiers
 ml-bridge:  ## Feed optimal params back to ocasorry_synth CLI (Gap-1)
 	$(PYTHON3) $(TOOLS)/sail_params_to_synth.py --params $(OPT_PARAMS)
 
-ml-pipeline: ml-dataset ml-optimize ml-architect ml-synthesize ml-bridge ml-verify  ## Full ML pipeline end-to-end
+ml-pipeline: ml-dataset ml-optimize ml-architect ml-synthesize ml-bridge ml-specs ml-verify  ## Full ML pipeline end-to-end
 
-ml-help:  ## Print available ML targets
+help:  ## Print available Makefile targets
+	@echo "======================================================================"
+	@echo "  💎 Vectis: Advanced C Obfuscation & Federated Virtualization Engine "
+	@echo "======================================================================"
 	@grep -E '^[a-zA-Z_-]+:.*##' $(MAKEFILE_LIST) | \
-		awk 'BEGIN {FS=":.*##"}; {printf "  \033[36m%-18s\033[0m %s\n", $$1, $$2}'
+		awk 'BEGIN {FS=":.*##"}; {printf "  \033[36m%-16s\033[0m %s\n", $$1, $$2}'
+
