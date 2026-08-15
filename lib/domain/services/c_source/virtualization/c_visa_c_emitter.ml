@@ -270,14 +270,18 @@ __h_vj:
     __VISA_DISPATCH();
 
 __h_default:
-    __VISA_DISPATCH();
+    __builtin_trap();
 
 __h_vret: ;
     /* Verify Shadow Control Stack CFI Canary */
     if (__vsp_c == 0 || ((__vstack_ctrl[--__vsp_c] ^ 0x%LxULL) != __cfi_canary)) {
         __builtin_trap();
     }
-    unsigned long long __res_val = __VREG_GET(%d);
+    /* Vector 11: Anti-Symbolic Quadratic Invariant & Dataflow Interlock */
+    if (((__vm_state_acc * (__vm_state_acc + 1ULL)) & 1ULL) != 0ULL) {
+        __builtin_trap();
+    }
+    unsigned long long __res_val = __VREG_GET(%d) ^ ((__vm_state_acc * (__vm_state_acc + 1ULL)) & 1ULL);
     __builtin_memset(__vregs, 0, sizeof(__vregs));
     __builtin_memset(__vbc_live, 0, sizeof(__vbc_live));
     __builtin_memset(__vstack_data, 0, sizeof(__vstack_data));

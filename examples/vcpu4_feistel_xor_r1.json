@@ -2,9 +2,9 @@
   "vcpu_tier": 4,
   "vcpu_type": "rolling_vkey",
   "isa_name": "RollingVKey_AES_FeistelR1_Arch",
-  "vkey_seed": 223252930,
-  "lcg_multiplier": 17,
-  "lcg_delta": 2246822507,
+  "vkey_seed": 2901759462,
+  "lcg_multiplier": 33,
+  "lcg_delta": 3266489917,
   "opcodes": {
     "op_add_imm": 1,
     "op_xor_imm": 2,
