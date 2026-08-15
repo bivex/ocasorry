@@ -200,53 +200,53 @@ static void __ocasorry_free_ephemeral_page(void *ptr, size_t sz) {
     }
 }
 
-static unsigned int __visa_program_vcpu6_shift_mix_r2_3[7]  = {      1048806168U,      2696182305U,      3738988650U,      2413162163U, 
-        242181628U,      697819781U,      2748274766U};
-static unsigned int __visa_program_vcpu3_shift_mix_r1_2[7]  = {      1048806168U,      2696182305U,      3738988650U,      2402676403U, 
-        242181628U,      697819781U,      2748274766U};
-static unsigned int __visa_program_vcpu1_expand_key_1[7]  = {      1048806040U,      3374455457U,      3738038762U,      2404986419U, 
-        243197052U,      697721477U,      2748274766U};
+static unsigned int __visa_program_vcpu6_shift_mix_r2_3[7]  = {      1849043939U,      1338376654U,      1709604537U,      1679043428U, 
+        3116728663U,      3347349378U,      2912037613U};
+static unsigned int __visa_program_vcpu3_shift_mix_r1_2[7]  = {      1849043939U,      1338376654U,      1709604537U,      1693723492U, 
+        3116728663U,      3347349378U,      2912037613U};
+static unsigned int __visa_program_vcpu1_expand_key_1[7]  = {      1849043555U,      575693134U,      1710751545U,      1687743460U, 
+        3117678807U,      3347447682U,      2912037613U};
 static int __visa_engine_ready ;
 static char volatile   __enc_lit_1[34]  = 
-  {      222,      168,      216,      165, 
-        211,      198,      213,      208, 
-        165,      189,      165,      214, 
-        224,      230,      240,      247, 
-        236,      241,      252,      165, 
-        198,      237,      224,      230, 
-        238,      165,      195,      228, 
-        236,      233,      224,      225, 
-        143,      133};
+  {      76,      58,      74,      55, 
+        65,      84,      71,      66, 
+        55,      47,      55,      68, 
+        114,      116,      98,      101, 
+        126,      99,      110,      55, 
+        84,      127,      114,      116, 
+        124,      55,      81,      118, 
+        126,      123,      114,      115, 
+        29,      23};
 static char volatile   __dec_lit_1[34]  ;
 static int volatile   __init_lit_1  =    0;
 static char volatile   __enc_lit_2[53]  = 
-  {      173,      220,      171,      214, 
-        206,      219,      160,      181, 
-        166,      163,      214,      166, 
-        154,      151,      159,      152, 
-        130,      147,      142,      130, 
-        214,      180,      154,      153, 
-        149,      157,      214,      204, 
-        214,      173,      186,      204, 
-        214,      198,      142,      211, 
-        198,      206,      174,      218, 
-        214,      164,      204,      214, 
-        198,      142,      211,      198, 
-        206,      174,      171,      252, 
-        246};
+  {      211,      162,      213,      168, 
+        176,      165,      222,      203, 
+        216,      221,      168,      216, 
+        228,      233,      225,      230, 
+        252,      237,      240,      252, 
+        168,      202,      228,      231, 
+        235,      227,      168,      178, 
+        168,      211,      196,      178, 
+        168,      184,      240,      173, 
+        184,      176,      208,      164, 
+        168,      218,      178,      168, 
+        184,      240,      173,      184, 
+        176,      208,      213,      130, 
+        136};
 static char volatile   __dec_lit_2[53]  ;
 static int volatile   __init_lit_2  =    0;
 static char volatile   __enc_lit_3[40]  = 
-  {      195,      179,      197,      184, 
-        160,      181,      206,      219, 
-        200,      205,      184,      219, 
-        241,      232,      240,      253, 
-        234,      236,      253,      224, 
-        236,      184,      218,      244, 
-        247,      251,      243,      162, 
-        184,      168,      224,      189, 
-        168,      169,      174,      244, 
-        244,      192,      146,      152};
+  {      254,      142,      248,      133, 
+        157,      136,      243,      230, 
+        245,      240,      133,      230, 
+        204,      213,      205,      192, 
+        215,      209,      192,      221, 
+        209,      133,      231,      201, 
+        202,      198,      206,      159, 
+        133,      149,      221,      128, 
+        149,      148,      147,      201, 
+        201,      253,      175,      165};
 static char volatile   __dec_lit_3[40]  ;
 static int volatile   __init_lit_3  =    0;
 typedef unsigned int uint32_t;
@@ -259,73 +259,106 @@ int vcpu1_expand_key(int key) {
     __vregs[0] = (int)key;
     const char *__ptr_ctx = (const char *)0;
     unsigned int __pc = 0;
-    int __running = 1;
+    unsigned int __raw, __key, __inst;
+    unsigned char __funct6, __vm, __vs2, __vs1, __funct3, __vd;
 
-    while (__running && __pc < 7) {
-        unsigned int __raw = __visa_program_vcpu1_expand_key_1[__pc];
-        unsigned int __key = 0x2083822fU ^ (__pc * 0x9e3779b9U);
-        unsigned int __inst = __raw ^ __key;
+    /* Direct Threading Dispatch Table via GNU C Computed Gotos */
+    static const void * const __dispatch_table[64] = {
+        [0 ... 63] = &&__h_default,
+        [0x18] = &&__h_vadd,
+        [0x25] = &&__h_vsub,
+        [0x20] = &&__h_vmul,
+        [0x1E] = &&__h_vxor,
+        [0x1B] = &&__h_vand,
+        [0x8] = &&__h_vor,
+        [0x2A] = &&__h_vsll,
+        [0x39] = &&__h_vsrl,
+        [0x17] = &&__h_vli,
+        [0xC] = &&__h_vmv,
+        [0x3] = &&__h_vle8,
+        [0xE] = &&__h_vret,
+        [0x3F] = &&__h_vbge,
+        [0x3D] = &&__h_vj
+    };
 
-        unsigned char __funct6 = (unsigned char)((__inst >> 26) & 0x3F);
-        unsigned char __vm     = (unsigned char)((__inst >> 25) & 0x01);
-        unsigned char __vs2    = (unsigned char)((__inst >> 20) & 0x1F);
-        unsigned char __vs1    = (unsigned char)((__inst >> 15) & 0x1F);
-        unsigned char __funct3 = (unsigned char)((__inst >> 12) & 0x07);
-        unsigned char __vd     = (unsigned char)((__inst >> 7)  & 0x1F);
+    #define __VISA_DISPATCH() do { \
+        if (__pc >= 7) goto __h_vret; \
+        __raw = __visa_program_vcpu1_expand_key_1[__pc]; \
+        __key = 0x5c362ac8U ^ (__pc * 0x21f0aaadU); \
+        __inst = __raw ^ __key; \
+        __funct6 = (unsigned char)((__inst >> 26) & 0x3F); \
+        __vm     = (unsigned char)((__inst >> 25) & 0x01); \
+        __vs2    = (unsigned char)((__inst >> 20) & 0x1F); \
+        __vs1    = (unsigned char)((__inst >> 15) & 0x1F); \
+        __funct3 = (unsigned char)((__inst >> 12) & 0x07); \
+        __vd     = (unsigned char)((__inst >> 7)  & 0x1F); \
+        __pc++; \
+        goto *__dispatch_table[__funct6 & 0x3F]; \
+    } while (0)
 
-        switch (__funct6) {
-            case 0x15: /* vadd.vv */
-                __vregs[__vd] = __vregs[__vs1] + __vregs[__vs2];
-                break;
-            case 0x3D: /* vsub.vv */
-                __vregs[__vd] = __vregs[__vs1] - __vregs[__vs2];
-                break;
-            case 0x3A: /* vmul.vv */
-                __vregs[__vd] = __vregs[__vs1] * __vregs[__vs2];
-                break;
-            case 0x30: /* vxor.vv */
-                __vregs[__vd] = __vregs[__vs1] ^ __vregs[__vs2];
-                break;
-            case 0x32: /* vand.vv */
-                __vregs[__vd] = __vregs[__vs1] & __vregs[__vs2];
-                break;
-            case 0x2B: /* vor.vv */
-                __vregs[__vd] = __vregs[__vs1] | __vregs[__vs2];
-                break;
-            case 0x17: /* vsll.vv */
-                __vregs[__vd] = __vregs[__vs1] << __vregs[__vs2];
-                break;
-            case 0x2F: /* vsrl.vv */
-                __vregs[__vd] = (int)((unsigned int)__vregs[__vs1] >> __vregs[__vs2]);
-                break;
-            case 0x1D: /* vli.vi (14-bit immediate) */
-                __vregs[__vd] = (int)((__vm << 13) | (__funct3 << 10) | (__vs1 << 5) | __vs2);
-                break;
-            case 0x7: /* vmv.vv */
-                __vregs[__vd] = __vregs[__vs1];
-                break;
-            case 0x35: /* vle8.v load byte */
-                if (__ptr_ctx) {
-                    __vregs[__vd] = (int)((unsigned char)__ptr_ctx[__vregs[__vs2]]);
-                }
-                break;
-            case 0xD: /* vret.v */
-                __running = 0;
-                break;
-            case 0x21: /* vbge.vv */
-                if (__vregs[__vs1] >= __vregs[__vs2]) {
-                    /* Break loop: jump past loop back-edge */
-                    __pc = (5) - 1;
-                }
-                break;
-            case 0x1F: /* vj */
-                __pc = ((__inst >> 7) & 0x7FFFF) - 1;
-                break;
-            default:
-                break;
-        }
-        __pc++;
+    /* Enter Direct Threading pipeline */
+    __VISA_DISPATCH();
+
+__h_vadd:
+    __vregs[__vd] = __vregs[__vs1] + __vregs[__vs2];
+    __VISA_DISPATCH();
+
+__h_vsub:
+    __vregs[__vd] = __vregs[__vs1] - __vregs[__vs2];
+    __VISA_DISPATCH();
+
+__h_vmul:
+    __vregs[__vd] = __vregs[__vs1] * __vregs[__vs2];
+    __VISA_DISPATCH();
+
+__h_vxor:
+    __vregs[__vd] = __vregs[__vs1] ^ __vregs[__vs2];
+    __VISA_DISPATCH();
+
+__h_vand:
+    __vregs[__vd] = __vregs[__vs1] & __vregs[__vs2];
+    __VISA_DISPATCH();
+
+__h_vor:
+    __vregs[__vd] = __vregs[__vs1] | __vregs[__vs2];
+    __VISA_DISPATCH();
+
+__h_vsll:
+    __vregs[__vd] = __vregs[__vs1] << __vregs[__vs2];
+    __VISA_DISPATCH();
+
+__h_vsrl:
+    __vregs[__vd] = (int)((unsigned int)__vregs[__vs1] >> __vregs[__vs2]);
+    __VISA_DISPATCH();
+
+__h_vli:
+    __vregs[__vd] = (int)((__vm << 13) | (__funct3 << 10) | (__vs1 << 5) | __vs2);
+    __VISA_DISPATCH();
+
+__h_vmv:
+    __vregs[__vd] = __vregs[__vs1];
+    __VISA_DISPATCH();
+
+__h_vle8:
+    if (__ptr_ctx) {
+        __vregs[__vd] = (int)((unsigned char)__ptr_ctx[__vregs[__vs2]]);
     }
+    __VISA_DISPATCH();
+
+__h_vbge:
+    if (__vregs[__vs1] >= __vregs[__vs2]) {
+        __pc = (5);
+    }
+    __VISA_DISPATCH();
+
+__h_vj:
+    __pc = ((__inst >> 7) & 0x7FFFF);
+    __VISA_DISPATCH();
+
+__h_default:
+    __VISA_DISPATCH();
+
+__h_vret:
     return __vregs[0];
 }
 
@@ -335,24 +368,48 @@ int vcpu2_sub_bytes_r1(int left) {
     unsigned int __regs[4] = { (unsigned int)left, 0, 0, 0 };
     unsigned int __vkey = 0x5A17C3D5U;
     int __pc = 0;
-    while (__pc < 4) {
-        unsigned int __enc = __rolling_bc_vcpu2_sub_bytes_r1_1[__pc];
-        unsigned int __dec = __enc ^ __vkey;
-        /* Stateful rolling key evolution dependent on decrypted instruction history */
-        __vkey = (__vkey * 33U) ^ (__dec + 0x9E3779B9U);
+    unsigned int __enc, __dec;
+    unsigned char __op;
 
-        unsigned char __op = (unsigned char)(__dec >> 24);
-        if (__op == 0x01) {
-            __regs[1] = __regs[0] + 10U;
-        } else if (__op == 0x02) {
-            __regs[2] = __regs[1] ^ 42U;
-        } else if (__op == 0x03) {
-            __regs[3] = __regs[2] * 2U;
-        } else if (__op == 0xFF) {
-            return (int)__regs[3];
-        }
-        __pc++;
-    }
+    /* Direct Threading Dispatch Table via GNU C Computed Gotos */
+    static const void * const __rolling_handlers[256] = {
+        [0 ... 255] = &&__r_default,
+        [0x01] = &&__r_add,
+        [0x02] = &&__r_xor,
+        [0x03] = &&__r_mul,
+        [0xFF] = &&__r_halt
+    };
+
+    #define __ROLLING_DISPATCH() do { \
+        if (__pc >= 4) goto __r_halt; \
+        __enc = __rolling_bc_vcpu2_sub_bytes_r1_1[__pc]; \
+        __dec = __enc ^ __vkey; \
+        /* Stateful rolling key evolution dependent on decrypted instruction history */ \
+        __vkey = (__vkey * 33U) ^ (__dec + 0x9E3779B9U); \
+        __op = (unsigned char)(__dec >> 24); \
+        __pc++; \
+        goto *__rolling_handlers[__op]; \
+    } while (0)
+
+    /* Enter Direct Threading pipeline */
+    __ROLLING_DISPATCH();
+
+__r_add:
+    __regs[1] = __regs[0] + 10U;
+    __ROLLING_DISPATCH();
+
+__r_xor:
+    __regs[2] = __regs[1] ^ 42U;
+    __ROLLING_DISPATCH();
+
+__r_mul:
+    __regs[3] = __regs[2] * 2U;
+    __ROLLING_DISPATCH();
+
+__r_default:
+    __ROLLING_DISPATCH();
+
+__r_halt:
     return (int)__regs[3];
 }
 
@@ -363,73 +420,106 @@ int vcpu3_shift_mix_r1(int sbox_out, int right) {
     __vregs[1] = (int)right;
     const char *__ptr_ctx = (const char *)0;
     unsigned int __pc = 0;
-    int __running = 1;
+    unsigned int __raw, __key, __inst;
+    unsigned char __funct6, __vm, __vs2, __vs1, __funct3, __vd;
 
-    while (__running && __pc < 7) {
-        unsigned int __raw = __visa_program_vcpu3_shift_mix_r1_2[__pc];
-        unsigned int __key = 0x2083822fU ^ (__pc * 0x9e3779b9U);
-        unsigned int __inst = __raw ^ __key;
+    /* Direct Threading Dispatch Table via GNU C Computed Gotos */
+    static const void * const __dispatch_table[64] = {
+        [0 ... 63] = &&__h_default,
+        [0x18] = &&__h_vadd,
+        [0x25] = &&__h_vsub,
+        [0x20] = &&__h_vmul,
+        [0x1E] = &&__h_vxor,
+        [0x1B] = &&__h_vand,
+        [0x8] = &&__h_vor,
+        [0x2A] = &&__h_vsll,
+        [0x39] = &&__h_vsrl,
+        [0x17] = &&__h_vli,
+        [0xC] = &&__h_vmv,
+        [0x3] = &&__h_vle8,
+        [0xE] = &&__h_vret,
+        [0x3F] = &&__h_vbge,
+        [0x3D] = &&__h_vj
+    };
 
-        unsigned char __funct6 = (unsigned char)((__inst >> 26) & 0x3F);
-        unsigned char __vm     = (unsigned char)((__inst >> 25) & 0x01);
-        unsigned char __vs2    = (unsigned char)((__inst >> 20) & 0x1F);
-        unsigned char __vs1    = (unsigned char)((__inst >> 15) & 0x1F);
-        unsigned char __funct3 = (unsigned char)((__inst >> 12) & 0x07);
-        unsigned char __vd     = (unsigned char)((__inst >> 7)  & 0x1F);
+    #define __VISA_DISPATCH() do { \
+        if (__pc >= 7) goto __h_vret; \
+        __raw = __visa_program_vcpu3_shift_mix_r1_2[__pc]; \
+        __key = 0x5c362ac8U ^ (__pc * 0x21f0aaadU); \
+        __inst = __raw ^ __key; \
+        __funct6 = (unsigned char)((__inst >> 26) & 0x3F); \
+        __vm     = (unsigned char)((__inst >> 25) & 0x01); \
+        __vs2    = (unsigned char)((__inst >> 20) & 0x1F); \
+        __vs1    = (unsigned char)((__inst >> 15) & 0x1F); \
+        __funct3 = (unsigned char)((__inst >> 12) & 0x07); \
+        __vd     = (unsigned char)((__inst >> 7)  & 0x1F); \
+        __pc++; \
+        goto *__dispatch_table[__funct6 & 0x3F]; \
+    } while (0)
 
-        switch (__funct6) {
-            case 0x15: /* vadd.vv */
-                __vregs[__vd] = __vregs[__vs1] + __vregs[__vs2];
-                break;
-            case 0x3D: /* vsub.vv */
-                __vregs[__vd] = __vregs[__vs1] - __vregs[__vs2];
-                break;
-            case 0x3A: /* vmul.vv */
-                __vregs[__vd] = __vregs[__vs1] * __vregs[__vs2];
-                break;
-            case 0x30: /* vxor.vv */
-                __vregs[__vd] = __vregs[__vs1] ^ __vregs[__vs2];
-                break;
-            case 0x32: /* vand.vv */
-                __vregs[__vd] = __vregs[__vs1] & __vregs[__vs2];
-                break;
-            case 0x2B: /* vor.vv */
-                __vregs[__vd] = __vregs[__vs1] | __vregs[__vs2];
-                break;
-            case 0x17: /* vsll.vv */
-                __vregs[__vd] = __vregs[__vs1] << __vregs[__vs2];
-                break;
-            case 0x2F: /* vsrl.vv */
-                __vregs[__vd] = (int)((unsigned int)__vregs[__vs1] >> __vregs[__vs2]);
-                break;
-            case 0x1D: /* vli.vi (14-bit immediate) */
-                __vregs[__vd] = (int)((__vm << 13) | (__funct3 << 10) | (__vs1 << 5) | __vs2);
-                break;
-            case 0x7: /* vmv.vv */
-                __vregs[__vd] = __vregs[__vs1];
-                break;
-            case 0x35: /* vle8.v load byte */
-                if (__ptr_ctx) {
-                    __vregs[__vd] = (int)((unsigned char)__ptr_ctx[__vregs[__vs2]]);
-                }
-                break;
-            case 0xD: /* vret.v */
-                __running = 0;
-                break;
-            case 0x21: /* vbge.vv */
-                if (__vregs[__vs1] >= __vregs[__vs2]) {
-                    /* Break loop: jump past loop back-edge */
-                    __pc = (5) - 1;
-                }
-                break;
-            case 0x1F: /* vj */
-                __pc = ((__inst >> 7) & 0x7FFFF) - 1;
-                break;
-            default:
-                break;
-        }
-        __pc++;
+    /* Enter Direct Threading pipeline */
+    __VISA_DISPATCH();
+
+__h_vadd:
+    __vregs[__vd] = __vregs[__vs1] + __vregs[__vs2];
+    __VISA_DISPATCH();
+
+__h_vsub:
+    __vregs[__vd] = __vregs[__vs1] - __vregs[__vs2];
+    __VISA_DISPATCH();
+
+__h_vmul:
+    __vregs[__vd] = __vregs[__vs1] * __vregs[__vs2];
+    __VISA_DISPATCH();
+
+__h_vxor:
+    __vregs[__vd] = __vregs[__vs1] ^ __vregs[__vs2];
+    __VISA_DISPATCH();
+
+__h_vand:
+    __vregs[__vd] = __vregs[__vs1] & __vregs[__vs2];
+    __VISA_DISPATCH();
+
+__h_vor:
+    __vregs[__vd] = __vregs[__vs1] | __vregs[__vs2];
+    __VISA_DISPATCH();
+
+__h_vsll:
+    __vregs[__vd] = __vregs[__vs1] << __vregs[__vs2];
+    __VISA_DISPATCH();
+
+__h_vsrl:
+    __vregs[__vd] = (int)((unsigned int)__vregs[__vs1] >> __vregs[__vs2]);
+    __VISA_DISPATCH();
+
+__h_vli:
+    __vregs[__vd] = (int)((__vm << 13) | (__funct3 << 10) | (__vs1 << 5) | __vs2);
+    __VISA_DISPATCH();
+
+__h_vmv:
+    __vregs[__vd] = __vregs[__vs1];
+    __VISA_DISPATCH();
+
+__h_vle8:
+    if (__ptr_ctx) {
+        __vregs[__vd] = (int)((unsigned char)__ptr_ctx[__vregs[__vs2]]);
     }
+    __VISA_DISPATCH();
+
+__h_vbge:
+    if (__vregs[__vs1] >= __vregs[__vs2]) {
+        __pc = (5);
+    }
+    __VISA_DISPATCH();
+
+__h_vj:
+    __pc = ((__inst >> 7) & 0x7FFFF);
+    __VISA_DISPATCH();
+
+__h_default:
+    __VISA_DISPATCH();
+
+__h_vret:
     return __vregs[0];
 }
 
@@ -439,24 +529,48 @@ int vcpu4_feistel_xor_r1(int left) {
     unsigned int __regs[4] = { (unsigned int)left, 0, 0, 0 };
     unsigned int __vkey = 0x5A17C3D5U;
     int __pc = 0;
-    while (__pc < 4) {
-        unsigned int __enc = __rolling_bc_vcpu4_feistel_xor_r1_2[__pc];
-        unsigned int __dec = __enc ^ __vkey;
-        /* Stateful rolling key evolution dependent on decrypted instruction history */
-        __vkey = (__vkey * 33U) ^ (__dec + 0x9E3779B9U);
+    unsigned int __enc, __dec;
+    unsigned char __op;
 
-        unsigned char __op = (unsigned char)(__dec >> 24);
-        if (__op == 0x01) {
-            __regs[1] = __regs[0] + 10U;
-        } else if (__op == 0x02) {
-            __regs[2] = __regs[1] ^ 42U;
-        } else if (__op == 0x03) {
-            __regs[3] = __regs[2] * 2U;
-        } else if (__op == 0xFF) {
-            return (int)__regs[3];
-        }
-        __pc++;
-    }
+    /* Direct Threading Dispatch Table via GNU C Computed Gotos */
+    static const void * const __rolling_handlers[256] = {
+        [0 ... 255] = &&__r_default,
+        [0x01] = &&__r_add,
+        [0x02] = &&__r_xor,
+        [0x03] = &&__r_mul,
+        [0xFF] = &&__r_halt
+    };
+
+    #define __ROLLING_DISPATCH() do { \
+        if (__pc >= 4) goto __r_halt; \
+        __enc = __rolling_bc_vcpu4_feistel_xor_r1_2[__pc]; \
+        __dec = __enc ^ __vkey; \
+        /* Stateful rolling key evolution dependent on decrypted instruction history */ \
+        __vkey = (__vkey * 33U) ^ (__dec + 0x9E3779B9U); \
+        __op = (unsigned char)(__dec >> 24); \
+        __pc++; \
+        goto *__rolling_handlers[__op]; \
+    } while (0)
+
+    /* Enter Direct Threading pipeline */
+    __ROLLING_DISPATCH();
+
+__r_add:
+    __regs[1] = __regs[0] + 10U;
+    __ROLLING_DISPATCH();
+
+__r_xor:
+    __regs[2] = __regs[1] ^ 42U;
+    __ROLLING_DISPATCH();
+
+__r_mul:
+    __regs[3] = __regs[2] * 2U;
+    __ROLLING_DISPATCH();
+
+__r_default:
+    __ROLLING_DISPATCH();
+
+__r_halt:
     return (int)__regs[3];
 }
 
@@ -466,24 +580,48 @@ int vcpu5_sub_bytes_r2(int new_left) {
     unsigned int __regs[4] = { (unsigned int)new_left, 0, 0, 0 };
     unsigned int __vkey = 0x5A17C3D5U;
     int __pc = 0;
-    while (__pc < 4) {
-        unsigned int __enc = __rolling_bc_vcpu5_sub_bytes_r2_3[__pc];
-        unsigned int __dec = __enc ^ __vkey;
-        /* Stateful rolling key evolution dependent on decrypted instruction history */
-        __vkey = (__vkey * 33U) ^ (__dec + 0x9E3779B9U);
+    unsigned int __enc, __dec;
+    unsigned char __op;
 
-        unsigned char __op = (unsigned char)(__dec >> 24);
-        if (__op == 0x01) {
-            __regs[1] = __regs[0] + 10U;
-        } else if (__op == 0x02) {
-            __regs[2] = __regs[1] ^ 42U;
-        } else if (__op == 0x03) {
-            __regs[3] = __regs[2] * 2U;
-        } else if (__op == 0xFF) {
-            return (int)__regs[3];
-        }
-        __pc++;
-    }
+    /* Direct Threading Dispatch Table via GNU C Computed Gotos */
+    static const void * const __rolling_handlers[256] = {
+        [0 ... 255] = &&__r_default,
+        [0x01] = &&__r_add,
+        [0x02] = &&__r_xor,
+        [0x03] = &&__r_mul,
+        [0xFF] = &&__r_halt
+    };
+
+    #define __ROLLING_DISPATCH() do { \
+        if (__pc >= 4) goto __r_halt; \
+        __enc = __rolling_bc_vcpu5_sub_bytes_r2_3[__pc]; \
+        __dec = __enc ^ __vkey; \
+        /* Stateful rolling key evolution dependent on decrypted instruction history */ \
+        __vkey = (__vkey * 33U) ^ (__dec + 0x9E3779B9U); \
+        __op = (unsigned char)(__dec >> 24); \
+        __pc++; \
+        goto *__rolling_handlers[__op]; \
+    } while (0)
+
+    /* Enter Direct Threading pipeline */
+    __ROLLING_DISPATCH();
+
+__r_add:
+    __regs[1] = __regs[0] + 10U;
+    __ROLLING_DISPATCH();
+
+__r_xor:
+    __regs[2] = __regs[1] ^ 42U;
+    __ROLLING_DISPATCH();
+
+__r_mul:
+    __regs[3] = __regs[2] * 2U;
+    __ROLLING_DISPATCH();
+
+__r_default:
+    __ROLLING_DISPATCH();
+
+__r_halt:
     return (int)__regs[3];
 }
 
@@ -494,73 +632,106 @@ int vcpu6_shift_mix_r2(int sbox_out2, int new_right) {
     __vregs[1] = (int)new_right;
     const char *__ptr_ctx = (const char *)0;
     unsigned int __pc = 0;
-    int __running = 1;
+    unsigned int __raw, __key, __inst;
+    unsigned char __funct6, __vm, __vs2, __vs1, __funct3, __vd;
 
-    while (__running && __pc < 7) {
-        unsigned int __raw = __visa_program_vcpu6_shift_mix_r2_3[__pc];
-        unsigned int __key = 0x2083822fU ^ (__pc * 0x9e3779b9U);
-        unsigned int __inst = __raw ^ __key;
+    /* Direct Threading Dispatch Table via GNU C Computed Gotos */
+    static const void * const __dispatch_table[64] = {
+        [0 ... 63] = &&__h_default,
+        [0x18] = &&__h_vadd,
+        [0x25] = &&__h_vsub,
+        [0x20] = &&__h_vmul,
+        [0x1E] = &&__h_vxor,
+        [0x1B] = &&__h_vand,
+        [0x8] = &&__h_vor,
+        [0x2A] = &&__h_vsll,
+        [0x39] = &&__h_vsrl,
+        [0x17] = &&__h_vli,
+        [0xC] = &&__h_vmv,
+        [0x3] = &&__h_vle8,
+        [0xE] = &&__h_vret,
+        [0x3F] = &&__h_vbge,
+        [0x3D] = &&__h_vj
+    };
 
-        unsigned char __funct6 = (unsigned char)((__inst >> 26) & 0x3F);
-        unsigned char __vm     = (unsigned char)((__inst >> 25) & 0x01);
-        unsigned char __vs2    = (unsigned char)((__inst >> 20) & 0x1F);
-        unsigned char __vs1    = (unsigned char)((__inst >> 15) & 0x1F);
-        unsigned char __funct3 = (unsigned char)((__inst >> 12) & 0x07);
-        unsigned char __vd     = (unsigned char)((__inst >> 7)  & 0x1F);
+    #define __VISA_DISPATCH() do { \
+        if (__pc >= 7) goto __h_vret; \
+        __raw = __visa_program_vcpu6_shift_mix_r2_3[__pc]; \
+        __key = 0x5c362ac8U ^ (__pc * 0x21f0aaadU); \
+        __inst = __raw ^ __key; \
+        __funct6 = (unsigned char)((__inst >> 26) & 0x3F); \
+        __vm     = (unsigned char)((__inst >> 25) & 0x01); \
+        __vs2    = (unsigned char)((__inst >> 20) & 0x1F); \
+        __vs1    = (unsigned char)((__inst >> 15) & 0x1F); \
+        __funct3 = (unsigned char)((__inst >> 12) & 0x07); \
+        __vd     = (unsigned char)((__inst >> 7)  & 0x1F); \
+        __pc++; \
+        goto *__dispatch_table[__funct6 & 0x3F]; \
+    } while (0)
 
-        switch (__funct6) {
-            case 0x15: /* vadd.vv */
-                __vregs[__vd] = __vregs[__vs1] + __vregs[__vs2];
-                break;
-            case 0x3D: /* vsub.vv */
-                __vregs[__vd] = __vregs[__vs1] - __vregs[__vs2];
-                break;
-            case 0x3A: /* vmul.vv */
-                __vregs[__vd] = __vregs[__vs1] * __vregs[__vs2];
-                break;
-            case 0x30: /* vxor.vv */
-                __vregs[__vd] = __vregs[__vs1] ^ __vregs[__vs2];
-                break;
-            case 0x32: /* vand.vv */
-                __vregs[__vd] = __vregs[__vs1] & __vregs[__vs2];
-                break;
-            case 0x2B: /* vor.vv */
-                __vregs[__vd] = __vregs[__vs1] | __vregs[__vs2];
-                break;
-            case 0x17: /* vsll.vv */
-                __vregs[__vd] = __vregs[__vs1] << __vregs[__vs2];
-                break;
-            case 0x2F: /* vsrl.vv */
-                __vregs[__vd] = (int)((unsigned int)__vregs[__vs1] >> __vregs[__vs2]);
-                break;
-            case 0x1D: /* vli.vi (14-bit immediate) */
-                __vregs[__vd] = (int)((__vm << 13) | (__funct3 << 10) | (__vs1 << 5) | __vs2);
-                break;
-            case 0x7: /* vmv.vv */
-                __vregs[__vd] = __vregs[__vs1];
-                break;
-            case 0x35: /* vle8.v load byte */
-                if (__ptr_ctx) {
-                    __vregs[__vd] = (int)((unsigned char)__ptr_ctx[__vregs[__vs2]]);
-                }
-                break;
-            case 0xD: /* vret.v */
-                __running = 0;
-                break;
-            case 0x21: /* vbge.vv */
-                if (__vregs[__vs1] >= __vregs[__vs2]) {
-                    /* Break loop: jump past loop back-edge */
-                    __pc = (5) - 1;
-                }
-                break;
-            case 0x1F: /* vj */
-                __pc = ((__inst >> 7) & 0x7FFFF) - 1;
-                break;
-            default:
-                break;
-        }
-        __pc++;
+    /* Enter Direct Threading pipeline */
+    __VISA_DISPATCH();
+
+__h_vadd:
+    __vregs[__vd] = __vregs[__vs1] + __vregs[__vs2];
+    __VISA_DISPATCH();
+
+__h_vsub:
+    __vregs[__vd] = __vregs[__vs1] - __vregs[__vs2];
+    __VISA_DISPATCH();
+
+__h_vmul:
+    __vregs[__vd] = __vregs[__vs1] * __vregs[__vs2];
+    __VISA_DISPATCH();
+
+__h_vxor:
+    __vregs[__vd] = __vregs[__vs1] ^ __vregs[__vs2];
+    __VISA_DISPATCH();
+
+__h_vand:
+    __vregs[__vd] = __vregs[__vs1] & __vregs[__vs2];
+    __VISA_DISPATCH();
+
+__h_vor:
+    __vregs[__vd] = __vregs[__vs1] | __vregs[__vs2];
+    __VISA_DISPATCH();
+
+__h_vsll:
+    __vregs[__vd] = __vregs[__vs1] << __vregs[__vs2];
+    __VISA_DISPATCH();
+
+__h_vsrl:
+    __vregs[__vd] = (int)((unsigned int)__vregs[__vs1] >> __vregs[__vs2]);
+    __VISA_DISPATCH();
+
+__h_vli:
+    __vregs[__vd] = (int)((__vm << 13) | (__funct3 << 10) | (__vs1 << 5) | __vs2);
+    __VISA_DISPATCH();
+
+__h_vmv:
+    __vregs[__vd] = __vregs[__vs1];
+    __VISA_DISPATCH();
+
+__h_vle8:
+    if (__ptr_ctx) {
+        __vregs[__vd] = (int)((unsigned char)__ptr_ctx[__vregs[__vs2]]);
     }
+    __VISA_DISPATCH();
+
+__h_vbge:
+    if (__vregs[__vs1] >= __vregs[__vs2]) {
+        __pc = (5);
+    }
+    __VISA_DISPATCH();
+
+__h_vj:
+    __pc = ((__inst >> 7) & 0x7FFFF);
+    __VISA_DISPATCH();
+
+__h_default:
+    __VISA_DISPATCH();
+
+__h_vret:
     return __vregs[0];
 }
 
@@ -570,24 +741,48 @@ int vcpu7_feistel_xor_r2(int new_left) {
     unsigned int __regs[4] = { (unsigned int)new_left, 0, 0, 0 };
     unsigned int __vkey = 0x5A17C3D5U;
     int __pc = 0;
-    while (__pc < 4) {
-        unsigned int __enc = __rolling_bc_vcpu7_feistel_xor_r2_4[__pc];
-        unsigned int __dec = __enc ^ __vkey;
-        /* Stateful rolling key evolution dependent on decrypted instruction history */
-        __vkey = (__vkey * 33U) ^ (__dec + 0x9E3779B9U);
+    unsigned int __enc, __dec;
+    unsigned char __op;
 
-        unsigned char __op = (unsigned char)(__dec >> 24);
-        if (__op == 0x01) {
-            __regs[1] = __regs[0] + 10U;
-        } else if (__op == 0x02) {
-            __regs[2] = __regs[1] ^ 42U;
-        } else if (__op == 0x03) {
-            __regs[3] = __regs[2] * 2U;
-        } else if (__op == 0xFF) {
-            return (int)__regs[3];
-        }
-        __pc++;
-    }
+    /* Direct Threading Dispatch Table via GNU C Computed Gotos */
+    static const void * const __rolling_handlers[256] = {
+        [0 ... 255] = &&__r_default,
+        [0x01] = &&__r_add,
+        [0x02] = &&__r_xor,
+        [0x03] = &&__r_mul,
+        [0xFF] = &&__r_halt
+    };
+
+    #define __ROLLING_DISPATCH() do { \
+        if (__pc >= 4) goto __r_halt; \
+        __enc = __rolling_bc_vcpu7_feistel_xor_r2_4[__pc]; \
+        __dec = __enc ^ __vkey; \
+        /* Stateful rolling key evolution dependent on decrypted instruction history */ \
+        __vkey = (__vkey * 33U) ^ (__dec + 0x9E3779B9U); \
+        __op = (unsigned char)(__dec >> 24); \
+        __pc++; \
+        goto *__rolling_handlers[__op]; \
+    } while (0)
+
+    /* Enter Direct Threading pipeline */
+    __ROLLING_DISPATCH();
+
+__r_add:
+    __regs[1] = __regs[0] + 10U;
+    __ROLLING_DISPATCH();
+
+__r_xor:
+    __regs[2] = __regs[1] ^ 42U;
+    __ROLLING_DISPATCH();
+
+__r_mul:
+    __regs[3] = __regs[2] * 2U;
+    __ROLLING_DISPATCH();
+
+__r_default:
+    __ROLLING_DISPATCH();
+
+__r_halt:
     return (int)__regs[3];
 }
 
@@ -674,32 +869,32 @@ int vcpu8_ephemeral_finalize(int final_val) {
     return __valid;
 }
 
-uint64_t __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  _l_lI10O1__0lOOO__1(uint32_t _l_l101OOlOOI1_23 ,
-                                                                                                             uint32_t _l0_0I1O1l111II1_24 ,
-                                                                                                             uint32_t _l_I101l01O_25 ,
-                                                                                                             uint32_t _l0II_llIO_1100ll_26 ) 
+uint64_t __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  _lI_OI0IlllI10__1(uint32_t _llOIO1II0l1_0I1O_23 ,
+                                                                                                           uint32_t _ll_1__00l0IO11_24 ,
+                                                                                                           uint32_t _ll0lOI0___25 ,
+                                                                                                           uint32_t _ll0_lO0__l_26 ) 
 { 
-  int _lO0_I01I_O_2 ;
-  int __attribute__((__annotate__("ocasorry:visa")))  _llI_II0lI1I001__3 ;
-  int _ll1I_l_l___1I1I__4 ;
-  int __attribute__((__annotate__("ocasorry:visa")))  _l1lI1l11_II1l_5 ;
-  int _lO01O11Il_6 ;
-  int __attribute__((__annotate__("ocasorry:rolling_vkey")))  _l_0_lI__l_lOO0_7 ;
-  int _l1_l_1_l0I_I_8 ;
-  int __attribute__((__annotate__("ocasorry:visa")))  _lOII0llIIIOO01O_9 ;
-  int _l0__O_lO_lO0I00_10 ;
-  int _ll1IO110IO0_11__11 ;
-  int __attribute__((__annotate__("ocasorry:rolling_vkey")))  _l_0_010O0OIOI1l_12 ;
-  int _lI0O_0I_1l_13 ;
-  int __attribute__((__annotate__("ocasorry:rolling_vkey")))  _lIll0_O1I1ll0_14 ;
-  int _l1Ol11_O_I_15 ;
-  int __attribute__((__annotate__("ocasorry:visa")))  _lIO00_I_l_16 ;
-  int _l11OOOOIlIOII_17 ;
-  int _lIOl_11I_I0_18 ;
-  int __attribute__((__annotate__("ocasorry:rolling_vkey")))  _lIOI00Ol10_19 ;
-  int _l00lllO0l11O0I_l_20 ;
-  int __attribute__((__annotate__("ocasorry:ephemeral")))  _l_0OO1l111lO11l0_21 ;
-  uint64_t _llOlIO1I1011Il1l_22 ;
+  int _ll_O_llI1_lll_2 ;
+  int __attribute__((__annotate__("ocasorry:visa")))  _l1O1O1O00l_3 ;
+  int _lOI_l00Ol_4 ;
+  int __attribute__((__annotate__("ocasorry:visa")))  _l0llII0Ol_0_5 ;
+  int _l1I_llI1O11OI____6 ;
+  int __attribute__((__annotate__("ocasorry:rolling_vkey")))  _llO01I__O11Ol0_7 ;
+  int _l0_0__I11_0I1_8 ;
+  int __attribute__((__annotate__("ocasorry:visa")))  _l010I01_I_9 ;
+  int _l_lll0OIl1_10 ;
+  int _l1_00_0OI00_I0l__11 ;
+  int __attribute__((__annotate__("ocasorry:rolling_vkey")))  _lO00_0OOll10_12 ;
+  int _l1l_O1l0_0IO_13 ;
+  int __attribute__((__annotate__("ocasorry:rolling_vkey")))  _lll_0_lO_IOI_14 ;
+  int _lI__OIOOl1II_15 ;
+  int __attribute__((__annotate__("ocasorry:visa")))  _l0OIIIlIl_16 ;
+  int _l_00O1O0lllO__17 ;
+  int _lll__l_l1O1lO_18 ;
+  int __attribute__((__annotate__("ocasorry:rolling_vkey")))  _l_001O0II_19 ;
+  int _lI01lO_Ol__20 ;
+  int __attribute__((__annotate__("ocasorry:ephemeral")))  _lI10OI_lO_21 ;
+  uint64_t _ll0_O0O_IO_22 ;
   int volatile   __idx_1 ;
   int __desync_guard ;
   unsigned long long __t_start ;
@@ -708,89 +903,23 @@ uint64_t __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, liter
   int __cff_state ;
 
   {
-  __cff_state = 12;
+  __cff_state = 15;
   while (1) {
     if (__cff_state != 0) {
       switch (__cff_state) {
-      case 75: 
+      case 107: 
       {
-      if (! _l00lllO0l11O0I_l_20) {
-        __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
-        (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_1[0]));
-        return ((uint64_t __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  )0ULL);
-      }
-      __cff_state = 81;
+      __t_end = __ocasorry_get_timestamp();
+      __cff_state = 110;
       break;
       }
-      case 81: 
+      case 25: 
       {
-      if ((_l_l101OOlOOI1_23 | 1) % 2 != 0) {
-        _llOlIO1I1011Il1l_22 = ((uint64_t )((unsigned int )_l11OOOOIlIOII_17) << 32) | (uint64_t )((unsigned int )_lIOl_11I_I0_18);
-      } else {
-        _llOlIO1I1011Il1l_22 = ((uint64_t )((unsigned int )_l11OOOOIlIOII_17) << 32) | (uint64_t )((unsigned int )_lIOl_11I_I0_18);
-      }
-      __cff_state = 96;
+      __desync_guard = 37630;
+      __cff_state = 37;
       break;
       }
-      case 96: 
-      return ((uint64_t __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  )_llOlIO1I1011Il1l_22);
-      case 35: 
-      {
-      if ((__desync_guard & ~ __desync_guard) != 0) {
-        return (0);
-      }
-      __cff_state = 42;
-      break;
-      }
-      case 65: 
-      {
-      if (((_l_l101OOlOOI1_23 << 2) + 2) % 2 == 0) {
-        _llI_II0lI1I001__3 = vcpu1_expand_key((int )_l_I101l01O_25);
-        _lO0_I01I_O_2 = (int )_llI_II0lI1I001__3;
-        _l1lI1l11_II1l_5 = vcpu1_expand_key((int )_l0II_llIO_1100ll_26);
-        _ll1I_l_l___1I1I__4 = (int )_l1lI1l11_II1l_5;
-        _l_0_lI__l_lOO0_7 = vcpu2_sub_bytes_r1((int )_l_l101OOlOOI1_23 + _lO0_I01I_O_2);
-        _lO01O11Il_6 = (int )_l_0_lI__l_lOO0_7;
-        _lOII0llIIIOO01O_9 = vcpu3_shift_mix_r1(_lO01O11Il_6, (int )_l0_0I1O1l111II1_24);
-        _l1_l_1_l0I_I_8 = (int )_lOII0llIIIOO01O_9;
-        _l0__O_lO_lO0I00_10 = (int )_l0_0I1O1l111II1_24;
-        _l_0_010O0OIOI1l_12 = vcpu4_feistel_xor_r1((int )_l_l101OOlOOI1_23 ^ _l1_l_1_l0I_I_8);
-        _ll1IO110IO0_11__11 = (int )_l_0_010O0OIOI1l_12;
-        _lIll0_O1I1ll0_14 = vcpu5_sub_bytes_r2(_l0__O_lO_lO0I00_10 + _ll1I_l_l___1I1I__4);
-        _lI0O_0I_1l_13 = (int )_lIll0_O1I1ll0_14;
-        _lIO00_I_l_16 = vcpu6_shift_mix_r2(_lI0O_0I_1l_13, _ll1IO110IO0_11__11);
-        _l1Ol11_O_I_15 = (int )_lIO00_I_l_16;
-        _l11OOOOIlIOII_17 = _ll1IO110IO0_11__11;
-        _lIOI00Ol10_19 = vcpu7_feistel_xor_r2(_l0__O_lO_lO0I00_10 ^ _l1Ol11_O_I_15);
-        _lIOl_11I_I0_18 = (int )_lIOI00Ol10_19;
-        _l_0OO1l111lO11l0_21 = vcpu8_ephemeral_finalize(_lIOl_11I_I0_18);
-        _l00lllO0l11O0I_l_20 = (int )_l_0OO1l111lO11l0_21;
-      } else {
-        _llI_II0lI1I001__3 = vcpu1_expand_key((int )_l_I101l01O_25);
-        _lO0_I01I_O_2 = (int )_llI_II0lI1I001__3;
-        _l1lI1l11_II1l_5 = vcpu1_expand_key((int )_l0II_llIO_1100ll_26);
-        _ll1I_l_l___1I1I__4 = (int )_l1lI1l11_II1l_5;
-        _l_0_lI__l_lOO0_7 = vcpu2_sub_bytes_r1((int )_l_l101OOlOOI1_23 + _lO0_I01I_O_2);
-        _lO01O11Il_6 = (int )_l_0_lI__l_lOO0_7;
-        _lOII0llIIIOO01O_9 = vcpu3_shift_mix_r1(_lO01O11Il_6, (int )_l0_0I1O1l111II1_24);
-        _l1_l_1_l0I_I_8 = (int )_lOII0llIIIOO01O_9;
-        _l0__O_lO_lO0I00_10 = (int )_l0_0I1O1l111II1_24;
-        _l_0_010O0OIOI1l_12 = vcpu4_feistel_xor_r1((int )_l_l101OOlOOI1_23 ^ _l1_l_1_l0I_I_8);
-        _ll1IO110IO0_11__11 = (int )_l_0_010O0OIOI1l_12;
-        _lIll0_O1I1ll0_14 = vcpu5_sub_bytes_r2(_l0__O_lO_lO0I00_10 + _ll1I_l_l___1I1I__4);
-        _lI0O_0I_1l_13 = (int )_lIll0_O1I1ll0_14;
-        _lIO00_I_l_16 = vcpu6_shift_mix_r2(_lI0O_0I_1l_13, _ll1IO110IO0_11__11);
-        _l1Ol11_O_I_15 = (int )_lIO00_I_l_16;
-        _l11OOOOIlIOII_17 = _ll1IO110IO0_11__11;
-        _lIOI00Ol10_19 = vcpu7_feistel_xor_r2(_l0__O_lO_lO0I00_10 ^ _l1Ol11_O_I_15);
-        _lIOl_11I_I0_18 = (int )_lIOI00Ol10_19;
-        _l_0OO1l111lO11l0_21 = vcpu8_ephemeral_finalize(_lIOl_11I_I0_18);
-        _l00lllO0l11O0I_l_20 = (int )_l_0OO1l111lO11l0_21;
-      }
-      __cff_state = 75;
-      break;
-      }
-      case 114: 
+      case 110: 
       {
       if (__t_end - __t_start < 1000000000) {
 
@@ -798,37 +927,19 @@ uint64_t __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, liter
       __cff_state = 0;
       break;
       }
-      case 12: 
-      {
-      __t_start = __ocasorry_get_timestamp();
-      __cff_state = 20;
-      break;
-      }
-      case 42: 
+      case 45: 
       {
       __ocasorry_enforce_anti_debug();
-      __cff_state = 58;
+      __cff_state = 53;
       break;
       }
-      case 101: 
-      {
-      __t_end = __ocasorry_get_timestamp();
-      __cff_state = 114;
-      break;
-      }
-      case 20: 
-      {
-      __desync_guard = 35979;
-      __cff_state = 35;
-      break;
-      }
-      case 58: 
+      case 53: 
       {
       if (__init_lit_1 == 0) {
         __idx_1 = 0;
         while (1) {
           if (__idx_1 < 34) {
-            __dec_lit_1[__idx_1] = __enc_lit_1[__idx_1] ^ 133;
+            __dec_lit_1[__idx_1] = __enc_lit_1[__idx_1] ^ 23;
             __idx_1 ++;
           } else {
             break;
@@ -836,7 +947,91 @@ uint64_t __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, liter
         }
         __init_lit_1 = 1;
       }
-      __cff_state = 65;
+      __cff_state = 66;
+      break;
+      }
+      case 73: 
+      {
+      if (! _lI01lO_Ol__20) {
+        __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+        (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_1[0]));
+        return ((uint64_t __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  )0ULL);
+      }
+      __cff_state = 87;
+      break;
+      }
+      case 66: 
+      {
+      if (((_llOIO1II0l1_0I1O_23 << 2) + 2) % 2 == 0) {
+        _l1O1O1O00l_3 = vcpu1_expand_key((int )_ll0lOI0___25);
+        _ll_O_llI1_lll_2 = (int )_l1O1O1O00l_3;
+        _l0llII0Ol_0_5 = vcpu1_expand_key((int )_ll0_lO0__l_26);
+        _lOI_l00Ol_4 = (int )_l0llII0Ol_0_5;
+        _llO01I__O11Ol0_7 = vcpu2_sub_bytes_r1((int )_llOIO1II0l1_0I1O_23 + _ll_O_llI1_lll_2);
+        _l1I_llI1O11OI____6 = (int )_llO01I__O11Ol0_7;
+        _l010I01_I_9 = vcpu3_shift_mix_r1(_l1I_llI1O11OI____6, (int )_ll_1__00l0IO11_24);
+        _l0_0__I11_0I1_8 = (int )_l010I01_I_9;
+        _l_lll0OIl1_10 = (int )_ll_1__00l0IO11_24;
+        _lO00_0OOll10_12 = vcpu4_feistel_xor_r1((int )_llOIO1II0l1_0I1O_23 ^ _l0_0__I11_0I1_8);
+        _l1_00_0OI00_I0l__11 = (int )_lO00_0OOll10_12;
+        _lll_0_lO_IOI_14 = vcpu5_sub_bytes_r2(_l_lll0OIl1_10 + _lOI_l00Ol_4);
+        _l1l_O1l0_0IO_13 = (int )_lll_0_lO_IOI_14;
+        _l0OIIIlIl_16 = vcpu6_shift_mix_r2(_l1l_O1l0_0IO_13, _l1_00_0OI00_I0l__11);
+        _lI__OIOOl1II_15 = (int )_l0OIIIlIl_16;
+        _l_00O1O0lllO__17 = _l1_00_0OI00_I0l__11;
+        _l_001O0II_19 = vcpu7_feistel_xor_r2(_l_lll0OIl1_10 ^ _lI__OIOOl1II_15);
+        _lll__l_l1O1lO_18 = (int )_l_001O0II_19;
+        _lI10OI_lO_21 = vcpu8_ephemeral_finalize(_lll__l_l1O1lO_18);
+        _lI01lO_Ol__20 = (int )_lI10OI_lO_21;
+      } else {
+        _l1O1O1O00l_3 = vcpu1_expand_key((int )_ll0lOI0___25);
+        _ll_O_llI1_lll_2 = (int )_l1O1O1O00l_3;
+        _l0llII0Ol_0_5 = vcpu1_expand_key((int )_ll0_lO0__l_26);
+        _lOI_l00Ol_4 = (int )_l0llII0Ol_0_5;
+        _llO01I__O11Ol0_7 = vcpu2_sub_bytes_r1((int )_llOIO1II0l1_0I1O_23 + _ll_O_llI1_lll_2);
+        _l1I_llI1O11OI____6 = (int )_llO01I__O11Ol0_7;
+        _l010I01_I_9 = vcpu3_shift_mix_r1(_l1I_llI1O11OI____6, (int )_ll_1__00l0IO11_24);
+        _l0_0__I11_0I1_8 = (int )_l010I01_I_9;
+        _l_lll0OIl1_10 = (int )_ll_1__00l0IO11_24;
+        _lO00_0OOll10_12 = vcpu4_feistel_xor_r1((int )_llOIO1II0l1_0I1O_23 ^ _l0_0__I11_0I1_8);
+        _l1_00_0OI00_I0l__11 = (int )_lO00_0OOll10_12;
+        _lll_0_lO_IOI_14 = vcpu5_sub_bytes_r2(_l_lll0OIl1_10 + _lOI_l00Ol_4);
+        _l1l_O1l0_0IO_13 = (int )_lll_0_lO_IOI_14;
+        _l0OIIIlIl_16 = vcpu6_shift_mix_r2(_l1l_O1l0_0IO_13, _l1_00_0OI00_I0l__11);
+        _lI__OIOOl1II_15 = (int )_l0OIIIlIl_16;
+        _l_00O1O0lllO__17 = _l1_00_0OI00_I0l__11;
+        _l_001O0II_19 = vcpu7_feistel_xor_r2(_l_lll0OIl1_10 ^ _lI__OIOOl1II_15);
+        _lll__l_l1O1lO_18 = (int )_l_001O0II_19;
+        _lI10OI_lO_21 = vcpu8_ephemeral_finalize(_lll__l_l1O1lO_18);
+        _lI01lO_Ol__20 = (int )_lI10OI_lO_21;
+      }
+      __cff_state = 73;
+      break;
+      }
+      case 92: 
+      return ((uint64_t __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  )_ll0_O0O_IO_22);
+      case 87: 
+      {
+      if ((_llOIO1II0l1_0I1O_23 * (_llOIO1II0l1_0I1O_23 + 1)) % 2 == 0) {
+        _ll0_O0O_IO_22 = ((uint64_t )((unsigned int )_l_00O1O0lllO__17) << 32) | (uint64_t )((unsigned int )_lll__l_l1O1lO_18);
+      } else {
+        _ll0_O0O_IO_22 = ((uint64_t )((unsigned int )_l_00O1O0lllO__17) << 32) | (uint64_t )((unsigned int )_lll__l_l1O1lO_18);
+      }
+      __cff_state = 92;
+      break;
+      }
+      case 15: 
+      {
+      __t_start = __ocasorry_get_timestamp();
+      __cff_state = 25;
+      break;
+      }
+      case 37: 
+      {
+      if ((__desync_guard & ~ __desync_guard) != 0) {
+        return (0);
+      }
+      __cff_state = 45;
       break;
       }
       }
@@ -846,16 +1041,16 @@ uint64_t __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, liter
   }
 }
 }
-int main(int _l0l110_1lO_35 , char **_lIO0I1lOO00llO11_36 ) 
+int main(int _l_O0O_O0O1O_35 , char **_l_1___1I1_36 ) 
 { 
-  uint32_t _l1O_0IOOl_l_l_27 ;
-  uint32_t _lOIIIO__0l111I_28 ;
-  uint32_t _lO__ll_ll_O_29 ;
-  uint32_t _l1ll1O0O0l1Il_30 ;
-  long long _l1IO0_l_Il_31 ;
-  long long _lI0l__110O__32 ;
-  uint64_t _lO_111Ol0_33 ;
-  uint64_t __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  _lOOlIllII_34 ;
+  uint32_t _l1I0l1ll1_27 ;
+  uint32_t _lO_110_0I0lI0_28 ;
+  uint32_t _l_0O_IIOOI1_O_29 ;
+  uint32_t _lll_l00l_00_30 ;
+  long long _l10_Ol00I0_31 ;
+  long long _lI_I_ll1Ol_1Ol0_32 ;
+  uint64_t _ll1_I10OO1_33 ;
+  uint64_t __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  _l_01_I_lII_lIIOI_34 ;
   int volatile   __idx_2 ;
   int volatile   __idx_3 ;
   void *__resolved_printf ;
@@ -866,7 +1061,7 @@ int main(int _l0l110_1lO_35 , char **_lIO0I1lOO00llO11_36 )
     __idx_2 = 0;
     while (1) {
       if (__idx_2 < 53) {
-        __dec_lit_2[__idx_2] = __enc_lit_2[__idx_2] ^ 246;
+        __dec_lit_2[__idx_2] = __enc_lit_2[__idx_2] ^ 136;
         __idx_2 ++;
       } else {
         break;
@@ -878,7 +1073,7 @@ int main(int _l0l110_1lO_35 , char **_lIO0I1lOO00llO11_36 )
     __idx_3 = 0;
     while (1) {
       if (__idx_3 < 40) {
-        __dec_lit_3[__idx_3] = __enc_lit_3[__idx_3] ^ 152;
+        __dec_lit_3[__idx_3] = __enc_lit_3[__idx_3] ^ 165;
         __idx_3 ++;
       } else {
         break;
@@ -886,28 +1081,27 @@ int main(int _l0l110_1lO_35 , char **_lIO0I1lOO00llO11_36 )
     }
     __init_lit_3 = 1;
   }
-  _l1O_0IOOl_l_l_27 = (uint32_t )0x12345678;
-  _lOIIIO__0l111I_28 = 0x9ABCDEF0;
-  _lO__ll_ll_O_29 = 0xDEADBEEF;
-  _l1ll1O0O0l1Il_30 = 0xCAFEBABE;
-  if (_l0l110_1lO_35 > 1) {
-    _l1IO0_l_Il_31 = atoll((char const   *)*(_lIO0I1lOO00llO11_36 + 1));
-    _l1O_0IOOl_l_l_27 = (uint32_t )_l1IO0_l_Il_31;
+  _l1I0l1ll1_27 = (uint32_t )0x12345678;
+  _lO_110_0I0lI0_28 = 0x9ABCDEF0;
+  _l_0O_IIOOI1_O_29 = 0xDEADBEEF;
+  _lll_l00l_00_30 = 0xCAFEBABE;
+  if (_l_O0O_O0O1O_35 > 1) {
+    _l10_Ol00I0_31 = atoll((char const   *)*(_l_1___1I1_36 + 1));
+    _l1I0l1ll1_27 = (uint32_t )_l10_Ol00I0_31;
   }
-  if (_l0l110_1lO_35 > 2) {
-    _lI0l__110O__32 = atoll((char const   *)*(_lIO0I1lOO00llO11_36 + 2));
-    _lOIIIO__0l111I_28 = (uint32_t )_lI0l__110O__32;
+  if (_l_O0O_O0O1O_35 > 2) {
+    _lI_I_ll1Ol_1Ol0_32 = atoll((char const   *)*(_l_1___1I1_36 + 2));
+    _lO_110_0I0lI0_28 = (uint32_t )_lI_I_ll1Ol_1Ol0_32;
   }
   __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
   (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_2[0]),
-                                                               _l1O_0IOOl_l_l_27,
-                                                               _lOIIIO__0l111I_28);
-  _lOOlIllII_34 = _l_lI10O1__0lOOO__1(_l1O_0IOOl_l_l_27, _lOIIIO__0l111I_28, _lO__ll_ll_O_29,
-                                      _l1ll1O0O0l1Il_30);
-  _lO_111Ol0_33 = (uint64_t )_lOOlIllII_34;
+                                                               _l1I0l1ll1_27, _lO_110_0I0lI0_28);
+  _l_01_I_lII_lIIOI_34 = _lI_OI0IlllI10__1(_l1I0l1ll1_27, _lO_110_0I0lI0_28, _l_0O_IIOOI1_O_29,
+                                           _lll_l00l_00_30);
+  _ll1_I10OO1_33 = (uint64_t )_l_01_I_lII_lIIOI_34;
   __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
   (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_3[0]),
-                                                               _lO_111Ol0_33);
+                                                               _ll1_I10OO1_33);
   return (0);
 }
 }

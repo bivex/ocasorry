@@ -63,24 +63,48 @@ int %s(int %s) {
     unsigned int __regs[4] = { (unsigned int)%s, 0, 0, 0 };
     unsigned int __vkey = 0x5A17C3D5U;
     int __pc = 0;
-    while (__pc < %d) {
-        unsigned int __enc = %s[__pc];
-        unsigned int __dec = __enc ^ __vkey;
-        /* Stateful rolling key evolution dependent on decrypted instruction history */
-        __vkey = (__vkey * 33U) ^ (__dec + 0x9E3779B9U);
+    unsigned int __enc, __dec;
+    unsigned char __op;
 
-        unsigned char __op = (unsigned char)(__dec >> 24);
-        if (__op == 0x01) {
-            __regs[1] = __regs[0] + 10U;
-        } else if (__op == 0x02) {
-            __regs[2] = __regs[1] ^ 42U;
-        } else if (__op == 0x03) {
-            __regs[3] = __regs[2] * 2U;
-        } else if (__op == 0xFF) {
-            return (int)__regs[3];
-        }
-        __pc++;
-    }
+    /* Direct Threading Dispatch Table via GNU C Computed Gotos */
+    static const void * const __rolling_handlers[256] = {
+        [0 ... 255] = &&__r_default,
+        [0x01] = &&__r_add,
+        [0x02] = &&__r_xor,
+        [0x03] = &&__r_mul,
+        [0xFF] = &&__r_halt
+    };
+
+    #define __ROLLING_DISPATCH() do { \
+        if (__pc >= %d) goto __r_halt; \
+        __enc = %s[__pc]; \
+        __dec = __enc ^ __vkey; \
+        /* Stateful rolling key evolution dependent on decrypted instruction history */ \
+        __vkey = (__vkey * 33U) ^ (__dec + 0x9E3779B9U); \
+        __op = (unsigned char)(__dec >> 24); \
+        __pc++; \
+        goto *__rolling_handlers[__op]; \
+    } while (0)
+
+    /* Enter Direct Threading pipeline */
+    __ROLLING_DISPATCH();
+
+__r_add:
+    __regs[1] = __regs[0] + 10U;
+    __ROLLING_DISPATCH();
+
+__r_xor:
+    __regs[2] = __regs[1] ^ 42U;
+    __ROLLING_DISPATCH();
+
+__r_mul:
+    __regs[3] = __regs[2] * 2U;
+    __ROLLING_DISPATCH();
+
+__r_default:
+    __ROLLING_DISPATCH();
+
+__r_halt:
     return (int)__regs[3];
 }
 |} fd.svar.vname arg_name arg_name (List.length encrypted_words) prog_name in

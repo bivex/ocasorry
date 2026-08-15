@@ -453,73 +453,106 @@ int %s(%s) {
 %s
     const char *__ptr_ctx = (const char *)%s;
     unsigned int __pc = 0;
-    int __running = 1;
+    unsigned int __raw, __key, __inst;
+    unsigned char __funct6, __vm, __vs2, __vs1, __funct3, __vd;
 
-    while (__running && __pc < %d) {
-        unsigned int __raw = %s[__pc];
-        unsigned int __key = 0x%LxU ^ (__pc * 0x%LxU);
-        unsigned int __inst = __raw ^ __key;
+    /* Direct Threading Dispatch Table via GNU C Computed Gotos */
+    static const void * const __dispatch_table[64] = {
+        [0 ... 63] = &&__h_default,
+        [0x%X] = &&__h_vadd,
+        [0x%X] = &&__h_vsub,
+        [0x%X] = &&__h_vmul,
+        [0x%X] = &&__h_vxor,
+        [0x%X] = &&__h_vand,
+        [0x%X] = &&__h_vor,
+        [0x%X] = &&__h_vsll,
+        [0x%X] = &&__h_vsrl,
+        [0x%X] = &&__h_vli,
+        [0x%X] = &&__h_vmv,
+        [0x%X] = &&__h_vle8,
+        [0x%X] = &&__h_vret,
+        [0x%X] = &&__h_vbge,
+        [0x%X] = &&__h_vj
+    };
 
-        unsigned char __funct6 = (unsigned char)((__inst >> %d) & 0x%X);
-        unsigned char __vm     = (unsigned char)((__inst >> %d) & 0x01);
-        unsigned char __vs2    = (unsigned char)((__inst >> %d) & 0x1F);
-        unsigned char __vs1    = (unsigned char)((__inst >> %d) & 0x1F);
-        unsigned char __funct3 = (unsigned char)((__inst >> %d) & 0x07);
-        unsigned char __vd     = (unsigned char)((__inst >> %d)  & 0x1F);
+    #define __VISA_DISPATCH() do { \
+        if (__pc >= %d) goto __h_vret; \
+        __raw = %s[__pc]; \
+        __key = 0x%LxU ^ (__pc * 0x%LxU); \
+        __inst = __raw ^ __key; \
+        __funct6 = (unsigned char)((__inst >> %d) & 0x%X); \
+        __vm     = (unsigned char)((__inst >> %d) & 0x01); \
+        __vs2    = (unsigned char)((__inst >> %d) & 0x1F); \
+        __vs1    = (unsigned char)((__inst >> %d) & 0x1F); \
+        __funct3 = (unsigned char)((__inst >> %d) & 0x07); \
+        __vd     = (unsigned char)((__inst >> %d)  & 0x1F); \
+        __pc++; \
+        goto *__dispatch_table[__funct6 & 0x3F]; \
+    } while (0)
 
-        switch (__funct6) {
-            case 0x%X: /* vadd.vv */
-                __vregs[__vd] = __vregs[__vs1] + __vregs[__vs2];
-                break;
-            case 0x%X: /* vsub.vv */
-                __vregs[__vd] = __vregs[__vs1] - __vregs[__vs2];
-                break;
-            case 0x%X: /* vmul.vv */
-                __vregs[__vd] = __vregs[__vs1] * __vregs[__vs2];
-                break;
-            case 0x%X: /* vxor.vv */
-                __vregs[__vd] = __vregs[__vs1] ^ __vregs[__vs2];
-                break;
-            case 0x%X: /* vand.vv */
-                __vregs[__vd] = __vregs[__vs1] & __vregs[__vs2];
-                break;
-            case 0x%X: /* vor.vv */
-                __vregs[__vd] = __vregs[__vs1] | __vregs[__vs2];
-                break;
-            case 0x%X: /* vsll.vv */
-                __vregs[__vd] = __vregs[__vs1] << __vregs[__vs2];
-                break;
-            case 0x%X: /* vsrl.vv */
-                __vregs[__vd] = (int)((unsigned int)__vregs[__vs1] >> __vregs[__vs2]);
-                break;
-            case 0x%X: /* vli.vi (14-bit immediate) */
-                __vregs[__vd] = (int)((__vm << 13) | (__funct3 << 10) | (__vs1 << 5) | __vs2);
-                break;
-            case 0x%X: /* vmv.vv */
-                __vregs[__vd] = __vregs[__vs1];
-                break;
-            case 0x%X: /* vle8.v load byte */
-                if (__ptr_ctx) {
-                    __vregs[__vd] = (int)((unsigned char)__ptr_ctx[__vregs[__vs2]]);
-                }
-                break;
-            case 0x%X: /* vret.v */
-                __running = 0;
-                break;
-            case 0x%X: /* vbge.vv */
-                if (__vregs[__vs1] >= __vregs[__vs2]) {
-                    /* Break loop: jump past loop back-edge */
-                    __pc = (%d) - 1;
-                }
-                break;
-            case 0x%X: /* vj */
-                __pc = ((__inst >> 7) & 0x7FFFF) - 1;
-                break;
-            default:
-                break;
-        }
-        __pc++;
+    /* Enter Direct Threading pipeline */
+    __VISA_DISPATCH();
+
+__h_vadd:
+    __vregs[__vd] = __vregs[__vs1] + __vregs[__vs2];
+    __VISA_DISPATCH();
+
+__h_vsub:
+    __vregs[__vd] = __vregs[__vs1] - __vregs[__vs2];
+    __VISA_DISPATCH();
+
+__h_vmul:
+    __vregs[__vd] = __vregs[__vs1] * __vregs[__vs2];
+    __VISA_DISPATCH();
+
+__h_vxor:
+    __vregs[__vd] = __vregs[__vs1] ^ __vregs[__vs2];
+    __VISA_DISPATCH();
+
+__h_vand:
+    __vregs[__vd] = __vregs[__vs1] & __vregs[__vs2];
+    __VISA_DISPATCH();
+
+__h_vor:
+    __vregs[__vd] = __vregs[__vs1] | __vregs[__vs2];
+    __VISA_DISPATCH();
+
+__h_vsll:
+    __vregs[__vd] = __vregs[__vs1] << __vregs[__vs2];
+    __VISA_DISPATCH();
+
+__h_vsrl:
+    __vregs[__vd] = (int)((unsigned int)__vregs[__vs1] >> __vregs[__vs2]);
+    __VISA_DISPATCH();
+
+__h_vli:
+    __vregs[__vd] = (int)((__vm << 13) | (__funct3 << 10) | (__vs1 << 5) | __vs2);
+    __VISA_DISPATCH();
+
+__h_vmv:
+    __vregs[__vd] = __vregs[__vs1];
+    __VISA_DISPATCH();
+
+__h_vle8:
+    if (__ptr_ctx) {
+        __vregs[__vd] = (int)((unsigned char)__ptr_ctx[__vregs[__vs2]]);
     }
+    __VISA_DISPATCH();
+
+__h_vbge:
+    if (__vregs[__vs1] >= __vregs[__vs2]) {
+        __pc = (%d);
+    }
+    __VISA_DISPATCH();
+
+__h_vj:
+    __pc = ((__inst >> 7) & 0x7FFFF);
+    __VISA_DISPATCH();
+
+__h_default:
+    __VISA_DISPATCH();
+
+__h_vret:
     return __vregs[0];
 }
 |}
@@ -528,16 +561,6 @@ int %s(%s) {
         vreg_total
         arg_inits
         ptr_arg
-        (List.length packed_words)
-        vbc_name
-        spec.pack_key
-        spec.delta_key
-        lay.funct6_shift lay.funct6_mask
-        lay.vm_shift
-        lay.vs2_shift
-        lay.vs1_shift
-        lay.funct3_shift
-        lay.vd_shift
         op.vadd_vv
         op.vsub_vv
         op.vmul_vv
@@ -551,8 +574,18 @@ int %s(%s) {
         op.vle8_v
         op.vret_v
         op.vbge_vv
-        (List.length packed_words - 2)
         op.vj
+        (List.length packed_words)
+        vbc_name
+        spec.pack_key
+        spec.delta_key
+        lay.funct6_shift lay.funct6_mask
+        lay.vm_shift
+        lay.vs2_shift
+        lay.vs1_shift
+        lay.funct3_shift
+        lay.vd_shift
+        (List.length packed_words - 2)
       in
 
       let new_globals = ref [] in
