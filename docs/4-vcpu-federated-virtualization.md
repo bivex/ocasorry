@@ -14,13 +14,13 @@ Rather than relying on a single monolithic virtual machine with fixed opcodes, V
 graph TD
     subgraph "Input Layer"
         SRC["C Source File (Annotated Functions)"]
-        SYNTH["tools/visa_synthesizer.py"]
+        SYNTH["vectis-synth (Native OCaml + Sail)"]
     end
 
     subgraph "Formal Sail Specification Layer"
-        SYNTH --> S1["Tier 1: vcpu1_visa.sail & .json<br/>(32-bit Vector Instruction ISA)"]
+        SYNTH --> S1["Tier 1: vcpu1_visa.sail & .json<br/>(32-bit Vector ISA: 24 Random Layouts)"]
         SYNTH --> S2["Tier 2: vcpu2_nested_vm.sail & .json<br/>(2-Tier Hierarchical Outer/Inner VM)"]
-        SYNTH --> S3["Tier 3: vcpu3_rolling_vkey.sail & .json<br/>(Stateful Rolling Key VM)"]
+        SYNTH --> S3["Tier 3: vcpu3_rolling_vkey.sail & .json<br/>(Stateful Rolling Key VM: Random LCG)"]
         SYNTH --> S4["Tier 4: vcpu4_ephemeral_jit.sail & .json<br/>(In-Memory Ephemeral JIT Wiper VM)"]
     end
 
@@ -49,36 +49,36 @@ graph TD
 
 ### 1️⃣ Tier 1 (VCPU 1): `random_vISA` (Vector Processor)
 * **Annotation**: `__attribute__((annotate("vectis:visa")))`
-* **Formal Sail Spec**: [`examples/vcpu1_visa.sail`](file:///Volumes/External/Code/vectis/examples/vcpu1_visa.sail)
+* **Formal Sail Spec**: [`examples/optimal_license_sail/vcpu1_visa.sail`](file:///Volumes/External/Code/ocasorry/examples/optimal_license_sail/vcpu1_visa.sail)
 * **Characteristics**:
-  - Full 32-bit Vector Instruction Word architecture (`funct6[31:26] | vm[25] | vs2[24:20] | vs1[19:15] | funct3[14:12] | vd[11:7] | opcode[6:0]`).
+  - Full 32-bit Vector Instruction Word architecture with **24 dynamic bitfield layout permutations** ($4!$ shuffles of `pair`, `vm`, `vs2`, `vs1` across `[25:7]`, `vd_shift` $\in \{7, 8, 12, 13, 17, 18\}$).
   - 64 virtual vector registers (`__vregs[64]`).
-  - 14-bit immediate packing (`vli.vi`), conditional branch comparisons (`vbge.vv`), memory vector loading (`vle8.v`), and pointer arithmetic.
-  - Per-instruction rolling XOR decryption: $\text{Key}_{pc} = \text{PackKey} \oplus (pc \times \Delta_{\text{key}})$.
+  - Immediate packing (`vli.vi`), conditional branch comparisons (`vbge.vv`), memory vector loading (`vle8.v`), and pointer arithmetic.
+  - Per-instruction rolling XOR decryption: $\text{Key}_{pc} = \text{PackKey} \oplus (pc \times \Delta_{\text{key}})$, where $\Delta_{\text{key}}$ is a random odd 32-bit integer.
 
 ### 2️⃣ Tier 2 (VCPU 2): `nested_vm` (2-Tier Hierarchical VM)
 * **Annotation**: `__attribute__((annotate("vectis:nested_vm")))`
-* **Formal Sail Spec**: [`examples/vcpu2_nested_vm.sail`](file:///Volumes/External/Code/vectis/examples/vcpu2_nested_vm.sail)
+* **Formal Sail Spec**: [`examples/optimal_license_sail/vcpu2_nested_vm.sail`](file:///Volumes/External/Code/ocasorry/examples/optimal_license_sail/vcpu2_nested_vm.sail)
 * **Characteristics**:
-  - Interpreter-in-Interpreter design:
+  - Interpreter-in-Interpreter design with **per-build randomized opcode shuffles**:
     - **Outer Meta-Controller**: Decrypts outer bytecode managing frame setup (`OUT_SETUP`), dispatching (`OUT_DISPATCH`), key rotation (`OUT_MUTATE_KEY`), and termination (`OUT_HALT`).
     - **Inner Worker VCPU**: Decrypts arithmetic/register operations (`IN_ADD`, `IN_SUB`, `IN_MUL`, `IN_XOR`, `IN_LOAD_ARG`, `IN_LOAD_CONST`, `IN_RET`) on 8 virtual registers.
   - Independent rolling algebraic keys for outer and inner bytecode layers.
 
 ### 3️⃣ Tier 3 (VCPU 3): `rolling_vkey` (Stateful Rolling Key VM)
 * **Annotation**: `__attribute__((annotate("vectis:rolling_vkey")))`
-* **Formal Sail Spec**: [`examples/vcpu3_rolling_vkey.sail`](file:///Volumes/External/Code/vectis/examples/vcpu3_rolling_vkey.sail)
+* **Formal Sail Spec**: [`examples/optimal_license_sail/vcpu3_rolling_vkey.sail`](file:///Volumes/External/Code/ocasorry/examples/optimal_license_sail/vcpu3_rolling_vkey.sail)
 * **Characteristics**:
-  - Cryptographic state synchronization tied strictly to execution history:
-    $$VKey_{n+1} = (VKey_n \times 33) \oplus (Dec_n + \text{0x9E3779B9})$$
+  - Cryptographic state synchronization tied strictly to execution history with **randomized invertible LCG multiplier and delta**:
+    $$VKey_{n+1} = (VKey_n \times \text{Mult}_{\text{LCG}}) \oplus (Dec_n + \Delta_{\text{LCG}})$$
   - Out-of-order execution, isolated opcode tracing, or memory byte patching causes immediate desynchronization of all subsequent instruction decryptions.
 
 ### 4️⃣ Tier 4 (VCPU 4): `ephemeral_jit` (In-Memory JIT Wiper VM)
 * **Annotation**: `__attribute__((annotate("vectis:ephemeral")))`
-* **Formal Sail Spec**: [`examples/vcpu4_ephemeral_jit.sail`](file:///Volumes/External/Code/vectis/examples/vcpu4_ephemeral_jit.sail)
+* **Formal Sail Spec**: [`examples/optimal_license_sail/vcpu4_ephemeral_jit.sail`](file:///Volumes/External/Code/ocasorry/examples/optimal_license_sail/vcpu4_ephemeral_jit.sail)
 * **Characteristics**:
   - Allocated dynamically into anonymous RAM pages via `mmap(PROT_READ | PROT_WRITE)`.
-  - Bytecode payload is decrypted directly in RAM, executed, and **immediately zeroed (`memset 0`) and unmapped (`munmap`)**.
+  - Bytecode payload is decrypted directly in RAM, executed via native AArch64 machine code staging (4096-byte page alignment), and **immediately zeroed (`memset 0`) and unmapped (`munmap`)**.
   - Prevents RAM memory dumping and core dump reconstruction of validation logic.
 
 ---

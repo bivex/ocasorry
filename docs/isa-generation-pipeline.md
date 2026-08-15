@@ -54,22 +54,22 @@ graph TD
 
 Every compilation pass can synthesize a unique, randomized instruction set architecture using the native tool `vectis-synth` or `c_isa_synthesizer_service.ml`.
 
-### 2.1 32-Bit Instruction Word Layout
-Each instruction word is encoded into a strictly partitioned bitfield layout without field overlaps:
+### 2.1 32-Bit Instruction Word Layout & 24 Permutation Space
+Each instruction word is encoded dynamically at build time into one of **$4! = 24$ valid bitfield arrangements** over the free window `[25:7]`:
 
-$$\text{Word} = \mathcal{E}(\mathrm{funct6}, \mathrm{vm}, \mathrm{vs2}, \mathrm{vs1\_imm}, \mathrm{target\_pc}, \mathrm{opcode})$$
+$$\text{Word} = \mathcal{E}(\mathrm{funct6}_{[31:26]}, \mathrm{vm}, \mathrm{vs2}, \mathrm{vs1}, \mathrm{funct3} + \mathrm{vd}, \mathrm{opcode}_{[6:0]})$$
 
-| Field | Bits | Width | Description |
-| :--- | :--- | :--- | :--- |
-| `funct6` | `[31:26]` | 6 bits | Primary Opcode Selector ($0 \le \text{slot} \le 63$) |
-| `vm` | `[25]` | 1 bit | Vector/Register Mask Mode |
-| `vs2` | `[24:20]` | 5 bits | Second Source Virtual Register ($r_0 \dots r_{31}$) |
-| `vs1_imm` | `[19:15]` | 5 bits | First Source Virtual Register or 5-bit Immediate |
-| `target_pc` / `funct3` + `vd` | `[14:7]` | 8 bits | 8-Bit Branch Target Offset ($0 \le \text{target} \le 255$) or (`funct3[14:12]` + `vd[11:7]`) |
-| `opcode` | `[6:0]` | 7 bits | Architecture Opcode Marker (e.g., `0x57`) |
+| Field Block | Width | Invariants & Constraints |
+| :--- | :--- | :--- |
+| `funct6` | 6 bits | Fixed at `[31:26]` (Primary Opcode Selector, mask `0x3F`) |
+| `pair` (`funct3` + `vd`) | 8 bits | Fused branch target / destination pair (`funct3_shift = vd_shift + 5`, `vd_shift` $\in \{7, 8, 12, 13, 17, 18\}$) |
+| `vm` | 1 bit | Vector/Register Mask Mode bit (`[25:7]` window) |
+| `vs2` | 5 bits | Second Source Virtual Register ($r_0 \dots r_{31}$) |
+| `vs1` | 5 bits | First Source Virtual Register ($r_0 \dots r_{31}$) |
+| `opcode` | 7 bits | Fixed at `[6:0]` (Base Opcode Marker, 128 variants mod 128) |
 
 > [!NOTE]
-> For unconditional jumps (`vj`), because there are no register operands (`vs1`/`vs2`), the target field expands to **19 bits** (`bits [25:7]`, mask `0x7FFFF`), allowing jumps across up to 524,288 instructions.
+> For unconditional jumps (`vj`), because there are no register operands (`vs1`/`vs2`), the target field occupies the entire **19-bit window** `[25:7]` (mask `0x7FFFF`, bottom fixed at shift 7), allowing jumps across up to 524,288 instructions. All layouts are verified via `validate_layout` before emission.
 
 ### 2.2 Formal Sail Specification (`.sail`)
 Generates formal ISA models executable and verifiable with Cambridge Sail:
@@ -272,20 +272,34 @@ static const void * const __dispatch_table[64] = {
 
 ## 🚀 6. Quick Start & Verification
 
-### Synthesize and Run Multi-ISA Virtualized Binaries
+### 1. Synthesize ISAs with ML Overrides and Seed Control
 ```bash
-# 1. Synthesize multiple ISAs
-vectis-synth --vcpu visa --name VCPU1_Arch --seed 101 --output-json specs/VCPU1_Arch.json
-vectis-synth --vcpu visa --name VCPU2_Arch --seed 202 --output-json specs/VCPU2_Arch.json
+# Synthesize with fresh crypto-random entropy (unique architecture per build)
+vectis-synth --vcpu all --output-dir specs/
 
-# 2. Virtualize C Code with Multi-ISA routing
+# Synthesize with ML parameter overrides (GF poly, ROL constant, imm width)
+vectis-synth --vcpu visa --name VCPU1_Arch --gf-poly 0x8D --rol-const 5 --imm-bits 16 --output-dir specs/
+
+# Synthesize with deterministic seed for reproducible CI/CD
+vectis-synth --vcpu visa --name VCPU1_Arch --seed 42 --output-json specs/VCPU1_Arch.json
+```
+
+### 2. Full 4-Tier Virtualization in One Command
+```bash
+# Automatically builds, generates fresh ML specs, and compiles with Clang -O2
+make virtualize IN=examples/09_test_multi_isa.c BIN=test_multi.bin
+./test_multi.bin
+```
+
+### 3. Manual Granular CLI Compilation
+```bash
 vectis -i examples/09_test_multi_isa.c -o examples/09_test_multi_isa_virtualized.c \
   --visa-specs-dir specs/ \
   --virtualize \
+  --rolling-vkey \
   --anti-vtil \
   --loki-invariants
 
-# 3. Compile to Native 64-Bit Binary
-clang -O2 examples/09_test_multi_isa_virtualized.c -o test_multi.bin
+clang -w -O2 examples/09_test_multi_isa_virtualized.c -o test_multi.bin
 ./test_multi.bin
 ```
