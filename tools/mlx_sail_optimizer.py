@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
 """
 mlx_sail_optimizer.py — OcaSorry Sail ISA MLX Neural Optimizer
-Trains a deep neural network on the sail_dataset.json to predict quality scores,
-then uses gradient-based search to find the optimal parameter sets for each
-VCPU type — maximizing uniqueness, entropy, and cryptographic strength.
+Trains a deep neural network on sail_dataset.json with Apple Silicon GPU acceleration
+and realtime epoch/progress reporting, then performs GPU gradient ascent to discover
+globally optimal parameters for Sail polymorphic ISAs.
 """
 
 import argparse
 import json
 import math
 import sys
+import time
 from pathlib import Path
 
 try:
@@ -20,7 +21,7 @@ try:
     HAS_MLX = True
 except ImportError:
     HAS_MLX = False
-    print("[!] MLX not available — install: pip install mlx")
+    print("[!] MLX not available — install: pip install mlx", flush=True)
     sys.exit(1)
 
 # ─── Architecture ─────────────────────────────────────────────────────────────
@@ -48,19 +49,6 @@ class SailQualityNet(nn.Module):
         h4 = nn.gelu(self.fc4(h3))
         return mx.sigmoid(self.head(h4))
 
-class SailParamOptimizer(nn.Module):
-    """
-    Learnable parameter vector for a given VCPU type.
-    Represents the continuous parameter space and outputs feature vectors.
-    Trained via gradient ascent to maximize predicted quality.
-    """
-    def __init__(self, dim: int = 9):
-        super().__init__()
-        self.params = mx.zeros([dim])
-
-    def __call__(self):
-        return mx.sigmoid(self.params)  # clamp [0,1]
-
 # ─── Dataset loading ─────────────────────────────────────────────────────────
 
 def load_dataset(path: str, vcpu: str):
@@ -79,7 +67,7 @@ def load_dataset(path: str, vcpu: str):
     return (mx.array(np.array(X, dtype=np.float32)),
             mx.array(np.array(Y, dtype=np.float32)))
 
-# ─── Training ─────────────────────────────────────────────────────────────────
+# ─── Training with Realtime Epoch Telemetry ──────────────────────────────────
 
 def train_quality_net(X, Y, epochs: int = 300, lr: float = 3e-3,
                       batch_size: int = 256, hidden: int = 128):
@@ -94,11 +82,12 @@ def train_quality_net(X, Y, epochs: int = 300, lr: float = 3e-3,
 
     loss_and_grad = nn.value_and_grad(model, loss_fn)
 
-    print(f"  Training quality predictor: n={n_samples} dim={dim} hidden={hidden} epochs={epochs}")
+    print(f"  [+] Training on Apple Silicon Metal GPU (samples={n_samples}, dim={dim}, hidden={hidden}, total_epochs={epochs})", flush=True)
     best_loss = float('inf')
+    t0 = time.time()
 
-    for epoch in range(epochs):
-        # shuffle
+    for epoch in range(1, epochs + 1):
+        # Shuffle dataset
         idx = np.random.permutation(n_samples)
         X_s = X[idx.tolist()]
         Y_s = Y[idx.tolist()]
@@ -116,57 +105,62 @@ def train_quality_net(X, Y, epochs: int = 300, lr: float = 3e-3,
         if avg_loss < best_loss:
             best_loss = avg_loss
 
-        if (epoch + 1) % 50 == 0 or epoch == 0:
+        # Live Epoch Progress Logging (every 25 epochs or at key milestones)
+        if epoch == 1 or epoch % 25 == 0 or epoch == epochs:
+            elapsed = time.time() - t0
+            progress_pct = (epoch / epochs) * 100.0
             preds = model(X[:256])
-            corr  = float(mx.mean((preds[:,0] - Y[:256,0])**2))
-            print(f"    Epoch {epoch+1:3d}/{epochs}  loss={avg_loss:.5f}  "
-                  f"best={best_loss:.5f}  val_mse={corr:.5f}")
+            val_mse = float(mx.mean((preds[:, 0] - Y[:256, 0]) ** 2))
+            bar_len = 20
+            filled = int(bar_len * epoch / epochs)
+            bar = "=" * filled + "-" * (bar_len - filled)
+            print(f"    [{epoch:3d}/{epochs:3d}] [{bar}] {progress_pct:5.1f}% | Loss: {avg_loss:.6f} | Best: {best_loss:.6f} | Val MSE: {val_mse:.6f} | Time: {elapsed:.2f}s", flush=True)
 
     return model
 
-# ─── Gradient-based parameter search ─────────────────────────────────────────
+# ─── GPU-Accelerated Gradient-Based Parameter Search ──────────────────────────
 
-def optimize_params(quality_net, vcpu: str, n_restarts: int = 20,
-                    grad_steps: int = 500, lr: float = 5e-3) -> dict:
+def optimize_params(quality_net, vcpu: str, n_restarts: int = 50,
+                    grad_steps: int = 500, lr: float = 0.02) -> dict:
     """
-    Finds optimal continuous parameters by gradient ascent on quality_net.
-    Returns the best parameter vector found across n_restarts.
+    GPU vectorized gradient ascent across multiple random restarts simultaneously.
     """
-    best_score  = -1.0
+    print(f"\n[2] Executing Vectorized GPU Gradient Search ({n_restarts} restarts × {grad_steps} steps)...", flush=True)
+    t0 = time.time()
+
+    # Shape: [n_restarts, 9]
+    init_np = np.random.uniform(-1.0, 1.0, (n_restarts, 9)).astype(np.float32)
+    params = mx.array(init_np)
+
+    def score_objective(p_batch):
+        p_sig = mx.sigmoid(p_batch)
+        # QualityNet evaluation on batch
+        scores = quality_net(p_sig)
+        return -mx.sum(scores)  # Minimize negative score = maximize score
+
+    grad_fn = mx.grad(score_objective)
+
+    best_score = -1.0
     best_params = None
 
-    for restart in range(n_restarts):
-        # Random initialization
-        init = mx.array(np.random.uniform(0.1, 0.9, [9]).astype(np.float32))
-        params = mx.array(init.tolist())
-        # Manual gradient ascent (maximize quality = minimize -quality)
-        for step in range(grad_steps):
+    for step in range(1, grad_steps + 1):
+        grads = grad_fn(params)
+        # Gradient ascent step: - grads since objective was negative sum
+        params = params - lr * grads
+        params = mx.clip(params, -6.0, 6.0)
+        mx.eval(params)
+
+        if step % 100 == 0 or step == grad_steps:
             p_sig = mx.sigmoid(params)
-            pred  = quality_net(p_sig[None])[0, 0]
-            loss  = -pred   # ascent
-            # finite differences for params (MLX doesn't support nn.value_and_grad on bare arrays easily)
-            grads = np.zeros(9, dtype=np.float32)
-            eps = 1e-3
-            for i in range(9):
-                p_plus = params.tolist()
-                p_plus[i] += eps
-                p_minus = params.tolist()
-                p_minus[i] -= eps
-                vp = float(quality_net(mx.sigmoid(mx.array(p_plus))[None])[0, 0])
-                vm = float(quality_net(mx.sigmoid(mx.array(p_minus))[None])[0, 0])
-                grads[i] = (vp - vm) / (2 * eps)
-            params = mx.array((np.array(params.tolist()) + lr * grads).astype(np.float32))
-            # Clamp raw params to avoid extreme sigmoid saturation
-            params = mx.clip(params, -5.0, 5.0)
-
-        final = mx.sigmoid(params)
-        score = float(quality_net(final[None])[0, 0])
-        if score > best_score:
-            best_score  = score
-            best_params = final.tolist()
-
-        if (restart + 1) % 5 == 0:
-            print(f"    Restart {restart+1:2d}/{n_restarts}  best_score={best_score:.4f}")
+            scores = quality_net(p_sig)[:, 0]
+            mx.eval(scores)
+            max_idx = int(mx.argmax(scores))
+            cur_max = float(scores[max_idx])
+            if cur_max > best_score:
+                best_score = cur_max
+                best_params = p_sig[max_idx].tolist()
+            elapsed = time.time() - t0
+            print(f"    [Step {step:3d}/{grad_steps:3d}] Max Score: {cur_max:.5f} | Best So Far: {best_score:.5f} | Time: {elapsed:.2f}s", flush=True)
 
     return {"params": best_params, "predicted_quality": best_score}
 
@@ -180,22 +174,22 @@ def decode_params(vcpu: str, fvec: list[float]) -> dict:
         gf_idx   = min(int(fvec[0] * len(GF_POLYS)), len(GF_POLYS)-1)
         imm_idx  = min(int(fvec[2] * 3), 2)
         return {
-            "gf_poly":        hex(GF_POLYS[gf_idx]),
-            "rol_const":      max(1, min(15, round(fvec[1] * 15))),
-            "imm_bits":       [12, 14, 16][imm_idx],
-            "opcode_entropy": round(fvec[3] * 4.0, 3),
+            "gf_poly":          hex(GF_POLYS[gf_idx]),
+            "rol_const":        max(1, min(15, round(fvec[1] * 15))),
+            "imm_bits":         [12, 14, 16][imm_idx],
+            "opcode_entropy":   round(fvec[3] * 4.0, 3),
             "mnemonic_entropy": round(fvec[4] * 6.0, 3),
-            "syllable_count": round(fvec[5] * 32),
+            "syllable_count":   round(fvec[5] * 32),
         }
     if vcpu == 'nested':
         hb_idx = min(int(fvec[0] * 3), 2)
         return {
-            "hash_bits":   [32, 48, 64][hb_idx],
-            "stack_depth": max(4, min(16, round(fvec[1] * 16))),
-            "state_regs":  max(4, min(12, round(fvec[2] * 12))),
+            "hash_bits":        [32, 48, 64][hb_idx],
+            "stack_depth":      max(4, min(16, round(fvec[1] * 16))),
+            "state_regs":       max(4, min(12, round(fvec[2] * 12))),
             "mnemonic_entropy": round(fvec[3] * 6.0, 3),
-            "outer_ops":   max(4, round(fvec[4] * 8)),
-            "inner_ops":   max(4, round(fvec[5] * 14)),
+            "outer_ops":        max(4, round(fvec[4] * 8)),
+            "inner_ops":        max(4, round(fvec[5] * 14)),
         }
     if vcpu == 'rolling':
         kb_idx = min(int(fvec[0] * 3), 2)
@@ -203,21 +197,21 @@ def decode_params(vcpu: str, fvec: list[float]) -> dict:
         lcg_mults = [17, 31, 33, 65]
         lm_idx = min(int(fvec[3] * len(lcg_mults)), len(lcg_mults)-1)
         return {
-            "key_bits":    [32, 48, 64][kb_idx],
-            "state_regs":  max(4, min(8, round(fvec[1] * 8))),
-            "gf_poly":     hex(GF_POLYS[gf_idx]),
-            "lcg_mult":    lcg_mults[lm_idx],
+            "key_bits":         [32, 48, 64][kb_idx],
+            "state_regs":       max(4, min(8, round(fvec[1] * 8))),
+            "gf_poly":          hex(GF_POLYS[gf_idx]),
+            "lcg_mult":         lcg_mults[lm_idx],
             "mnemonic_entropy": round(fvec[5] * 6.0, 3),
-            "rk_ops":      max(4, round(fvec[6] * 12)),
+            "rk_ops":           max(4, round(fvec[6] * 12)),
         }
     if vcpu == 'ephemeral':
         return {
-            "page_shift":  12 + min(int(fvec[0] * 4), 3),
-            "wipe_passes": max(2, min(6, round(fvec[1] * 6))),
-            "jit_regs":    max(4, min(7, round(fvec[2] * 7))),
+            "page_shift":       12 + min(int(fvec[0] * 4), 3),
+            "wipe_passes":      max(2, min(6, round(fvec[1] * 6))),
+            "jit_regs":         max(4, min(7, round(fvec[2] * 7))),
             "mnemonic_entropy": round(fvec[4] * 6.0, 3),
-            "ep_ops":      max(4, round(fvec[5] * 12)),
-            "jit_states":  max(4, round(fvec[6] * 12)),
+            "ep_ops":           max(4, round(fvec[5] * 12)),
+            "jit_states":       max(4, round(fvec[6] * 12)),
         }
     return {}
 
@@ -227,11 +221,11 @@ def main():
     ap = argparse.ArgumentParser(description="OcaSorry Sail ISA MLX Optimizer")
     ap.add_argument("--dataset",    default="tools/sail_dataset.json")
     ap.add_argument("--epochs",     type=int, default=300)
-    ap.add_argument("--restarts",   type=int, default=20)
+    ap.add_argument("--restarts",   type=int, default=50)
     ap.add_argument("--grad-steps", type=int, default=500)
     ap.add_argument("--hidden",     type=int, default=128)
     ap.add_argument("--lr-train",   type=float, default=3e-3)
-    ap.add_argument("--lr-opt",     type=float, default=5e-3)
+    ap.add_argument("--lr-opt",     type=float, default=0.02)
     ap.add_argument("--output",     default="tools/sail_optimal_params.json")
     ap.add_argument("--vcpu",       default="all",
                     choices=["all", "visa", "nested", "rolling", "ephemeral"])
@@ -239,8 +233,8 @@ def main():
 
     dataset_path = Path(args.dataset)
     if not dataset_path.exists():
-        print(f"[!] Dataset not found: {dataset_path}")
-        print(f"    Run: python3 tools/sail_dataset_gen.py -n 2000")
+        print(f"[!] Dataset not found: {dataset_path}", flush=True)
+        print(f"    Run: python3 tools/sail_dataset_gen.py -n 2000", flush=True)
         sys.exit(1)
 
     vcpu_types = (["visa", "nested", "rolling", "ephemeral"]
@@ -249,22 +243,21 @@ def main():
     results = {}
 
     for vcpu in vcpu_types:
-        print(f"\n{'='*60}")
-        print(f"  VCPU: {vcpu.upper()}")
-        print(f"{'='*60}")
+        print(f"\n{'='*70}", flush=True)
+        print(f"  VCPU TIER ARCHITECTURE: {vcpu.upper()}", flush=True)
+        print(f"{'='*70}", flush=True)
 
         try:
             X, Y = load_dataset(args.dataset, vcpu)
         except ValueError as e:
-            print(f"  [!] {e}")
+            print(f"  [!] {e}", flush=True)
             continue
 
-        print(f"  Dataset: {X.shape[0]} samples, dim={X.shape[1]}")
-        print(f"  Score range: [{float(Y.min()):.3f}, {float(Y.max()):.3f}]")
-        print(f"  Score mean:  {float(mx.mean(Y)):.3f}")
+        print(f"  Dataset: {X.shape[0]} samples, dim={X.shape[1]}", flush=True)
+        print(f"  Score range: [{float(Y.min()):.3f}, {float(Y.max()):.3f}] | Mean: {float(mx.mean(Y)):.3f}", flush=True)
 
         # Train quality predictor
-        print(f"\n[1] Training quality predictor...")
+        print(f"\n[1] Training Neural Quality Predictor (Total Epochs: {args.epochs})...", flush=True)
         net = train_quality_net(X, Y,
                                 epochs=args.epochs,
                                 lr=args.lr_train,
@@ -273,25 +266,9 @@ def main():
         # Evaluate on dataset
         all_preds = net(X)
         train_mse = float(mx.mean((all_preds - Y) ** 2))
-        print(f"  Final train MSE: {train_mse:.6f}")
-
-        # Find top-K actual samples
-        scores_np = np.array(Y.tolist()).flatten()
-        top_k_idx = np.argsort(scores_np)[::-1][:5]
-        print(f"\n  Top-5 actual samples (seeds):")
-
-        # Load top seeds for reference
-        with open(args.dataset) as f:
-            raw = json.load(f)
-        vcpu_samples = [(s["seed"], s["vcpus"][vcpu])
-                        for s in raw["samples"] if vcpu in s["vcpus"]]
-        vcpu_samples.sort(key=lambda x: x[1]["quality_score"], reverse=True)
-        for seed, sv in vcpu_samples[:5]:
-            print(f"    seed={seed:6d}  score={sv['quality_score']:.4f}  "
-                  f"feats={sv['features']}")
+        print(f"  [+] Final Training MSE: {train_mse:.6f}", flush=True)
 
         # Gradient-based parameter optimization
-        print(f"\n[2] Gradient-based parameter search ({args.restarts} restarts × {args.grad_steps} steps)...")
         opt_result = optimize_params(net, vcpu,
                                      n_restarts=args.restarts,
                                      grad_steps=args.grad_steps,
@@ -300,16 +277,16 @@ def main():
         # Decode to concrete values
         decoded = decode_params(vcpu, opt_result["params"])
 
-        print(f"\n  ★ Optimal parameters for {vcpu.upper()}:")
-        print(f"    predicted_quality = {opt_result['predicted_quality']:.4f}")
+        print(f"\n  ★ DISCOVERED OPTIMAL CONFIGURATION FOR {vcpu.upper()}:", flush=True)
+        print(f"    Predicted Quality Score = {opt_result['predicted_quality']:.5f}", flush=True)
         for k, v in decoded.items():
-            print(f"    {k:22s} = {v}")
+            print(f"    {k:22s} = {v}", flush=True)
 
         results[vcpu] = {
-            "predicted_quality": opt_result["predicted_quality"],
-            "feature_vector":    opt_result["params"],
-            "optimal_params":    decoded,
-            "train_mse":         train_mse,
+            "predicted_quality":  opt_result["predicted_quality"],
+            "feature_vector":     opt_result["params"],
+            "optimal_params":     decoded,
+            "train_mse":          train_mse,
             "dataset_mean_score": float(mx.mean(Y)),
             "dataset_max_score":  float(Y.max()),
         }
@@ -318,12 +295,11 @@ def main():
     out_path = Path(args.output)
     with open(out_path, "w") as f:
         json.dump(results, f, indent=2)
-    print(f"\n{'='*60}")
-    print(f"[+] Optimal parameters saved -> {out_path}")
-    print(f"\n[Summary]")
+    print(f"\n{'='*70}", flush=True)
+    print(f"[+] All optimal Sail parameter models saved -> {out_path}", flush=True)
+    print(f"\n[Optimal Quality Score Summary]", flush=True)
     for vcpu, r in results.items():
-        print(f"  {vcpu:10s}  quality={r['predicted_quality']:.4f}  "
-              f"(dataset_max={r['dataset_max_score']:.3f})")
+        print(f"  {vcpu:12s}  Predicted Quality: {r['predicted_quality']:.5f}  (Dataset Max: {r['dataset_max_score']:.3f})", flush=True)
 
 if __name__ == "__main__":
     main()
