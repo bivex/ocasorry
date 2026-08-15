@@ -299,7 +299,7 @@ module Make (Entropy : Entropy_port.S) = struct
         SkipChildren
       ) else (
         current_fn_enabled <-
-          global_enabled ||
+          (global_enabled && not (C_annotation_service.AnnotationHelper.has_any_vm_annotation fd)) ||
           C_annotation_service.AnnotationHelper.has_annotation fd "egraph_mba" ||
           C_annotation_service.AnnotationHelper.has_annotation fd "mba_egraph";
         DoChildren

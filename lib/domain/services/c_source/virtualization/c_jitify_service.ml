@@ -9,10 +9,9 @@ module Make (Entropy : Entropy_port.S) = struct
 
   let should_transform (fd : fundec) : bool =
     if fd.svar.vname = "main" || String.starts_with ~prefix:"__" fd.svar.vname then false
-    else if C_annotation_service.AnnotationHelper.should_skip_all fd then false
     else if C_annotation_service.AnnotationHelper.has_annotation fd "jitify"
             || C_annotation_service.AnnotationHelper.has_annotation fd "jit" then true
-    else not (C_annotation_service.AnnotationHelper.has_any_vm_annotation fd)
+    else false
 
   let transform_function (file : file) (fd : fundec) : unit =
     if not (should_transform fd) then ()
