@@ -5,19 +5,19 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
 
 echo "================================================================="
-echo "   OcaSorry: Native Mach-O 64-Bit E-Graph MBA & VCPU Builder     "
+echo "   Vectis: Native Mach-O 64-Bit E-Graph MBA & VCPU Builder     "
 echo "================================================================="
 
 eval $(opam env 2>/dev/null || true)
 
-echo "[1/4] Building OcaSorry compiler toolchain..."
-dune build bin/main.exe bin/ocasorry_synth.exe
+echo "[1/4] Building Vectis compiler toolchain..."
+dune build bin/main.exe bin/vectis_synth.exe
 
 SAIL_OUT="${ROOT_DIR}/examples/optimal_license_sail"
 mkdir -p "${SAIL_OUT}"
 
 echo "[2/4] Synthesizing Formal 4-VCPU Sail & JSON Specifications..."
-"${ROOT_DIR}/_build/default/bin/ocasorry_synth.exe" \
+"${ROOT_DIR}/_build/default/bin/vectis_synth.exe" \
   --vcpu all \
   --name "MachO_EGraph_4VCPU_Arch" \
   --output-dir "${SAIL_OUT}"

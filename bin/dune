@@ -1,14 +1,14 @@
 (executable
  (name main)
- (public_name ocasorry)
- (libraries ocasorry_lib unix str))
+ (public_name vectis)
+ (libraries vectis_lib unix str))
 
 (executable
- (name ocasorry_cc)
- (public_name ocasorry-cc)
- (libraries ocasorry_lib unix str))
+ (name vectis_cc)
+ (public_name vectis-cc)
+ (libraries vectis_lib unix str))
 
 (executable
- (name ocasorry_synth)
- (public_name ocasorry-synth)
- (libraries ocasorry_lib unix str))
+ (name vectis_synth)
+ (public_name vectis-synth)
+ (libraries vectis_lib unix str))

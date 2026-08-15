@@ -17,7 +17,7 @@ module Make (Entropy : Entropy_port.S) = struct
           helper_injected <- true;
           let checksum_helper =
             GText {|
-static unsigned int __ocasorry_crc_check(const unsigned char *p, int len) {
+static unsigned int __vectis_crc_check(const unsigned char *p, int len) {
     unsigned int crc = 0xFFFFFFFF;
     if (!p) return 0;
     for (int i = 0; i < len; i++) {
@@ -30,7 +30,7 @@ static unsigned int __ocasorry_crc_check(const unsigned char *p, int len) {
           file.globals <- checksum_helper :: file.globals
         );
 
-        let crc_fn = makeGlobalVar "__ocasorry_crc_check" (TFun (uintType, Some [ ("p", voidPtrType, []); ("len", intType, []) ], false, [])) in
+        let crc_fn = makeGlobalVar "__vectis_crc_check" (TFun (uintType, Some [ ("p", voidPtrType, []); ("len", intType, []) ], false, [])) in
         let hash_var = makeLocalVar fd "__code_crc" uintType in
         let fn_ptr = CastE (Explicit, voidPtrType, AddrOf (var fd.svar)) in
         let call_crc =

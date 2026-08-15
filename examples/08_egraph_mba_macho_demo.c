@@ -12,7 +12,7 @@ extern int strcmp(const char *s1, const char *s2);
 extern unsigned long strlen(const char *s);
 
 /* Stage 1: E-Graph Equality Expansion MBA Hash Engine */
-__attribute__((annotate("ocasorry:egraph_mba")))
+__attribute__((annotate("vectis:egraph_mba")))
 int egraph_mba_hash_stage(int a, int b, int c) {
     int x = (a + b) ^ (b - c);
     int y = (a ^ c) + (b & a);
@@ -21,7 +21,7 @@ int egraph_mba_hash_stage(int a, int b, int c) {
 }
 
 /* Stage 2: 4-vISA Vector Cryptographic Stage */
-__attribute__((annotate("ocasorry:visa")))
+__attribute__((annotate("vectis:visa")))
 int vcpu_vector_parity(const char *key) {
     int acc = 0x1337;
     int parity = 0x5A;
@@ -35,19 +35,19 @@ int vcpu_vector_parity(const char *key) {
 }
 
 /* Stage 3: Nested VM Transformation Stage */
-__attribute__((annotate("ocasorry:nested_vm")))
+__attribute__((annotate("vectis:nested_vm")))
 int vcpu_nested_stage(int h1) {
     return h1 + 21;
 }
 
 /* Stage 4: Rolling Virtual Key Mutation Stage */
-__attribute__((annotate("ocasorry:rolling_vkey")))
+__attribute__((annotate("vectis:rolling_vkey")))
 int vcpu_rolling_stage(int h2) {
     return (h2 ^ 0x42) * 2;
 }
 
 /* Stage 5: Ephemeral JIT & E-Graph Verification Gate */
-__attribute__((annotate("ocasorry:ephemeral, egraph_mba")))
+__attribute__((annotate("vectis:ephemeral, egraph_mba")))
 int vcpu_ephemeral_verifier(int h3, int egraph_val) {
     int target_h3 = 25548;
     int target_egraph = 8146;
@@ -57,7 +57,7 @@ int vcpu_ephemeral_verifier(int h3, int egraph_val) {
 }
 
 /* Master Mach-O Verifier Pipeline: Hardened with Literals */
-__attribute__((annotate("ocasorry:literals")))
+__attribute__((annotate("vectis:literals")))
 int verify_macho_license(const char *key, int verbose) {
     if (key == (void*)0 || strlen(key) != 16) {
         if (verbose) printf("  [-] Error: License key must be exactly 16 characters.\n");
@@ -118,7 +118,7 @@ int main(int argc, char **argv) {
     static const char key_bad[] = "BAD-KEY-00000000";
 
     printf("=================================================================\n");
-    printf("   OcaSorry: Native Mach-O 64-Bit E-Graph MBA & 4-VCPU Binary    \n");
+    printf("   Vectis: Native Mach-O 64-Bit E-Graph MBA & 4-VCPU Binary    \n");
     printf("=================================================================\n");
 
     if (argc > 1 && (strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0)) {

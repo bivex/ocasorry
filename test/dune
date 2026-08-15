@@ -2,4 +2,4 @@
 
 (test
  (name test_arm_obfuscator)
- (libraries ocasorry_lib unix str))
+ (libraries vectis_lib unix str))

@@ -4,12 +4,16 @@ open GoblintCil.Cil
     Parses and verifies GCC/Clang __attribute__((annotate("..."))) directives
     on functions to enable fine-grained, per-function obfuscation & VM routing.
     Supports comma-separated and semicolon-separated multi-pass declarations:
-    e.g., __attribute__((annotate("ocasorry:cff, poly_mba, relational_morph, anti_debug")))
+    e.g., __attribute__((annotate("vectis:cff, poly_mba, relational_morph, anti_debug")))
 *)
 module AnnotationHelper = struct
   let clean_token (raw : string) : string =
     let s = String.trim (String.lowercase_ascii raw) in
-    if String.starts_with ~prefix:"ocasorry:" s then
+    if String.starts_with ~prefix:"vectis:" s then
+      String.sub s 7 (String.length s - 7)
+    else if String.starts_with ~prefix:"vectis_" s then
+      String.sub s 7 (String.length s - 7)
+    else if String.starts_with ~prefix:"ocasorry:" s then
       String.sub s 9 (String.length s - 9)
     else if String.starts_with ~prefix:"ocasorry_" s then
       String.sub s 9 (String.length s - 9)

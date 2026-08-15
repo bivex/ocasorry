@@ -112,7 +112,7 @@ module Make (Entropy : Entropy_port.S) = struct
       incr vcpu_counter;
       generate_visa_runtime file;
 
-      (* Per-function ISA selection via annotation "ocasorry:visa:ISA_NAME".
+      (* Per-function ISA selection via annotation "vectis:visa:ISA_NAME".
          Falls back to active_spec if no specific ISA is named. *)
       let isa_annotation =
         C_annotation_service.AnnotationHelper.get_tokens fd

@@ -1,20 +1,20 @@
-open Ocasorry_lib
+open Vectis_lib
 
 module CilSourceObfuscator = Obfuscate_c_source_usecase.Make
     (System_entropy_adapter.Adapter)
     (Goblint_cil_adapter.Adapter)
 
 let underlying_cc =
-  try Sys.getenv "OCASORRY_CC" with Not_found -> "clang"
+  try Sys.getenv "VECTIS_CC" with Not_found -> "clang"
 
 let is_verbose =
-  try Sys.getenv "OCASORRY_VERBOSE" = "1" with Not_found -> false
+  try Sys.getenv "VECTIS_VERBOSE" = "1" with Not_found -> false
 
 let () =
   let raw_args = List.tl (Array.to_list Sys.argv) in
 
   if raw_args = [] || List.mem "--version" raw_args || List.mem "-v" raw_args then (
-    Printf.printf "OcaSorry C Compiler Wrapper (ocasorry-cc) v1.0.0\n";
+    Printf.printf "Vectis C Compiler Wrapper (vectis-cc) v1.0.0\n";
     Printf.printf "  Underlying compiler: %s\n" underlying_cc;
     Printf.printf "  Obfuscation engine: OCaml + Goblint-CIL\n";
     if raw_args = [] then exit 0
@@ -85,70 +85,70 @@ let () =
   List.iter
     (fun arg ->
       match arg with
-      | "--ocasorry-disable" -> disable_all := true
-      | "--ocasorry-no-mba" -> enable_mba := false
-      | "--ocasorry-poly-mba" -> enable_poly_mba := true
-      | "--ocasorry-float-mba" -> enable_float_mba := true
-      | "--ocasorry-no-cff" -> enable_cff := false
-      | "--ocasorry-no-opaque" -> enable_opaque := false
-      | "--ocasorry-dyn-opaque" -> enable_dyn_opaque := true
-      | "--ocasorry-diophantine" -> enable_diophantine := true
-      | "--ocasorry-bcf" -> enable_bcf := true
-      | "--ocasorry-split-bb" -> enable_bb_split := true
-      | "--ocasorry-decentralized-disp" -> enable_decentralized_disp := true
-      | "--ocasorry-relational-morph" -> enable_relational_morph := true
-      | "--ocasorry-irreducible-loop" -> enable_irreducible_loop := true
-      | "--ocasorry-unroll" -> enable_unroll := true
-      | "--ocasorry-fission" -> enable_fission := true
-      | "--ocasorry-loop-to-rec" -> enable_loop_to_rec := true
-      | "--ocasorry-indirect" -> enable_indirect := true
-      | "--ocasorry-lut" -> enable_lut := true
-      | "--ocasorry-interleave" -> enable_interleave := true
-      | "--ocasorry-permute-struct" -> enable_permute_struct := true
-      | "--ocasorry-pointer-mask" -> enable_pointer_mask := true
-      | "--ocasorry-homomorphic" -> enable_homomorphic := true
-      | "--ocasorry-virtualize" -> enable_virtualize := true
-      | "--ocasorry-nested-vm" -> enable_nested_vm := true
-      | "--ocasorry-self-mod-vm" -> enable_self_mod_vm := true
-      | "--ocasorry-rolling-vkey" -> enable_rolling_vkey := true
-      | "--ocasorry-vcpu-scramble" -> enable_vcpu_scramble := true
-      | "--ocasorry-ephemeral" -> enable_ephemeral_payload := true
-      | "--ocasorry-subst" -> enable_instruction_subst := true
-      | "--ocasorry-permute-instr" -> enable_instruction_permute := true
-      | "--ocasorry-ghost" -> enable_ghost_code := true
-      | "--ocasorry-live-range" -> enable_live_range_split := true
-      | "--ocasorry-unfold-const" -> enable_constant_unfold := true
-      | "--ocasorry-stack-alias" -> enable_stack_aliasing := true
-      | "--ocasorry-equalize-opcodes" -> enable_opcode_equalize := true
-      | "--ocasorry-anti-slicing" -> enable_anti_slicing := true
-      | "--ocasorry-jitify" -> enable_jitify := true
-      | "--ocasorry-no-literals" -> enable_literals := false
-      | "--ocasorry-no-split" -> enable_split := false
-      | "--ocasorry-implicit" -> enable_implicit := true
-      | "--ocasorry-sigfpe" -> enable_sigfpe := true
-      | "--ocasorry-sigill" -> enable_sigill := true
-      | "--ocasorry-threaded" -> enable_threaded := true
-      | "--ocasorry-syscall" -> enable_syscall := true
-      | "--ocasorry-merge" -> enable_merge := true
-      | "--ocasorry-outline" -> enable_outline := true
-      | "--ocasorry-inline" -> enable_inline := true
-      | "--ocasorry-call-flatten" -> enable_call_flatten := true
-      | "--ocasorry-bogus-calls" -> enable_bogus_calls := true
-      | "--ocasorry-rename" -> enable_rename := true
-      | "--ocasorry-strip" -> enable_strip := true
-      | "--ocasorry-anti-debug" -> enable_anti_debug := true
-      | "--ocasorry-anti-disasm" -> enable_anti_disasm := true
-      | "--ocasorry-self-checksum" -> enable_self_checksum := true
-      | "--ocasorry-timing-check" -> enable_timing_check := true
-      | "--ocasorry-hook-detect" -> enable_hook_detect := true
-      | "--ocasorry-api-hash" -> enable_api_hash := true
-      | "--ocasorry-constructor" -> enable_early_constructor := true
-      | arg_str when String.starts_with ~prefix:"--ocasorry-visa-spec=" arg_str ->
+      | "--vectis-disable" -> disable_all := true
+      | "--vectis-no-mba" -> enable_mba := false
+      | "--vectis-poly-mba" -> enable_poly_mba := true
+      | "--vectis-float-mba" -> enable_float_mba := true
+      | "--vectis-no-cff" -> enable_cff := false
+      | "--vectis-no-opaque" -> enable_opaque := false
+      | "--vectis-dyn-opaque" -> enable_dyn_opaque := true
+      | "--vectis-diophantine" -> enable_diophantine := true
+      | "--vectis-bcf" -> enable_bcf := true
+      | "--vectis-split-bb" -> enable_bb_split := true
+      | "--vectis-decentralized-disp" -> enable_decentralized_disp := true
+      | "--vectis-relational-morph" -> enable_relational_morph := true
+      | "--vectis-irreducible-loop" -> enable_irreducible_loop := true
+      | "--vectis-unroll" -> enable_unroll := true
+      | "--vectis-fission" -> enable_fission := true
+      | "--vectis-loop-to-rec" -> enable_loop_to_rec := true
+      | "--vectis-indirect" -> enable_indirect := true
+      | "--vectis-lut" -> enable_lut := true
+      | "--vectis-interleave" -> enable_interleave := true
+      | "--vectis-permute-struct" -> enable_permute_struct := true
+      | "--vectis-pointer-mask" -> enable_pointer_mask := true
+      | "--vectis-homomorphic" -> enable_homomorphic := true
+      | "--vectis-virtualize" -> enable_virtualize := true
+      | "--vectis-nested-vm" -> enable_nested_vm := true
+      | "--vectis-self-mod-vm" -> enable_self_mod_vm := true
+      | "--vectis-rolling-vkey" -> enable_rolling_vkey := true
+      | "--vectis-vcpu-scramble" -> enable_vcpu_scramble := true
+      | "--vectis-ephemeral" -> enable_ephemeral_payload := true
+      | "--vectis-subst" -> enable_instruction_subst := true
+      | "--vectis-permute-instr" -> enable_instruction_permute := true
+      | "--vectis-ghost" -> enable_ghost_code := true
+      | "--vectis-live-range" -> enable_live_range_split := true
+      | "--vectis-unfold-const" -> enable_constant_unfold := true
+      | "--vectis-stack-alias" -> enable_stack_aliasing := true
+      | "--vectis-equalize-opcodes" -> enable_opcode_equalize := true
+      | "--vectis-anti-slicing" -> enable_anti_slicing := true
+      | "--vectis-jitify" -> enable_jitify := true
+      | "--vectis-no-literals" -> enable_literals := false
+      | "--vectis-no-split" -> enable_split := false
+      | "--vectis-implicit" -> enable_implicit := true
+      | "--vectis-sigfpe" -> enable_sigfpe := true
+      | "--vectis-sigill" -> enable_sigill := true
+      | "--vectis-threaded" -> enable_threaded := true
+      | "--vectis-syscall" -> enable_syscall := true
+      | "--vectis-merge" -> enable_merge := true
+      | "--vectis-outline" -> enable_outline := true
+      | "--vectis-inline" -> enable_inline := true
+      | "--vectis-call-flatten" -> enable_call_flatten := true
+      | "--vectis-bogus-calls" -> enable_bogus_calls := true
+      | "--vectis-rename" -> enable_rename := true
+      | "--vectis-strip" -> enable_strip := true
+      | "--vectis-anti-debug" -> enable_anti_debug := true
+      | "--vectis-anti-disasm" -> enable_anti_disasm := true
+      | "--vectis-self-checksum" -> enable_self_checksum := true
+      | "--vectis-timing-check" -> enable_timing_check := true
+      | "--vectis-hook-detect" -> enable_hook_detect := true
+      | "--vectis-api-hash" -> enable_api_hash := true
+      | "--vectis-constructor" -> enable_early_constructor := true
+      | arg_str when String.starts_with ~prefix:"--vectis-visa-spec=" arg_str ->
           let spec_path = String.sub arg_str 21 (String.length arg_str - 21) in
           ignore (C_visa_spec_service.VisaSpec.load_from_file spec_path)
       | _ -> (
           if Filename.check_suffix arg ".c" && not !disable_all && Sys.file_exists arg then (
-            let tmp_c = Filename.temp_file "ocasorry_obf_" ".c" in
+            let tmp_c = Filename.temp_file "vectis_obf_" ".c" in
             temp_files := tmp_c :: !temp_files;
             let config : Obfuscate_c_source_usecase.c_pipeline_config = {
               enable_c_mba = !enable_mba;
@@ -217,13 +217,13 @@ let () =
               c_vm_profile = None;
             } in
             if is_verbose then
-              Printf.eprintf "[ocasorry-cc] Obfuscating source: %s -> %s\n%!" arg tmp_c;
+              Printf.eprintf "[vectis-cc] Obfuscating source: %s -> %s\n%!" arg tmp_c;
             (try
                CilSourceObfuscator.obfuscate_c_file arg tmp_c config;
                compiler_args := !compiler_args @ [ tmp_c ]
              with exn ->
                if is_verbose then
-                 Printf.eprintf "[ocasorry-cc] Warning: CIL parsing failed (%s), passing original source\n%!"
+                 Printf.eprintf "[vectis-cc] Warning: CIL parsing failed (%s), passing original source\n%!"
                    (Printexc.to_string exn);
                compiler_args := !compiler_args @ [ arg ])
           ) else (
@@ -235,7 +235,7 @@ let () =
     String.concat " " (underlying_cc :: List.map Filename.quote !compiler_args)
   in
   if is_verbose then
-    Printf.eprintf "[ocasorry-cc] Running: %s\n%!" cmd;
+    Printf.eprintf "[vectis-cc] Running: %s\n%!" cmd;
 
   let ret_code = Sys.command cmd in
 

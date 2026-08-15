@@ -1,4 +1,4 @@
-open Ocasorry_lib
+open Vectis_lib
 open Helpers
 
 let run () =
@@ -24,7 +24,7 @@ let run () =
   assert_bool "Generated VCPU 4 Ephemeral JIT Sail spec exists" (Sys.file_exists ephemeral_sail_path);
   assert_bool "Generated VCPU 1 JSON ISA spec exists" (Sys.file_exists spec_json_path);
 
-  (* 2. Load dynamic specification into OcaSorry engine *)
+  (* 2. Load dynamic specification into Vectis engine *)
   let loaded_spec = C_visa_spec_service.VisaSpec.load_from_file spec_json_path in
   assert_bool "Loaded ISA architecture name matches" (loaded_spec.isa_name = "vISA_Custom_Demo_Arch");
   assert_bool "Loaded ISA registers == 16" (loaded_spec.reg_count = 16);
@@ -33,7 +33,7 @@ let run () =
 extern int atoi(const char *nptr);
 extern int printf(const char *format, ...);
 
-__attribute__((annotate("ocasorry:visa")))
+__attribute__((annotate("vectis:visa")))
 int compute_dynamic_visa(int a, int b) {
     int x = (a + b) * 3;
     int y = (x ^ 0x5A) + 10;

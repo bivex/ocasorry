@@ -1,6 +1,6 @@
 # Hexagonal Architecture & Domain-Driven Design (DDD)
 
-**OcaSorry** follows Domain-Driven Design and Hexagonal Architecture (Ports and Adapters). The codebase is partitioned into distinct layers ensuring that core obfuscation logic remains 100% decoupled from underlying OS syscalls, third-party libraries, and target hardware platforms.
+**Vectis** follows Domain-Driven Design and Hexagonal Architecture (Ports and Adapters). The codebase is partitioned into distinct layers ensuring that core obfuscation logic remains 100% decoupled from underlying OS syscalls, third-party libraries, and target hardware platforms.
 
 ---
 
@@ -8,7 +8,7 @@
 
 ```
                                 [ Driving Adapters ]
-                     (CLI Drivers: bin/main.ml, bin/ocasorry_cc.ml)
+                     (CLI Drivers: bin/main.ml, bin/vectis_cc.ml)
                                          │
                                          ▼
 ┌─────────────────────────────────────────────────────────────────────────────────┐

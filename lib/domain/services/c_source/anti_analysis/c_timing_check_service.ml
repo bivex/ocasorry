@@ -20,11 +20,11 @@ module Make (Entropy : Entropy_port.S) = struct
 #include <time.h>
 #ifdef __APPLE__
 #include <mach/mach_time.h>
-static unsigned long long __ocasorry_get_timestamp(void) {
+static unsigned long long __vectis_get_timestamp(void) {
     return (unsigned long long)mach_absolute_time();
 }
 #else
-static unsigned long long __ocasorry_get_timestamp(void) {
+static unsigned long long __vectis_get_timestamp(void) {
     struct timespec ts;
     clock_gettime(CLOCK_MONOTONIC, &ts);
     return (unsigned long long)ts.tv_sec * 1000000000ULL + ts.tv_nsec;
@@ -36,7 +36,7 @@ static unsigned long long __ocasorry_get_timestamp(void) {
         );
 
         let ull_type = TInt (IULongLong, []) in
-        let time_fn = makeGlobalVar "__ocasorry_get_timestamp" (TFun (ull_type, Some [], false, [])) in
+        let time_fn = makeGlobalVar "__vectis_get_timestamp" (TFun (ull_type, Some [], false, [])) in
         let t1_var = makeLocalVar fd "__t_start" ull_type in
         let t2_var = makeLocalVar fd "__t_end" ull_type in
 

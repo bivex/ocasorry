@@ -1,5 +1,6 @@
 (lang dune 3.10)
-(name ocasorry)
+(name vectis)
+
 (package
- (name ocasorry)
- (synopsis "AArch64 JIT Obfuscator in OCaml DDD Hexagonal Architecture"))
+ (name vectis)
+ (synopsis "Vectis: Advanced C Obfuscator & Multi-VCPU Federated Virtualization Engine"))

@@ -1,4 +1,4 @@
-open Ocasorry_lib
+open Vectis_lib
 open Helpers
 
 let run () =
@@ -31,8 +31,8 @@ int main(int argc, char **argv) {
 
   let obfuscated_c = CilSourceObfuscator.obfuscate_c_string c_code c_config in
 
-  assert_bool "Hook check helper __ocasorry_check_function_hook injected"
-    (try ignore (Str.search_forward (Str.regexp "__ocasorry_check_function_hook") obfuscated_c 0); true with _ -> false);
+  assert_bool "Hook check helper __vectis_check_function_hook injected"
+    (try ignore (Str.search_forward (Str.regexp "__vectis_check_function_hook") obfuscated_c 0); true with _ -> false);
 
   let src_file = Filename.temp_file "test_hook_obf_" ".c" in
   let bin_file = Filename.temp_file "test_hook_obf_" ".bin" in

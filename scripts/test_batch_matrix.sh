@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ==============================================================================
-#  OcaSorry - 10-by-10 Modular Pass Matrix & Compatibility Tester
+#  Vectis - 10-by-10 Modular Pass Matrix & Compatibility Tester
 # ==============================================================================
 
 set -uo pipefail
@@ -33,8 +33,8 @@ fi
 test_pass_combination() {
     local group_name="$1"
     local flags="$2"
-    local tmp_c="/tmp/ocasorry_batch_test_$$.c"
-    local tmp_bin="/tmp/ocasorry_batch_test_$$.bin"
+    local tmp_c="/tmp/vectis_batch_test_$$.c"
+    local tmp_bin="/tmp/vectis_batch_test_$$.bin"
 
     echo -ne "  Testing [${group_name}]: "
 
@@ -77,7 +77,7 @@ test_pass_combination() {
 
 echo -e "${C_CYAN}${C_BOLD}"
 echo "================================================================="
-echo "       OcaSorry: 10-by-10 Protection Batch Compatibility Matrix  "
+echo "       Vectis: 10-by-10 Protection Batch Compatibility Matrix  "
 echo "================================================================="
 echo -e "${C_RESET}"
 

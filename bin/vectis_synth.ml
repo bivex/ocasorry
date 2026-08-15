@@ -1,6 +1,6 @@
-open Ocasorry_lib
+open Vectis_lib
 
-(** CLI Entrypoint: OcaSorry Formal Multi-VCPU Sail & JSON Architecture Synthesizer
+(** CLI Entrypoint: Vectis Formal Multi-VCPU Sail & JSON Architecture Synthesizer
     Native OCaml replacement for tools/visa_synthesizer.py
 *)
 
@@ -25,7 +25,7 @@ let () =
     ("--seed", Arg.Set_int seed_val, "Deterministic random seed integer");
   ] in
 
-  let usage_msg = "Usage: ocasorry-synth [options]\nNative Multi-VCPU & Formal Sail Architecture Synthesizer" in
+  let usage_msg = "Usage: vectis-synth [options]\nNative Multi-VCPU & Formal Sail Architecture Synthesizer" in
   Arg.parse speclist (fun _ -> ()) usage_msg;
 
   if !seed_val >= 0 then Random.init !seed_val

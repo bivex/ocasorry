@@ -19,7 +19,7 @@ module Make (Entropy : Entropy_port.S) = struct
         match glob with
         | GFun (fd, _) when is_target_func fd.svar.vname ->
             incr helper_count;
-            let helper_name = Printf.sprintf "__ocasorry_rec_iter_%s_%d" fd.svar.vname !helper_count in
+            let helper_name = Printf.sprintf "__vectis_rec_iter_%s_%d" fd.svar.vname !helper_count in
             let helper_code = Printf.sprintf {|
 static int %s(int __i, int __limit, int __acc, int __val) {
     if (__i >= __limit) return __acc;

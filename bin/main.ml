@@ -1,4 +1,4 @@
-open Ocasorry_lib
+open Vectis_lib
 open Cli_helpers
 
 (* Composition Roots *)
@@ -22,7 +22,7 @@ module TwoTierJIT = Two_tier_jit_usecase.Make
 
 let run_demo () =
   Printf.printf "=================================================================\n";
-  Printf.printf "  OcaSorry: Multi-Target Obfuscator & Multi-Tier JIT Engine     \n";
+  Printf.printf "  Vectis: Multi-Target Obfuscator & Multi-Tier JIT Engine     \n";
   Printf.printf "=================================================================\n\n%!";
 
   let x = 100L in
@@ -252,7 +252,7 @@ let () =
         )), "Directory containing multiple JSON ISA specification files");
   ] in
 
-  let usage_msg = "Usage: ocasorry [-i <input.c> -o <output.c> [passes]] (run without args for interactive demo)" in
+  let usage_msg = "Usage: vectis [-i <input.c> -o <output.c> [passes]] (run without args for interactive demo)" in
   Arg.parse speclist (fun _ -> ()) usage_msg;
 
   List.iter (fun f -> ignore (C_visa_spec_service.VisaSpec.load_from_file f)) (List.rev !visa_spec_files);

@@ -1,7 +1,7 @@
 /**
  * 07_all_visa_license_demo.c — Pure 4-Stage vISA Obfuscated License Demo
  *
- * Demonstrates that __attribute__((annotate("ocasorry:visa"))) is used
+ * Demonstrates that __attribute__((annotate("vectis:visa"))) is used
  * on EVERY individual stage in the cryptographic cascade:
  *  - Stage 1: Vector Parity (vISA)      -> Target h1: 12687
  *  - Stage 2: Algebraic Transform (vISA) -> Target h2: 12708
@@ -14,7 +14,7 @@ extern unsigned long strlen(const char *s);
 extern int strcmp(const char *s1, const char *s2);
 
 /* Stage 1: Vector Parity (random_vISA VCPU 1) */
-__attribute__((annotate("ocasorry:visa")))
+__attribute__((annotate("vectis:visa")))
 int vcpu1_vector_parity(const char *license_key) {
     int acc = 0x1337;
     int parity = 0x5A;
@@ -28,25 +28,25 @@ int vcpu1_vector_parity(const char *license_key) {
 }
 
 /* Stage 2: Algebraic Transform (random_vISA VCPU 2) */
-__attribute__((annotate("ocasorry:visa")))
+__attribute__((annotate("vectis:visa")))
 int vcpu2_algebraic_stage(int h1) {
     return h1 + 21;
 }
 
 /* Stage 3: Non-Linear Feistel XOR (random_vISA VCPU 3) */
-__attribute__((annotate("ocasorry:visa")))
+__attribute__((annotate("vectis:visa")))
 int vcpu3_feistel_stage(int h2) {
     return (h2 ^ 42) + 10;
 }
 
 /* Stage 4: Galois Token Difference (random_vISA VCPU 4) */
-__attribute__((annotate("ocasorry:visa")))
+__attribute__((annotate("vectis:visa")))
 int vcpu4_token_diff(int h3) {
     return h3 ^ 12696;
 }
 
 /* Master Verifier: Hardened with CFF + BCF + String Encryption + Anti-Debug */
-__attribute__((annotate("ocasorry:cff, bcf, irreducible_loop, literals, api_hash")))
+__attribute__((annotate("vectis:cff, bcf, irreducible_loop, literals, api_hash")))
 int verify_all_visa_license(const char *license_key, int verbose) {
     int h1 = 0;
     int h2 = 0;
@@ -98,7 +98,7 @@ int verify_all_visa_license(const char *license_key, int verbose) {
     return is_valid;
 }
 
-__attribute__((annotate("ocasorry:literals, api_hash")))
+__attribute__((annotate("vectis:literals, api_hash")))
 int main(int argc, char **argv) {
     static const char key_ent[] = "ENT-GRB970H2I708";
     static const char key_pro[] = "PRO-9842-KLM9-77";
@@ -107,7 +107,7 @@ int main(int argc, char **argv) {
     static const char key_bad[] = "INVALID-KEY-0000";
 
     printf("=================================================================\n");
-    printf("   OcaSorry: Pure 4-vISA (ocasorry:visa) License Demo           \n");
+    printf("   Vectis: Pure 4-vISA (vectis:visa) License Demo           \n");
     printf("=================================================================\n");
 
     if (argc > 1 && (strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0)) {

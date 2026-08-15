@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-__attribute__((annotate("ocasorry:visa:VCPU1_Arch")))
+__attribute__((annotate("vectis:visa:VCPU1_Arch")))
 int compute_tier1(int a, int b) {
     return (a * 3) + (b ^ 7);
 }
 
-__attribute__((annotate("ocasorry:visa:VCPU2_Arch")))
+__attribute__((annotate("vectis:visa:VCPU2_Arch")))
 int compute_tier2(int x, int y) {
     return (x - 5) * (y + 2);
 }

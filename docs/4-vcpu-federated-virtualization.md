@@ -2,9 +2,9 @@
 
 ## 📖 Overview
 
-**OcaSorry** features a **4-Tier Cascading Virtualization Pipeline (Multi-VCPU)** combined with **Formal Sail Architecture Synthesis**. 
+**Vectis** features a **4-Tier Cascading Virtualization Pipeline (Multi-VCPU)** combined with **Formal Sail Architecture Synthesis**. 
 
-Rather than relying on a single monolithic virtual machine with fixed opcodes, OcaSorry synthesizes **unique, per-build hardware-level specifications** defined in formal **Sail DSL** (`.sail`) and structured JSON (`.json`), compiling CIL AST code into encrypted, heterogeneous bytecode streams executed by distinct virtual processor engines.
+Rather than relying on a single monolithic virtual machine with fixed opcodes, Vectis synthesizes **unique, per-build hardware-level specifications** defined in formal **Sail DSL** (`.sail`) and structured JSON (`.json`), compiling CIL AST code into encrypted, heterogeneous bytecode streams executed by distinct virtual processor engines.
 
 ---
 
@@ -24,7 +24,7 @@ graph TD
         SYNTH --> S4["Tier 4: vcpu4_ephemeral_jit.sail & .json<br/>(In-Memory Ephemeral JIT Wiper VM)"]
     end
 
-    subgraph "OcaSorry AST Transformation Engine"
+    subgraph "Vectis AST Transformation Engine"
         SRC --> C1["C_visa_spec_service"]
         SRC --> C2["C_nested_vm_service"]
         SRC --> C3["C_rolling_vkey_service"]
@@ -48,8 +48,8 @@ graph TD
 ## ⚙️ The 4 VCPU Tiers in Detail
 
 ### 1️⃣ Tier 1 (VCPU 1): `random_vISA` (Vector Processor)
-* **Annotation**: `__attribute__((annotate("ocasorry:visa")))`
-* **Formal Sail Spec**: [`examples/vcpu1_visa.sail`](file:///Volumes/External/Code/ocasorry/examples/vcpu1_visa.sail)
+* **Annotation**: `__attribute__((annotate("vectis:visa")))`
+* **Formal Sail Spec**: [`examples/vcpu1_visa.sail`](file:///Volumes/External/Code/vectis/examples/vcpu1_visa.sail)
 * **Characteristics**:
   - Full 32-bit Vector Instruction Word architecture (`funct6[31:26] | vm[25] | vs2[24:20] | vs1[19:15] | funct3[14:12] | vd[11:7] | opcode[6:0]`).
   - 64 virtual vector registers (`__vregs[64]`).
@@ -57,8 +57,8 @@ graph TD
   - Per-instruction rolling XOR decryption: $\text{Key}_{pc} = \text{PackKey} \oplus (pc \times \Delta_{\text{key}})$.
 
 ### 2️⃣ Tier 2 (VCPU 2): `nested_vm` (2-Tier Hierarchical VM)
-* **Annotation**: `__attribute__((annotate("ocasorry:nested_vm")))`
-* **Formal Sail Spec**: [`examples/vcpu2_nested_vm.sail`](file:///Volumes/External/Code/ocasorry/examples/vcpu2_nested_vm.sail)
+* **Annotation**: `__attribute__((annotate("vectis:nested_vm")))`
+* **Formal Sail Spec**: [`examples/vcpu2_nested_vm.sail`](file:///Volumes/External/Code/vectis/examples/vcpu2_nested_vm.sail)
 * **Characteristics**:
   - Interpreter-in-Interpreter design:
     - **Outer Meta-Controller**: Decrypts outer bytecode managing frame setup (`OUT_SETUP`), dispatching (`OUT_DISPATCH`), key rotation (`OUT_MUTATE_KEY`), and termination (`OUT_HALT`).
@@ -66,16 +66,16 @@ graph TD
   - Independent rolling algebraic keys for outer and inner bytecode layers.
 
 ### 3️⃣ Tier 3 (VCPU 3): `rolling_vkey` (Stateful Rolling Key VM)
-* **Annotation**: `__attribute__((annotate("ocasorry:rolling_vkey")))`
-* **Formal Sail Spec**: [`examples/vcpu3_rolling_vkey.sail`](file:///Volumes/External/Code/ocasorry/examples/vcpu3_rolling_vkey.sail)
+* **Annotation**: `__attribute__((annotate("vectis:rolling_vkey")))`
+* **Formal Sail Spec**: [`examples/vcpu3_rolling_vkey.sail`](file:///Volumes/External/Code/vectis/examples/vcpu3_rolling_vkey.sail)
 * **Characteristics**:
   - Cryptographic state synchronization tied strictly to execution history:
     $$VKey_{n+1} = (VKey_n \times 33) \oplus (Dec_n + \text{0x9E3779B9})$$
   - Out-of-order execution, isolated opcode tracing, or memory byte patching causes immediate desynchronization of all subsequent instruction decryptions.
 
 ### 4️⃣ Tier 4 (VCPU 4): `ephemeral_jit` (In-Memory JIT Wiper VM)
-* **Annotation**: `__attribute__((annotate("ocasorry:ephemeral")))`
-* **Formal Sail Spec**: [`examples/vcpu4_ephemeral_jit.sail`](file:///Volumes/External/Code/ocasorry/examples/vcpu4_ephemeral_jit.sail)
+* **Annotation**: `__attribute__((annotate("vectis:ephemeral")))`
+* **Formal Sail Spec**: [`examples/vcpu4_ephemeral_jit.sail`](file:///Volumes/External/Code/vectis/examples/vcpu4_ephemeral_jit.sail)
 * **Characteristics**:
   - Allocated dynamically into anonymous RAM pages via `mmap(PROT_READ | PROT_WRITE)`.
   - Bytecode payload is decrypted directly in RAM, executed, and **immediately zeroed (`memset 0`) and unmapped (`munmap`)**.
@@ -85,7 +85,7 @@ graph TD
 
 ## 🔑 License Keygen Mathematics & Verification
 
-In Example 01 ([`examples/01_license_keygen.c`](file:///Volumes/External/Code/ocasorry/examples/01_license_keygen.c)), a 16-character license key string is cascaded through all 4 VCPUs:
+In Example 01 ([`examples/01_license_keygen.c`](file:///Volumes/External/Code/vectis/examples/01_license_keygen.c)), a 16-character license key string is cascaded through all 4 VCPUs:
 
 $$
 \begin{aligned}
@@ -97,11 +97,11 @@ h_3 &= \text{VCPU}_3(h_2) = ((h_2 + 10) \oplus 42) \times 2 = 25352 \\
 $$
 
 ### Keygen Tools:
-- **Python Keygen Tool ([`tools/license_keygen.py`](file:///Volumes/External/Code/ocasorry/tools/license_keygen.py))**:
+- **Python Keygen Tool ([`tools/license_keygen.py`](file:///Volumes/External/Code/vectis/tools/license_keygen.py))**:
   ```bash
   python3 tools/license_keygen.py -n 5 --prefix PRO- --verify
   ```
-- **Native C Keygen Tool ([`examples/01_keygen_tool.c`](file:///Volumes/External/Code/ocasorry/examples/01_keygen_tool.c))**:
+- **Native C Keygen Tool ([`examples/01_keygen_tool.c`](file:///Volumes/External/Code/vectis/examples/01_keygen_tool.c))**:
   ```bash
   ./examples/01_keygen_tool.bin 5 "ULT-"
   ```
@@ -117,6 +117,6 @@ Execute the automated build pipeline script:
 
 This script:
 1. Synthesizes all 4 Formal Sail and JSON specifications via `tools/visa_synthesizer.py`.
-2. Compiles `01_license_keygen.c` through OcaSorry with 4-VCPU virtualization + CFF + Irreducible CFG loops + Anti-Debug + Timing Verification + API Hashing + Symbol Renaming.
+2. Compiles `01_license_keygen.c` through Vectis with 4-VCPU virtualization + CFF + Irreducible CFG loops + Anti-Debug + Timing Verification + API Hashing + Symbol Renaming.
 3. Compiles the native AArch64 executable `01_license_keygen_virtualized.bin`.
 4. Runs automated validation test vectors with valid, tampered, and default keys.

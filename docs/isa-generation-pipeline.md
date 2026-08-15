@@ -1,6 +1,6 @@
 # 🧬 Architecture: End-to-End ISA Synthesis & C Virtualization Pipeline
 
-This document details the architectural pipeline of **OcaSorry** for synthesizing custom formal Instruction Set Architectures (ISAs), compiling high-level C code into packed bytecode, and generating self-contained, virtualized C11 runtimes and native binaries.
+This document details the architectural pipeline of **Vectis** for synthesizing custom formal Instruction Set Architectures (ISAs), compiling high-level C code into packed bytecode, and generating self-contained, virtualized C11 runtimes and native binaries.
 
 ---
 
@@ -11,7 +11,7 @@ graph TD
     A["C Source Code (input.c)"] --> B["CIL AST Parsing & Annotation Inspection (Goblint-CIL)"]
     
     subgraph "Phase 1: Formal ISA Synthesis"
-        S1["ocasorry-synth (Native OCaml / Sail)"] -->|Generates| S2["Formal Sail Specs (.sail)"]
+        S1["vectis-synth (Native OCaml / Sail)"] -->|Generates| S2["Formal Sail Specs (.sail)"]
         S1 -->|Generates| S3["ISA JSON Descriptors (.json)"]
     end
     
@@ -52,7 +52,7 @@ graph TD
 
 ## ⚙️ 2. Phase 1: Formal ISA & Specification Synthesis
 
-Every compilation pass can synthesize a unique, randomized instruction set architecture using the native tool `ocasorry-synth` or `c_isa_synthesizer_service.ml`.
+Every compilation pass can synthesize a unique, randomized instruction set architecture using the native tool `vectis-synth` or `c_isa_synthesizer_service.ml`.
 
 ### 2.1 32-Bit Instruction Word Layout
 Each instruction word is encoded into a strictly partitioned bitfield layout without field overlaps:
@@ -165,18 +165,18 @@ $$\text{Enc}(inst, pc) = inst \oplus (K_{\text{pack}} \oplus (pc \times K_{\Delt
 
 ## 🔀 4. Multi-ISA Architecture: Per-Function Virtualization Routing
 
-OcaSorry supports virtualizing different functions within the same compilation unit into **completely different, independent ISAs**.
+Vectis supports virtualizing different functions within the same compilation unit into **completely different, independent ISAs**.
 
 ### 4.1 Granular Function Annotations
 ```c
 // Compiles to ISA: VCPU1_Arch (Opcode layout A, Key A, S-Box A)
-__attribute__((annotate("ocasorry:visa:VCPU1_Arch")))
+__attribute__((annotate("vectis:visa:VCPU1_Arch")))
 int calculate_hash(int a, int b) {
     return (a * 3) + (b ^ 7);
 }
 
 // Compiles to ISA: VCPU2_Arch (Opcode layout B, Key B, S-Box B)
-__attribute__((annotate("ocasorry:visa:VCPU2_Arch")))
+__attribute__((annotate("vectis:visa:VCPU2_Arch")))
 int verify_signature(int x, int y) {
     return (x - 5) * (y + 2);
 }
@@ -186,12 +186,12 @@ int verify_signature(int x, int y) {
 Load an entire folder of synthesized specifications or specify multiple `--visa-spec` flags:
 ```bash
 # Load all specs from directory
-ocasorry -i input.c -o output.obf.c \
+vectis -i input.c -o output.obf.c \
   --visa-specs-dir specs/ \
   --virtualize
 
 # Or specify individual specs
-ocasorry -i input.c -o output.obf.c \
+vectis -i input.c -o output.obf.c \
   --visa-spec specs/VCPU1_Arch.json \
   --visa-spec specs/VCPU2_Arch.json \
   --virtualize
@@ -275,11 +275,11 @@ static const void * const __dispatch_table[64] = {
 ### Synthesize and Run Multi-ISA Virtualized Binaries
 ```bash
 # 1. Synthesize multiple ISAs
-ocasorry-synth --vcpu visa --name VCPU1_Arch --seed 101 --output-json specs/VCPU1_Arch.json
-ocasorry-synth --vcpu visa --name VCPU2_Arch --seed 202 --output-json specs/VCPU2_Arch.json
+vectis-synth --vcpu visa --name VCPU1_Arch --seed 101 --output-json specs/VCPU1_Arch.json
+vectis-synth --vcpu visa --name VCPU2_Arch --seed 202 --output-json specs/VCPU2_Arch.json
 
 # 2. Virtualize C Code with Multi-ISA routing
-ocasorry -i examples/09_test_multi_isa.c -o examples/09_test_multi_isa_virtualized.c \
+vectis -i examples/09_test_multi_isa.c -o examples/09_test_multi_isa_virtualized.c \
   --visa-specs-dir specs/ \
   --virtualize \
   --anti-vtil \

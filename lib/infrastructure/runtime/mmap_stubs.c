@@ -38,7 +38,7 @@ static void finalize_jit_handle(value v) {
 }
 
 static struct custom_operations jit_handle_ops = {
-    "ocasorry.jit_handle",
+    "vectis.jit_handle",
     finalize_jit_handle,
     custom_compare_default,
     custom_hash_default,

@@ -1,4 +1,4 @@
-open Ocasorry_lib
+open Vectis_lib
 
 module ArmJIT = Jit_runner_usecase.Make
     (System_entropy_adapter.Adapter)
@@ -32,9 +32,9 @@ let assert_bool msg cond =
 
 let find_wrapper_bin () =
   let candidate_paths = [
-    "./_build/default/bin/ocasorry_cc.exe";
-    "../bin/ocasorry_cc.exe";
-    "./ocasorry_cc.exe";
-    "/Volumes/External/Code/ocasorry/_build/default/bin/ocasorry_cc.exe";
+    "./_build/default/bin/vectis_cc.exe";
+    "../bin/vectis_cc.exe";
+    "./vectis_cc.exe";
+    "/Volumes/External/Code/vectis/_build/default/bin/vectis_cc.exe";
   ] in
   List.find_opt Sys.file_exists candidate_paths

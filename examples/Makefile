@@ -1,6 +1,6 @@
-# Makefile for OcaSorry C Examples
+# Makefile for Vectis C Examples
 # Usage:
-#   make CC=../_build/default/bin/ocasorry_cc.exe run
+#   make CC=../_build/default/bin/vectis_cc.exe run
 
 CC ?= clang
 CFLAGS ?= -w -O2

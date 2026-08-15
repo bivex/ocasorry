@@ -49,10 +49,10 @@ module Make
       | Some c -> c
       | None ->
           (try Sys.getenv "CC" with Not_found ->
-             try Sys.getenv "OCASORRY_CC" with Not_found -> "clang")
+             try Sys.getenv "VECTIS_CC" with Not_found -> "clang")
     in
 
-    let tmp_dir = Filename.temp_file "ocasorry_lib_" "" in
+    let tmp_dir = Filename.temp_file "vectis_lib_" "" in
     (try Sys.remove tmp_dir with _ -> ());
     Unix.mkdir tmp_dir 0o755;
 

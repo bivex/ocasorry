@@ -20,7 +20,7 @@ module Make (Entropy : Entropy_port.S) = struct
     let dummy_entries = 16 in
     let uchar_ty = TInt (IUChar, []) in
     let arr_ty = TArray (uchar_ty, Some (integer (dummy_entries * 4)), []) in
-    let table_var = makeGlobalVar "__ocasorry_eh_shadow_table" arr_ty in
+    let table_var = makeGlobalVar "__vectis_eh_shadow_table" arr_ty in
     table_var.vstorage <- Static;
 
     let inits =
@@ -31,8 +31,8 @@ module Make (Entropy : Entropy_port.S) = struct
     in
     let table_global = GVar (table_var, { init = Some (CompoundInit (arr_ty, inits)) }, locUnknown) in
 
-    (* Synthetic ABI Personality Routine Declaration: __ocasorry_personality_v0 *)
-    let personality_var = makeGlobalVar "__ocasorry_personality_v0" (TFun (intType, Some [
+    (* Synthetic ABI Personality Routine Declaration: __vectis_personality_v0 *)
+    let personality_var = makeGlobalVar "__vectis_personality_v0" (TFun (intType, Some [
       ("version", intType, []);
       ("actions", intType, []);
       ("exception_class", ulongType, []);
@@ -41,7 +41,7 @@ module Make (Entropy : Entropy_port.S) = struct
     ], false, [])) in
     personality_var.vstorage <- Static;
 
-    let pers_fundec = emptyFunction "__ocasorry_personality_v0" in
+    let pers_fundec = emptyFunction "__vectis_personality_v0" in
     pers_fundec.svar <- personality_var;
     let ret_stmt = mkStmt (Return (Some (integer 0), locUnknown, locUnknown)) in
     pers_fundec.sbody <- mkBlock [ ret_stmt ];

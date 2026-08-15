@@ -1,6 +1,6 @@
 <div align="center">
 
-# 💎 OcaSorry
+# 💎 Vectis
 
 ### Advanced C Source Obfuscator & Multi-VCPU Federated Virtualization Engine
 
@@ -11,7 +11,7 @@
 [![License](https://img.shields.io/badge/License-MIT-20B2AA.svg?style=for-the-badge)](LICENSE)
 
 <p align="center">
-  <b>OcaSorry</b> transforms standard C code into resilient, mathematically obfuscated C11 source code backed by per-build synthesized <b>Multi-Tier Virtual Processors (VCPUs)</b>, <b>E-Graph Equality MBA</b>, and <b>61+ military-grade protection passes</b>.
+  <b>Vectis</b> transforms standard C code into resilient, mathematically obfuscated C11 source code backed by per-build synthesized <b>Multi-Tier Virtual Processors (VCPUs)</b>, <b>E-Graph Equality MBA</b>, and <b>61+ military-grade protection passes</b>.
 </p>
 
 ---
@@ -24,7 +24,7 @@
 * 🧬 **Multi-ISA per-Function Routing**: Compile different C functions into completely distinct, randomized virtual processor architectures within the same binary.
 * 🌌 **E-Graph MBA Expansion**: Infinite non-linear bitwise identities generated via e-graph equality saturation (*arXiv:2603.03624*).
 * 🛡️ **Anti-Decompiler Hardening**: Overlapping aliased register matrix (`__vbank`), Loki algebraic invariants (*arXiv:2106.08913*), VPC path constraints (*arXiv:2603.18355*), and ABI EH shadowing (*arXiv:2601.10261*).
-* ⚡ **Drop-in Compiler Toolchain**: Seamless `ocasorry-cc` compiler wrapper for transparent integration with `make`, `cmake`, and `ninja`.
+* ⚡ **Drop-in Compiler Toolchain**: Seamless `vectis-cc` compiler wrapper for transparent integration with `make`, `cmake`, and `ninja`.
 
 ---
 
@@ -39,7 +39,7 @@
 | 🌀 **[Virtualization & vISA](docs/virtualization-and-random-visa.md)** | Synthetic vector ISA, nested VM, self-modifying bytecode, JIT |
 | ⚡ **[Obfuscation Passes](docs/obfuscation-passes.md)** | Complete theoretical and mathematical reference for all 61+ passes |
 | 🔄 **[Two-Level JIT & Signals](docs/two-tier-jit.md)** | Staging engine, Apple Silicon W^X cache, `ucontext_t` PC redirection |
-| 🛠️ **[Compiler Wrapper](docs/compiler-wrapper.md)** | `ocasorry-cc` integration for CMake, Makefiles, and build scripts |
+| 🛠️ **[Compiler Wrapper](docs/compiler-wrapper.md)** | `vectis-cc` integration for CMake, Makefiles, and build scripts |
 | 📋 **[CIL Capabilities](docs/cil-capabilities.md)** | Checkbox roadmap of all implemented features via Goblint-CIL |
 
 ---
@@ -63,10 +63,10 @@ graph LR
 
 | Tier | Engine | Granular Annotation | Output Specification |
 | :---: | :--- | :--- | :--- |
-| **1** | `random_vISA` | `__attribute__((annotate("ocasorry:visa:ArchName")))` | [`vcpu1_visa.sail`](examples/optimal_license_sail/vcpu1_visa.sail) |
-| **2** | `nested_vm` | `__attribute__((annotate("ocasorry:nested_vm")))` | [`vcpu2_nested_vm.sail`](examples/optimal_license_sail/vcpu2_nested_vm.sail) |
-| **3** | `rolling_vkey` | `__attribute__((annotate("ocasorry:rolling_vkey")))` | [`vcpu3_rolling_vkey.sail`](examples/optimal_license_sail/vcpu3_rolling_vkey.sail) |
-| **4** | `ephemeral_jit` | `__attribute__((annotate("ocasorry:ephemeral")))` | [`vcpu4_ephemeral_jit.sail`](examples/optimal_license_sail/vcpu4_ephemeral_jit.sail) |
+| **1** | `random_vISA` | `__attribute__((annotate("vectis:visa:ArchName")))` | [`vcpu1_visa.sail`](examples/optimal_license_sail/vcpu1_visa.sail) |
+| **2** | `nested_vm` | `__attribute__((annotate("vectis:nested_vm")))` | [`vcpu2_nested_vm.sail`](examples/optimal_license_sail/vcpu2_nested_vm.sail) |
+| **3** | `rolling_vkey` | `__attribute__((annotate("vectis:rolling_vkey")))` | [`vcpu3_rolling_vkey.sail`](examples/optimal_license_sail/vcpu3_rolling_vkey.sail) |
+| **4** | `ephemeral_jit` | `__attribute__((annotate("vectis:ephemeral")))` | [`vcpu4_ephemeral_jit.sail`](examples/optimal_license_sail/vcpu4_ephemeral_jit.sail) |
 
 ---
 
@@ -92,12 +92,12 @@ dune build
 ### 2. Synthesize Custom Multi-ISA Specifications
 ```bash
 # Generate specs for 4-VCPU architecture
-ocasorry-synth --vcpu all --output-dir specs/
+vectis-synth --vcpu all --output-dir specs/
 ```
 
 ### 3. Obfuscate C Source Code
 ```bash
-ocasorry -i target.c -o target.obf.c \
+vectis -i target.c -o target.obf.c \
   --visa-specs-dir specs/ \
   --virtualize \
   --egraph-mba \
@@ -113,13 +113,13 @@ clang -O2 target.obf.c -o app.bin
 
 ---
 
-## 🛠️ Transparent Compiler Wrapper (`ocasorry-cc`)
+## 🛠️ Transparent Compiler Wrapper (`vectis-cc`)
 
-Use `ocasorry-cc` as a drop-in replacement for `gcc` or `clang` in existing build systems:
+Use `vectis-cc` as a drop-in replacement for `gcc` or `clang` in existing build systems:
 
 ```bash
-export CC=ocasorry-cc
-export CFLAGS="--ocasorry-virtualize --ocasorry-egraph-mba --ocasorry-anti-vtil"
+export CC=vectis-cc
+export CFLAGS="--vectis-virtualize --vectis-egraph-mba --vectis-anti-vtil"
 make
 ```
 
@@ -127,6 +127,6 @@ make
 
 <div align="center">
 
-<sub>Engineered with 💎 by the OcaSorry Team. Licensed under the <a href="LICENSE">MIT License</a>.</sub>
+<sub>Engineered with 💎 by the Vectis Team. Licensed under the <a href="LICENSE">MIT License</a>.</sub>
 
 </div>

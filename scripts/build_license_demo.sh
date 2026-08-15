@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ==============================================================================
-#  OcaSorry - 4-VCPU Federated License Keygen Builder (MLX Optimal Sail ISA)
+#  Vectis - 4-VCPU Federated License Keygen Builder (MLX Optimal Sail ISA)
 # ==============================================================================
 
 set -euo pipefail
@@ -30,7 +30,7 @@ OUTPUT_C="${ROOT_DIR}/examples/01_license_keygen_obfuscated.c"
 OUTPUT_VIRT_C="${ROOT_DIR}/examples/01_license_keygen_virtualized.c"
 OUTPUT_BIN="${ROOT_DIR}/examples/01_license_keygen_virtualized.bin"
 OBF_BIN="${ROOT_DIR}/_build/default/bin/main.exe"
-SYNTH_BIN="${ROOT_DIR}/_build/default/bin/ocasorry_synth.exe"
+SYNTH_BIN="${ROOT_DIR}/_build/default/bin/vectis_synth.exe"
 EXAMPLES_DIR="${ROOT_DIR}/examples"
 OPTIMAL_SAIL_DIR="${EXAMPLES_DIR}/optimal_license_sail"
 
@@ -38,12 +38,12 @@ export PATH="${HOME}/.opam/default/bin:${PATH}:/opt/homebrew/bin:/usr/local/bin"
 
 echo -e "${C_CYAN}${C_BOLD}"
 echo "================================================================="
-echo "  OcaSorry: MLX-Optimized 4-VCPU Federated License Builder       "
+echo "  Vectis: MLX-Optimized 4-VCPU Federated License Builder       "
 echo "================================================================="
 echo -e "${C_RESET}"
 
-# Step 1: Ensure OcaSorry compiler & synthesizer executables are built
-echo -e "${C_YELLOW}[*] Building OcaSorry OCaml compiler toolchain via dune...${C_RESET}"
+# Step 1: Ensure Vectis compiler & synthesizer executables are built
+echo -e "${C_YELLOW}[*] Building Vectis OCaml compiler toolchain via dune...${C_RESET}"
 (cd "${ROOT_DIR}" && eval $(opam env 2>/dev/null || true) && dune build)
 echo -e "${C_GREEN}[+] Dune build complete!${C_RESET}\n"
 
@@ -58,7 +58,7 @@ python3 "${ROOT_DIR}/tools/mlx_vcpu_architect.py" \
     --export-json "${EXAMPLES_DIR}/license_optimal_spec.json"
 
 # Step 3: Synthesize optimal formal Sail & JSON specifications for all 4 VCPUs
-echo -e "${C_BLUE}[2/5] Synthesizing Formal Polymorphic Sail Specifications via OcaSorry Synth...${C_RESET}"
+echo -e "${C_BLUE}[2/5] Synthesizing Formal Polymorphic Sail Specifications via Vectis Synth...${C_RESET}"
 mkdir -p "${OPTIMAL_SAIL_DIR}"
 "${SYNTH_BIN}" --vcpu all --output-dir "${OPTIMAL_SAIL_DIR}" --name="LicenseCascade_Optimal"
 

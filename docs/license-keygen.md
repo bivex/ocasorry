@@ -1,12 +1,12 @@
 # 🔑 License Keygen: 4-VCPU Cascade Mathematics & Tools
 
-This document covers the license key generation and verification system in **OcaSorry**, including the mathematical cascade equations, the meet-in-the-middle suffix solver algorithm, and the complete CLI reference for both the Python and C keygen tools.
+This document covers the license key generation and verification system in **Vectis**, including the mathematical cascade equations, the meet-in-the-middle suffix solver algorithm, and the complete CLI reference for both the Python and C keygen tools.
 
 ---
 
 ## 📖 Overview
 
-A valid OcaSorry license key is a **16-character ASCII string** composed of uppercase letters (`A–Z`) and digits (`0–9`). Validity is determined by cascading the key through all **4 federated virtual processor tiers**:
+A valid Vectis license key is a **16-character ASCII string** composed of uppercase letters (`A–Z`) and digits (`0–9`). Validity is determined by cascading the key through all **4 federated virtual processor tiers**:
 
 ```
 License Key (16 chars)
@@ -89,7 +89,7 @@ $$
 
 Brute-forcing a 16-character key over a 36-character alphabet (`A-Z0-9`) gives $36^{16} \approx 7.96 \times 10^{24}$ combinations — computationally infeasible.
 
-OcaSorry's keygen uses a **meet-in-the-middle suffix attack** that reduces the search to $\mathcal{O}(N \times 36^2)$ where $N$ is the number of random body attempts:
+Vectis's keygen uses a **meet-in-the-middle suffix attack** that reduces the search to $\mathcal{O}(N \times 36^2)$ where $N$ is the number of random body attempts:
 
 ### Algorithm
 
@@ -176,7 +176,7 @@ python3 tools/license_keygen.py -n 3 --prefix DEV- --json --verify
 
 ```
 =================================================================
-   OcaSorry 4-VCPU License Keygen (5 keys generated in 2.3ms)
+   Vectis 4-VCPU License Keygen (5 keys generated in 2.3ms)
 =================================================================
   [01] PRO-9842KLM977AB  -> [h1=12687, h2=12708, h3=25352 | VALID]
   [02] PRO-X71RQWZ9M4FG  -> [h1=12687, h2=12708, h3=25352 | VALID]
@@ -190,7 +190,7 @@ python3 tools/license_keygen.py -n 3 --prefix DEV- --json --verify
 
 ```
 =================================================================
-       OcaSorry 4-VCPU Key Verification: PRO-9842-KLM9-77
+       Vectis 4-VCPU Key Verification: PRO-9842-KLM9-77
 =================================================================
   Length        : 16 / 16 chars
   VCPU 1 (h1)   : 12687 (Target: 12687)
@@ -263,7 +263,7 @@ cd examples && make
 
 ```
 =================================================================
-   OcaSorry Native C Keygen (5 keys generated with prefix 'PRO-')
+   Vectis Native C Keygen (5 keys generated with prefix 'PRO-')
 =================================================================
   [01] PRO-9842KLM977AB  -> [4-VCPU Verified: VALID]
   [02] PRO-X71RQWZ9M4FG  -> [4-VCPU Verified: VALID]

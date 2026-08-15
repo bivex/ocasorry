@@ -20,62 +20,62 @@ extern int printf(const char *format, ...);
 extern long long atoll(const char *str);
 
 /* VCPU 1 (Vector ISA): Subkey Expansion & Key Schedule */
-__attribute__((annotate("ocasorry:visa")))
+__attribute__((annotate("vectis:visa")))
 int vcpu1_expand_key(int key) {
     int mixed = (key ^ 0x9E3779B9) + 0x1337;
     return mixed;
 }
 
 /* VCPU 2 (Rolling Key VM): Round 1 Non-Linear S-Box */
-__attribute__((annotate("ocasorry:rolling_vkey")))
+__attribute__((annotate("vectis:rolling_vkey")))
 int vcpu2_sub_bytes_r1(int left) {
     int sbox = ((left + 10) ^ 42) * 2;
     return sbox;
 }
 
 /* VCPU 3 (Vector ISA): Round 1 Diffusion & ShiftMix */
-__attribute__((annotate("ocasorry:visa")))
+__attribute__((annotate("vectis:visa")))
 int vcpu3_shift_mix_r1(int sbox_out, int right) {
     int mixed = (sbox_out ^ right) + 17;
     return mixed;
 }
 
 /* VCPU 4 (Rolling Key VM): Round 1 Feistel Cross-Over */
-__attribute__((annotate("ocasorry:rolling_vkey")))
+__attribute__((annotate("vectis:rolling_vkey")))
 int vcpu4_feistel_xor_r1(int left) {
     int res = ((left + 15) ^ 99) * 2;
     return res;
 }
 
 /* VCPU 5 (Rolling Key VM): Round 2 Non-Linear S-Box */
-__attribute__((annotate("ocasorry:rolling_vkey")))
+__attribute__((annotate("vectis:rolling_vkey")))
 int vcpu5_sub_bytes_r2(int new_left) {
     int sbox2 = ((new_left + 25) ^ 77) * 2;
     return sbox2;
 }
 
 /* VCPU 6 (Vector ISA): Round 2 Diffusion & ShiftMix */
-__attribute__((annotate("ocasorry:visa")))
+__attribute__((annotate("vectis:visa")))
 int vcpu6_shift_mix_r2(int sbox_out2, int new_right) {
     int mixed2 = (sbox_out2 ^ new_right) + 31;
     return mixed2;
 }
 
 /* VCPU 7 (Rolling Key VM): Round 2 Feistel Cross-Over */
-__attribute__((annotate("ocasorry:rolling_vkey")))
+__attribute__((annotate("vectis:rolling_vkey")))
 int vcpu7_feistel_xor_r2(int new_left) {
     int res2 = ((new_left + 35) ^ 123) * 2;
     return res2;
 }
 
 /* VCPU 8 (Ephemeral JIT): Hardware Fault Two-Tier JIT Finalizer */
-__attribute__((annotate("ocasorry:ephemeral")))
+__attribute__((annotate("vectis:ephemeral")))
 int vcpu8_ephemeral_finalize(int final_val) {
     return (final_val != 0) ? 1 : 0;
 }
 
 /* Master 8-VCPU Federated Orchestrator */
-__attribute__((annotate("ocasorry:cff, irreducible_loop, bcf, literals")))
+__attribute__((annotate("vectis:cff, irreducible_loop, bcf, literals")))
 uint64_t feistel_8vcpu_encrypt(uint32_t left, uint32_t right, uint32_t key1, uint32_t key2) {
     /* VCPU 1: Subkey expansion */
     int k1_exp = vcpu1_expand_key((int)key1);

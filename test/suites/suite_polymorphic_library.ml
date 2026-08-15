@@ -1,4 +1,4 @@
-open Ocasorry_lib
+open Vectis_lib
 open Helpers
 
 module PolyLibApp = Build_polymorphic_library_usecase.Make
@@ -84,7 +84,7 @@ int main() {
         return 2;
     }
 
-    uint64_t res = fn(10, 20, "OCASORRY_SECRET");
+    uint64_t res = fn(10, 20, "VECTIS_SECRET");
     /* Verify result is consistent and non-zero */
     if (res == 0) return 3;
     dlclose(h);

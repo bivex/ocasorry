@@ -1,7 +1,7 @@
 open C_visa_spec_service
 
 (** Domain Service: Native DDD Multi-VCPU & Formal Sail Architecture Synthesizer
-    Generates randomized formal Sail-compatible ISA specifications and JSON schemas for OcaSorry.
+    Generates randomized formal Sail-compatible ISA specifications and JSON schemas for Vectis.
     Eliminates external Python scripts and provides 100% native OCaml compilation.
 *)
 module Make (Entropy : Entropy_port.S) = struct

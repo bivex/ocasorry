@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ==============================================================================
-#  OcaSorry - Interactive 4-vISA Federated Obfuscation & License Demo Builder
+#  Vectis - Interactive 4-vISA Federated Obfuscation & License Demo Builder
 # ==============================================================================
 
 set -euo pipefail
@@ -28,19 +28,19 @@ INPUT_SRC="${ROOT_DIR}/examples/06_4visa_federated_license_demo.c"
 OUTPUT_C="${ROOT_DIR}/examples/06_4visa_federated_license_demo_virtualized.c"
 OUTPUT_BIN="${ROOT_DIR}/examples/06_4visa_federated_license_demo_virtualized.bin"
 OBF_BIN="${ROOT_DIR}/_build/default/bin/main.exe"
-SYNTH_BIN="${ROOT_DIR}/_build/default/bin/ocasorry_synth.exe"
+SYNTH_BIN="${ROOT_DIR}/_build/default/bin/vectis_synth.exe"
 OPTIMAL_SAIL_DIR="${ROOT_DIR}/examples/optimal_license_sail"
 
 export PATH="${HOME}/.opam/default/bin:${PATH}:/opt/homebrew/bin:/usr/local/bin"
 
 echo -e "${C_CYAN}${C_BOLD}"
 echo "================================================================="
-echo "       OcaSorry: 4-vISA Federated License Obfuscation Demo       "
+echo "       Vectis: 4-vISA Federated License Obfuscation Demo       "
 echo "================================================================="
 echo -e "${C_RESET}"
 
 # Step 1: Dune build toolchain
-echo -e "${C_YELLOW}[*] Step 1: Building OcaSorry compiler toolchain...${C_RESET}"
+echo -e "${C_YELLOW}[*] Step 1: Building Vectis compiler toolchain...${C_RESET}"
 (cd "${ROOT_DIR}" && eval $(opam env 2>/dev/null || true) && dune build)
 echo -e "${C_GREEN}[+] Compiler toolchain ready!${C_RESET}\n"
 

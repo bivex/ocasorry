@@ -1,6 +1,6 @@
 # 🧬 Code Morphing Engine: Architecture & Implementation Roadmap
 
-This document outlines the completed implementation of the **Code Morphing Engine** in **OcaSorry**, structured across 4 fundamental compiler abstraction levels and incorporating adversarial opcode blending principles from DOOM (A-DRL, arXiv:2010.08608), deep paradigm mutation (arXiv:2410.23894), and anti-DRLDO statistical normalization defenses (arXiv:2102.00898).
+This document outlines the completed implementation of the **Code Morphing Engine** in **Vectis**, structured across 4 fundamental compiler abstraction levels and incorporating adversarial opcode blending principles from DOOM (A-DRL, arXiv:2010.08608), deep paradigm mutation (arXiv:2410.23894), and anti-DRLDO statistical normalization defenses (arXiv:2102.00898).
 
 ---
 
@@ -34,6 +34,6 @@ This document outlines the completed implementation of the **Code Morphing Engin
 - [x] `lib/domain/services/c_source/morphing/c_opcode_equalize_service.ml` (Suite 53)
 - [x] `lib/domain/services/c_source/morphing/c_anti_slicing_entanglement_service.ml` (Suite 54)
 - [x] Pipeline integration in `lib/application/obfuscate_c_source_usecase.ml`
-- [x] CLI flags in `bin/ocasorry_cc.ml` and `bin/main.ml`
+- [x] CLI flags in `bin/vectis_cc.ml` and `bin/main.ml`
 - [x] Test suites: `Suite 45` – `Suite 54` (All 54 modular test suites passing)
 - [x] Documentation update in `docs/cil-capabilities.md` and `docs/obfuscation-passes.md`

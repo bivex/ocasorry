@@ -6,7 +6,7 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 
 ## 📊 Feature Status Matrix
 
-- `[x]` = **100% Implemented & Verified in OcaSorry (60 Test Suites)**
+- `[x]` = **100% Implemented & Verified in Vectis (60 Test Suites)**
 
 ---
 
@@ -14,7 +14,7 @@ This document provides a comprehensive roadmap and technical index of all obfusc
 
 | Status | Technique | CIL AST Mechanism | Resilience Target |
 | :---: | :--- | :--- | :--- |
-| `[x]` | **Granular Function Annotations (`__attribute__((annotate(...)))`)** | Parses GCC/Clang attributes (`ocasorry:visa`, `ocasorry:nested_vm`, `ocasorry:rolling_vkey`, `ocasorry:ephemeral`, `ocasorry:no_obf`) for fine-grained per-function VCPU routing. | Per-Function Security Architecture |
+| `[x]` | **Granular Function Annotations (`__attribute__((annotate(...)))`)** | Parses GCC/Clang attributes (`vectis:visa`, `vectis:nested_vm`, `vectis:rolling_vkey`, `vectis:ephemeral`, `vectis:no_obf`) for fine-grained per-function VCPU routing. | Per-Function Security Architecture |
 | `[x]` | **C-Level Bytecode Virtualization (`Virtualize`)** | Integrates with `random_vISA` vector ISA synthesizer, encoding function logic into 32-bit RISC-V Vector Bytecode (`.vbc`) with an embedded C11 VCPU execution loop. | Disassemblers (IDA, Ghidra), Decompilers |
 | `[x]` | **Nested Multi-Layer VM (2-Tier Packed VM)** | Embeds an encrypted master interpreter commanding an inner worker interpreter on-the-fly with rolling keys ($K_{n+1} = f(K_n)$). | Symbolic Execution (angr), Static Dumps |
 | `[x]` | **Decentralized Tree Dispatcher & Decoy Hubs** | Deconstructs $N$-way central switch dispatchers into binary decision trees ($D_{\text{out}} \le 2$) and injects 32-way decoy hub baits. | Static LLVM Passes (VMTag, arXiv:2601.12916) |

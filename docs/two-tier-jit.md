@@ -58,7 +58,7 @@ Traditional binary analysis tools (IDA Pro, Ghidra, angr) expect function calls 
 
 On macOS (Apple Silicon ARM64), memory pages cannot be simultaneously writable and executable due to hardware Write-XOR-Execute (W^X) security enforcement.
 
-**OcaSorry** manages this in `mmap_stubs.c` via:
+**Vectis** manages this in `mmap_stubs.c` via:
 1. `mmap(NULL, size, PROT_READ | PROT_WRITE | PROT_EXEC, MAP_ANON | MAP_PRIVATE | MAP_JIT, -1, 0)`
 2. `pthread_jit_write_protect_np(0)`: Unprotect page for writing/decrypting code.
 3. `pthread_jit_write_protect_np(1)`: Enable execution protection.

@@ -11,7 +11,7 @@ module Make (Entropy : Entropy_port.S) = struct
     val mutable helper_injected = false
 
     method! vfunc (fd : fundec) : fundec visitAction =
-      if String.starts_with ~prefix:"__ocasorry_" fd.svar.vname then SkipChildren
+      if String.starts_with ~prefix:"__vectis_" fd.svar.vname then SkipChildren
       else (
         if not helper_injected then (
           helper_injected <- true;
@@ -24,9 +24,9 @@ module Make (Entropy : Entropy_port.S) = struct
 #ifdef __APPLE__
 #include <sys/sysctl.h>
 #include <dlfcn.h>
-typedef int (*__ocasorry_ptrace_t)(int request, pid_t pid, void *addr, int data);
+typedef int (*__vectis_ptrace_t)(int request, pid_t pid, void *addr, int data);
 
-static int __ocasorry_check_debugger_present(void) {
+static int __vectis_check_debugger_present(void) {
     int mib[4];
     struct kinfo_proc info;
     size_t size = sizeof(info);
@@ -43,11 +43,11 @@ static int __ocasorry_check_debugger_present(void) {
     return 0;
 }
 
-static void __ocasorry_enforce_anti_debug(void) {
-    if (__ocasorry_check_debugger_present()) {
+static void __vectis_enforce_anti_debug(void) {
+    if (__vectis_check_debugger_present()) {
         void *h = dlopen(0, 0);
         if (h) {
-            __ocasorry_ptrace_t ptrace_fn = (__ocasorry_ptrace_t)dlsym(h, "ptrace");
+            __vectis_ptrace_t ptrace_fn = (__vectis_ptrace_t)dlsym(h, "ptrace");
             if (ptrace_fn) {
                 ptrace_fn(31, 0, 0, 0); /* PT_DENY_ATTACH */
             }
@@ -56,11 +56,11 @@ static void __ocasorry_enforce_anti_debug(void) {
     }
 }
 #else
-static int __ocasorry_check_debugger_present(void) {
+static int __vectis_check_debugger_present(void) {
     return 0;
 }
-static void __ocasorry_enforce_anti_debug(void) {
-    if (__ocasorry_check_debugger_present()) {
+static void __vectis_enforce_anti_debug(void) {
+    if (__vectis_check_debugger_present()) {
         exit(137);
     }
 }
@@ -70,7 +70,7 @@ static void __ocasorry_enforce_anti_debug(void) {
           file.globals <- debug_helper :: file.globals
         );
 
-        let enforce_fn = makeGlobalVar "__ocasorry_enforce_anti_debug" (TFun (voidType, Some [], false, [])) in
+        let enforce_fn = makeGlobalVar "__vectis_enforce_anti_debug" (TFun (voidType, Some [], false, [])) in
         let call_enforce =
           mkStmtOneInstr (Call (None, Lval (var enforce_fn), [], locUnknown, locUnknown))
         in

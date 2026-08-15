@@ -1,4 +1,4 @@
-open Ocasorry_lib
+open Vectis_lib
 open Helpers
 
 let run () =
@@ -8,13 +8,13 @@ let run () =
 extern int printf(const char *format, ...);
 
 /* Comma-separated multi-attribute annotation */
-__attribute__((annotate("ocasorry:visa, anti_debug, timing_check")))
+__attribute__((annotate("vectis:visa, anti_debug, timing_check")))
 int target_visa(int a, int b) {
     return (a + b) * 3 ^ 0x5A;
 }
 
 /* Semicolon & space separated list */
-__attribute__((annotate("ocasorry:nested_vm; poly_mba")))
+__attribute__((annotate("vectis:nested_vm; poly_mba")))
 int target_nested(int x) {
     return x + 21;
 }
@@ -26,7 +26,7 @@ int target_rolling(int x) {
 }
 
 /* Unobfuscated clean skip */
-__attribute__((annotate("ocasorry:no_obf, skip")))
+__attribute__((annotate("vectis:no_obf, skip")))
 int target_clean_skipped(int x) {
     return x + 1000;
 }

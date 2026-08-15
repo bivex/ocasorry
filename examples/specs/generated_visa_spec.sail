@@ -1,6 +1,6 @@
 /* ==============================================================================
  * Formal Sail Specification for Synthesized Architecture: vISA_License_Cascade_Arch
- * Generated automatically by OcaSorry random_vISA Synthesizer
+ * Generated automatically by Vectis random_vISA Synthesizer
  * ============================================================================== */
 
 default Order dec

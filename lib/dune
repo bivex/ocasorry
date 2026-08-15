@@ -1,8 +1,8 @@
 (include_subdirs unqualified)
 
 (library
- (name ocasorry_lib)
- (public_name ocasorry.lib)
+ (name vectis_lib)
+ (public_name vectis.lib)
  (libraries goblint-cil yojson str unix)
  (foreign_stubs
   (language c)

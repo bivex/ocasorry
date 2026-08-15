@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ==============================================================================
-#  OcaSorry - 8-VCPU Federated AES/Feistel Builder (Without nested_vm)
+#  Vectis - 8-VCPU Federated AES/Feistel Builder (Without nested_vm)
 # ==============================================================================
 
 set -euo pipefail
@@ -38,19 +38,19 @@ export PATH="${HOME}/.opam/default/bin:${PATH}:/opt/homebrew/bin:/usr/local/bin"
 
 echo -e "${C_CYAN}${C_BOLD}"
 echo "================================================================="
-echo "       OcaSorry: 8-VCPU Federated AES Block Cipher Builder       "
+echo "       Vectis: 8-VCPU Federated AES Block Cipher Builder       "
 echo "                 (Pure 8-VCPU Cascade without nested_vm)         "
 echo "================================================================="
 echo -e "${C_RESET}"
 
-# Step 1: Ensure OcaSorry compiler is built
-echo -e "${C_YELLOW}[*] Building OcaSorry compiler toolchain via dune...${C_RESET}"
+# Step 1: Ensure Vectis compiler is built
+echo -e "${C_YELLOW}[*] Building Vectis compiler toolchain via dune...${C_RESET}"
 (cd "${ROOT_DIR}" && dune build)
 echo -e "${C_GREEN}[+] Dune build complete!${C_RESET}\n"
 
 # Step 2: Synthesize formal Sail & JSON specifications for all 8 VCPU Tiers
 echo -e "${C_BLUE}[1/4] Synthesizing Formal Sail Specifications for all 8 VCPUs via Native DDD Synthesizer...${C_RESET}"
-"${ROOT_DIR}/_build/default/bin/ocasorry_synth.exe" --vcpu 8vcpu --output-dir "${EXAMPLES_DIR}"
+"${ROOT_DIR}/_build/default/bin/vectis_synth.exe" --vcpu 8vcpu --output-dir "${EXAMPLES_DIR}"
 echo -e "${C_GREEN}[+] All 8 Sail VCPU Specifications Synthesized successfully!${C_RESET}\n"
 
 # Step 3: Obfuscate source code with 8-VCPU Architecture

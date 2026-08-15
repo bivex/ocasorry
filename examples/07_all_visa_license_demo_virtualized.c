@@ -8,7 +8,7 @@
 
 /* Hash-only resolver: no plaintext symbol name ever leaves the binary in call sites.
    The resolver scans a static candidate table keyed by CRC32, resolving purely by hash. */
-static uint32_t __ocasorry_calc_crc32(const char *s) {
+static uint32_t __vectis_calc_crc32(const char *s) {
     uint32_t crc = 0xFFFFFFFF;
     while (*s) {
         crc ^= (uint32_t)(unsigned char)(*s++);
@@ -19,7 +19,7 @@ static uint32_t __ocasorry_calc_crc32(const char *s) {
     return ~crc;
 }
 
-static void *__ocasorry_resolve_symbol_hash(uint32_t target_hash) {
+static void *__vectis_resolve_symbol_hash(uint32_t target_hash) {
     /* Candidate symbol names stored as XOR-obfuscated byte arrays (key=0xA5).
        No plaintext strings appear in __cstring / __data sections.
        Sentinel 0xA5 = (0x00 ^ 0xA5) marks end of each name. */
@@ -50,7 +50,7 @@ static void *__ocasorry_resolve_symbol_hash(uint32_t target_hash) {
         }
         name[j] = '\0';
 
-        if (__ocasorry_calc_crc32(name) == target_hash) {
+        if (__vectis_calc_crc32(name) == target_hash) {
 #ifdef RTLD_DEFAULT
             void *sym = dlsym(RTLD_DEFAULT, name);
 #else
@@ -68,11 +68,11 @@ static void *__ocasorry_resolve_symbol_hash(uint32_t target_hash) {
 #include <time.h>
 #ifdef __APPLE__
 #include <mach/mach_time.h>
-static unsigned long long __ocasorry_get_timestamp(void) {
+static unsigned long long __vectis_get_timestamp(void) {
     return (unsigned long long)mach_absolute_time();
 }
 #else
-static unsigned long long __ocasorry_get_timestamp(void) {
+static unsigned long long __vectis_get_timestamp(void) {
     struct timespec ts;
     clock_gettime(CLOCK_MONOTONIC, &ts);
     return (unsigned long long)ts.tv_sec * 1000000000ULL + ts.tv_nsec;
@@ -87,9 +87,9 @@ static unsigned long long __ocasorry_get_timestamp(void) {
 #ifdef __APPLE__
 #include <sys/sysctl.h>
 #include <dlfcn.h>
-typedef int (*__ocasorry_ptrace_t)(int request, pid_t pid, void *addr, int data);
+typedef int (*__vectis_ptrace_t)(int request, pid_t pid, void *addr, int data);
 
-static int __ocasorry_check_debugger_present(void) {
+static int __vectis_check_debugger_present(void) {
     int mib[4];
     struct kinfo_proc info;
     size_t size = sizeof(info);
@@ -106,11 +106,11 @@ static int __ocasorry_check_debugger_present(void) {
     return 0;
 }
 
-static void __ocasorry_enforce_anti_debug(void) {
-    if (__ocasorry_check_debugger_present()) {
+static void __vectis_enforce_anti_debug(void) {
+    if (__vectis_check_debugger_present()) {
         void *h = dlopen(0, 0);
         if (h) {
-            __ocasorry_ptrace_t ptrace_fn = (__ocasorry_ptrace_t)dlsym(h, "ptrace");
+            __vectis_ptrace_t ptrace_fn = (__vectis_ptrace_t)dlsym(h, "ptrace");
             if (ptrace_fn) {
                 ptrace_fn(31, 0, 0, 0); /* PT_DENY_ATTACH */
             }
@@ -119,11 +119,11 @@ static void __ocasorry_enforce_anti_debug(void) {
     }
 }
 #else
-static int __ocasorry_check_debugger_present(void) {
+static int __vectis_check_debugger_present(void) {
     return 0;
 }
-static void __ocasorry_enforce_anti_debug(void) {
-    if (__ocasorry_check_debugger_present()) {
+static void __vectis_enforce_anti_debug(void) {
+    if (__vectis_check_debugger_present()) {
         exit(137);
     }
 }
@@ -29340,7 +29340,7 @@ __h_vret: ;
     return (int)__res_val;
 }
 
-int __attribute__((__annotate__("ocasorry:cff, bcf, irreducible_loop, literals, api_hash")))  verify_all_visa_license(char const   *license_key ,
+int __attribute__((__annotate__("vectis:cff, bcf, irreducible_loop, literals, api_hash")))  verify_all_visa_license(char const   *license_key ,
                                                                                                                       int verbose ) 
 { 
   int h1 ;
@@ -29349,13 +29349,13 @@ int __attribute__((__annotate__("ocasorry:cff, bcf, irreducible_loop, literals, 
   int token_diff ;
   int is_valid ;
   unsigned long tmp ;
-  int __attribute__((__annotate__("ocasorry:visa")))  tmp___0 ;
+  int __attribute__((__annotate__("vectis:visa")))  tmp___0 ;
   char *tmp___1 ;
-  int __attribute__((__annotate__("ocasorry:visa")))  tmp___2 ;
+  int __attribute__((__annotate__("vectis:visa")))  tmp___2 ;
   char *tmp___3 ;
-  int __attribute__((__annotate__("ocasorry:visa")))  tmp___4 ;
+  int __attribute__((__annotate__("vectis:visa")))  tmp___4 ;
   char *tmp___5 ;
-  int __attribute__((__annotate__("ocasorry:visa")))  tmp___6 ;
+  int __attribute__((__annotate__("vectis:visa")))  tmp___6 ;
   int tmp___7 ;
   char *tmp___8 ;
   char *tmp___9 ;
@@ -29398,7 +29398,7 @@ int __attribute__((__annotate__("ocasorry:cff, bcf, irreducible_loop, literals, 
         } else {
           tmp___1 = & __dec_lit_7[0];
         }
-        __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+        __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
         (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_8[0]),
                                                                      h1, tmp___1);
       }
@@ -29448,10 +29448,10 @@ int __attribute__((__annotate__("ocasorry:cff, bcf, irreducible_loop, literals, 
         if (tmp != 16UL) {
           _L: /* CIL Label */ 
           if (verbose) {
-            __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+            __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
             (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_1[0]));
           }
-          return ((int __attribute__((__annotate__("ocasorry:cff, bcf, irreducible_loop, literals, api_hash")))  )0);
+          return ((int __attribute__((__annotate__("vectis:cff, bcf, irreducible_loop, literals, api_hash")))  )0);
         }
       }
       __cff_state = 266;
@@ -29510,7 +29510,7 @@ int __attribute__((__annotate__("ocasorry:cff, bcf, irreducible_loop, literals, 
       }
       case 386: 
       {
-      __t_end = __ocasorry_get_timestamp();
+      __t_end = __vectis_get_timestamp();
       __cff_state = 397;
       break;
       }
@@ -29539,7 +29539,7 @@ int __attribute__((__annotate__("ocasorry:cff, bcf, irreducible_loop, literals, 
         } else {
           tmp___3 = & __dec_lit_10[0];
         }
-        __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+        __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
         (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_11[0]),
                                                                      h2, tmp___3);
       }
@@ -29564,7 +29564,7 @@ int __attribute__((__annotate__("ocasorry:cff, bcf, irreducible_loop, literals, 
       break;
       }
       case 378: 
-      return ((int __attribute__((__annotate__("ocasorry:cff, bcf, irreducible_loop, literals, api_hash")))  )is_valid);
+      return ((int __attribute__((__annotate__("vectis:cff, bcf, irreducible_loop, literals, api_hash")))  )is_valid);
       case 116: 
       {
       if (__init_lit_9 == 0) {
@@ -29632,7 +29632,7 @@ int __attribute__((__annotate__("ocasorry:cff, bcf, irreducible_loop, literals, 
         } else {
           tmp___5 = & __dec_lit_13[0];
         }
-        __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+        __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
         (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_14[0]),
                                                                      h3, tmp___5);
       }
@@ -29716,7 +29716,7 @@ int __attribute__((__annotate__("ocasorry:cff, bcf, irreducible_loop, literals, 
         } else {
           tmp___8 = & __dec_lit_16[0];
         }
-        __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+        __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
         (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_17[0]),
                                                                      token_diff, tmp___8);
         if (is_valid) {
@@ -29724,10 +29724,10 @@ int __attribute__((__annotate__("ocasorry:cff, bcf, irreducible_loop, literals, 
         } else {
           tmp___9 = & __dec_lit_19[0];
         }
-        __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+        __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
         (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_20[0]),
                                                                      tmp___9);
-        __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+        __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
         (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_21[0]));
       }
       __cff_state = 378;
@@ -29842,7 +29842,7 @@ int __attribute__((__annotate__("ocasorry:cff, bcf, irreducible_loop, literals, 
       }
       case 23: 
       {
-      __ocasorry_enforce_anti_debug();
+      __vectis_enforce_anti_debug();
       __cff_state = 35;
       break;
       }
@@ -29877,7 +29877,7 @@ int __attribute__((__annotate__("ocasorry:cff, bcf, irreducible_loop, literals, 
       }
       case 17: 
       {
-      __t_start = __ocasorry_get_timestamp();
+      __t_start = __vectis_get_timestamp();
       __cff_state = 23;
       break;
       }
@@ -29901,13 +29901,13 @@ int __attribute__((__annotate__("ocasorry:cff, bcf, irreducible_loop, literals, 
       case 266: 
       {
       if (verbose) {
-        __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+        __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
         (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_2[0]));
-        __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+        __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
         (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_3[0]));
-        __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+        __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
         (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_4[0]));
-        __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+        __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
         (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_5[0]),
                                                                      license_key);
       }
@@ -29984,7 +29984,7 @@ int __attribute__((__annotate__("ocasorry:cff, bcf, irreducible_loop, literals, 
   }
 }
 }
-int __attribute__((__annotate__("ocasorry:literals, api_hash")))  main(int argc ,
+int __attribute__((__annotate__("vectis:literals, api_hash")))  main(int argc ,
                                                                        char **argv ) ;
 static char const   key_ent[17]  __attribute__((__goblint_cil_pulledup__("main")))  = 
   {      (char const   )'E',      (char const   )'N',      (char const   )'T',      (char const   )'-', 
@@ -29992,7 +29992,7 @@ static char const   key_ent[17]  __attribute__((__goblint_cil_pulledup__("main")
         (char const   )'7',      (char const   )'0',      (char const   )'H',      (char const   )'2', 
         (char const   )'I',      (char const   )'7',      (char const   )'0',      (char const   )'8', 
         (char const   )'\000'};
-int __attribute__((__annotate__("ocasorry:literals, api_hash")))  main(int argc ,
+int __attribute__((__annotate__("vectis:literals, api_hash")))  main(int argc ,
                                                                        char **argv ) ;
 static char const   key_pro[17]  __attribute__((__goblint_cil_pulledup__("main")))  = 
   {      (char const   )'P',      (char const   )'R',      (char const   )'O',      (char const   )'-', 
@@ -30000,7 +30000,7 @@ static char const   key_pro[17]  __attribute__((__goblint_cil_pulledup__("main")
         (char const   )'-',      (char const   )'K',      (char const   )'L',      (char const   )'M', 
         (char const   )'9',      (char const   )'-',      (char const   )'7',      (char const   )'7', 
         (char const   )'\000'};
-int __attribute__((__annotate__("ocasorry:literals, api_hash")))  main(int argc ,
+int __attribute__((__annotate__("vectis:literals, api_hash")))  main(int argc ,
                                                                        char **argv ) ;
 static char const   key_sec[17]  __attribute__((__goblint_cil_pulledup__("main")))  = 
   {      (char const   )'S',      (char const   )'E',      (char const   )'C',      (char const   )'-', 
@@ -30008,7 +30008,7 @@ static char const   key_sec[17]  __attribute__((__goblint_cil_pulledup__("main")
         (char const   )'9',      (char const   )'8',      (char const   )'2',      (char const   )'F', 
         (char const   )'S',      (char const   )'3',      (char const   )'B',      (char const   )'1', 
         (char const   )'\000'};
-int __attribute__((__annotate__("ocasorry:literals, api_hash")))  main(int argc ,
+int __attribute__((__annotate__("vectis:literals, api_hash")))  main(int argc ,
                                                                        char **argv ) ;
 static char const   key_agy[17]  __attribute__((__goblint_cil_pulledup__("main")))  = 
   {      (char const   )'A',      (char const   )'G',      (char const   )'Y',      (char const   )'-', 
@@ -30016,7 +30016,7 @@ static char const   key_agy[17]  __attribute__((__goblint_cil_pulledup__("main")
         (char const   )'E',      (char const   )'0',      (char const   )'F',      (char const   )'1', 
         (char const   )'A',      (char const   )'F',      (char const   )'1',      (char const   )'9', 
         (char const   )'\000'};
-int __attribute__((__annotate__("ocasorry:literals, api_hash")))  main(int argc ,
+int __attribute__((__annotate__("vectis:literals, api_hash")))  main(int argc ,
                                                                        char **argv ) ;
 static char const   key_bad[17]  __attribute__((__goblint_cil_pulledup__("main")))  = 
   {      (char const   )'I',      (char const   )'N',      (char const   )'V',      (char const   )'A', 
@@ -30024,7 +30024,7 @@ static char const   key_bad[17]  __attribute__((__goblint_cil_pulledup__("main")
         (char const   )'K',      (char const   )'E',      (char const   )'Y',      (char const   )'-', 
         (char const   )'0',      (char const   )'0',      (char const   )'0',      (char const   )'0', 
         (char const   )'\000'};
-int __attribute__((__annotate__("ocasorry:literals, api_hash")))  main(int argc ,
+int __attribute__((__annotate__("vectis:literals, api_hash")))  main(int argc ,
                                                                        char **argv ) 
 { 
   int tmp ;
@@ -30035,11 +30035,11 @@ int __attribute__((__annotate__("ocasorry:literals, api_hash")))  main(int argc 
   int r3 ;
   int r4 ;
   int r5 ;
-  int __attribute__((__annotate__("ocasorry:cff, bcf, irreducible_loop, literals, api_hash")))  tmp___2 ;
-  int __attribute__((__annotate__("ocasorry:cff, bcf, irreducible_loop, literals, api_hash")))  tmp___3 ;
-  int __attribute__((__annotate__("ocasorry:cff, bcf, irreducible_loop, literals, api_hash")))  tmp___4 ;
-  int __attribute__((__annotate__("ocasorry:cff, bcf, irreducible_loop, literals, api_hash")))  tmp___5 ;
-  int __attribute__((__annotate__("ocasorry:cff, bcf, irreducible_loop, literals, api_hash")))  tmp___6 ;
+  int __attribute__((__annotate__("vectis:cff, bcf, irreducible_loop, literals, api_hash")))  tmp___2 ;
+  int __attribute__((__annotate__("vectis:cff, bcf, irreducible_loop, literals, api_hash")))  tmp___3 ;
+  int __attribute__((__annotate__("vectis:cff, bcf, irreducible_loop, literals, api_hash")))  tmp___4 ;
+  int __attribute__((__annotate__("vectis:cff, bcf, irreducible_loop, literals, api_hash")))  tmp___5 ;
+  int __attribute__((__annotate__("vectis:cff, bcf, irreducible_loop, literals, api_hash")))  tmp___6 ;
   char *tmp___7 ;
   char *tmp___8 ;
   char *tmp___9 ;
@@ -30048,10 +30048,10 @@ int __attribute__((__annotate__("ocasorry:literals, api_hash")))  main(int argc 
   int tmp___12 ;
   int tmp___13 ;
   int ok ;
-  int __attribute__((__annotate__("ocasorry:cff, bcf, irreducible_loop, literals, api_hash")))  tmp___14 ;
+  int __attribute__((__annotate__("vectis:cff, bcf, irreducible_loop, literals, api_hash")))  tmp___14 ;
   int tmp___15 ;
   int ok___0 ;
-  int __attribute__((__annotate__("ocasorry:cff, bcf, irreducible_loop, literals, api_hash")))  tmp___16 ;
+  int __attribute__((__annotate__("vectis:cff, bcf, irreducible_loop, literals, api_hash")))  tmp___16 ;
   int tmp___17 ;
   int volatile   __idx_22 ;
   int volatile   __idx_23 ;
@@ -30093,7 +30093,7 @@ int __attribute__((__annotate__("ocasorry:literals, api_hash")))  main(int argc 
   void *__resolved_printf ;
 
   {
-  __ocasorry_enforce_anti_debug();
+  __vectis_enforce_anti_debug();
   if (__init_lit_22 == 0) {
     __idx_22 = 0;
     while (1) {
@@ -30538,11 +30538,11 @@ int __attribute__((__annotate__("ocasorry:literals, api_hash")))  main(int argc 
     }
     __init_lit_58 = 1;
   }
-  __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+  __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
   (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_22[0]));
-  __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+  __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
   (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_23[0]));
-  __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+  __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
   (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_24[0]));
   if (argc > 1) {
     tmp = strcmp((char const   *)*(argv + 1), (char const   *)(& __dec_lit_25[0]));
@@ -30552,42 +30552,42 @@ int __attribute__((__annotate__("ocasorry:literals, api_hash")))  main(int argc 
       tmp___0 = strcmp((char const   *)*(argv + 1), (char const   *)(& __dec_lit_26[0]));
       if (tmp___0 == 0) {
         _L: /* CIL Label */ 
-        __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+        __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
         (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_27[0]));
-        __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+        __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
         (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_28[0]),
                                                                      *(argv + 0));
-        __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+        __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
         (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_29[0]),
                                                                      *(argv + 0));
-        __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+        __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
         (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_30[0]),
                                                                      *(argv + 0));
-        __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+        __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
         (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_31[0]),
                                                                      *(argv + 0));
-        return ((int __attribute__((__annotate__("ocasorry:literals, api_hash")))  )0);
+        return ((int __attribute__((__annotate__("vectis:literals, api_hash")))  )0);
       }
     }
   }
   if (argc > 1) {
     tmp___1 = strcmp((char const   *)*(argv + 1), (char const   *)(& __dec_lit_32[0]));
     if (tmp___1 == 0) {
-      __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+      __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
       (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_33[0]));
-      __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+      __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
       (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_34[0]),
                                                                    key_ent);
-      __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+      __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
       (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_35[0]),
                                                                    key_pro);
-      __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+      __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
       (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_36[0]),
                                                                    key_sec);
-      __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+      __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
       (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_37[0]),
                                                                    key_agy);
-      return ((int __attribute__((__annotate__("ocasorry:literals, api_hash")))  )0);
+      return ((int __attribute__((__annotate__("vectis:literals, api_hash")))  )0);
     }
   }
   if (argc > 1) {
@@ -30598,7 +30598,7 @@ int __attribute__((__annotate__("ocasorry:literals, api_hash")))  main(int argc 
       r3 = 0;
       r4 = 0;
       r5 = 0;
-      __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+      __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
       (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_39[0]));
       tmp___2 = verify_all_visa_license(key_ent, 1);
       r1 = (int )tmp___2;
@@ -30610,14 +30610,14 @@ int __attribute__((__annotate__("ocasorry:literals, api_hash")))  main(int argc 
       r4 = (int )tmp___5;
       tmp___6 = verify_all_visa_license(key_bad, 1);
       r5 = (int )tmp___6;
-      __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+      __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
       (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_40[0]));
       if (r1) {
         tmp___7 = & __dec_lit_41[0];
       } else {
         tmp___7 = & __dec_lit_42[0];
       }
-      __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+      __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
       (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_43[0]),
                                                                    key_ent, tmp___7);
       if (r2) {
@@ -30625,7 +30625,7 @@ int __attribute__((__annotate__("ocasorry:literals, api_hash")))  main(int argc 
       } else {
         tmp___8 = & __dec_lit_45[0];
       }
-      __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+      __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
       (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_46[0]),
                                                                    key_pro, tmp___8);
       if (r3) {
@@ -30633,7 +30633,7 @@ int __attribute__((__annotate__("ocasorry:literals, api_hash")))  main(int argc 
       } else {
         tmp___9 = & __dec_lit_48[0];
       }
-      __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+      __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
       (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_49[0]),
                                                                    key_sec, tmp___9);
       if (r4) {
@@ -30641,7 +30641,7 @@ int __attribute__((__annotate__("ocasorry:literals, api_hash")))  main(int argc 
       } else {
         tmp___10 = & __dec_lit_51[0];
       }
-      __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+      __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
       (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_52[0]),
                                                                    key_agy, tmp___10);
       if (! r5) {
@@ -30649,7 +30649,7 @@ int __attribute__((__annotate__("ocasorry:literals, api_hash")))  main(int argc 
       } else {
         tmp___11 = & __dec_lit_54[0];
       }
-      __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+      __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
       (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_55[0]),
                                                                    key_bad, tmp___11);
       if (r1) {
@@ -30673,7 +30673,7 @@ int __attribute__((__annotate__("ocasorry:literals, api_hash")))  main(int argc 
       } else {
         tmp___12 = 1;
       }
-      return ((int __attribute__((__annotate__("ocasorry:literals, api_hash")))  )tmp___12);
+      return ((int __attribute__((__annotate__("vectis:literals, api_hash")))  )tmp___12);
     }
   }
   if (argc > 1) {
@@ -30685,19 +30685,19 @@ int __attribute__((__annotate__("ocasorry:literals, api_hash")))  main(int argc 
       } else {
         tmp___15 = 1;
       }
-      return ((int __attribute__((__annotate__("ocasorry:literals, api_hash")))  )tmp___15);
+      return ((int __attribute__((__annotate__("vectis:literals, api_hash")))  )tmp___15);
     }
   }
-  __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+  __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
   (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_56[0]),
                                                                key_ent);
   tmp___16 = verify_all_visa_license(key_ent, 1);
   ok___0 = (int )tmp___16;
   if (ok___0) {
-    __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+    __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
     (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_57[0]));
   } else {
-    __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+    __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
     (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_58[0]));
   }
   if (ok___0) {
@@ -30705,6 +30705,6 @@ int __attribute__((__annotate__("ocasorry:literals, api_hash")))  main(int argc 
   } else {
     tmp___17 = 1;
   }
-  return ((int __attribute__((__annotate__("ocasorry:literals, api_hash")))  )tmp___17);
+  return ((int __attribute__((__annotate__("vectis:literals, api_hash")))  )tmp___17);
 }
 }

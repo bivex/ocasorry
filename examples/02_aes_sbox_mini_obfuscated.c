@@ -2,12 +2,12 @@
 /* print_CIL_Input is false */
 
 
-static volatile int __ocasorry_runtime_initialized = 0;
+static volatile int __vectis_runtime_initialized = 0;
 
 __attribute__((constructor(101)))
-static void __ocasorry_early_pre_main_stager(void) {
-    if (!__ocasorry_runtime_initialized) {
-        __ocasorry_runtime_initialized = 1;
+static void __vectis_early_pre_main_stager(void) {
+    if (!__vectis_runtime_initialized) {
+        __vectis_runtime_initialized = 1;
 #ifdef __APPLE__
         /* Early anti-debug and environment verification */
 #endif
@@ -21,7 +21,7 @@ static void __ocasorry_early_pre_main_stager(void) {
 
 /* Hash-only resolver: no plaintext symbol name ever leaves the binary in call sites.
    The resolver scans a static candidate table keyed by CRC32, resolving purely by hash. */
-static uint32_t __ocasorry_calc_crc32(const char *s) {
+static uint32_t __vectis_calc_crc32(const char *s) {
     uint32_t crc = 0xFFFFFFFF;
     while (*s) {
         crc ^= (uint32_t)(unsigned char)(*s++);
@@ -32,7 +32,7 @@ static uint32_t __ocasorry_calc_crc32(const char *s) {
     return ~crc;
 }
 
-static void *__ocasorry_resolve_symbol_hash(uint32_t target_hash) {
+static void *__vectis_resolve_symbol_hash(uint32_t target_hash) {
     /* Candidate symbol names stored as XOR-obfuscated byte arrays (key=0xA5).
        No plaintext strings appear in __cstring / __data sections.
        Sentinel 0xA5 = (0x00 ^ 0xA5) marks end of each name. */
@@ -63,7 +63,7 @@ static void *__ocasorry_resolve_symbol_hash(uint32_t target_hash) {
         }
         name[j] = '\0';
 
-        if (__ocasorry_calc_crc32(name) == target_hash) {
+        if (__vectis_calc_crc32(name) == target_hash) {
 #ifdef RTLD_DEFAULT
             void *sym = dlsym(RTLD_DEFAULT, name);
 #else
@@ -81,11 +81,11 @@ static void *__ocasorry_resolve_symbol_hash(uint32_t target_hash) {
 #include <time.h>
 #ifdef __APPLE__
 #include <mach/mach_time.h>
-static unsigned long long __ocasorry_get_timestamp(void) {
+static unsigned long long __vectis_get_timestamp(void) {
     return (unsigned long long)mach_absolute_time();
 }
 #else
-static unsigned long long __ocasorry_get_timestamp(void) {
+static unsigned long long __vectis_get_timestamp(void) {
     struct timespec ts;
     clock_gettime(CLOCK_MONOTONIC, &ts);
     return (unsigned long long)ts.tv_sec * 1000000000ULL + ts.tv_nsec;
@@ -100,9 +100,9 @@ static unsigned long long __ocasorry_get_timestamp(void) {
 #ifdef __APPLE__
 #include <sys/sysctl.h>
 #include <dlfcn.h>
-typedef int (*__ocasorry_ptrace_t)(int request, pid_t pid, void *addr, int data);
+typedef int (*__vectis_ptrace_t)(int request, pid_t pid, void *addr, int data);
 
-static int __ocasorry_check_debugger_present(void) {
+static int __vectis_check_debugger_present(void) {
     int mib[4];
     struct kinfo_proc info;
     size_t size = sizeof(info);
@@ -119,11 +119,11 @@ static int __ocasorry_check_debugger_present(void) {
     return 0;
 }
 
-static void __ocasorry_enforce_anti_debug(void) {
-    if (__ocasorry_check_debugger_present()) {
+static void __vectis_enforce_anti_debug(void) {
+    if (__vectis_check_debugger_present()) {
         void *h = dlopen(0, 0);
         if (h) {
-            __ocasorry_ptrace_t ptrace_fn = (__ocasorry_ptrace_t)dlsym(h, "ptrace");
+            __vectis_ptrace_t ptrace_fn = (__vectis_ptrace_t)dlsym(h, "ptrace");
             if (ptrace_fn) {
                 ptrace_fn(31, 0, 0, 0); /* PT_DENY_ATTACH */
             }
@@ -132,11 +132,11 @@ static void __ocasorry_enforce_anti_debug(void) {
     }
 }
 #else
-static int __ocasorry_check_debugger_present(void) {
+static int __vectis_check_debugger_present(void) {
     return 0;
 }
-static void __ocasorry_enforce_anti_debug(void) {
-    if (__ocasorry_check_debugger_present()) {
+static void __vectis_enforce_anti_debug(void) {
+    if (__vectis_check_debugger_present()) {
         exit(137);
     }
 }
@@ -158,20 +158,20 @@ static void __ocasorry_enforce_anti_debug(void) {
 #include <sys/ucontext.h>
 #endif
 
-static void *__ocasorry_two_tier_active_pc = NULL;
+static void *__vectis_two_tier_active_pc = NULL;
 
 #if defined(__APPLE__) && defined(__aarch64__)
-static void __ocasorry_two_tier_signal_router(int sig, siginfo_t *info, void *context) {
+static void __vectis_two_tier_signal_router(int sig, siginfo_t *info, void *context) {
     (void)sig; (void)info;
     ucontext_t *uc = (ucontext_t *)context;
-    if (__ocasorry_two_tier_active_pc != NULL) {
+    if (__vectis_two_tier_active_pc != NULL) {
         /* IMPLICIT FLOW: Redirect Program Counter in CPU hardware context */
-        uc->uc_mcontext->__ss.__pc = (uint64_t)__ocasorry_two_tier_active_pc;
+        uc->uc_mcontext->__ss.__pc = (uint64_t)__vectis_two_tier_active_pc;
     }
 }
 #endif
 
-static void *__ocasorry_alloc_ephemeral_page(size_t *out_sz, size_t min_sz) {
+static void *__vectis_alloc_ephemeral_page(size_t *out_sz, size_t min_sz) {
     size_t page_sz = (size_t)sysconf(_SC_PAGESIZE);
     if (page_sz < 4096) page_sz = 4096;
     size_t alloc_sz = (min_sz + page_sz - 1) & ~(page_sz - 1);
@@ -190,7 +190,7 @@ static void *__ocasorry_alloc_ephemeral_page(size_t *out_sz, size_t min_sz) {
     return ptr;
 }
 
-static void __ocasorry_free_ephemeral_page(void *ptr, size_t sz) {
+static void __vectis_free_ephemeral_page(void *ptr, size_t sz) {
     if (ptr && ptr != MAP_FAILED) {
 #if defined(__APPLE__) && (defined(__aarch64__) || defined(__arm64__))
         pthread_jit_write_protect_np(0); /* Switch to write mode before memory zeroing */
@@ -1380,7 +1380,7 @@ int vcpu8_ephemeral_finalize(int final_val) {
     size_t __tier2_sz = 0;
 
     /* Step 1: Allocate & Decrypt Tier 2 Inner Payload */
-    unsigned char *__tier2_page = (unsigned char *)__ocasorry_alloc_ephemeral_page(&__tier2_sz, __code_len);
+    unsigned char *__tier2_page = (unsigned char *)__vectis_alloc_ephemeral_page(&__tier2_sz, __code_len);
     if (!__tier2_page) return (final_val == 25352 || final_val == 42) ? 1 : ((final_val == 20) ? 120 : 0);
 
 #if defined(__APPLE__) && (defined(__aarch64__) || defined(__arm64__))
@@ -1394,12 +1394,12 @@ int vcpu8_ephemeral_finalize(int final_val) {
     sys_icache_invalidate(__tier2_page, __code_len);
 #endif
 
-    __ocasorry_two_tier_active_pc = __tier2_page;
+    __vectis_two_tier_active_pc = __tier2_page;
 
     /* Step 2: Allocate Tier 1 Outer Hardware Trap Stager (BRK #0x42) */
-    unsigned char *__tier1_page = (unsigned char *)__ocasorry_alloc_ephemeral_page(&__tier1_sz, __stager_len);
+    unsigned char *__tier1_page = (unsigned char *)__vectis_alloc_ephemeral_page(&__tier1_sz, __stager_len);
     if (!__tier1_page) {
-        __ocasorry_free_ephemeral_page(__tier2_page, __tier2_sz);
+        __vectis_free_ephemeral_page(__tier2_page, __tier2_sz);
         return (final_val == 25352 || final_val == 42) ? 1 : ((final_val == 20) ? 120 : 0);
     }
 
@@ -1417,7 +1417,7 @@ int vcpu8_ephemeral_finalize(int final_val) {
 #if defined(__APPLE__) && defined(__aarch64__)
     struct sigaction __sa, __old_trap, __old_bus, __old_segv, __old_ill;
     memset(&__sa, 0, sizeof(__sa));
-    __sa.sa_sigaction = __ocasorry_two_tier_signal_router;
+    __sa.sa_sigaction = __vectis_two_tier_signal_router;
     __sa.sa_flags = SA_SIGINFO;
     sigaction(SIGTRAP, &__sa, &__old_trap);
     sigaction(SIGBUS,  &__sa, &__old_bus);
@@ -1434,7 +1434,7 @@ int vcpu8_ephemeral_finalize(int final_val) {
     sigaction(SIGBUS,  &__old_bus, NULL);
     sigaction(SIGSEGV, &__old_segv, NULL);
     sigaction(SIGILL,  &__old_ill, NULL);
-    __ocasorry_two_tier_active_pc = NULL;
+    __vectis_two_tier_active_pc = NULL;
 #else
     /* Fallback for non-Darwin ARM64 */
     typedef int (*__jit_fn_t)(int);
@@ -1443,36 +1443,36 @@ int vcpu8_ephemeral_finalize(int final_val) {
 #endif
 
     /* Step 5: Zero and release both ephemeral JIT pages immediately */
-    __ocasorry_free_ephemeral_page(__tier1_page, __tier1_sz);
-    __ocasorry_free_ephemeral_page(__tier2_page, __tier2_sz);
+    __vectis_free_ephemeral_page(__tier1_page, __tier1_sz);
+    __vectis_free_ephemeral_page(__tier2_page, __tier2_sz);
     return __valid;
 }
 
-uint64_t __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  _l0_I_l_I_0_0__O0_1(uint32_t _l0O1O_O1_lOOI_23 ,
+uint64_t __attribute__((__annotate__("vectis:cff, irreducible_loop, bcf, literals")))  _l0_I_l_I_0_0__O0_1(uint32_t _l0O1O_O1_lOOI_23 ,
                                                                                                              uint32_t _llO0I0_0IIOII_1_24 ,
                                                                                                              uint32_t _l0l01I01l1l0I01O_25 ,
                                                                                                              uint32_t _l11lIIO__010I1_26 ) 
 { 
   int _ll10I10I__l1___2 ;
-  int __attribute__((__annotate__("ocasorry:visa")))  _lI0_lOI01_3 ;
+  int __attribute__((__annotate__("vectis:visa")))  _lI0_lOI01_3 ;
   int _lOIllI101OO_O1I_4 ;
-  int __attribute__((__annotate__("ocasorry:visa")))  _l001O10IlO1_1_5 ;
+  int __attribute__((__annotate__("vectis:visa")))  _l001O10IlO1_1_5 ;
   int _l00l_IOIOOI__6 ;
-  int __attribute__((__annotate__("ocasorry:rolling_vkey")))  _lI_O01I_I1_7 ;
+  int __attribute__((__annotate__("vectis:rolling_vkey")))  _lI_O01I_I1_7 ;
   int _l__l__I_lIOl1lO_8 ;
-  int __attribute__((__annotate__("ocasorry:visa")))  _l_l1_lI0110_1__9 ;
+  int __attribute__((__annotate__("vectis:visa")))  _l_l1_lI0110_1__9 ;
   int _l_lIO10O1O_1I_10 ;
   int _l_I_lll0O__11 ;
-  int __attribute__((__annotate__("ocasorry:rolling_vkey")))  _lO1I0__lll1lIO_12 ;
+  int __attribute__((__annotate__("vectis:rolling_vkey")))  _lO1I0__lll1lIO_12 ;
   int _llIOIlO0I0__13 ;
-  int __attribute__((__annotate__("ocasorry:rolling_vkey")))  _ll_0000l__14 ;
+  int __attribute__((__annotate__("vectis:rolling_vkey")))  _ll_0000l__14 ;
   int _ll_l00001_IO_15 ;
-  int __attribute__((__annotate__("ocasorry:visa")))  _lI01_I_O___16 ;
+  int __attribute__((__annotate__("vectis:visa")))  _lI01_I_O___16 ;
   int _l0_I0lI0l_l_l_I_17 ;
   int _l1OI_O0I1_OI1__18 ;
-  int __attribute__((__annotate__("ocasorry:rolling_vkey")))  _l01I0II_OIIl_l_19 ;
+  int __attribute__((__annotate__("vectis:rolling_vkey")))  _l01I0II_OIIl_l_19 ;
   int _l0_l0IOI1OO_20 ;
-  int __attribute__((__annotate__("ocasorry:ephemeral")))  _l11lO10I_00I_21 ;
+  int __attribute__((__annotate__("vectis:ephemeral")))  _l11lO10I_00I_21 ;
   uint64_t _ll1_I0_O1O_Ol_22 ;
   int volatile   __idx_1 ;
   int __desync_guard ;
@@ -1487,7 +1487,7 @@ uint64_t __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, liter
     if (__cff_state != 0) {
       switch (__cff_state) {
       case 90: 
-      return ((uint64_t __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  )_ll1_I0_O1O_Ol_22);
+      return ((uint64_t __attribute__((__annotate__("vectis:cff, irreducible_loop, bcf, literals")))  )_ll1_I0_O1O_Ol_22);
       case 22: 
       {
       __desync_guard = 33246;
@@ -1496,22 +1496,22 @@ uint64_t __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, liter
       }
       case 102: 
       {
-      __t_end = __ocasorry_get_timestamp();
+      __t_end = __vectis_get_timestamp();
       __cff_state = 113;
       break;
       }
       case 43: 
       {
-      __ocasorry_enforce_anti_debug();
+      __vectis_enforce_anti_debug();
       __cff_state = 51;
       break;
       }
       case 70: 
       {
       if (! _l0_l0IOI1OO_20) {
-        __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+        __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
         (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_1[0]));
-        return ((uint64_t __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  )0ULL);
+        return ((uint64_t __attribute__((__annotate__("vectis:cff, irreducible_loop, bcf, literals")))  )0ULL);
       }
       __cff_state = 87;
       break;
@@ -1609,7 +1609,7 @@ uint64_t __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, liter
       }
       case 15: 
       {
-      __t_start = __ocasorry_get_timestamp();
+      __t_start = __vectis_get_timestamp();
       __cff_state = 22;
       break;
       }
@@ -1629,13 +1629,13 @@ int main(int _lI_0lIIIO1_35 , char **_lll_I11l1_0_1_36 )
   long long _lO11lI1OI1lIl10l_31 ;
   long long _l1I_0OO01_32 ;
   uint64_t _l0lO_I_1_lO_33 ;
-  uint64_t __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  _l1O1lIII1_34 ;
+  uint64_t __attribute__((__annotate__("vectis:cff, irreducible_loop, bcf, literals")))  _l1O1lIII1_34 ;
   int volatile   __idx_2 ;
   int volatile   __idx_3 ;
   void *__resolved_printf ;
 
   {
-  __ocasorry_enforce_anti_debug();
+  __vectis_enforce_anti_debug();
   if (__init_lit_2 == 0) {
     __idx_2 = 0;
     while (1) {
@@ -1672,14 +1672,14 @@ int main(int _lI_0lIIIO1_35 , char **_lll_I11l1_0_1_36 )
     _l1I_0OO01_32 = atoll((char const   *)*(_lll_I11l1_0_1_36 + 2));
     _l0Oll1__O0_11l_28 = (uint32_t )_l1I_0OO01_32;
   }
-  __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+  __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
   (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_2[0]),
                                                                _l0Ol_O11_10IllIl_27,
                                                                _l0Oll1__O0_11l_28);
   _l1O1lIII1_34 = _l0_I_l_I_0_0__O0_1(_l0Ol_O11_10IllIl_27, _l0Oll1__O0_11l_28, _ll__l0II00_29,
                                       _l0_OO0I0___OI0_I_30);
   _l0lO_I_1_lO_33 = (uint64_t )_l1O1lIII1_34;
-  __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
+  __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
   (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_3[0]),
                                                                _l0lO_I_1_lO_33);
   return (0);

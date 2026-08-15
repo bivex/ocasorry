@@ -16,7 +16,7 @@ module Adapter : C_source_port.S = struct
 
   let parse_string (c_code : string) : file =
     init_once ();
-    let tmp_path = Filename.temp_file "ocasorry_" ".c" in
+    let tmp_path = Filename.temp_file "vectis_" ".c" in
     let oc = open_out tmp_path in
     output_string oc c_code;
     close_out oc;
@@ -43,7 +43,7 @@ module Adapter : C_source_port.S = struct
 
   let emit_to_string (f : file) : string =
     let filtered_file = filter_builtins f in
-    let tmp_path = Filename.temp_file "ocasorry_out_" ".c" in
+    let tmp_path = Filename.temp_file "vectis_out_" ".c" in
     let oc = open_out tmp_path in
     dumpFile defaultCilPrinter oc "" filtered_file;
     close_out oc;

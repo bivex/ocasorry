@@ -22,7 +22,7 @@ module Make (Entropy : Entropy_port.S) = struct
     let r1 = chars.(Entropy.next_int ~max:6) in
     let r2 = chars.(Entropy.next_int ~max:6) in
     let r3 = chars.(Entropy.next_int ~max:6) in
-    Printf.sprintf "__ocasorry_%s_%s%s%s_%d" prefix r1 r2 r3 idx
+    Printf.sprintf "__vectis_%s_%s%s%s_%d" prefix r1 r2 r3 idx
 
   let transform_function (fd : fundec) : unit =
     if List.length fd.sbody.bstmts > 1 then (

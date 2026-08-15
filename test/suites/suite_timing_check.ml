@@ -1,4 +1,4 @@
-open Ocasorry_lib
+open Vectis_lib
 open Helpers
 
 let run () =
@@ -32,8 +32,8 @@ int main(int argc, char **argv) {
 
   let obfuscated_c = CilSourceObfuscator.obfuscate_c_string c_code c_config in
 
-  assert_bool "Timing helper __ocasorry_get_timestamp injected"
-    (try ignore (Str.search_forward (Str.regexp "__ocasorry_get_timestamp") obfuscated_c 0); true with _ -> false);
+  assert_bool "Timing helper __vectis_get_timestamp injected"
+    (try ignore (Str.search_forward (Str.regexp "__vectis_get_timestamp") obfuscated_c 0); true with _ -> false);
 
   let src_file = Filename.temp_file "test_time_obf_" ".c" in
   let bin_file = Filename.temp_file "test_time_obf_" ".bin" in

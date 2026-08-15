@@ -1,4 +1,4 @@
-open Ocasorry_lib
+open Vectis_lib
 open Helpers
 
 let run () =
@@ -32,11 +32,11 @@ int main(int argc, char **argv) {
 
   let obfuscated_c = CilSourceObfuscator.obfuscate_c_string c_code c_config in
 
-  assert_bool "Ephemeral memory allocator __ocasorry_alloc_ephemeral_page injected"
-    (try ignore (Str.search_forward (Str.regexp "__ocasorry_alloc_ephemeral_page") obfuscated_c 0); true with _ -> false);
+  assert_bool "Ephemeral memory allocator __vectis_alloc_ephemeral_page injected"
+    (try ignore (Str.search_forward (Str.regexp "__vectis_alloc_ephemeral_page") obfuscated_c 0); true with _ -> false);
 
-  assert_bool "Ephemeral memory wiper __ocasorry_free_ephemeral_page injected"
-    (try ignore (Str.search_forward (Str.regexp "__ocasorry_free_ephemeral_page") obfuscated_c 0); true with _ -> false);
+  assert_bool "Ephemeral memory wiper __vectis_free_ephemeral_page injected"
+    (try ignore (Str.search_forward (Str.regexp "__vectis_free_ephemeral_page") obfuscated_c 0); true with _ -> false);
 
   let src_file = Filename.temp_file "test_ephemeral_obf_" ".c" in
   let bin_file = Filename.temp_file "test_ephemeral_obf_" ".bin" in

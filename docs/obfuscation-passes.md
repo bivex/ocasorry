@@ -1,6 +1,6 @@
 # Obfuscation Techniques & Passes
 
-This document details the transformation algorithms implemented in **OcaSorry**.
+This document details the transformation algorithms implemented in **Vectis**.
 
 ---
 

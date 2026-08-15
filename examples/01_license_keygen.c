@@ -13,7 +13,7 @@ extern int printf(const char *format, ...);
 extern unsigned long strlen(const char *s);
 
 /* Tier 1: Vector Processor (random_vISA VCPU 1) */
-__attribute__((annotate("ocasorry:visa")))
+__attribute__((annotate("vectis:visa")))
 int vcpu1_vector_parity(const char *license_key) {
     int acc = 0x1337;
     int parity = 0x5A;
@@ -26,25 +26,25 @@ int vcpu1_vector_parity(const char *license_key) {
 }
 
 /* Tier 2: Nested Multi-Layer Virtual Machine (VCPU 2) */
-__attribute__((annotate("ocasorry:nested_vm")))
+__attribute__((annotate("vectis:nested_vm")))
 int vcpu2_nested_matrix(int h1) {
     return h1 + 21;
 }
 
 /* Tier 3: Stateful Rolling Key Virtual Machine (VCPU 3) */
-__attribute__((annotate("ocasorry:rolling_vkey")))
+__attribute__((annotate("vectis:rolling_vkey")))
 int vcpu3_rolling_vkey(int h2) {
     return ((h2 + 10) ^ 42) * 2;
 }
 
 /* Tier 4: In-Memory Ephemeral JIT Virtual Machine (VCPU 4) */
-__attribute__((annotate("ocasorry:ephemeral")))
+__attribute__((annotate("vectis:ephemeral")))
 int vcpu4_ephemeral_jit(int h3) {
     return (h3 == 25352) ? 1 : 0;
 }
 
 /* Master Federated Verifier with CFF, Irreducible Loops, BCF, and String Encryption */
-__attribute__((annotate("ocasorry:cff, irreducible_loop, bcf, literals")))
+__attribute__((annotate("vectis:cff, irreducible_loop, bcf, literals")))
 int verify_license_key(const char *license_key) {
     if (license_key == (void*)0 || strlen(license_key) != 16) {
         printf("[-] Invalid key format: Must be exactly 16 characters.\n");
@@ -66,7 +66,7 @@ int verify_license_key(const char *license_key) {
     }
 }
 
-__attribute__((annotate("ocasorry:literals, api_hash")))
+__attribute__((annotate("vectis:literals, api_hash")))
 int main(int argc, char **argv) {
     /* Default key decoded at runtime from XOR bytes — volatile prevents compiler plaintext optimization.
        python3: [hex(ord(c)^0x5A) for c in "PRO-9842-KLM9-77"] */

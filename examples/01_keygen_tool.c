@@ -122,7 +122,7 @@ int main(int argc, char **argv) {
     if (count <= 0) count = 5;
 
     printf("=================================================================\n");
-    printf("   OcaSorry Native C Keygen (%d keys generated with prefix '%s')\n", count, prefix);
+    printf("   Vectis Native C Keygen (%d keys generated with prefix '%s')\n", count, prefix);
     printf("=================================================================\n");
 
     char key_buf[17];

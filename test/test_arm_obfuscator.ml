@@ -1,6 +1,6 @@
 let () =
   Printf.printf "=================================================================\n";
-  Printf.printf "      Running Comprehensive OcaSorry Test Suite (All Targets)    \n";
+  Printf.printf "      Running Comprehensive Vectis Test Suite (All Targets)    \n";
   Printf.printf "=================================================================\n%!";
 
   Suite_arm64_jit.run ();

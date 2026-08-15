@@ -18,7 +18,7 @@ extern int atoi(const char *nptr);
 /* ========================================================================= */
 /* TIER 1: Vector Processor vISA (random_vISA VCPU 1)                        */
 /* ========================================================================= */
-__attribute__((annotate("ocasorry:visa")))
+__attribute__((annotate("vectis:visa")))
 int vcpu1_vector_parity(const char *license_key) {
     int acc = 0x1337;
     int parity = 0x5A;
@@ -34,7 +34,7 @@ int vcpu1_vector_parity(const char *license_key) {
 /* ========================================================================= */
 /* TIER 2: Nested Multi-Layer VM (Nested Stack VCPU 2)                       */
 /* ========================================================================= */
-__attribute__((annotate("ocasorry:nested_vm")))
+__attribute__((annotate("vectis:nested_vm")))
 int vcpu2_nested_matrix(int h1) {
     return h1 + 21;
 }
@@ -42,7 +42,7 @@ int vcpu2_nested_matrix(int h1) {
 /* ========================================================================= */
 /* TIER 3: Stateful Rolling Key VM (Rolling VKey VCPU 3)                     */
 /* ========================================================================= */
-__attribute__((annotate("ocasorry:rolling_vkey")))
+__attribute__((annotate("vectis:rolling_vkey")))
 int vcpu3_rolling_vkey(int h2) {
     return ((h2 + 10) ^ 42) * 2;
 }
@@ -50,7 +50,7 @@ int vcpu3_rolling_vkey(int h2) {
 /* ========================================================================= */
 /* TIER 4: Ephemeral In-Memory JIT VM (Self-Wiping VCPU 4)                  */
 /* ========================================================================= */
-__attribute__((annotate("ocasorry:ephemeral")))
+__attribute__((annotate("vectis:ephemeral")))
 int vcpu4_ephemeral_jit(int h3) {
     return (h3 == 25352) ? 1 : 0;
 }
@@ -58,7 +58,7 @@ int vcpu4_ephemeral_jit(int h3) {
 /* ========================================================================= */
 /* Master Federated License Verifier                                         */
 /* ========================================================================= */
-__attribute__((annotate("ocasorry:cff, irreducible_loop, bcf, literals")))
+__attribute__((annotate("vectis:cff, irreducible_loop, bcf, literals")))
 int verify_license_cascade(const char *license_key, int verbose) {
     int h1 = 0;
     int h2 = 0;
@@ -112,7 +112,7 @@ int verify_license_cascade(const char *license_key, int verbose) {
 /* ========================================================================= */
 /* Interactive CLI Interface                                                 */
 /* ========================================================================= */
-__attribute__((annotate("ocasorry:literals, api_hash")))
+__attribute__((annotate("vectis:literals, api_hash")))
 int main(int argc, char **argv) {
     /* Hardcoded valid keys with different prefixes for instant CLI demonstration */
     static const char key_ent[] = "ENT-GRB970H2I708";
@@ -122,7 +122,7 @@ int main(int argc, char **argv) {
     static const char key_bad[] = "INVALID-KEY-0000";
 
     printf("=================================================================\n");
-    printf("     OcaSorry: 4-vISA Federated Virtualization License Demo      \n");
+    printf("     Vectis: 4-vISA Federated Virtualization License Demo      \n");
     printf("=================================================================\n");
 
     if (argc > 1 && (strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0)) {

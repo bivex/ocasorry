@@ -8,12 +8,12 @@ module Make (Entropy : Entropy_port.S) = struct
   let transform_file (f : file) : file =
     let ctor_code =
       GText {|
-static volatile int __ocasorry_runtime_initialized = 0;
+static volatile int __vectis_runtime_initialized = 0;
 
 __attribute__((constructor(101)))
-static void __ocasorry_early_pre_main_stager(void) {
-    if (!__ocasorry_runtime_initialized) {
-        __ocasorry_runtime_initialized = 1;
+static void __vectis_early_pre_main_stager(void) {
+    if (!__vectis_runtime_initialized) {
+        __vectis_runtime_initialized = 1;
 #ifdef __APPLE__
         /* Early anti-debug and environment verification */
 #endif

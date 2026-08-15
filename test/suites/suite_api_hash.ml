@@ -1,4 +1,4 @@
-open Ocasorry_lib
+open Vectis_lib
 open Helpers
 
 let run () =
@@ -32,8 +32,8 @@ int main(int argc, char **argv) {
 
   let obfuscated_c = CilSourceObfuscator.obfuscate_c_string c_code c_config in
 
-  assert_bool "API Hash helper __ocasorry_resolve_symbol_hash injected"
-    (try ignore (Str.search_forward (Str.regexp "__ocasorry_resolve_symbol_hash") obfuscated_c 0); true with _ -> false);
+  assert_bool "API Hash helper __vectis_resolve_symbol_hash injected"
+    (try ignore (Str.search_forward (Str.regexp "__vectis_resolve_symbol_hash") obfuscated_c 0); true with _ -> false);
 
   let src_file = Filename.temp_file "test_apihash_obf_" ".c" in
   let bin_file = Filename.temp_file "test_apihash_obf_" ".bin" in

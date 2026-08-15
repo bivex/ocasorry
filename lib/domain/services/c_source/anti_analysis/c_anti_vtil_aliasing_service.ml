@@ -29,7 +29,7 @@ module Make (Entropy : Entropy_port.S) = struct
     in
     if List.length locals >= 2 then (
       incr aliasing_counter;
-      let frame_name = Printf.sprintf "__ocasorry_vtil_frame_%d" !aliasing_counter in
+      let frame_name = Printf.sprintf "__vectis_vtil_frame_%d" !aliasing_counter in
       let frame_size = (List.length locals * 8) + 32 in
 
       let uchar_ty = TInt (IUChar, []) in

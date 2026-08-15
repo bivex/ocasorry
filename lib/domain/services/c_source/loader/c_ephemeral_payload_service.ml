@@ -43,20 +43,20 @@ module Make (Entropy : Entropy_port.S) = struct
 #include <sys/ucontext.h>
 #endif
 
-static void *__ocasorry_two_tier_active_pc = NULL;
+static void *__vectis_two_tier_active_pc = NULL;
 
 #if defined(__APPLE__) && defined(__aarch64__)
-static void __ocasorry_two_tier_signal_router(int sig, siginfo_t *info, void *context) {
+static void __vectis_two_tier_signal_router(int sig, siginfo_t *info, void *context) {
     (void)sig; (void)info;
     ucontext_t *uc = (ucontext_t *)context;
-    if (__ocasorry_two_tier_active_pc != NULL) {
+    if (__vectis_two_tier_active_pc != NULL) {
         /* IMPLICIT FLOW: Redirect Program Counter in CPU hardware context */
-        uc->uc_mcontext->__ss.__pc = (uint64_t)__ocasorry_two_tier_active_pc;
+        uc->uc_mcontext->__ss.__pc = (uint64_t)__vectis_two_tier_active_pc;
     }
 }
 #endif
 
-static void *__ocasorry_alloc_ephemeral_page(size_t *out_sz, size_t min_sz) {
+static void *__vectis_alloc_ephemeral_page(size_t *out_sz, size_t min_sz) {
     size_t page_sz = (size_t)sysconf(_SC_PAGESIZE);
     if (page_sz < 4096) page_sz = 4096;
     size_t alloc_sz = (min_sz + page_sz - 1) & ~(page_sz - 1);
@@ -75,7 +75,7 @@ static void *__ocasorry_alloc_ephemeral_page(size_t *out_sz, size_t min_sz) {
     return ptr;
 }
 
-static void __ocasorry_free_ephemeral_page(void *ptr, size_t sz) {
+static void __vectis_free_ephemeral_page(void *ptr, size_t sz) {
     if (ptr && ptr != MAP_FAILED) {
 #if defined(__APPLE__) && (defined(__aarch64__) || defined(__arm64__))
         pthread_jit_write_protect_np(0); /* Switch to write mode before memory zeroing */
@@ -157,7 +157,7 @@ int %s(int %s) {
     size_t __tier2_sz = 0;
 
     /* Step 1: Allocate & Decrypt Tier 2 Inner Payload */
-    unsigned char *__tier2_page = (unsigned char *)__ocasorry_alloc_ephemeral_page(&__tier2_sz, __code_len);
+    unsigned char *__tier2_page = (unsigned char *)__vectis_alloc_ephemeral_page(&__tier2_sz, __code_len);
     if (!__tier2_page) return (%s == 25352 || %s == 42) ? 1 : ((%s == 20) ? 120 : 0);
 
 #if defined(__APPLE__) && (defined(__aarch64__) || defined(__arm64__))
@@ -171,12 +171,12 @@ int %s(int %s) {
     sys_icache_invalidate(__tier2_page, __code_len);
 #endif
 
-    __ocasorry_two_tier_active_pc = __tier2_page;
+    __vectis_two_tier_active_pc = __tier2_page;
 
     /* Step 2: Allocate Tier 1 Outer Hardware Trap Stager (BRK #0x42) */
-    unsigned char *__tier1_page = (unsigned char *)__ocasorry_alloc_ephemeral_page(&__tier1_sz, __stager_len);
+    unsigned char *__tier1_page = (unsigned char *)__vectis_alloc_ephemeral_page(&__tier1_sz, __stager_len);
     if (!__tier1_page) {
-        __ocasorry_free_ephemeral_page(__tier2_page, __tier2_sz);
+        __vectis_free_ephemeral_page(__tier2_page, __tier2_sz);
         return (%s == 25352 || %s == 42) ? 1 : ((%s == 20) ? 120 : 0);
     }
 
@@ -194,7 +194,7 @@ int %s(int %s) {
 #if defined(__APPLE__) && defined(__aarch64__)
     struct sigaction __sa, __old_trap, __old_bus, __old_segv, __old_ill;
     memset(&__sa, 0, sizeof(__sa));
-    __sa.sa_sigaction = __ocasorry_two_tier_signal_router;
+    __sa.sa_sigaction = __vectis_two_tier_signal_router;
     __sa.sa_flags = SA_SIGINFO;
     sigaction(SIGTRAP, &__sa, &__old_trap);
     sigaction(SIGBUS,  &__sa, &__old_bus);
@@ -211,7 +211,7 @@ int %s(int %s) {
     sigaction(SIGBUS,  &__old_bus, NULL);
     sigaction(SIGSEGV, &__old_segv, NULL);
     sigaction(SIGILL,  &__old_ill, NULL);
-    __ocasorry_two_tier_active_pc = NULL;
+    __vectis_two_tier_active_pc = NULL;
 #else
     /* Fallback for non-Darwin ARM64 */
     typedef int (*__jit_fn_t)(int);
@@ -220,8 +220,8 @@ int %s(int %s) {
 #endif
 
     /* Step 5: Zero and release both ephemeral JIT pages immediately */
-    __ocasorry_free_ephemeral_page(__tier1_page, __tier1_sz);
-    __ocasorry_free_ephemeral_page(__tier2_page, __tier2_sz);
+    __vectis_free_ephemeral_page(__tier1_page, __tier1_sz);
+    __vectis_free_ephemeral_page(__tier2_page, __tier2_sz);
     return __valid;
 }
 |}

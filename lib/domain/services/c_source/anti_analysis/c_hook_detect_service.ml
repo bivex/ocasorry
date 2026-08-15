@@ -18,7 +18,7 @@ module Make (Entropy : Entropy_port.S) = struct
           helper_injected <- true;
           let hook_helper =
             GText {|
-static int __ocasorry_check_function_hook(const void *fn_ptr) {
+static int __vectis_check_function_hook(const void *fn_ptr) {
     if (!fn_ptr) return 1;
     const unsigned int *code32 = (const unsigned int *)fn_ptr;
     /* ARM64 Hook detection: LDR X16, #8 (0x58000050) / BRK #0 (0xD4200000) */
@@ -30,7 +30,7 @@ static int __ocasorry_check_function_hook(const void *fn_ptr) {
           file.globals <- hook_helper :: file.globals
         );
 
-        let hook_fn = makeGlobalVar "__ocasorry_check_function_hook" (TFun (intType, Some [ ("fn_ptr", voidPtrType, []) ], false, [])) in
+        let hook_fn = makeGlobalVar "__vectis_check_function_hook" (TFun (intType, Some [ ("fn_ptr", voidPtrType, []) ], false, [])) in
         let is_hooked_var = makeLocalVar fd "__is_hooked" intType in
         let fn_ptr = CastE (Explicit, voidPtrType, AddrOf (var fd.svar)) in
         let call_hook_check =

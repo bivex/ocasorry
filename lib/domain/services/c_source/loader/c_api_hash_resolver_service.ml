@@ -26,7 +26,7 @@ module Make (Entropy : Entropy_port.S) = struct
     val mutable cur_fd : fundec option = None
 
     method! vfunc (fd : fundec) : fundec visitAction =
-      if String.starts_with ~prefix:"__ocasorry_" fd.svar.vname
+      if String.starts_with ~prefix:"__vectis_" fd.svar.vname
          || C_annotation_service.AnnotationHelper.should_skip_all fd then SkipChildren
       else (
         cur_fd <- Some fd;
@@ -40,7 +40,7 @@ module Make (Entropy : Entropy_port.S) = struct
 
 /* Hash-only resolver: no plaintext symbol name ever leaves the binary in call sites.
    The resolver scans a static candidate table keyed by CRC32, resolving purely by hash. */
-static uint32_t __ocasorry_calc_crc32(const char *s) {
+static uint32_t __vectis_calc_crc32(const char *s) {
     uint32_t crc = 0xFFFFFFFF;
     while (*s) {
         crc ^= (uint32_t)(unsigned char)(*s++);
@@ -51,7 +51,7 @@ static uint32_t __ocasorry_calc_crc32(const char *s) {
     return ~crc;
 }
 
-static void *__ocasorry_resolve_symbol_hash(uint32_t target_hash) {
+static void *__vectis_resolve_symbol_hash(uint32_t target_hash) {
     /* Candidate symbol names stored as XOR-obfuscated byte arrays (key=0xA5).
        No plaintext strings appear in __cstring / __data sections.
        Sentinel 0xA5 = (0x00 ^ 0xA5) marks end of each name. */
@@ -82,7 +82,7 @@ static void *__ocasorry_resolve_symbol_hash(uint32_t target_hash) {
         }
         name[j] = '\0';
 
-        if (__ocasorry_calc_crc32(name) == target_hash) {
+        if (__vectis_calc_crc32(name) == target_hash) {
 #ifdef RTLD_DEFAULT
             void *sym = dlsym(RTLD_DEFAULT, name);
 #else
@@ -109,7 +109,7 @@ static void *__ocasorry_resolve_symbol_hash(uint32_t target_hash) {
           let fd = Option.get cur_fd in
           let hash_val = Hashtbl.find target_symbols fn_var.vname in
           let resolve_fn =
-            makeGlobalVar "__ocasorry_resolve_symbol_hash"
+            makeGlobalVar "__vectis_resolve_symbol_hash"
               (TFun (voidPtrType, Some [ ("target_hash", uintType, []) ], false, []))
           in
           

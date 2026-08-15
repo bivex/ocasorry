@@ -1,6 +1,6 @@
 # 🌀 Polymorphic Virtualization & random_vISA Architecture
 
-This document details the **Polymorphic Virtual Machine (VM)** subsystem in **OcaSorry**, its integration with the **`random_vISA`** vector instruction set architecture synthesizer, and the multi-layer defensive mechanisms implemented across the virtualization pipeline.
+This document details the **Polymorphic Virtual Machine (VM)** subsystem in **Vectis**, its integration with the **`random_vISA`** vector instruction set architecture synthesizer, and the multi-layer defensive mechanisms implemented across the virtualization pipeline.
 
 ---
 
@@ -8,7 +8,7 @@ This document details the **Polymorphic Virtual Machine (VM)** subsystem in **Oc
 
 Traditional binary virtualizers and static obfuscators emit a static, deterministic virtual machine architecture. Once an analyst writes a disassembler or symbolic solver script for a specific VM, all functions virtualized with that version can be automatically lifted and de-virtualized.
 
-**OcaSorry eliminates this vulnerability through Per-Build / Per-Function ISA Synthesis:**
+**Vectis eliminates this vulnerability through Per-Build / Per-Function ISA Synthesis:**
 
 ```
 +─────────────────────────────────────────────────────────────+
@@ -46,7 +46,7 @@ Traditional binary virtualizers and static obfuscators emit a static, determinis
 
 ## ⚙️ 2. `random_vISA` Integration & Bytecode Format
 
-OcaSorry leverages **`random_vISA`** (located in `vendor/random_vISA/`), a formal vector ISA synthesizer designed for RISC-V Vector Extensions.
+Vectis leverages **`random_vISA`** (located in `vendor/random_vISA/`), a formal vector ISA synthesizer designed for RISC-V Vector Extensions.
 
 ### 32-bit Instruction Word Encoding:
 ```
@@ -174,7 +174,7 @@ Translates virtualized bytecode directly into **native ARM64 / AArch64 machine i
 
 ## 🛡 6. Defense in Depth: Multi-Pass Layering
 
-In OcaSorry, virtualization is not applied in isolation. The emitted VM interpreter itself undergoes full control-flow and data-flow hardening:
+In Vectis, virtualization is not applied in isolation. The emitted VM interpreter itself undergoes full control-flow and data-flow hardening:
 
 ```
 [ Virtualization Engine ]
@@ -203,17 +203,17 @@ This ensures that even if an analyst locates the VM loop, the interpreter's disp
 
 ### 1. Standalone Virtualization:
 ```bash
-ocasorry -i input.c -o output.c --virtualize
+vectis -i input.c -o output.c --virtualize
 ```
 
 ### 2. Multi-Layer Virtualization with Self-Modifying Bytecode:
 ```bash
-ocasorry -i input.c -o output.c --virtualize --nested-vm --self-mod-vm
+vectis -i input.c -o output.c --virtualize --nested-vm --self-mod-vm
 ```
 
 ### 3. Full-Stack Protection (Virtualization + 14 Protection Passes):
 ```bash
-ocasorry -i input.c -o output.c \
+vectis -i input.c -o output.c \
   --virtualize \
   --poly-mba \
   --cff \
@@ -231,9 +231,9 @@ ocasorry -i input.c -o output.c \
   --indirect
 ```
 
-### 4. Direct Compilation via `ocasorry-cc`:
+### 4. Direct Compilation via `vectis-cc`:
 ```bash
-ocasorry-cc --ocasorry-virtualize --ocasorry-self-mod-vm -O2 main.c -o main.bin
+vectis-cc --vectis-virtualize --vectis-self-mod-vm -O2 main.c -o main.bin
 ```
 
 ---
@@ -244,10 +244,10 @@ ocasorry-cc --ocasorry-virtualize --ocasorry-self-mod-vm -O2 main.c -o main.bin
 
 ### Overview
 
-`ocasorry-synth` (`Synthesize_isa_usecase`) is OcaSorry's native DDD **Sail ISA Specification Synthesizer**. It produces per-build, randomized architecture descriptions in two complementary formats for each of the VCPU tiers:
+`vectis-synth` (`Synthesize_isa_usecase`) is Vectis's native DDD **Sail ISA Specification Synthesizer**. It produces per-build, randomized architecture descriptions in two complementary formats for each of the VCPU tiers:
 
 - **`.sail`** — Formal Sail DSL specification (AST unions, decode clauses, execute semantics) suitable for theorem proving and formal ISA documentation.
-- **`.json`** — Structured JSON schema consumed directly by OcaSorry's OCaml pass pipeline at compile time.
+- **`.json`** — Structured JSON schema consumed directly by Vectis's OCaml pass pipeline at compile time.
 
 Every invocation generates different opcode mappings, register allocations, encryption keys, and bitfield layouts — ensuring **no two builds share an identical virtual architecture**.
 
@@ -255,19 +255,19 @@ Every invocation generates different opcode mappings, register allocations, encr
 
 ```bash
 # Synthesize all 4 VCPU Sail + JSON specs into a directory
-./_build/default/bin/ocasorry_synth.exe --output-dir examples/ --name vISA_Custom_Arch
+./_build/default/bin/vectis_synth.exe --output-dir examples/ --name vISA_Custom_Arch
 
 # Synthesize 8-VCPU specs for AES block cipher demo
-./_build/default/bin/ocasorry_synth.exe --vcpu 8vcpu --output-dir examples/
+./_build/default/bin/vectis_synth.exe --vcpu 8vcpu --output-dir examples/
 
 # Synthesize a single named VCPU tier
-./_build/default/bin/ocasorry_synth.exe --vcpu visa        --output-json examples/vcpu1.json
-./_build/default/bin/ocasorry_synth.exe --vcpu nested_vm   --output-json examples/vcpu2.json
-./_build/default/bin/ocasorry_synth.exe --vcpu rolling_vkey --output-json examples/vcpu3.json
-./_build/default/bin/ocasorry_synth.exe --vcpu ephemeral   --output-json examples/vcpu4.json
+./_build/default/bin/vectis_synth.exe --vcpu visa        --output-json examples/vcpu1.json
+./_build/default/bin/vectis_synth.exe --vcpu nested_vm   --output-json examples/vcpu2.json
+./_build/default/bin/vectis_synth.exe --vcpu rolling_vkey --output-json examples/vcpu3.json
+./_build/default/bin/vectis_synth.exe --vcpu ephemeral   --output-json examples/vcpu4.json
 
 # Use a fixed seed for reproducible builds
-./_build/default/bin/ocasorry_synth.exe --output-dir examples/ --seed 42
+./_build/default/bin/vectis_synth.exe --output-dir examples/ --seed 42
 ```
 
 **`--vcpu` flag values:**
@@ -286,7 +286,7 @@ Every invocation generates different opcode mappings, register allocations, encr
 Each synthesized spec pair is consumed by a dedicated OCaml domain service within `lib/domain/services/c_source/virtualization/`:
 
 ```
-ocasorry-synth (C_isa_synthesizer_service.ml)
+vectis-synth (C_isa_synthesizer_service.ml)
          │
          ├── vcpu1_visa.json       ──►  c_visa_spec_service.ml
          │                               (Tier 1: random_vISA VCPU injection)
@@ -357,7 +357,7 @@ The `scripts/build_license_demo.sh` script exercises the complete synthesis-to-b
 ```bash
 ./scripts/build_license_demo.sh
 # Step 1: visa_synthesizer.py --output-dir examples/ (all 4 tiers)
-# Step 2: ocasorry -i 01_license_keygen.c --visa-spec vcpu1_visa.json \
+# Step 2: vectis -i 01_license_keygen.c --visa-spec vcpu1_visa.json \
 #           --virtualize --nested-vm --rolling-vkey --ephemeral --cff ...
 # Step 3: clang -O2 01_license_keygen_obfuscated.c -o 01_license_keygen_virtualized.bin
 # Step 4: Automated test vectors (valid / tampered / default keys)
