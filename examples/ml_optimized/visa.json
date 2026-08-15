@@ -1,0 +1,20 @@
+{
+  "vcpu_tier": 1,
+  "vcpu_type": "visa",
+  "isa_name": "ML_Opt_VISA_Arch",
+  "isa_version": "2.0",
+  "word_bits": 32,
+  "reg_count": 16,
+  "pack_key": 1220858201,
+  "delta_key": 2654435769,
+  "abi": {"in_regs": [4, 5, 7, 0, 6, 1, 2, 3], "out_reg": 0},
+  "layout": {"funct6_shift": 26, "funct6_mask": 63, "vm_shift": 25, "vs2_shift": 20, "vs1_shift": 15, "funct3_shift": 12, "vd_shift": 7, "opcode_val": 43},
+  "opcodes": {
+    "vadd_vv": 30, "vsub_vv": 49, "vmul_vv": 55, "vxor_vv": 21, "vand_vv": 2, "vor_vv": 42,
+    "vsll_vv": 61, "vsrl_vv": 0, "vli_vi": 26, "vmv_vv": 9, "vle8_v": 35, "vse8_v": 8,
+    "vret_v": 57, "vbge_vv": 28, "vj": 45,
+    "vadd_alt1": 13, "vadd_alt2": 50, "vsub_alt1": 32, "vsub_alt2": 16,
+    "vxor_alt1": 41, "vxor_alt2": 19, "vand_alt1": 52, "vor_alt1": 3,
+    "vmul_alt1": 31, "vmv_alt1": 39, "vli_alt1": 4
+  }
+}

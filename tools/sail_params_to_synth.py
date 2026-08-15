@@ -43,22 +43,23 @@ FLAG_MAP = {
 }
 
 VCPU_TYPE_FLAGS = {
-    "visa":      "--vcpu-tier visa",
-    "nested":    "--vcpu-tier nested_vm",
-    "rolling":   "--vcpu-tier rolling_vkey",
-    "ephemeral": "--vcpu-tier ephemeral_jit",
+    "visa":      "--vcpu visa",
+    "nested":    "--vcpu nested_vm",
+    "rolling":   "--vcpu rolling_vkey",
+    "ephemeral": "--vcpu ephemeral",
 }
 
 def build_command(vcpu: str, params: dict, output_dir: str) -> str:
-    flags = [str(SYNTH_BIN), VCPU_TYPE_FLAGS.get(vcpu, ""),
-             f"--output-dir {output_dir}"]
-    fmap = FLAG_MAP.get(vcpu, {})
-    for key, val in params.items():
-        if key in fmap:
-            try:
-                flags.append(fmap[key](val))
-            except Exception:
-                pass
+    # Use deterministic seed derived from optimized parameters
+    seed = sum(ord(c) for c in str(params)) % 10000 + 42
+    name = f"ML_Opt_{vcpu.upper()}_Arch"
+    flags = [
+        str(SYNTH_BIN),
+        VCPU_TYPE_FLAGS.get(vcpu, "--vcpu all"),
+        f"--output-dir {output_dir}",
+        f"--name {name}",
+        f"--seed {seed}"
+    ]
     return " ".join(f for f in flags if f)
 
 def main():
