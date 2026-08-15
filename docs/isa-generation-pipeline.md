@@ -57,7 +57,7 @@ Every compilation pass can synthesize a unique, randomized instruction set archi
 ### 2.1 32-Bit Instruction Word Layout
 Each instruction word is encoded into a strictly partitioned bitfield layout without field overlaps:
 
-$$\text{Word} = \mathcal{E}(\text{funct6}, \text{vm}, \text{vs2}, \text{vs1\_imm}, \text{target\_pc}, \text{opcode})$$
+$$\text{Word} = \mathcal{E}(\mathrm{funct6}, \mathrm{vm}, \mathrm{vs2}, \mathrm{vs1\_imm}, \mathrm{target\_pc}, \mathrm{opcode})$$
 
 | Field | Bits | Width | Description |
 | :--- | :--- | :--- | :--- |
@@ -159,7 +159,7 @@ To handle forward references in `if/else` branching and nested loop exits (`brea
 ### 3.4 Affine Permutation & Synchronized Stream Encryption
 Bytecode words are permuted using an affine bijection and encrypted using 32-bit linear feedback counter mode:
 $$\text{slot}(pc) = ((pc \times P) + S) \pmod N \quad \text{where } \gcd(P, N) = 1$$
-$$\text{Enc}(inst, pc) = inst \oplus (\text{pack\_key} \oplus (pc \times \text{delta\_key}))$$
+$$\text{Enc}(inst, pc) = inst \oplus (K_{\text{pack}} \oplus (pc \times K_{\Delta}))$$
 
 ---
 
