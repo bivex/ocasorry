@@ -104,8 +104,10 @@ __r_mul:
 __r_default:
     __ROLLING_DISPATCH();
 
-__r_halt:
-    return (int)__regs[3];
+__r_halt: ;
+    int __ret_val = (int)__regs[3];
+    __builtin_memset(__regs, 0, sizeof(__regs));
+    return __ret_val;
 }
 |} fd.svar.vname arg_name arg_name (List.length encrypted_words) prog_name in
 

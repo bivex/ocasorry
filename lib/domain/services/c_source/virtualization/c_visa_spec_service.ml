@@ -424,10 +424,26 @@ module Make (Entropy : Entropy_port.S) = struct
 
       let vreg_total = max 64 (!next_vreg + 32) in
 
+      let ret_type_str =
+        match fd.svar.vtype with
+        | TFun (ret_t, _, _, _) ->
+            if isIntegralType ret_t then (
+              match ret_t with
+              | TInt (IULongLong, _) | TInt (ILongLong, _) -> "unsigned long long"
+              | TInt (IULong, _) | TInt (ILong, _) -> "unsigned long"
+              | TInt (IUInt, _) -> "unsigned int"
+              | _ -> "int"
+            )
+            else if isPointerType ret_t then "void *"
+            else "int"
+        | _ -> "int"
+      in
+
       let arg_inits =
         List.mapi
           (fun idx p ->
-            if isIntegralType p.vtype then Printf.sprintf "    __vregs[%d] = (int)%s;" idx p.vname
+            if isIntegralType p.vtype then Printf.sprintf "    __vregs[%d] = (unsigned long long)%s;" idx p.vname
+            else if isPointerType p.vtype then Printf.sprintf "    __vregs[%d] = (unsigned long long)(uintptr_t)%s;" idx p.vname
             else Printf.sprintf "    __vregs[%d] = 0;" idx)
           fd.sformals
         |> String.concat "\n"
@@ -437,6 +453,9 @@ module Make (Entropy : Entropy_port.S) = struct
         List.map
           (fun p ->
             let ty_str = match p.vtype with
+              | TInt (IULongLong, _) | TInt (ILongLong, _) -> "unsigned long long"
+              | TInt (IULong, _) | TInt (ILong, _) -> "unsigned long"
+              | TInt (IUInt, _) -> "unsigned int"
               | TPtr (TInt (IChar, _), _) | TPtr (TInt (ISChar, _), _) -> "const char *"
               | TPtr (TInt (IUChar, _), _) -> "const unsigned char *"
               | TPtr _ -> "void *"
@@ -448,8 +467,12 @@ module Make (Entropy : Entropy_port.S) = struct
       in
 
       let fn_body_impl = Format.sprintf {|
-int %s(%s) {
-    int __vregs[%d] = {0};
+#include <stdint.h>
+#include <string.h>
+
+__attribute__((visibility("default")))
+%s %s(%s) {
+    unsigned long long __vregs[%d] = {0};
 %s
     const char *__ptr_ctx = (const char *)%s;
     unsigned int __pc = 0;
@@ -522,11 +545,11 @@ __h_vsll:
     __VISA_DISPATCH();
 
 __h_vsrl:
-    __vregs[__vd] = (int)((unsigned int)__vregs[__vs1] >> __vregs[__vs2]);
+    __vregs[__vd] = (unsigned long long)(__vregs[__vs1] >> __vregs[__vs2]);
     __VISA_DISPATCH();
 
 __h_vli:
-    __vregs[__vd] = (int)((__vm << 13) | (__funct3 << 10) | (__vs1 << 5) | __vs2);
+    __vregs[__vd] = (unsigned long long)((__vm << 13) | (__funct3 << 10) | (__vs1 << 5) | __vs2);
     __VISA_DISPATCH();
 
 __h_vmv:
@@ -535,7 +558,7 @@ __h_vmv:
 
 __h_vle8:
     if (__ptr_ctx) {
-        __vregs[__vd] = (int)((unsigned char)__ptr_ctx[__vregs[__vs2]]);
+        __vregs[__vd] = (unsigned long long)((const unsigned char *)__ptr_ctx)[__vregs[__vs2]];
     }
     __VISA_DISPATCH();
 
@@ -552,10 +575,13 @@ __h_vj:
 __h_default:
     __VISA_DISPATCH();
 
-__h_vret:
-    return __vregs[0];
+__h_vret: ;
+    unsigned long long __res_val = __vregs[0];
+    __builtin_memset(__vregs, 0, sizeof(__vregs));
+    return (%s)__res_val;
 }
 |}
+        ret_type_str
         fd.svar.vname
         fn_params
         vreg_total
@@ -586,6 +612,7 @@ __h_vret:
         lay.funct3_shift
         lay.vd_shift
         (List.length packed_words - 2)
+        ret_type_str
       in
 
       let new_globals = ref [] in
