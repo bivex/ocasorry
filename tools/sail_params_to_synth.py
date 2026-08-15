@@ -13,7 +13,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-SYNTH_BIN = Path(__file__).parent.parent / "_build/default/bin/ocasorry_synth.exe"
+SYNTH_BIN = Path(__file__).parent.parent / "_build/default/bin/vectis_synth.exe"
 PARAMS_DEFAULT = Path(__file__).parent / "sail_optimal_params.json"
 
 # Maps optimal_params keys → ocasorry_synth CLI flags per vcpu type.

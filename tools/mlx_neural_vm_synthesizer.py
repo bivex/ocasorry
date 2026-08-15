@@ -21,6 +21,16 @@ except ImportError:
 
 from mlx_neural_env import SMTAttackEnv, REAL_MBA_ACTIONS
 
+# Action subsets per VCPU tier — aligns MBA synthesis with architectural role.
+# Each tier gets actions suited to its security model.
+VCPU_TIER_ACTIONS = {
+    "visa":          [0, 2, 4, 6, 7],   # DECOMP_ADD, AFFINE_XOR, QUADRATIC_INV, DECOY, ROT
+    "nested_vm":     [1, 3, 5, 6, 7],   # DECOMP_SUB, DEMORGAN_OR, AFFINE_SBOX, DECOY, ROT
+    "rolling_vkey":  [0, 5, 4, 7, 2],   # DECOMP_ADD, AFFINE_SBOX, QUADRATIC, ROT, AFFINE_XOR
+    "ephemeral_jit": [2, 5, 6, 3, 0],   # AFFINE_XOR, AFFINE_SBOX, DECOY, DEMORGAN, DECOMP_ADD
+    "all":           list(range(8)),     # all 8 actions (default)
+}
+
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -57,7 +67,7 @@ class MLXActorCritic(nn.Module):
 # ── 2. PPO Clipped Surrogate Trainer ─────────────────────────────────────────
 
 class NeuralVMSynthesizer:
-    def __init__(self, lr: float = 3e-4, clip_eps: float = 0.2):
+    def __init__(self, lr: float = 3e-4, clip_eps: float = 0.2, vcpu_tier: str = "all"):
         self.device   = mx.default_device()
         self.env      = SMTAttackEnv(bit_width=64)
         self.model    = MLXActorCritic(
@@ -65,6 +75,8 @@ class NeuralVMSynthesizer:
         )
         self.optimizer = opt.Adam(learning_rate=lr)
         self.clip_eps  = clip_eps
+        self.vcpu_tier = vcpu_tier
+        self.available_actions = VCPU_TIER_ACTIONS.get(vcpu_tier, VCPU_TIER_ACTIONS["all"])
 
     def _ppo_loss(self, model, states, actions, old_log_probs, returns, advantages):
         logits, values = model(states)
@@ -95,7 +107,7 @@ class NeuralVMSynthesizer:
         return loss.item()
 
     def train(self, num_episodes: int = 30, gamma: float = 0.95):
-        print(f"\n[🚀] Training Neural VM Synthesizer (PPO on {self.device})...", flush=True)
+        print(f"\n[🚀] Training Neural VM Synthesizer (PPO on {self.device}, tier={self.vcpu_tier})...", flush=True)
 
         best_reward    = -float("inf")
         best_recipe    = []
@@ -115,7 +127,15 @@ class NeuralVMSynthesizer:
                 probs         = mx.softmax(logits, axis=-1)
 
                 probs_np = np.array(probs[0])
-                action   = np.random.choice(len(probs_np), p=probs_np)
+                # Mask policy to tier-specific actions only
+                mask = np.zeros(len(probs_np), dtype=np.float32)
+                mask[self.available_actions] = 1.0
+                masked_probs = probs_np * mask
+                if masked_probs.sum() < 1e-8:
+                    masked_probs = mask / mask.sum()
+                else:
+                    masked_probs = masked_probs / masked_probs.sum()
+                action = np.random.choice(len(probs_np), p=masked_probs)
                 log_prob = log_probs_all[0, action].item()
 
                 next_state, reward, done, info = self.env.step(action)
@@ -297,7 +317,7 @@ def run_step_by_step_verification() -> bool:
 
     # Step 3 – model forward pass
     print("\n[Step 3/5] Testing MLX Actor-Critic PPO forward pass...", flush=True)
-    synth     = NeuralVMSynthesizer()
+    synth     = NeuralVMSynthesizer(vcpu_tier="visa")
     state_mx  = mx.array(state[None, :])
     logits, v = synth.model(state_mx); mx.eval(logits, v)
     print(f"  [✓] Logits shape: {logits.shape}, Value: {v.item():.4f}")
@@ -336,12 +356,15 @@ if __name__ == "__main__":
     parser.add_argument("--test",     action="store_true", help="Run step-by-step verification")
     parser.add_argument("--episodes", type=int, default=40, help="Training episodes")
     parser.add_argument("--export",   type=str, default=None, help="Export C11 kernel to path")
+    parser.add_argument("--tier", type=str, default="all",
+                        choices=["visa", "nested_vm", "rolling_vkey", "ephemeral_jit", "all"],
+                        help="VCPU tier to specialize MBA synthesis for")
     args = parser.parse_args()
 
     if args.test or len(sys.argv) == 1:
         run_step_by_step_verification()
     else:
-        synth = NeuralVMSynthesizer()
+        synth = NeuralVMSynthesizer(vcpu_tier=args.tier)
         best_op, best_recipe, best_c_steps = synth.train(num_episodes=args.episodes)
         if args.export:
             generate_c11_emulator_kernel(best_op, best_c_steps, args.export)

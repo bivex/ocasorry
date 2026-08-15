@@ -19,7 +19,7 @@ from collections import Counter
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-SYNTH_BIN = Path(__file__).parent.parent / "_build/default/bin/ocasorry_synth.exe"
+SYNTH_BIN = Path(__file__).parent.parent / "_build/default/bin/vectis_synth.exe"
 GF_POLYS   = [0x1B, 0x1D, 0x4D, 0x8D, 0xA3, 0xC5]
 
 # ─── Feature extraction ───────────────────────────────────────────────────────
