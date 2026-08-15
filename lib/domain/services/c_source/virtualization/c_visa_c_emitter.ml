@@ -42,14 +42,18 @@ let emit_function_body
 __attribute__((visibility("default")))
 %s %s(%s) {
 %s
-    unsigned long long __vregs[%d];
+    /* Anti-VTIL / Anti-NoVmp: Overlapping Aliased VCPU Register Matrix */
+    union __attribute__((aligned(16))) {
+        unsigned char __b[1024];
+        unsigned long long __q[%d];
+    } __vbank;
     #define __VREG_ROT(r) (((unsigned int)(r) + %uU) & 0x3FU)
     #define __VREG_MASK(r) (0x%LxULL + ((unsigned long long)__VREG_ROT(r) * 0x%LxULL))
-    #define __VREG_GET(r) (__vregs[__VREG_ROT(r)] ^ __VREG_MASK(r))
-    #define __VREG_SET(r, val) do { __vregs[__VREG_ROT(r)] = ((unsigned long long)(val)) ^ __VREG_MASK(r); } while(0)
+    #define __VREG_GET(r) (__vbank.__q[__VREG_ROT(r)] ^ __VREG_MASK(r))
+    #define __VREG_SET(r, val) do { __vbank.__q[__VREG_ROT(r)] = ((unsigned long long)(val)) ^ __VREG_MASK(r); } while(0)
 
     for (int __i = 0; __i < %d; __i++) {
-        __vregs[__i] = (0x%LxULL + ((unsigned long long)__i * 0x%LxULL));
+        __vbank.__q[__i] = (0x%LxULL + ((unsigned long long)__i * 0x%LxULL));
     }
 
     /* Vector 2: Dual Shadow Stack (VSP_data + VSP_ctrl) */
@@ -321,7 +325,7 @@ __h_vret: ;
         __builtin_trap();
     }
     unsigned long long __res_val = (__VREG_GET(%d) ^ (__stepped * 0xBADF00DULL)) ^ ((__vm_state_acc * (__vm_state_acc + 1ULL)) & 1ULL);
-    __builtin_memset(__vregs, 0, sizeof(__vregs));
+    __builtin_memset(&__vbank, 0, sizeof(__vbank));
     __builtin_memset(__vbc_live, 0, sizeof(__vbc_live));
     __builtin_memset(__vstack_data, 0, sizeof(__vstack_data));
     __builtin_memset(__vstack_ctrl, 0, sizeof(__vstack_ctrl));

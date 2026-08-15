@@ -26,7 +26,7 @@ SRC="${ROOT_DIR}/examples/08_egraph_mba_macho_demo.c"
 OBF_SRC="${ROOT_DIR}/examples/08_egraph_mba_macho_demo_virtualized.c"
 OUT_BIN="${ROOT_DIR}/examples/08_egraph_mba_macho_demo_virtualized.bin"
 
-echo "[3/4] Obfuscating with E-Graph MBA & Loki Invariants & 4-VCPU & EH Shadowing..."
+echo "[3/4] Obfuscating with E-Graph MBA, Loki, Micro-Dispatcher, Anti-VTIL, 4-VCPU, EH Shadowing..."
 "${ROOT_DIR}/_build/default/bin/main.exe" \
   -i "${SRC}" \
   -o "${OBF_SRC}" \
@@ -34,6 +34,7 @@ echo "[3/4] Obfuscating with E-Graph MBA & Loki Invariants & 4-VCPU & EH Shadowi
   --egraph-mba \
   --egraph-depth 3 \
   --loki-invariants \
+  --anti-vtil \
   --eh-shadow \
   --virtualize \
   --nested-vm \

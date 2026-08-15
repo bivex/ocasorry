@@ -169,6 +169,7 @@ let () =
   let enable_eh_shadow = ref false in
   let enable_loki_invariants = ref false in
   let enable_micro_dispatcher = ref false in
+  let enable_anti_vtil = ref false in
   let visa_spec_file = ref "" in
   let vm_profile = ref "" in
 
@@ -231,6 +232,7 @@ let () =
     ("--strip", Arg.Set enable_strip, "Enable Source Directives Stripping");
     ("--anti-debug", Arg.Set enable_anti_debug, "Enable Anti-Debug Injection (sysctl P_TRACED)");
     ("--anti-disasm", Arg.Set enable_anti_disasm, "Enable Anti-Disassembly (Junk Byte Desync)");
+    ("--anti-vtil", Arg.Set enable_anti_vtil, "Enable Anti-VTIL/NoVmp Overlapping Memory Aliasing & D810 Rule Invalidation");
     ("--eh-shadow", Arg.Set enable_eh_shadow, "Enable ABI-Compliant Exception Handling (EH) Shadowing (XuanJia/arXiv:2601.10261)");
     ("--loki-invariants", Arg.Set enable_loki_invariants, "Enable Polynomial Algebraic Invariant Constant Folding (Loki/arXiv:2106.08913)");
     ("--micro-dispatcher", Arg.Set enable_micro_dispatcher, "Enable Micro-Dispatcher Inlining & Token Randomization (OASIF/arXiv:2606.29155)");
@@ -262,6 +264,7 @@ let () =
       enable_c_eh_shadow = !enable_eh_shadow;
       enable_c_loki_invariants = !enable_loki_invariants;
       enable_c_micro_dispatcher = !enable_micro_dispatcher;
+      enable_c_anti_vtil = !enable_anti_vtil;
       enable_c_opaque = !enable_opaque;
       enable_c_dynamic_opaque = !enable_dyn_opaque;
       enable_c_diophantine = !enable_diophantine;

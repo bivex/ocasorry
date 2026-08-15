@@ -61,6 +61,7 @@ type c_pipeline_config = {
   enable_c_eh_shadow : bool;
   enable_c_loki_invariants : bool;
   enable_c_micro_dispatcher : bool;
+  enable_c_anti_vtil : bool;
   c_vm_profile : string option;
 }
 
@@ -73,6 +74,7 @@ let default_c_config = {
   enable_c_eh_shadow = false;
   enable_c_loki_invariants = false;
   enable_c_micro_dispatcher = false;
+  enable_c_anti_vtil = false;
   c_vm_profile = None;
   enable_c_opaque = true;
   enable_c_dynamic_opaque = false;
@@ -193,6 +195,7 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
   module VPCPath = C_vpc_path_invalidation_service.Make (Entropy)
   module LokiInvariants = C_loki_invariant_service.Make (Entropy)
   module MicroDispatcher = C_micro_dispatcher_service.Make (Entropy)
+  module AntiVTIL = C_anti_vtil_aliasing_service.Make (Entropy)
 
   let run_passes (cil_file : GoblintCil.Cil.file) (config : c_pipeline_config) : GoblintCil.Cil.file =
     (match config.c_vm_profile with
@@ -239,6 +242,7 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
     let f = if config.enable_c_syscall_flow then SyscallFlow.transform_file f else f in
     let f = if config.enable_c_call_flatten then CallFlatten.transform_file f else f in
     let f = if config.enable_c_indirect_jump then IndirectJump.transform_file f else f in
+    let f = if config.enable_c_anti_vtil then AntiVTIL.transform_file ~global:true f else f in
     let f = if config.enable_c_micro_dispatcher then MicroDispatcher.transform_file ~global:true f else f in
     let f = if config.enable_c_virtualize then Virtualize.transform_file f else f in
     let f = if config.enable_c_nested_vm then NestedVM.transform_file f else f in
