@@ -41,9 +41,6 @@ uint64_t compute_protected_hash(uint64_t a, uint64_t b, const char *msg) {
   let config : Obfuscate_c_source_usecase.c_pipeline_config = {
     Obfuscate_c_source_usecase.default_c_config with
     enable_c_virtualize = true;
-    enable_c_polynomial_mba = true;
-    enable_c_encode_literals = true;
-    enable_c_anti_debug = true;
   } in
 
   let build_res =

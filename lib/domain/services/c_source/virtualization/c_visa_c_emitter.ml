@@ -1,6 +1,9 @@
 open C_visa_spec
 
-(** C11 Direct-Threaded Emulator Body Code Generator with Entangled Register Masking *)
+(** C11 Direct-Threaded Emulator Body Code Generator with:
+    - Entangled Register Masking (Vector 3)
+    - Dual Shadow Stack & Dynamic CFI Canary (Vector 2)
+*)
 let emit_function_body
     ~(ret_type_str : string)
     ~(fn_name : string)
@@ -16,9 +19,12 @@ let emit_function_body
     ~(pack_key : int64)
     ~(delta_key : int64)
     ~(lay : visa_field_layout) : string =
+  let cfi_seed = Int64.logand (Int64.abs reg_mask_base) 0xFFFFFFFFFFFFL in
+  let cfi_xor = Int64.logxor reg_mask_step 0xDEADBEEFCAFEBABEL in
   Format.sprintf {|
 #include <stdint.h>
 #include <string.h>
+#include <stdlib.h>
 
 __attribute__((visibility("default")))
 %s %s(%s) {
@@ -30,8 +36,20 @@ __attribute__((visibility("default")))
     for (int __i = 0; __i < %d; __i++) {
         __vregs[__i] = __VREG_MASK(__i);
     }
-%s
+
+    /* Vector 2: Dual Shadow Stack (VSP_data + VSP_ctrl) */
+    unsigned long long __vstack_data[64] = {0};
+    unsigned long long __vstack_ctrl[32] = {0};
+    unsigned int __vsp_d = 0;
+    unsigned int __vsp_c = 0;
+
     const char *__ptr_ctx = (const char *)%s;
+    const unsigned long long __cfi_canary = 0x%LxULL ^ ((uintptr_t)__ptr_ctx * 0x9E3779B97F4A7C15ULL);
+
+    /* Push CFI Canary into Shadow Control Stack */
+    __vstack_ctrl[__vsp_c++] = __cfi_canary ^ 0x%LxULL;
+
+%s
     unsigned int __pc = 0;
     unsigned int __raw, __key, __inst;
     unsigned char __funct6, __vm, __vs2, __vs1, __funct3, __vd;
@@ -50,6 +68,7 @@ __attribute__((visibility("default")))
         [0x%X] = &&__h_vli,
         [0x%X] = &&__h_vmv,
         [0x%X] = &&__h_vle8,
+        [0x%X] = &&__h_vse8,
         [0x%X] = &&__h_vret,
         [0x%X] = &&__h_vbge,
         [0x%X] = &&__h_vj
@@ -119,6 +138,12 @@ __h_vle8:
     }
     __VISA_DISPATCH();
 
+__h_vse8:
+    if (__vsp_d < 63) {
+        __vstack_data[__vsp_d++] = __VREG_GET(__vs1);
+    }
+    __VISA_DISPATCH();
+
 __h_vbge:
     if (__VREG_GET(__vs1) >= __VREG_GET(__vs2)) {
         __pc = (%d);
@@ -133,8 +158,14 @@ __h_default:
     __VISA_DISPATCH();
 
 __h_vret: ;
+    /* Verify Shadow Control Stack CFI Canary */
+    if (__vsp_c == 0 || ((__vstack_ctrl[--__vsp_c] ^ 0x%LxULL) != __cfi_canary)) {
+        __builtin_trap();
+    }
     unsigned long long __res_val = __VREG_GET(0);
     __builtin_memset(__vregs, 0, sizeof(__vregs));
+    __builtin_memset(__vstack_data, 0, sizeof(__vstack_data));
+    __builtin_memset(__vstack_ctrl, 0, sizeof(__vstack_ctrl));
     return (%s)__res_val;
 }
 |}
@@ -145,8 +176,10 @@ __h_vret: ;
     reg_mask_base
     reg_mask_step
     vreg_total
-    arg_inits
     ptr_arg
+    cfi_seed
+    cfi_xor
+    arg_inits
     op.vadd_vv
     op.vsub_vv
     op.vmul_vv
@@ -158,6 +191,7 @@ __h_vret: ;
     op.vli_vi
     op.vmv_vv
     op.vle8_v
+    op.vse8_v
     op.vret_v
     op.vbge_vv
     op.vj
@@ -172,4 +206,6 @@ __h_vret: ;
     lay.funct3_shift
     lay.vd_shift
     (word_count - 2)
+    cfi_xor
     ret_type_str
+
