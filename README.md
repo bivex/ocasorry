@@ -21,6 +21,7 @@
 ## 🌊 Core Features
 
 * 🔮 **Federated 4-Tier VCPU Cascade**: Vector `random_vISA`, 2-tier `NestedVM`, stateful `RollingVKey`, and in-memory `EphemeralJIT`.
+* 🧠 **Apple MLX Neural Engine**: PPO RL agent on Metal GPU for real-time MBA synthesis + 3-Level Z3 SMT formal verification.
 * 🧬 **Multi-ISA per-Function Routing**: Compile different C functions into completely distinct, randomized virtual processor architectures within the same binary.
 * 🌌 **E-Graph MBA Expansion**: Infinite non-linear bitwise identities generated via e-graph equality saturation (*arXiv:2603.03624*).
 * 🛡️ **Anti-Decompiler Hardening**: Overlapping aliased register matrix (`__vbank`), Loki algebraic invariants (*arXiv:2106.08913*), VPC path constraints (*arXiv:2603.18355*), and ABI EH shadowing (*arXiv:2601.10261*).
@@ -32,6 +33,7 @@
 
 | Document | Topic & Focus |
 | :--- | :--- |
+| 🧠 **[MLX Neural Engine & AI](docs/mlx-ai-neural-subsystem.md)** | Apple Silicon MLX models, PPO synthesis, dataset gen, Z3 SMT verifier |
 | 🏛️ **[Architecture](docs/architecture.md)** | Hexagonal layer design, Entities, Ports (SPI), Domain Services |
 | 🛡️ **[4-VCPU Virtualization](docs/4-vcpu-federated-virtualization.md)** | 4-Tier VCPU cascade, formal Sail specifications, keygen solver |
 | 🧬 **[ISA Pipeline](docs/isa-generation-pipeline.md)** | End-to-end guide: Sail/JSON synthesis to target C11 runtime |
