@@ -164,14 +164,18 @@ let () =
   let enable_nested_vm = ref false in
   let enable_self_mod_vm = ref false in
   let enable_jitify = ref false in
+  let enable_egraph_mba = ref false in
+  let egraph_depth = ref 3 in
   let visa_spec_file = ref "" in
   let vm_profile = ref "" in
 
   let speclist = [
-    ("-i", Arg.Set_string in_file, "Input C source file to obfuscate");
-    ("-o", Arg.Set_string out_file, "Output obfuscated C file path");
-    ("--mba", Arg.Set enable_mba, "Enable Linear Mixed Boolean-Arithmetic");
-    ("--poly-mba", Arg.Set enable_poly_mba, "Enable High-Order Polynomial MBA (Anti-Z3)");
+    ("-i", Arg.Set_string in_file, "Input C source file");
+    ("-o", Arg.Set_string out_file, "Output obfuscated C source file");
+    ("--mba", Arg.Set enable_mba, "Enable Mixed Boolean-Arithmetic (MBA)");
+    ("--poly-mba", Arg.Set enable_poly_mba, "Enable Polynomial MBA (High-Order Non-Linear Invertibles)");
+    ("--egraph-mba", Arg.Set enable_egraph_mba, "Enable E-Graph Equality Expansion MBA (Scrambler/arXiv:2603.03624)");
+    ("--egraph-depth", Arg.Set_int egraph_depth, "Set E-Graph Equality Expansion recursion depth (default: 3)");
     ("--no-poly-mba", Arg.Clear enable_poly_mba, "Disable High-Order Polynomial MBA");
     ("--float-mba", Arg.Set enable_float_mba, "Enable Floating-Point Fixed-Scale MBA Lifting");
     ("--cff", Arg.Set enable_cff, "Enable Control Flow Flattening");
@@ -247,6 +251,8 @@ let () =
       enable_c_mba = !enable_mba;
       enable_c_polynomial_mba = !enable_poly_mba;
       enable_c_float_mba = !enable_float_mba;
+      enable_c_egraph_mba = !enable_egraph_mba;
+      c_egraph_depth = !egraph_depth;
       enable_c_opaque = !enable_opaque;
       enable_c_dynamic_opaque = !enable_dyn_opaque;
       enable_c_diophantine = !enable_diophantine;

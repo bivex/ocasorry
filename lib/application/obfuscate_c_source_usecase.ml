@@ -56,6 +56,8 @@ type c_pipeline_config = {
   enable_c_nested_vm : bool;
   enable_c_self_mod_vm : bool;
   enable_c_jitify : bool;
+  enable_c_egraph_mba : bool;
+  c_egraph_depth : int;
   c_vm_profile : string option;
 }
 
@@ -63,6 +65,8 @@ let default_c_config = {
   enable_c_mba = true;
   enable_c_polynomial_mba = false;
   enable_c_float_mba = false;
+  enable_c_egraph_mba = false;
+  c_egraph_depth = 3;
   c_vm_profile = None;
   enable_c_opaque = true;
   enable_c_dynamic_opaque = false;
@@ -178,6 +182,7 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
   module NestedVM = C_nested_vm_service.Make (Entropy)
   module SelfModVM = C_self_modifying_vm_service.Make (Entropy)
   module Jitify = C_jitify_service.Make (Entropy)
+  module EGraphMBA = C_egraph_mba_service.Make (Entropy)
 
   let run_passes (cil_file : GoblintCil.Cil.file) (config : c_pipeline_config) : GoblintCil.Cil.file =
     (match config.c_vm_profile with
@@ -206,6 +211,7 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
     let f = if config.enable_c_constant_unfold then ConstUnfold.transform_file f else f in
     let f = if config.enable_c_polynomial_mba then PolyMBA.transform_file f else f in
     let f = if config.enable_c_lut then LUT.transform_file f else f in
+    let f = EGraphMBA.transform_file ~depth:config.c_egraph_depth ~global:config.enable_c_egraph_mba f in
     let f = if config.enable_c_mba then MBA.transform_file f else f in
     let f = if config.enable_c_ghost_code then GhostCode.transform_file f else f in
     let f = if config.enable_c_live_range_split then LiveRangeSplit.transform_file f else f in
