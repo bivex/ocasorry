@@ -1,0 +1,14 @@
+{
+  "vcpu_tier": 3,
+  "vcpu_type": "rolling_vkey",
+  "isa_name": "RollingVKey_Stateful_Arch",
+  "vkey_seed": 1266302756,
+  "lcg_multiplier": 33,
+  "lcg_delta": 3266489917,
+  "opcodes": {
+    "op_add_imm": 1,
+    "op_xor_imm": 2,
+    "op_mul_imm": 3,
+    "op_halt": 255
+  }
+}

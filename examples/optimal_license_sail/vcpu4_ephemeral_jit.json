@@ -1,0 +1,13 @@
+{
+  "vcpu_tier": 4,
+  "vcpu_type": "ephemeral_jit",
+  "isa_name": "Ephemeral_JIT_Security_Arch",
+  "session_key": 195,
+  "page_size": 4096,
+  "opcodes": {
+    "op_alloc_mmap": 16,
+    "op_decrypt": 32,
+    "op_execute": 48,
+    "op_free_zero": 64
+  }
+}
