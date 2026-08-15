@@ -89,6 +89,11 @@ module Make (Entropy : Entropy_port.S) = struct
       vbge_vv = op_vbge_vv;
       vj      = op_vj;
     } in
+    let in_regs_arr = [| 0; 1; 2; 3; 4; 5; 6; 7 |] in
+    shuffle in_regs_arr;
+    let in_regs = Array.to_list in_regs_arr in
+    let out_reg = Entropy.next_int ~max:4 in
+    let abi : VisaSpec.visa_abi = { in_regs; out_reg } in
 
     let spec : VisaSpec.visa_spec = {
       isa_name;
@@ -99,6 +104,7 @@ module Make (Entropy : Entropy_port.S) = struct
       delta_key;
       layout;
       opcodes;
+      abi;
     } in
 
     let json_str = Format.sprintf {|{
@@ -110,6 +116,10 @@ module Make (Entropy : Entropy_port.S) = struct
   "reg_count": 16,
   "pack_key": %Ld,
   "delta_key": %Ld,
+  "abi": {
+    "in_regs": [%s],
+    "out_reg": %d
+  },
   "layout": {
     "funct6_shift": 26,
     "funct6_mask": 63,
@@ -149,7 +159,7 @@ module Make (Entropy : Entropy_port.S) = struct
     "vbne_vv": %d,
     "vj": %d
   }
-}|} tier isa_name pack_key delta_key base_opcode
+}|} tier isa_name pack_key delta_key (String.concat ", " (List.map string_of_int in_regs)) out_reg base_opcode
       op_vadd_vv op_vsub_vv op_vmul_vv op_vxor_vv op_vand_vv op_vor_vv
       op_vsll_vv op_vsrl_vv op_vli_vi op_vmv_vv op_vle8_v op_vse8_v
       op_vret_v op_vbge_vv _op_vblt_vv _op_vbeq_vv _op_vbne_vv op_vj
@@ -340,22 +350,18 @@ module Make (Entropy : Entropy_port.S) = struct
     write_file (Filename.concat out_dir "vcpu4_feistel_xor_r1.json") j4;
     write_file (Filename.concat out_dir "vcpu4_feistel_xor_r1.sail") s4;
     Printf.printf "[+] [VCPU 4] Synthesized RollingVKey_AES_FeistelR1_Arch -> %s/vcpu4_feistel_xor_r1.json & .sail\n" out_dir;
-
     let (j5, s5) = generate_rolling_vkey ~name:"RollingVKey_AES_SubBytesR2_Arch" ~tier:5 () in
     write_file (Filename.concat out_dir "vcpu5_sub_bytes_r2.json") j5;
     write_file (Filename.concat out_dir "vcpu5_sub_bytes_r2.sail") s5;
     Printf.printf "[+] [VCPU 5] Synthesized RollingVKey_AES_SubBytesR2_Arch -> %s/vcpu5_sub_bytes_r2.json & .sail\n" out_dir;
-
     let (_, j6, s6) = generate_random_visa ~name:"vISA_AES_ShiftMixR2_Arch" ~tier:6 () in
     write_file (Filename.concat out_dir "vcpu6_shift_mix_r2.json") j6;
     write_file (Filename.concat out_dir "vcpu6_shift_mix_r2.sail") s6;
     Printf.printf "[+] [VCPU 6] Synthesized vISA_AES_ShiftMixR2_Arch -> %s/vcpu6_shift_mix_r2.json & .sail\n" out_dir;
-
     let (j7, s7) = generate_rolling_vkey ~name:"RollingVKey_AES_FeistelR2_Arch" ~tier:7 () in
     write_file (Filename.concat out_dir "vcpu7_feistel_xor_r2.json") j7;
     write_file (Filename.concat out_dir "vcpu7_feistel_xor_r2.sail") s7;
     Printf.printf "[+] [VCPU 7] Synthesized RollingVKey_AES_FeistelR2_Arch -> %s/vcpu7_feistel_xor_r2.json & .sail\n" out_dir;
-
     let (j8, s8) = generate_ephemeral_vm ~name:"Ephemeral_JIT_AES_Finalize_Arch" ~tier:8 () in
     write_file (Filename.concat out_dir "vcpu8_ephemeral_finalize.json") j8;
     write_file (Filename.concat out_dir "vcpu8_ephemeral_finalize.sail") s8;

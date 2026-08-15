@@ -51,10 +51,15 @@ module Make (Entropy : Entropy_port.S) = struct
       let ptr_formals = List.filter (fun p -> isPointerType p.vtype) fd.sformals in
       let has_ptr_param = ptr_formals <> [] in
 
-      (* Variable to register mapping: v0..vN *)
+      (* Vector 5: Variable to register mapping mapped to polymorphic in_regs *)
       let var_map = Hashtbl.create 32 in
-      List.iteri (fun idx p -> Hashtbl.add var_map p.vname idx) fd.sformals;
-      let next_vreg = ref (List.length fd.sformals) in
+      let in_regs = spec.abi.in_regs in
+      let get_in_reg idx =
+        if idx < List.length in_regs then List.nth in_regs idx else idx
+      in
+      List.iteri (fun idx p -> Hashtbl.add var_map p.vname (get_in_reg idx)) fd.sformals;
+      let max_in_reg = List.fold_left (fun acc p -> max acc (Hashtbl.find var_map p.vname)) 0 fd.sformals in
+      let next_vreg = ref (max (max_in_reg + 1) (List.length fd.sformals)) in
       List.iter
         (fun v ->
           if not (Hashtbl.mem var_map v.vname) then (
@@ -229,10 +234,10 @@ module Make (Entropy : Entropy_port.S) = struct
                 | _ -> ())
               inst_list
         | Return (Some exp, _, _) ->
-            compile_exp exp 0 (!next_vreg);
-            emit (Spec.encode_inst spec ~funct6:op.vret_v ~vm:1 ~vs2:0 ~vs1_or_imm:0 ~funct3:0 ~vd:0)
+            compile_exp exp spec.abi.out_reg (!next_vreg);
+            emit (Spec.encode_inst spec ~funct6:op.vret_v ~vm:1 ~vs2:0 ~vs1_or_imm:0 ~funct3:0 ~vd:(spec.abi.out_reg land 0x1F))
         | Return (None, _, _) ->
-            emit (Spec.encode_inst spec ~funct6:op.vret_v ~vm:1 ~vs2:0 ~vs1_or_imm:0 ~funct3:0 ~vd:0)
+            emit (Spec.encode_inst spec ~funct6:op.vret_v ~vm:1 ~vs2:0 ~vs1_or_imm:0 ~funct3:0 ~vd:(spec.abi.out_reg land 0x1F))
         | Block blk ->
             List.iter compile_stmt blk.bstmts
         | Loop (blk, _, _, _, _) ->
@@ -259,8 +264,8 @@ module Make (Entropy : Entropy_port.S) = struct
       maybe_inject_decoy ();
 
       if !instrs = [] then (
-        emit (Spec.encode_inst spec ~funct6:op.vli_vi ~vm:0 ~vs2:0 ~vs1_or_imm:0 ~funct3:0 ~vd:0);
-        emit (Spec.encode_inst spec ~funct6:op.vret_v ~vm:1 ~vs2:0 ~vs1_or_imm:0 ~funct3:0 ~vd:0)
+        emit (Spec.encode_inst spec ~funct6:op.vli_vi ~vm:0 ~vs2:0 ~vs1_or_imm:0 ~funct3:0 ~vd:(spec.abi.out_reg land 0x1F));
+        emit (Spec.encode_inst spec ~funct6:op.vret_v ~vm:1 ~vs2:0 ~vs1_or_imm:0 ~funct3:0 ~vd:(spec.abi.out_reg land 0x1F))
       );
 
       let vbc_words = List.rev !instrs in
@@ -321,9 +326,10 @@ module Make (Entropy : Entropy_port.S) = struct
       let arg_inits =
         List.mapi
           (fun idx p ->
-            if isIntegralType p.vtype then Printf.sprintf "    __VREG_SET(%d, (unsigned long long)%s);" idx p.vname
-            else if isPointerType p.vtype then Printf.sprintf "    __VREG_SET(%d, (unsigned long long)(uintptr_t)%s);" idx p.vname
-            else Printf.sprintf "    __VREG_SET(%d, 0);" idx)
+            let target_reg = get_in_reg idx in
+            if isIntegralType p.vtype then Printf.sprintf "    __VREG_SET(%d, (unsigned long long)%s);" target_reg p.vname
+            else if isPointerType p.vtype then Printf.sprintf "    __VREG_SET(%d, (unsigned long long)(uintptr_t)%s);" target_reg p.vname
+            else Printf.sprintf "    __VREG_SET(%d, 0);" target_reg)
           fd.sformals
         |> String.concat "\n"
       in
@@ -356,6 +362,7 @@ module Make (Entropy : Entropy_port.S) = struct
           ~arg_inits
           ~ptr_arg
           ~op
+          ~out_reg:spec.abi.out_reg
           ~word_count:(List.length packed_words)
           ~vbc_name
           ~pack_key:spec.pack_key

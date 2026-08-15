@@ -14,6 +14,7 @@ let emit_function_body
     ~(arg_inits : string)
     ~(ptr_arg : string)
     ~(op : visa_opcodes)
+    ~(out_reg : int)
     ~(word_count : int)
     ~(vbc_name : string)
     ~(pack_key : int64)
@@ -162,7 +163,7 @@ __h_vret: ;
     if (__vsp_c == 0 || ((__vstack_ctrl[--__vsp_c] ^ 0x%LxULL) != __cfi_canary)) {
         __builtin_trap();
     }
-    unsigned long long __res_val = __VREG_GET(0);
+    unsigned long long __res_val = __VREG_GET(%d);
     __builtin_memset(__vregs, 0, sizeof(__vregs));
     __builtin_memset(__vstack_data, 0, sizeof(__vstack_data));
     __builtin_memset(__vstack_ctrl, 0, sizeof(__vstack_ctrl));
@@ -207,5 +208,6 @@ __h_vret: ;
     lay.vd_shift
     (word_count - 2)
     cfi_xor
+    out_reg
     ret_type_str
 

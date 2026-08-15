@@ -30,6 +30,11 @@ type visa_opcodes = {
   vj      : int;
 }
 
+type visa_abi = {
+  in_regs : int list;
+  out_reg : int;
+}
+
 type visa_spec = {
   isa_name : string;
   isa_version : string;
@@ -39,6 +44,7 @@ type visa_spec = {
   delta_key : int64;
   layout : visa_field_layout;
   opcodes : visa_opcodes;
+  abi : visa_abi;
 }
 
 let default_spec : visa_spec = {
@@ -74,6 +80,10 @@ let default_spec : visa_spec = {
     vret_v  = 0x0F;
     vbge_vv = 0x13;
     vj      = 0x14;
+  };
+  abi = {
+    in_regs = [0; 1; 2; 3; 4; 5; 6; 7];
+    out_reg = 0;
   };
 }
 
@@ -140,6 +150,18 @@ let from_json_string (json_str : string) : visa_spec =
     vbge_vv = op |> member "vbge_vv" |> to_int_def 0x13;
     vj      = op |> member "vj"      |> to_int_def 0x14;
   } in
+  let abi =
+    match json |> member "abi" with
+    | `Null -> { in_regs = [0; 1; 2; 3; 4; 5; 6; 7]; out_reg = 0 }
+    | abi_obj ->
+        let out_r = abi_obj |> member "out_reg" |> to_int_def 0 in
+        let in_r =
+          match abi_obj |> member "in_regs" with
+          | `List items -> List.filter_map (function `Int x -> Some x | _ -> None) items
+          | _ -> [0; 1; 2; 3; 4; 5; 6; 7]
+        in
+        { in_regs = (if in_r = [] then [0; 1; 2; 3] else in_r); out_reg = out_r }
+  in
   {
     isa_name;
     isa_version;
@@ -149,6 +171,7 @@ let from_json_string (json_str : string) : visa_spec =
     delta_key;
     layout;
     opcodes;
+    abi;
   }
 
 let load_from_file (file_path : string) : visa_spec =
