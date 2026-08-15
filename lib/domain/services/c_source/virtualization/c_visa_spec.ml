@@ -28,6 +28,17 @@ type visa_opcodes = {
   vret_v  : int;
   vbge_vv : int;
   vj      : int;
+  vadd_alt1 : int;
+  vadd_alt2 : int;
+  vsub_alt1 : int;
+  vsub_alt2 : int;
+  vxor_alt1 : int;
+  vxor_alt2 : int;
+  vand_alt1 : int;
+  vor_alt1  : int;
+  vmul_alt1 : int;
+  vmv_alt1  : int;
+  vli_alt1  : int;
 }
 
 type visa_abi = {
@@ -80,6 +91,17 @@ let default_spec : visa_spec = {
     vret_v  = 0x0F;
     vbge_vv = 0x13;
     vj      = 0x14;
+    vadd_alt1 = 0x18;
+    vadd_alt2 = 0x19;
+    vsub_alt1 = 0x1A;
+    vsub_alt2 = 0x1B;
+    vxor_alt1 = 0x1C;
+    vxor_alt2 = 0x1D;
+    vand_alt1 = 0x1E;
+    vor_alt1  = 0x1F;
+    vmul_alt1 = 0x20;
+    vmv_alt1  = 0x21;
+    vli_alt1  = 0x22;
   };
   abi = {
     in_regs = [0; 1; 2; 3; 4; 5; 6; 7];
@@ -149,6 +171,17 @@ let from_json_string (json_str : string) : visa_spec =
     vret_v  = op |> member "vret_v"  |> to_int_def 0x0F;
     vbge_vv = op |> member "vbge_vv" |> to_int_def 0x13;
     vj      = op |> member "vj"      |> to_int_def 0x14;
+    vadd_alt1 = op |> member "vadd_alt1" |> to_int_def 0x18;
+    vadd_alt2 = op |> member "vadd_alt2" |> to_int_def 0x19;
+    vsub_alt1 = op |> member "vsub_alt1" |> to_int_def 0x1A;
+    vsub_alt2 = op |> member "vsub_alt2" |> to_int_def 0x1B;
+    vxor_alt1 = op |> member "vxor_alt1" |> to_int_def 0x1C;
+    vxor_alt2 = op |> member "vxor_alt2" |> to_int_def 0x1D;
+    vand_alt1 = op |> member "vand_alt1" |> to_int_def 0x1E;
+    vor_alt1  = op |> member "vor_alt1"  |> to_int_def 0x1F;
+    vmul_alt1 = op |> member "vmul_alt1" |> to_int_def 0x20;
+    vmv_alt1  = op |> member "vmv_alt1"  |> to_int_def 0x21;
+    vli_alt1  = op |> member "vli_alt1"  |> to_int_def 0x22;
   } in
   let abi =
     match json |> member "abi" with

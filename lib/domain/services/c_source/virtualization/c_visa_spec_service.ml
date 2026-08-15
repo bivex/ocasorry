@@ -142,64 +142,56 @@ module Make (Entropy : Entropy_port.S) = struct
             emit (Spec.encode_inst spec ~funct6:op.vle8_v ~vm:1 ~vs2:(free_reg land 0x1F) ~vs1_or_imm:((get_vreg ptr_v.vname) land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
         | UnOp (Neg, e1, _) ->
             compile_exp e1 dst free_reg;
-            emit (Spec.encode_inst spec ~funct6:op.vsub_vv ~vm:1 ~vs2:(dst land 0x1F) ~vs1_or_imm:0 ~funct3:0 ~vd:(dst land 0x1F))
+            let sub_op = [| op.vsub_vv; op.vsub_alt1; op.vsub_alt2 |].(Entropy.next_int ~max:3) in
+            emit (Spec.encode_inst spec ~funct6:sub_op ~vm:1 ~vs2:(dst land 0x1F) ~vs1_or_imm:0 ~funct3:0 ~vd:(dst land 0x1F))
         | UnOp (BNot, e1, _) ->
             compile_exp e1 dst free_reg;
-            emit (Spec.encode_inst spec ~funct6:op.vxor_vv ~vm:1 ~vs2:0x1F ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
+            let xor_op = [| op.vxor_vv; op.vxor_alt1; op.vxor_alt2 |].(Entropy.next_int ~max:3) in
+            emit (Spec.encode_inst spec ~funct6:xor_op ~vm:1 ~vs2:0x1F ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
         | BinOp (bin_op, e1, e2, _) ->
             compile_exp e1 dst free_reg;
             let t_reg = free_reg in
             compile_exp e2 t_reg (free_reg + 1);
+            let pick_add () = [| op.vadd_vv; op.vadd_alt1; op.vadd_alt2 |].(Entropy.next_int ~max:3) in
+            let pick_sub () = [| op.vsub_vv; op.vsub_alt1; op.vsub_alt2 |].(Entropy.next_int ~max:3) in
+            let pick_xor () = [| op.vxor_vv; op.vxor_alt1; op.vxor_alt2 |].(Entropy.next_int ~max:3) in
+            let pick_and () = [| op.vand_vv; op.vand_alt1 |].(Entropy.next_int ~max:2) in
+            let pick_or ()  = [| op.vor_vv;  op.vor_alt1  |].(Entropy.next_int ~max:2) in
+            let pick_mul () = [| op.vmul_vv; op.vmul_alt1 |].(Entropy.next_int ~max:2) in
             (match bin_op with
              | PlusA ->
-                 (* Vector 1: Micro-Op RISC MBA Synthesis for Addition *)
+                 (* Vector 1 & 9: Micro-Op RISC MBA with Polymorphic Aliasing *)
                  let choice = Entropy.next_int ~max:3 in
-                 if choice = 0 then (
-                   (* Direct vadd *)
-                   emit (Spec.encode_inst spec ~funct6:op.vadd_vv ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
-                 ) else if choice = 1 then (
-                   (* MBA Identity 1: (x ^ y) + 2*(x & y) *)
-                   let t1 = free_reg + 1 in
-                   let t2 = free_reg + 2 in
-                   emit (Spec.encode_inst spec ~funct6:op.vand_vv ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(t1 land 0x1F));
-                   emit (Spec.encode_inst spec ~funct6:op.vxor_vv ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F));
+                 if choice = 0 then emit (Spec.encode_inst spec ~funct6:(pick_add ()) ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
+                 else if choice = 1 then (
+                   let t1, t2 = free_reg + 1, free_reg + 2 in
+                   emit (Spec.encode_inst spec ~funct6:(pick_and ()) ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(t1 land 0x1F));
+                   emit (Spec.encode_inst spec ~funct6:(pick_xor ()) ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F));
                    emit (Spec.encode_inst spec ~funct6:op.vli_vi ~vm:0 ~vs2:1 ~vs1_or_imm:0 ~funct3:0 ~vd:(t2 land 0x1F));
                    emit (Spec.encode_inst spec ~funct6:op.vsll_vv ~vm:1 ~vs2:(t2 land 0x1F) ~vs1_or_imm:(t1 land 0x1F) ~funct3:0 ~vd:(t1 land 0x1F));
-                   emit (Spec.encode_inst spec ~funct6:op.vadd_vv ~vm:1 ~vs2:(t1 land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
+                   emit (Spec.encode_inst spec ~funct6:(pick_add ()) ~vm:1 ~vs2:(t1 land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
                  ) else (
-                   (* MBA Identity 2: (x | y) + (x & y) *)
                    let t1 = free_reg + 1 in
-                   emit (Spec.encode_inst spec ~funct6:op.vand_vv ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(t1 land 0x1F));
-                   emit (Spec.encode_inst spec ~funct6:op.vor_vv ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F));
-                   emit (Spec.encode_inst spec ~funct6:op.vadd_vv ~vm:1 ~vs2:(t1 land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
+                   emit (Spec.encode_inst spec ~funct6:(pick_and ()) ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(t1 land 0x1F));
+                   emit (Spec.encode_inst spec ~funct6:(pick_or ()) ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F));
+                   emit (Spec.encode_inst spec ~funct6:(pick_add ()) ~vm:1 ~vs2:(t1 land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
                  )
              | BXor ->
-                 (* Vector 1: Micro-Op RISC MBA Synthesis for XOR *)
                  let choice = Entropy.next_int ~max:2 in
-                 if choice = 0 then (
-                   (* Direct vxor *)
-                   emit (Spec.encode_inst spec ~funct6:op.vxor_vv ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
-                 ) else (
-                   (* MBA XOR Identity: (x | y) - (x & y) *)
+                 if choice = 0 then emit (Spec.encode_inst spec ~funct6:(pick_xor ()) ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
+                 else (
                    let t1 = free_reg + 1 in
-                   emit (Spec.encode_inst spec ~funct6:op.vand_vv ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(t1 land 0x1F));
-                   emit (Spec.encode_inst spec ~funct6:op.vor_vv ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F));
-                   emit (Spec.encode_inst spec ~funct6:op.vsub_vv ~vm:1 ~vs2:(t1 land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
+                   emit (Spec.encode_inst spec ~funct6:(pick_and ()) ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(t1 land 0x1F));
+                   emit (Spec.encode_inst spec ~funct6:(pick_or ()) ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F));
+                   emit (Spec.encode_inst spec ~funct6:(pick_sub ()) ~vm:1 ~vs2:(t1 land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
                  )
-             | MinusA ->
-                 emit (Spec.encode_inst spec ~funct6:op.vsub_vv ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
-             | Mult ->
-                 emit (Spec.encode_inst spec ~funct6:op.vmul_vv ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
-             | BAnd ->
-                 emit (Spec.encode_inst spec ~funct6:op.vand_vv ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
-             | BOr ->
-                 emit (Spec.encode_inst spec ~funct6:op.vor_vv ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
-             | Shiftlt ->
-                 emit (Spec.encode_inst spec ~funct6:op.vsll_vv ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
-             | Shiftrt ->
-                 emit (Spec.encode_inst spec ~funct6:op.vsrl_vv ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
-             | _ ->
-                 emit (Spec.encode_inst spec ~funct6:op.vadd_vv ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
+             | MinusA -> emit (Spec.encode_inst spec ~funct6:(pick_sub ()) ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
+             | Mult -> emit (Spec.encode_inst spec ~funct6:(pick_mul ()) ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
+             | BAnd -> emit (Spec.encode_inst spec ~funct6:(pick_and ()) ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
+             | BOr -> emit (Spec.encode_inst spec ~funct6:(pick_or ()) ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
+             | Shiftlt -> emit (Spec.encode_inst spec ~funct6:op.vsll_vv ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
+             | Shiftrt -> emit (Spec.encode_inst spec ~funct6:op.vsrl_vv ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
+             | _ -> emit (Spec.encode_inst spec ~funct6:(pick_add ()) ~vm:1 ~vs2:(t_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
             )
         | CastE (_, _, e1) ->
             compile_exp e1 dst free_reg
@@ -261,7 +253,6 @@ module Make (Entropy : Entropy_port.S) = struct
       in
 
       List.iter compile_stmt fd.sbody.bstmts;
-      maybe_inject_decoy ();
 
       if !instrs = [] then (
         emit (Spec.encode_inst spec ~funct6:op.vli_vi ~vm:0 ~vs2:0 ~vs1_or_imm:0 ~funct3:0 ~vd:(spec.abi.out_reg land 0x1F));

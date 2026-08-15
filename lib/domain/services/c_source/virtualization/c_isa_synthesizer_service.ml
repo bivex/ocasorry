@@ -56,6 +56,17 @@ module Make (Entropy : Entropy_port.S) = struct
     let _op_vbeq_vv = pop () in
     let _op_vbne_vv = pop () in
     let op_vj      = pop () in
+    let op_vadd_alt1 = pop () in
+    let op_vadd_alt2 = pop () in
+    let op_vsub_alt1 = pop () in
+    let op_vsub_alt2 = pop () in
+    let op_vxor_alt1 = pop () in
+    let op_vxor_alt2 = pop () in
+    let op_vand_alt1 = pop () in
+    let op_vor_alt1  = pop () in
+    let op_vmul_alt1 = pop () in
+    let op_vmv_alt1  = pop () in
+    let op_vli_alt1  = pop () in
 
     let pack_key = Int64.logand (Int64.abs (Entropy.next_int64 ())) 0xFFFFFFFFL in
     let delta_keys = [| 0x1000193L; 0x9E3779B9L; 0x045D9F3BL; 0x21F0AAADL |] in
@@ -88,6 +99,17 @@ module Make (Entropy : Entropy_port.S) = struct
       vret_v  = op_vret_v;
       vbge_vv = op_vbge_vv;
       vj      = op_vj;
+      vadd_alt1 = op_vadd_alt1;
+      vadd_alt2 = op_vadd_alt2;
+      vsub_alt1 = op_vsub_alt1;
+      vsub_alt2 = op_vsub_alt2;
+      vxor_alt1 = op_vxor_alt1;
+      vxor_alt2 = op_vxor_alt2;
+      vand_alt1 = op_vand_alt1;
+      vor_alt1  = op_vor_alt1;
+      vmul_alt1 = op_vmul_alt1;
+      vmv_alt1  = op_vmv_alt1;
+      vli_alt1  = op_vli_alt1;
     } in
     let in_regs_arr = [| 0; 1; 2; 3; 4; 5; 6; 7 |] in
     shuffle in_regs_arr;
@@ -116,53 +138,23 @@ module Make (Entropy : Entropy_port.S) = struct
   "reg_count": 16,
   "pack_key": %Ld,
   "delta_key": %Ld,
-  "abi": {
-    "in_regs": [%s],
-    "out_reg": %d
-  },
-  "layout": {
-    "funct6_shift": 26,
-    "funct6_mask": 63,
-    "vm_shift": 25,
-    "vs2_shift": 20,
-    "vs1_shift": 15,
-    "funct3_shift": 12,
-    "vd_shift": 7,
-    "opcode_val": %d
-  },
-  "bitfields": {
-    "funct6": {"msb": 31, "lsb": 26, "bits": 6},
-    "vm": {"msb": 25, "lsb": 25, "bits": 1},
-    "vs2": {"msb": 24, "lsb": 20, "bits": 5},
-    "vs1": {"msb": 19, "lsb": 15, "bits": 5},
-    "funct3": {"msb": 14, "lsb": 12, "bits": 3},
-    "vd": {"msb": 11, "lsb": 7, "bits": 5},
-    "opcode": {"msb": 6, "lsb": 0, "bits": 7}
-  },
+  "abi": {"in_regs": [%s], "out_reg": %d},
+  "layout": {"funct6_shift": 26, "funct6_mask": 63, "vm_shift": 25, "vs2_shift": 20, "vs1_shift": 15, "funct3_shift": 12, "vd_shift": 7, "opcode_val": %d},
   "opcodes": {
-    "vadd_vv": %d,
-    "vsub_vv": %d,
-    "vmul_vv": %d,
-    "vxor_vv": %d,
-    "vand_vv": %d,
-    "vor_vv": %d,
-    "vsll_vv": %d,
-    "vsrl_vv": %d,
-    "vli_vi": %d,
-    "vmv_vv": %d,
-    "vle8_v": %d,
-    "vse8_v": %d,
-    "vret_v": %d,
-    "vbge_vv": %d,
-    "vblt_vv": %d,
-    "vbeq_vv": %d,
-    "vbne_vv": %d,
-    "vj": %d
+    "vadd_vv": %d, "vsub_vv": %d, "vmul_vv": %d, "vxor_vv": %d, "vand_vv": %d, "vor_vv": %d,
+    "vsll_vv": %d, "vsrl_vv": %d, "vli_vi": %d, "vmv_vv": %d, "vle8_v": %d, "vse8_v": %d,
+    "vret_v": %d, "vbge_vv": %d, "vj": %d,
+    "vadd_alt1": %d, "vadd_alt2": %d, "vsub_alt1": %d, "vsub_alt2": %d,
+    "vxor_alt1": %d, "vxor_alt2": %d, "vand_alt1": %d, "vor_alt1": %d,
+    "vmul_alt1": %d, "vmv_alt1": %d, "vli_alt1": %d
   }
 }|} tier isa_name pack_key delta_key (String.concat ", " (List.map string_of_int in_regs)) out_reg base_opcode
       op_vadd_vv op_vsub_vv op_vmul_vv op_vxor_vv op_vand_vv op_vor_vv
       op_vsll_vv op_vsrl_vv op_vli_vi op_vmv_vv op_vle8_v op_vse8_v
-      op_vret_v op_vbge_vv _op_vblt_vv _op_vbeq_vv _op_vbne_vv op_vj
+      op_vret_v op_vbge_vv op_vj
+      op_vadd_alt1 op_vadd_alt2 op_vsub_alt1 op_vsub_alt2
+      op_vxor_alt1 op_vxor_alt2 op_vand_alt1 op_vor_alt1
+      op_vmul_alt1 op_vmv_alt1 op_vli_alt1
     in
 
     let sail_str =

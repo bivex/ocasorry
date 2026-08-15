@@ -79,7 +79,19 @@ __attribute__((visibility("default")))
         [0x%X] = &&__h_vse8,
         [0x%X] = &&__h_vret,
         [0x%X] = &&__h_vbge,
-        [0x%X] = &&__h_vj
+        [0x%X] = &&__h_vj,
+        /* Vector 9: Polymorphic Multi-Alias Handler Entries */
+        [0x%X] = &&__h_vadd_alt1,
+        [0x%X] = &&__h_vadd_alt2,
+        [0x%X] = &&__h_vsub_alt1,
+        [0x%X] = &&__h_vsub_alt2,
+        [0x%X] = &&__h_vxor_alt1,
+        [0x%X] = &&__h_vxor_alt2,
+        [0x%X] = &&__h_vand_alt1,
+        [0x%X] = &&__h_vor_alt1,
+        [0x%X] = &&__h_vmul_alt1,
+        [0x%X] = &&__h_vmv_alt1,
+        [0x%X] = &&__h_vli_alt1
     };
 
     #define __VISA_DISPATCH() do { \
@@ -109,6 +121,20 @@ __h_vadd: {
     __VISA_DISPATCH();
 }
 
+__h_vadd_alt1: {
+    unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
+    /* Alt1 MBA ADD: (a | b) + (a & b) */
+    __VREG_SET(__vd, (__a | __b) + (__a & __b));
+    __VISA_DISPATCH();
+}
+
+__h_vadd_alt2: {
+    unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
+    /* Alt2 MBA ADD: (2 * (a | b)) - (a ^ b) */
+    __VREG_SET(__vd, ((__a | __b) << 1) - (__a ^ __b));
+    __VISA_DISPATCH();
+}
+
 __h_vsub: {
     unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
     /* Non-Linear MBA SUB: (a ^ b) - ((~a & b) << 1) */
@@ -116,10 +142,29 @@ __h_vsub: {
     __VISA_DISPATCH();
 }
 
+__h_vsub_alt1: {
+    unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
+    /* Alt1 MBA SUB: (a & ~b) - (~a & b) */
+    __VREG_SET(__vd, (__a & ~__b) - (~__a & __b));
+    __VISA_DISPATCH();
+}
+
+__h_vsub_alt2: {
+    unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
+    /* Alt2 MBA SUB: (a | ~b) - ~b - (a & b) */
+    __VREG_SET(__vd, (__a | ~__b) - ~__b - (__a & __b));
+    __VISA_DISPATCH();
+}
+
 __h_vmul: {
     unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
-    /* 64-bit Modular Multiplier */
     __VREG_SET(__vd, (unsigned long long)(__a * __b));
+    __VISA_DISPATCH();
+}
+
+__h_vmul_alt1: {
+    unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
+    __VREG_SET(__vd, (unsigned long long)((__a ^ 0) * (__b ^ 0)));
     __VISA_DISPATCH();
 }
 
@@ -130,6 +175,20 @@ __h_vxor: {
     __VISA_DISPATCH();
 }
 
+__h_vxor_alt1: {
+    unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
+    /* Alt1 MBA XOR: (~a & b) + (a & ~b) */
+    __VREG_SET(__vd, (~__a & __b) + (__a & ~__b));
+    __VISA_DISPATCH();
+}
+
+__h_vxor_alt2: {
+    unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
+    /* Alt2 MBA XOR: (a + b) - ((a & b) << 1) */
+    __VREG_SET(__vd, (__a + __b) - ((__a & __b) << 1));
+    __VISA_DISPATCH();
+}
+
 __h_vand: {
     unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
     /* Non-Linear MBA AND: (a | b) - (a ^ b) */
@@ -137,10 +196,24 @@ __h_vand: {
     __VISA_DISPATCH();
 }
 
+__h_vand_alt1: {
+    unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
+    /* Alt1 MBA AND: (a + b) - (a | b) */
+    __VREG_SET(__vd, (__a + __b) - (__a | __b));
+    __VISA_DISPATCH();
+}
+
 __h_vor: {
     unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
     /* Non-Linear MBA OR: (a & b) + (a ^ b) */
     __VREG_SET(__vd, (__a & __b) + (__a ^ __b));
+    __VISA_DISPATCH();
+}
+
+__h_vor_alt1: {
+    unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
+    /* Alt1 MBA OR: (a + b) - (a & b) */
+    __VREG_SET(__vd, (__a + __b) - (__a & __b));
     __VISA_DISPATCH();
 }
 
@@ -160,8 +233,16 @@ __h_vli:
     __VREG_SET(__vd, (unsigned long long)((__vm << 13) | (__funct3 << 10) | (__vs1 << 5) | __vs2));
     __VISA_DISPATCH();
 
+__h_vli_alt1:
+    __VREG_SET(__vd, (unsigned long long)((((__vm << 3) | __funct3) << 10) | (__vs1 << 5) | __vs2));
+    __VISA_DISPATCH();
+
 __h_vmv:
     __VREG_SET(__vd, __VREG_GET(__vs1));
+    __VISA_DISPATCH();
+
+__h_vmv_alt1:
+    __VREG_SET(__vd, __VREG_GET(__vs1) ^ 0);
     __VISA_DISPATCH();
 
 __h_vle8:
@@ -230,6 +311,17 @@ __h_vret: ;
     op.vret_v
     op.vbge_vv
     op.vj
+    op.vadd_alt1
+    op.vadd_alt2
+    op.vsub_alt1
+    op.vsub_alt2
+    op.vxor_alt1
+    op.vxor_alt2
+    op.vand_alt1
+    op.vor_alt1
+    op.vmul_alt1
+    op.vmv_alt1
+    op.vli_alt1
     word_count
     affine_p
     affine_s
