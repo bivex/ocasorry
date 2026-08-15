@@ -18,7 +18,9 @@ module Make (Entropy : Entropy_port.S) = struct
     | _ -> false
 
   let apply_split (fd : fundec) : unit =
-    if fd.svar.vname = "main" || String.starts_with ~prefix:"__" fd.svar.vname then ()
+    if fd.svar.vname = "main" || String.starts_with ~prefix:"__" fd.svar.vname
+       || C_annotation_service.AnnotationHelper.should_skip_all fd
+       || List.exists (fun v -> v.vname = "__cff_state" || v.vname = "__tree_disp_state") fd.slocals then ()
     else
       let orig_stmts = fd.sbody.bstmts in
       if List.length orig_stmts < 2 then ()

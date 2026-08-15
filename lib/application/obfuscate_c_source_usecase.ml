@@ -187,7 +187,6 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
     let f = if config.enable_c_loop_fission then LoopFission.transform_file f else f in
     let f = if config.enable_c_irreducible_loop then IrreducibleLoop.transform_file f else f in
     let f = if config.enable_c_loop_to_recursion then LoopToRecursion.transform_file f else f in
-    let f = if config.enable_c_basic_block_split then BBSplit.transform_file f else f in
     let f = if config.enable_c_array_interleave then ArrayInterleave.transform_file f else f in
     let f = if config.enable_c_pointer_mask then PointerMask.transform_file f else f in
     let f = if config.enable_c_encode_literals then EncodeLiterals.transform_file f else f in
@@ -233,6 +232,7 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
     let f = if config.enable_c_early_constructor then EarlyConstructor.transform_file f else f in
     let f = if config.enable_c_flattening then Flattening.transform_file f else f in
     let f = if config.enable_c_decentralized_disp then DecentDisp.transform_file f else f in
+    let f = if config.enable_c_basic_block_split then BBSplit.transform_file f else f in
     let f = if config.enable_c_rename_symbols then RenameSymbols.transform_file f else f in
     let f = if config.enable_c_strip_directives then StripDirectives.transform_file f else f in
     f

@@ -33,7 +33,11 @@ module Make (Entropy : Entropy_port.S) = struct
     else if C_annotation_service.AnnotationHelper.should_skip_all fd then false
     else if C_annotation_service.AnnotationHelper.has_annotation fd "nested_vm"
             || C_annotation_service.AnnotationHelper.has_annotation fd "nested" then true
-    else not (C_annotation_service.AnnotationHelper.has_any_vm_annotation fd)
+    else if C_annotation_service.AnnotationHelper.has_any_vm_annotation fd then false
+    else if C_annotation_service.AnnotationHelper.has_custom_annotations fd then false
+    else (
+      List.for_all (fun p -> isIntegralType p.vtype) fd.sformals
+    )
 
   let transform_function (file : file) (fd : fundec) : unit =
     if not (should_transform fd) then ()

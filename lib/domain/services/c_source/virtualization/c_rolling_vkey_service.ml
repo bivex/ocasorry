@@ -11,7 +11,11 @@ module Make (Entropy : Entropy_port.S) = struct
     else if C_annotation_service.AnnotationHelper.should_skip_all fd then false
     else if C_annotation_service.AnnotationHelper.has_annotation fd "rolling_vkey"
             || C_annotation_service.AnnotationHelper.has_annotation fd "rolling_key" then true
-    else not (C_annotation_service.AnnotationHelper.has_any_vm_annotation fd)
+    else if C_annotation_service.AnnotationHelper.has_any_vm_annotation fd then false
+    else (
+      let int_formals = List.filter (fun p -> isIntegralType p.vtype) fd.sformals in
+      List.length fd.sformals = 1 && int_formals <> []
+    )
 
   let transform_file (f : file) : file =
     let new_globals = ref [] in

@@ -59,6 +59,9 @@ module AnnotationHelper = struct
             "jitify"; "jit" ])
       tokens
 
+  let has_custom_annotations (fd : fundec) : bool =
+    get_tokens fd <> []
+
   let should_skip_all (fd : fundec) : bool =
     has_annotation fd "no_obf"
     || has_annotation fd "no_obfuscation"

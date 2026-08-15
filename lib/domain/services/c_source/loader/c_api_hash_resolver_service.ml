@@ -23,10 +23,12 @@ module Make (Entropy : Entropy_port.S) = struct
     inherit nopCilVisitor
 
     val mutable helper_injected = false
+    val mutable cur_fd : fundec option = None
 
     method! vfunc (fd : fundec) : fundec visitAction =
       if String.starts_with ~prefix:"__ocasorry_" fd.svar.vname then SkipChildren
       else (
+        cur_fd <- Some fd;
         if not helper_injected then (
           helper_injected <- true;
           let resolver_helper =
@@ -65,20 +67,28 @@ static void *__ocasorry_resolve_symbol_hash(uint32_t target_hash, const char *na
       match s.skind with
       | Instr [ Call (ret_opt, Lval (Var fn_var, NoOffset), args, loc, eloc) ] ->
           if Hashtbl.mem target_symbols fn_var.vname then (
-            let hash_val = Hashtbl.find target_symbols fn_var.vname in
-            let resolve_fn =
-              makeGlobalVar "__ocasorry_resolve_symbol_hash"
-                (TFun (voidPtrType, Some [ ("hash", uintType, []); ("name", charPtrType, []) ], false, []))
-            in
-            let tmp_ptr = makeVarinfo false ("__resolved_" ^ fn_var.vname) voidPtrType in
-            let hash_exp = kinteger64 IUInt hash_val in
-            let call_resolve =
-              Call (Some (var tmp_ptr), Lval (var resolve_fn), [ hash_exp; mkString fn_var.vname ], loc, eloc)
-            in
-            let fn_ptr_type = TPtr (fn_var.vtype, []) in
-            let cast_fn_ptr = CastE (fn_ptr_type, Lval (var tmp_ptr)) in
-            let indirect_call = Call (ret_opt, Lval (Mem cast_fn_ptr, NoOffset), args, loc, eloc) in
-            ChangeTo (mkStmt (Block (mkBlock [ mkStmtOneInstr call_resolve; mkStmtOneInstr indirect_call ])))
+            match cur_fd with
+            | Some fd ->
+                let hash_val = Hashtbl.find target_symbols fn_var.vname in
+                let resolve_fn =
+                  makeGlobalVar "__ocasorry_resolve_symbol_hash"
+                    (TFun (voidPtrType, Some [ ("hash", uintType, []); ("name", charPtrType, []) ], false, []))
+                in
+                let var_name = "__resolved_" ^ fn_var.vname in
+                let tmp_ptr =
+                  match List.find_opt (fun v -> v.vname = var_name) fd.slocals with
+                  | Some existing -> existing
+                  | None -> makeLocalVar fd var_name voidPtrType
+                in
+                let hash_exp = kinteger64 IUInt hash_val in
+                let call_resolve =
+                  Call (Some (var tmp_ptr), Lval (var resolve_fn), [ hash_exp; mkString fn_var.vname ], loc, eloc)
+                in
+                let fn_ptr_type = TPtr (fn_var.vtype, []) in
+                let cast_fn_ptr = CastE (fn_ptr_type, Lval (var tmp_ptr)) in
+                let indirect_call = Call (ret_opt, Lval (Mem cast_fn_ptr, NoOffset), args, loc, eloc) in
+                ChangeTo (mkStmt (Block (mkBlock [ mkStmtOneInstr call_resolve; mkStmtOneInstr indirect_call ])))
+            | None -> DoChildren
           ) else DoChildren
       | _ -> DoChildren
   end

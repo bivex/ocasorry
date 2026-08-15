@@ -24,7 +24,8 @@ module Make (Entropy : Entropy_port.S) = struct
   end
 
   let apply_bcf_to_function (fd : fundec) : unit =
-    if fd.svar.vname = "main" || String.starts_with ~prefix:"__" fd.svar.vname then ()
+    if fd.svar.vname = "main" || String.starts_with ~prefix:"__" fd.svar.vname
+       || C_annotation_service.AnnotationHelper.should_skip_all fd then ()
     else
       let stmts = fd.sbody.bstmts in
       if List.length stmts < 2 then ()
@@ -34,9 +35,10 @@ module Make (Entropy : Entropy_port.S) = struct
           (fun s ->
             match s.skind with
             | Instr instrs when instrs <> [] ->
-                let cloned_s = { s with sid = s.sid } in
+                let cloned_s = { s with sid = s.sid; labels = [] } in
                 let vis = new mutate_visitor in
                 let bogus_s = visitCilStmt (vis :> cilVisitor) cloned_s in
+                bogus_s.labels <- [];
 
                 let pred = DynOpaque.build_opaque_predicate fd DynOpaque.AlwaysTrue in
                 let real_block = mkBlock [ s ] in

@@ -12,9 +12,11 @@ module Make (Entropy : Entropy_port.S) = struct
     inherit nopCilVisitor
 
     val mutable current_func : fundec option = None
+    val mutable entangle_id = 0
 
     method! vfunc (fd : fundec) : fundec visitAction =
-      if fd.svar.vname <> "main" && not (String.starts_with ~prefix:"__" fd.svar.vname) then (
+      if fd.svar.vname <> "main" && not (String.starts_with ~prefix:"__" fd.svar.vname)
+         && not (C_annotation_service.AnnotationHelper.should_skip_all fd) then (
         current_func <- Some fd;
         DoChildren
       ) else (
@@ -39,8 +41,9 @@ module Make (Entropy : Entropy_port.S) = struct
                       | Set (dest, _, loc, eloc) ->
                           let typ = typeOfLval dest in
                           if isIntegralType typ then (
+                            entangle_id <- entangle_id + 1;
                             let ik = match typ with TInt (k, _) -> k | _ -> IInt in
-                            let phantom_var = makeLocalVar fd (Printf.sprintf "__entangle_%d" (Entropy.next_int ~max:0xFFFF)) typ in
+                            let phantom_var = makeLocalVar fd (Printf.sprintf "__entangle_%s_%d" fd.svar.vname entangle_id) typ in
                             let k = kinteger64 ik (Int64.of_int (Entropy.next_int ~max:0x7FFF + 1)) in
                             let two = kinteger64 ik 2L in
 
