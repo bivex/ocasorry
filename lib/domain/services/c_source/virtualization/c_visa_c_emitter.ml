@@ -132,7 +132,7 @@ __attribute__((visibility("default")))
         __funct3 = (unsigned char)((__inst >> %d) & 0x07); \
         __vd     = (unsigned char)((__inst >> %d)  & 0x1F); \
         __pc++; \
-        __vm_state_acc = (__vm_state_acc ^ (__vd + __funct6)) * 0x517CC1B727220A95ULL; \
+        __vm_state_acc = ((__vm_state_acc * 0x63c63cd93839c9b9ULL) ^ (__vd + __funct6 + (unsigned long long)__pc)) * 0x517CC1B727220A95ULL; \
         goto *__dispatch_table[__funct6 & 0x%X]; \
     } while (0)
 
@@ -285,12 +285,12 @@ __h_vse8:
 
 __h_vbge:
     if (__VREG_GET(__vs1) >= __VREG_GET(__vs2)) {
-        __pc = (%d);
+        __pc = (unsigned int)((%d) + ((__vm_state_acc * (__vm_state_acc + 1ULL)) & 1ULL));
     }
     __VISA_DISPATCH();
 
 __h_vj:
-    __pc = ((__inst >> 7) & 0x7FFFF);
+    __pc = (unsigned int)(((__inst >> 7) & 0x7FFFF) + ((__vm_state_acc * (__vm_state_acc + 1ULL)) & 1ULL));
     __VISA_DISPATCH();
 
 __h_default:

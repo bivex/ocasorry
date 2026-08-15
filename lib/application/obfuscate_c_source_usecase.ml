@@ -186,6 +186,7 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
   module Jitify = C_jitify_service.Make (Entropy)
   module EGraphMBA = C_egraph_mba_service.Make (Entropy)
   module EHShadow = C_eh_shadowing_service.Make (Entropy)
+  module VPCPath = C_vpc_path_invalidation_service.Make (Entropy)
 
   let run_passes (cil_file : GoblintCil.Cil.file) (config : c_pipeline_config) : GoblintCil.Cil.file =
     (match config.c_vm_profile with
@@ -236,6 +237,7 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
     let f = if config.enable_c_self_mod_vm then SelfModVM.transform_file f else f in
     let f = if config.enable_c_rolling_vkey then RollingVKey.transform_file f else f in
     let f = if config.enable_c_vcpu_scramble then VcpuScramble.transform_file f else f in
+    let f = VPCPath.transform_file ~global:config.enable_c_vcpu_scramble f in
     let f = if config.enable_c_stack_aliasing then StackAliasing.transform_file f else f in
     let f = if config.enable_c_ephemeral_payload then EphemeralPayload.transform_file f else f in
     let f = if config.enable_c_jitify then Jitify.transform_file f else f in
