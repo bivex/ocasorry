@@ -42,6 +42,6 @@ let emit_function_body
     C_visa_c_runtime.emit_shadow_and_cfi ~word_count ~vbc_name ~ptr_arg ~reg_mask_base ~reg_mask_step ~arg_inits;
     C_visa_c_dispatch.emit_dispatch_table ~op ~prof ~trap_bindings_str;
     C_visa_c_dispatch.emit_dispatch_macro ~word_count ~affine_p ~affine_s ~pack_key ~delta_key ~lay ~prof;
-    C_visa_c_handlers.emit_handlers ~trap_code;
+    C_visa_c_handlers.emit_handlers ~trap_code ~vd_shift:lay.vd_shift;
     C_visa_c_runtime.emit_epilogue ~out_reg ~ret_type_str ~reg_mask_step;
   ]

@@ -100,11 +100,56 @@ let get_spec_for_annotation (ann : string option) : visa_spec =
 
 let get_active_spec () : visa_spec = !active_spec
 
+(** Layout soundness invariants.
+    - opcode occupies [6:0] (encoded unshifted, `land 0x7F`) and funct6 is a
+      6-bit selector at [31:26] (dispatch masks with `funct6_mask`, extraction
+      into an unsigned char, trap slots start at 64).
+    - funct3 must sit directly above vd (funct3_shift = vd_shift + 5): the two
+      form the fused contiguous 8-bit branch-target field.
+    - The fused pair (8), vm (1), vs2 (5) and vs1 (5) must tile [25:7] exactly
+      with no overlap: the leftover 19-bit window is the unconditional-jump
+      target and must stay contiguous. *)
+exception Invalid_layout of string
+
+let validate_layout (l : visa_field_layout) : unit =
+  if l.funct6_shift <> 26 || l.funct6_mask <> 0x3F then
+    raise (Invalid_layout "funct6 must be a 6-bit field at [31..26] (mask 0x3F)");
+  if l.opcode_val < 0 || l.opcode_val > 0x7F then
+    raise (Invalid_layout "opcode_val must fit the unshifted 7-bit field [6..0]");
+  if l.vd_shift < 7 then
+    raise (Invalid_layout "vd_shift must be >= 7 (opcode owns [6..0])");
+  if l.funct3_shift <> l.vd_shift + 5 then
+    raise (Invalid_layout "funct3_shift must equal vd_shift + 5 (fused branch-target pair)");
+  let cover = Array.make 19 0 in
+  List.iter
+    (fun (s, w) ->
+      if s < 7 || s + w > 26 then
+        raise (Invalid_layout (Printf.sprintf "field at shift %d (width %d) escapes [25..7]" s w));
+      for b = s to s + w - 1 do
+        cover.(b - 7) <- cover.(b - 7) + 1
+      done)
+    [ (l.vd_shift, 8); (l.vm_shift, 1); (l.vs2_shift, 5); (l.vs1_shift, 5) ];
+  Array.iteri
+    (fun i c ->
+      if c <> 1 then
+        raise (Invalid_layout (Printf.sprintf "bit %d covered %dx — fields must tile [25..7] exactly" (i + 7) c)))
+    cover
+
 let to_str_def def = function `String s -> s | _ -> def
 let to_int_def def = function `Int i    -> i | _ -> def
 
 let from_json_string (json_str : string) : visa_spec =
   let json = Yojson.Basic.from_string json_str in
+  (* Reject non-vISA specs (nested_vm / rolling_vkey / ephemeral JSONs) instead
+     of silently registering a default-spec under their name. Absent vcpu_type
+     means a legacy / hand-written spec — accepted for backward compat. *)
+  (match json |> member "vcpu_type" with
+   | `String t when t <> "visa" ->
+       invalid_arg
+         (Printf.sprintf
+            "C_visa_spec.from_json_string: not a vISA spec (vcpu_type=%S) — refusing to fall back to defaults"
+            t)
+   | _ -> ());
   let isa_name    = json |> member "isa_name"    |> to_str_def "vISA_Custom" in
   let isa_version = json |> member "isa_version" |> to_str_def "1.0" in
   let word_bits   = json |> member "word_bits"   |> to_int_def 32 in
@@ -128,6 +173,7 @@ let from_json_string (json_str : string) : visa_spec =
     vd_shift     = lay |> member "vd_shift"     |> to_int_def 7;
     opcode_val   = lay |> member "opcode_val"   |> to_int_def 0x57;
   } in
+  validate_layout layout;
   let op = json |> member "opcodes" in
   let opcodes = {
     vadd_vv = op |> member "vadd_vv" |> to_int_def 0x00;

@@ -12,22 +12,6 @@ open GoblintCil.Cil
 module Make (Entropy : Entropy_port.S) = struct
   let nested_counter = ref 0
 
-  (* Outer Master VM Opcode Definitions *)
-  let op_out_setup      = 0x10 (* Setup inner VM frame *)
-  let op_out_dispatch   = 0x30 (* Execute inner VCPU loop *)
-  let op_out_mutate_key = 0x20 (* Rotate inner decryption key *)
-  let op_out_halt       = 0xFF (* Terminate outer VM *)
-
-  (* Inner Worker VCPU Opcode Definitions *)
-  let op_in_nop        = 0x00
-  let op_in_load_arg   = 0x01 (* [op, arg_idx, dst_reg] *)
-  let op_in_load_const = 0x02 (* [op, imm, dst_reg] *)
-  let op_in_add        = 0x03 (* [op, dst, s1, s2] *)
-  let op_in_sub        = 0x04 (* [op, dst, s1, s2] *)
-  let op_in_xor        = 0x05 (* [op, dst, s1, s2] *)
-  let op_in_mul        = 0x06 (* [op, dst, s1, s2] *)
-  let op_in_ret        = 0x0F (* [op, src_reg] *)
-
   let should_transform (fd : fundec) : bool =
     if fd.svar.vname = "main" || String.starts_with ~prefix:"__" fd.svar.vname then false
     else if C_annotation_service.AnnotationHelper.should_skip_all fd then false
@@ -48,6 +32,25 @@ module Make (Entropy : Entropy_port.S) = struct
 
       let outer_key = 0x5A + (Entropy.next_int ~max:0x50) in
       let inner_key = 0xA5 + (Entropy.next_int ~max:0x40) in
+
+      (* Per-build randomized opcode bytes (was: module-level constants
+         0x10/0x30/0x20/0xFF and 0x01..0x0F — identical across every build).
+         Independent shuffles for the outer/inner streams are safe: they are
+         separately decrypted. The packed bytecode below and the emitted C
+         Case labels consume the SAME draws — lockstep by construction. *)
+      let outer_ops = Array.of_list (Entropy.shuffle (List.init 256 Fun.id)) in
+      let inner_ops = Array.of_list (Entropy.shuffle (List.init 256 Fun.id)) in
+      let op_out_setup      = outer_ops.(0) in      (* Setup inner VM frame *)
+      let op_out_dispatch   = outer_ops.(1) in      (* Execute inner VCPU loop *)
+      let op_out_mutate_key = outer_ops.(2) in      (* Rotate inner decryption key *)
+      let op_out_halt       = outer_ops.(3) in      (* Terminate outer VM *)
+      let op_in_load_arg   = inner_ops.(0) in       (* [op, arg_idx, dst_reg] *)
+      let op_in_load_const = inner_ops.(1) in       (* [op, imm, dst_reg] *)
+      let op_in_add        = inner_ops.(2) in       (* [op, dst, s1, s2] *)
+      let op_in_sub        = inner_ops.(3) in       (* [op, dst, s1, s2] *)
+      let op_in_xor        = inner_ops.(4) in       (* [op, dst, s1, s2] *)
+      let op_in_mul        = inner_ops.(5) in       (* [op, dst, s1, s2] *)
+      let op_in_ret        = inner_ops.(6) in       (* [op, src_reg] *)
 
       let num_formals = List.length fd.sformals in
 

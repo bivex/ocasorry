@@ -251,23 +251,33 @@ vectis-cc --vectis-virtualize --vectis-self-mod-vm -O2 main.c -o main.bin
 
 Every invocation generates different opcode mappings, register allocations, encryption keys, and bitfield layouts — ensuring **no two builds share an identical virtual architecture**.
 
+### 🎲 Layout Randomization & 24 Permutation Space
+The 32-bit vISA instruction window `[25:7]` is partitioned dynamically at build time across 4 field blocks:
+* `pair` (fused `vd` 5-bit + `funct3` 3-bit branch target, 8 bits total, `funct3_shift = vd_shift + 5`)
+* `vm` (vector mask, 1 bit)
+* `vs2` (source register 2, 5 bits)
+* `vs1` (source register 1, 5 bits)
+
+This yields $4! = 24$ distinct hardware-level decoding layouts where `vd_shift` dynamically takes values in `{7, 8, 12, 13, 17, 18}`. The top 6 bits `[31:26]` remain `funct6` and bottom 7 bits `[6:0]` remain `opcode_val` with an unshifted 19-bit contiguous unconditional jump window `[25:7]`.
+
+### ⚡ Deterministic Seeds vs Ephemeral Entropy
+* **Default behavior**: Each build draws from OS cryptographically secure PRNG (`System_entropy_adapter`), generating completely fresh bytecode encodings, register permutations, and layout decoders.
+* **Reproducible builds**: Supply `--seed <integer>` to `vectis-synth` or `vectis` to lock the PRNG sequence for deterministic CI/CD and regression testing.
+
+> [!NOTE]
+> **Tier 4 Ephemeral JIT Scope**: Tier 4 (`ephemeral_jit`) provides in-memory payload staging and execution on macOS Apple Silicon using native AArch64 machine code emission with 4096-byte page alignment (`mprotect(PROT_READ|PROT_WRITE|PROT_EXEC)`).
+
 ### CLI Usage
 
 ```bash
-# Synthesize all 4 VCPU Sail + JSON specs into a directory
-./_build/default/bin/vectis_synth.exe --output-dir examples/ --name vISA_Custom_Arch
+# Synthesize all 4 VCPU Sail + JSON specs into a directory (unique per-build entropy)
+./_build/default/bin/vectis_synth.exe --output-dir specs/ --name vISA_Custom_Arch
 
-# Synthesize 8-VCPU specs for AES block cipher demo
-./_build/default/bin/vectis_synth.exe --vcpu 8vcpu --output-dir examples/
+# Synthesize with ML parameter overrides
+./_build/default/bin/vectis_synth.exe --vcpu visa --output-dir specs/ --gf-poly 0x8D --rol-const 5 --imm-bits 16
 
-# Synthesize a single named VCPU tier
-./_build/default/bin/vectis_synth.exe --vcpu visa        --output-json examples/vcpu1.json
-./_build/default/bin/vectis_synth.exe --vcpu nested_vm   --output-json examples/vcpu2.json
-./_build/default/bin/vectis_synth.exe --vcpu rolling_vkey --output-json examples/vcpu3.json
-./_build/default/bin/vectis_synth.exe --vcpu ephemeral   --output-json examples/vcpu4.json
-
-# Use a fixed seed for reproducible builds
-./_build/default/bin/vectis_synth.exe --output-dir examples/ --seed 42
+# Synthesize with fixed seed for reproducible CI/CD
+./_build/default/bin/vectis_synth.exe --output-dir specs/ --seed 42
 ```
 
 **`--vcpu` flag values:**

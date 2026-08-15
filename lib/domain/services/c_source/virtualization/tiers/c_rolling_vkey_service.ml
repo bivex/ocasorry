@@ -28,21 +28,40 @@ module Make (Entropy : Entropy_port.S) = struct
             incr func_count;
             let prog_name = Printf.sprintf "__rolling_bc_%s_%d" fd.svar.vname !func_count in
 
-            let seed = 0x5A17C3D5l in
-            let raw_ops = [
-              0x01000000l;
-              0x02000000l;
-              0x03000000l;
-              0xFF000000l;
-            ] in
+            (* Per-build randomized key schedule (was: hardcoded
+               0x5A17C3D5 / 33 / 0x9E3779B9 — identical across every build).
+               Odd multiplier keeps the LCG invertible mod 2^32; odd nonzero
+               seed/delta avoid degenerate short cycles. The encryptor below
+               and the emitted C decryptor consume the SAME draws within one
+               transform_file invocation — lockstep by construction. *)
+            let vkey_seed =
+              Int32.logor (Int32.logand (Entropy.next_int32 ()) 0xFFFFFFFEl) 1l in
+            let lcg_mult =
+              Int32.of_int ((17 + Entropy.next_int ~max:0xFE01) lor 1) in
+            let lcg_delta =
+              Int32.logor (Int32.logand (Entropy.next_int32 ()) 0xFFFFFFFEl) 1l in
+            (* Distinct randomized opcode bytes (was: fixed 0x01/0x02/0x03/0xFF).
+               Both the encrypted program and the C dispatch table slots derive
+               from this single shuffle. *)
+            let op_pool =
+              [| 0x01; 0x02; 0x03; 0x04; 0x05; 0x06; 0x07; 0x08; 0x09; 0x0A;
+                 0x10; 0x20; 0x40; 0x80 |] in
+            let shuffled =
+              Array.of_list (Entropy.shuffle (Array.to_list op_pool)) in
+            let (op_add, op_xor, op_mul, op_halt) =
+              (shuffled.(0), shuffled.(1), shuffled.(2), shuffled.(3)) in
+            let raw_ops =
+              List.map (fun b -> Int32.shift_left (Int32.of_int b) 24)
+                [ op_add; op_xor; op_mul; op_halt ]
+            in
 
-            let vkey = ref seed in
+            let vkey = ref vkey_seed in
             let encrypted_words =
               List.map
                 (fun w ->
                   let enc = Int32.logxor w !vkey in
-                  let term = Int32.add w 0x9E3779B9l in
-                  vkey := Int32.logxor (Int32.mul !vkey 33l) term;
+                  let term = Int32.add w lcg_delta in
+                  vkey := Int32.logxor (Int32.mul !vkey lcg_mult) term;
                   enc)
                 raw_ops
             in
@@ -61,7 +80,7 @@ module Make (Entropy : Entropy_port.S) = struct
             let fn_impl = Format.sprintf {|
 int %s(int %s) {
     unsigned int __regs[4] = { (unsigned int)%s, 0, 0, 0 };
-    unsigned int __vkey = 0x5A17C3D5U;
+    unsigned int __vkey = 0x%lXU;
     int __pc = 0;
     unsigned int __enc, __dec;
     unsigned char __op;
@@ -69,10 +88,10 @@ int %s(int %s) {
     /* Direct Threading Dispatch Table via GNU C Computed Gotos */
     static const void * const __rolling_handlers[256] = {
         [0 ... 255] = &&__r_default,
-        [0x01] = &&__r_add,
-        [0x02] = &&__r_xor,
-        [0x03] = &&__r_mul,
-        [0xFF] = &&__r_halt
+        [0x%02X] = &&__r_add,
+        [0x%02X] = &&__r_xor,
+        [0x%02X] = &&__r_mul,
+        [0x%02X] = &&__r_halt
     };
 
     #define __ROLLING_DISPATCH() do { \
@@ -80,7 +99,7 @@ int %s(int %s) {
         __enc = %s[__pc]; \
         __dec = __enc ^ __vkey; \
         /* Stateful rolling key evolution dependent on decrypted instruction history */ \
-        __vkey = (__vkey * 33U) ^ (__dec + 0x9E3779B9U); \
+        __vkey = (__vkey * 0x%lXU) ^ (__dec + 0x%lXU); \
         __op = (unsigned char)(__dec >> 24); \
         __pc++; \
         goto *__rolling_handlers[__op]; \
@@ -109,7 +128,9 @@ __r_halt: ;
     __builtin_memset(__regs, 0, sizeof(__regs));
     return __ret_val;
 }
-|} fd.svar.vname arg_name arg_name (List.length encrypted_words) prog_name in
+|} fd.svar.vname arg_name arg_name vkey_seed
+      op_add op_xor op_mul op_halt
+      (List.length encrypted_words) prog_name lcg_mult lcg_delta in
 
             new_globals := GText fn_impl :: !new_globals
         | _ -> new_globals := glob :: !new_globals)

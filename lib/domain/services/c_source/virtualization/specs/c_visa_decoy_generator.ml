@@ -31,9 +31,12 @@ module Make (Entropy : Entropy_port.S) = struct
     let target_pc = current_pc + count + 1 in
     let l = spec.layout in
     let op = spec.opcodes in
+    (* Positional 19-bit jump window [25:7] — bottom is the opcode width,
+       not vd_shift (mirrors C_visa_stmt_compiler.encode_jump). *)
+    let vj_target_shift = 7 in
     let jump_word =
       (((op.vj land l.funct6_mask) lsl l.funct6_shift) lor
-       ((target_pc land 0x7FFFF) lsl 7) lor
+       ((target_pc land 0x7FFFF) lsl vj_target_shift) lor
        (l.opcode_val land 0x7F)) land 0xFFFFFFFF
     in
     instrs := (Int32.of_int jump_word) :: !instrs;

@@ -35,11 +35,16 @@ module Make (Entropy : Entropy_port.S) = struct
 
   let buf_to_list pb = Array.to_list (Array.sub pb.buf 0 pb.len)
 
+  (* Unconditional-jump target occupies the role-agnostic 19-bit window
+     [25:7]: every bit except opcode [6:0] and funct6 [31:26]. Its bottom is
+     the opcode width — do NOT "fix" this to vd_shift when refactoring. *)
+  let vj_target_shift = 7
+
   let encode_jump spec op target_pc =
     let l = spec.C_visa_spec.layout in
     let word =
       (((op.C_visa_spec.vj land l.funct6_mask) lsl l.funct6_shift) lor
-       ((target_pc land 0x7FFFF) lsl 7) lor
+       ((target_pc land 0x7FFFF) lsl vj_target_shift) lor
        (l.opcode_val land 0x7F)) land 0xFFFFFFFF
     in
     Int32.of_int word
@@ -51,7 +56,7 @@ module Make (Entropy : Entropy_port.S) = struct
        (1 lsl l.vm_shift) lor
        ((vs2 land 0x1F) lsl l.vs2_shift) lor
        ((vs1 land 0x1F) lsl l.vs1_shift) lor
-       ((target_pc land 0xFF) lsl 7) lor
+       ((target_pc land 0xFF) lsl l.vd_shift) lor
        (l.opcode_val land 0x7F)) land 0xFFFFFFFF
     in
     Int32.of_int word

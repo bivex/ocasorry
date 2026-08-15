@@ -18,7 +18,38 @@ module Make (Entropy : Entropy_port.S) = struct
   (* ============================================================================== *)
   (* VCPU 1: random_vISA (32-bit Vector ISA)                                        *)
   (* ============================================================================== *)
-  let generate_random_visa ?(name : string option) ?(tier : int = 1) () :
+
+  (* Random field layout: order the fused (vd+funct3) pair, vm, vs2 and vs1
+     over the free window [25:7]. 4! = 24 equiprobable arrangements remove the
+     fixed decoder skeleton while preserving every encoding invariant (see
+     C_visa_spec.validate_layout). funct6 stays at [31:26]; the 19-bit
+     jump window remains contiguous by construction. *)
+  let random_layout ~(base_opcode : int) () : VisaSpec.visa_field_layout =
+    let blocks = Entropy.shuffle [ ("pair", 8); ("vm", 1); ("vs2", 5); ("vs1", 5) ] in
+    let pos = ref 7 in
+    let shift_of = Hashtbl.create 4 in
+    List.iter
+      (fun (blk, width) ->
+        Hashtbl.replace shift_of blk !pos;
+        pos := !pos + width)
+      blocks;
+    let at blk = Hashtbl.find shift_of blk in
+    let vd_shift = at "pair" in
+    let layout : VisaSpec.visa_field_layout = {
+      funct6_shift = 26;
+      funct6_mask = 0x3F;
+      vm_shift = at "vm";
+      vs2_shift = at "vs2";
+      vs1_shift = at "vs1";
+      funct3_shift = vd_shift + 5;
+      vd_shift;
+      opcode_val = base_opcode;
+    } in
+    VisaSpec.validate_layout layout;
+    layout
+
+  let generate_random_visa ?(name : string option) ?(tier : int = 1)
+      ?(params : C_isa_sail_templates.synth_params = C_isa_sail_templates.default_params) () :
       VisaSpec.visa_spec * string * string =
     let isa_id = 0x1000 + Entropy.next_int ~max:0xEFFF in
     let isa_name =
@@ -26,8 +57,9 @@ module Make (Entropy : Entropy_port.S) = struct
       | Some n -> n
       | None -> Printf.sprintf "vISA_Vector_Arch_%04X" isa_id
     in
-    let base_opcodes = [| 0x57; 0x0B; 0x2B; 0x7B; 0x37; 0x67 |] in
-    let base_opcode = base_opcodes.(Entropy.next_int ~max:(Array.length base_opcodes)) in
+    (* Full 7-bit opcode space: the C runtime dispatches on funct6 only, so
+       any base opcode ≤ 0x7F is sound (validate_layout range-checks). *)
+    let base_opcode = Entropy.next_int ~max:0x80 in
 
     let funct6_pool = Array.init 64 (fun i -> i) in
     shuffle funct6_pool;
@@ -69,19 +101,15 @@ module Make (Entropy : Entropy_port.S) = struct
     let op_vli_alt1  = pop () in
 
     let pack_key = Int64.logand (Int64.abs (Entropy.next_int64 ())) 0xFFFFFFFFL in
-    let delta_keys = [| 0x1000193L; 0x9E3779B9L; 0x045D9F3BL; 0x21F0AAADL |] in
-    let delta_key = delta_keys.(Entropy.next_int ~max:(Array.length delta_keys)) in
+    (* Random odd nonzero 32-bit delta (odd for diffusion; the Z3 verifier
+       only requires delta_key <> 0). Replaces the 4-entry constant pool. *)
+    let rec draw_delta_key () =
+      let d = Int64.logor (Int64.logand (Int64.abs (Entropy.next_int64 ())) 0xFFFFFFFFL) 1L in
+      if d = 0L then draw_delta_key () else d
+    in
+    let delta_key = draw_delta_key () in
 
-    let layout : VisaSpec.visa_field_layout = {
-      funct6_shift = 26;
-      funct6_mask = 0x3F;
-      vm_shift = 25;
-      vs2_shift = 20;
-      vs1_shift = 15;
-      funct3_shift = 12;
-      vd_shift = 7;
-      opcode_val = base_opcode;
-    } in
+    let layout = random_layout ~base_opcode () in
 
     let opcodes : VisaSpec.visa_opcodes = {
       vadd_vv = op_vadd_vv;
@@ -139,7 +167,7 @@ module Make (Entropy : Entropy_port.S) = struct
   "pack_key": %Ld,
   "delta_key": %Ld,
   "abi": {"in_regs": [%s], "out_reg": %d},
-  "layout": {"funct6_shift": 26, "funct6_mask": 63, "vm_shift": 25, "vs2_shift": 20, "vs1_shift": 15, "funct3_shift": 12, "vd_shift": 7, "opcode_val": %d},
+  "layout": {"funct6_shift": %d, "funct6_mask": %d, "vm_shift": %d, "vs2_shift": %d, "vs1_shift": %d, "funct3_shift": %d, "vd_shift": %d, "opcode_val": %d},
   "opcodes": {
     "vadd_vv": %d, "vsub_vv": %d, "vmul_vv": %d, "vxor_vv": %d, "vand_vv": %d, "vor_vv": %d,
     "vsll_vv": %d, "vsrl_vv": %d, "vli_vi": %d, "vmv_vv": %d, "vle8_v": %d, "vse8_v": %d,
@@ -148,7 +176,9 @@ module Make (Entropy : Entropy_port.S) = struct
     "vxor_alt1": %d, "vxor_alt2": %d, "vand_alt1": %d, "vor_alt1": %d,
     "vmul_alt1": %d, "vmv_alt1": %d, "vli_alt1": %d
   }
-}|} tier isa_name pack_key delta_key (String.concat ", " (List.map string_of_int in_regs)) out_reg base_opcode
+}|} tier isa_name pack_key delta_key (String.concat ", " (List.map string_of_int in_regs)) out_reg
+      layout.funct6_shift layout.funct6_mask layout.vm_shift layout.vs2_shift
+      layout.vs1_shift layout.funct3_shift layout.vd_shift base_opcode
       op_vadd_vv op_vsub_vv op_vmul_vv op_vxor_vv op_vand_vv op_vor_vv
       op_vsll_vv op_vsrl_vv op_vli_vi op_vmv_vv op_vle8_v op_vse8_v
       op_vret_v op_vbge_vv op_vj
@@ -175,7 +205,11 @@ module Make (Entropy : Entropy_port.S) = struct
         ~op_vret_v
         ~op_vbge_vv
         ~op_vj
+        ~vd_shift:layout.vd_shift
+        ~vs1_shift:layout.vs1_shift
+        ~vs2_shift:layout.vs2_shift
         ~rng:(fun () -> Entropy.next_int ~max:0x3FFFFFFF)
+        ~params
     in
 
     (spec, json_str, sail_str)
@@ -183,7 +217,9 @@ module Make (Entropy : Entropy_port.S) = struct
   (* ============================================================================== *)
   (* VCPU 2: nested_vm (2-Tier Hierarchical Nested VM)                              *)
   (* ============================================================================== *)
-  let generate_nested_vm ?(name : string option) () : string * string =
+  let generate_nested_vm ?(name : string option)
+      ?(params : C_isa_sail_templates.synth_params = C_isa_sail_templates.default_params) () :
+      string * string =
     let vm_id = 0x1000 + Entropy.next_int ~max:0xEFFF in
     let vm_name =
       match name with
@@ -218,13 +254,15 @@ module Make (Entropy : Entropy_port.S) = struct
 }|} vm_name outer_key inner_key in
 
     let sail_str = C_isa_sail_templates.render_nested_vm_sail ~vm_name
-        ~rng:(fun () -> Entropy.next_int ~max:0x3FFFFFFF) in
+        ~rng:(fun () -> Entropy.next_int ~max:0x3FFFFFFF) ~params in
     (json_str, sail_str)
 
   (* ============================================================================== *)
   (* VCPU 3: rolling_vkey (Stateful History-Dependent Key VM)                       *)
   (* ============================================================================== *)
-  let generate_rolling_vkey ?(name : string option) ?(tier : int = 3) () : string * string =
+  let generate_rolling_vkey ?(name : string option) ?(tier : int = 3)
+      ?(params : C_isa_sail_templates.synth_params = C_isa_sail_templates.default_params) () :
+      string * string =
     let vm_id = 0x1000 + Entropy.next_int ~max:0xEFFF in
     let vm_name =
       match name with
@@ -232,10 +270,20 @@ module Make (Entropy : Entropy_port.S) = struct
       | None -> Printf.sprintf "RollingVKey_Arch_%04X" vm_id
     in
     let vkey_seed = Int64.logand (Int64.abs (Entropy.next_int64 ())) 0xFFFFFFFFL in
-    let lcg_mults = [| 33; 65; 31; 17 |] in
-    let lcg_mult = lcg_mults.(Entropy.next_int ~max:(Array.length lcg_mults)) in
-    let lcg_deltas = [| 0x9E3779B9L; 0x85EBCA6BL; 0xC2B2AE3DL |] in
-    let lcg_delta = lcg_deltas.(Entropy.next_int ~max:(Array.length lcg_deltas)) in
+    (* Random odd multiplier/delta (invertible mod 2^32); ML overrides
+       (--lcg-mult / --lcg-delta) are clamped and odd-forced. *)
+    let lcg_mult =
+      match params.lcg_mult with
+      | Some v -> C_isa_sail_templates.clamp v 17 65535 lor 1
+      | None -> (17 + Entropy.next_int ~max:0xFE01) lor 1
+    in
+    let lcg_delta =
+      match params.lcg_delta with
+      | Some v ->
+          Int64.logor (Int64.logand v 0xFFFFFFFEL) 1L
+      | None ->
+          Int64.logor (Int64.logand (Int64.abs (Entropy.next_int64 ())) 0xFFFFFFFEL) 1L
+    in
 
     let json_str = Format.sprintf {|{
   "vcpu_tier": %d,
@@ -253,13 +301,15 @@ module Make (Entropy : Entropy_port.S) = struct
 }|} tier vm_name vkey_seed lcg_mult lcg_delta in
 
     let sail_str = C_isa_sail_templates.render_rolling_vkey_sail ~vm_name ~tier ~lcg_mult ~lcg_delta
-        ~rng:(fun () -> Entropy.next_int ~max:0x3FFFFFFF) in
+        ~rng:(fun () -> Entropy.next_int ~max:0x3FFFFFFF) ~params in
     (json_str, sail_str)
 
   (* ============================================================================== *)
   (* VCPU 4: ephemeral_jit (In-Memory Ephemeral JIT Wiper VM)                       *)
   (* ============================================================================== *)
-  let generate_ephemeral_vm ?(name : string option) ?(tier : int = 4) () : string * string =
+  let generate_ephemeral_vm ?(name : string option) ?(tier : int = 4)
+      ?(params : C_isa_sail_templates.synth_params = C_isa_sail_templates.default_params) () :
+      string * string =
     let vm_id = 0x1000 + Entropy.next_int ~max:0xEFFF in
     let vm_name =
       match name with
@@ -283,7 +333,7 @@ module Make (Entropy : Entropy_port.S) = struct
 }|} tier vm_name session_key in
 
     let sail_str = C_isa_sail_templates.render_ephemeral_jit_sail ~vm_name ~tier
-        ~rng:(fun () -> Entropy.next_int ~max:0x3FFFFFFF) in
+        ~rng:(fun () -> Entropy.next_int ~max:0x3FFFFFFF) ~params in
     (json_str, sail_str)
 
   (* ============================================================================== *)
@@ -297,26 +347,28 @@ module Make (Entropy : Entropy_port.S) = struct
   (* ============================================================================== *)
   (* 4-VCPU Cascade Synthesis                                                       *)
   (* ============================================================================== *)
-  let synthesize_4vcpu_cascade ?(name : string option) ~(out_dir : string) () : unit =
+  let synthesize_4vcpu_cascade ?(name : string option)
+      ?(params : C_isa_sail_templates.synth_params = C_isa_sail_templates.default_params)
+      ~(out_dir : string) () : unit =
     (try Unix.mkdir out_dir 0o755 with _ -> ());
 
     let visa_name = match name with Some n -> n | None -> "vISA_License_Cascade_Arch" in
-    let (_, j1, s1) = generate_random_visa ~name:visa_name ~tier:1 () in
+    let (_, j1, s1) = generate_random_visa ~name:visa_name ~tier:1 ~params () in
     write_file (Filename.concat out_dir "vcpu1_visa.json") j1;
     write_file (Filename.concat out_dir "vcpu1_visa.sail") s1;
     Printf.printf "[+] [VCPU 1] Synthesized %s -> %s/vcpu1_visa.json & .sail\n" visa_name out_dir;
 
-    let (j2, s2) = generate_nested_vm ~name:"NestedVM_Hierarchical_Arch" () in
+    let (j2, s2) = generate_nested_vm ~name:"NestedVM_Hierarchical_Arch" ~params () in
     write_file (Filename.concat out_dir "vcpu2_nested_vm.json") j2;
     write_file (Filename.concat out_dir "vcpu2_nested_vm.sail") s2;
     Printf.printf "[+] [VCPU 2] Synthesized NestedVM_Hierarchical_Arch -> %s/vcpu2_nested_vm.json & .sail\n" out_dir;
 
-    let (j3, s3) = generate_rolling_vkey ~name:"RollingVKey_Stateful_Arch" ~tier:3 () in
+    let (j3, s3) = generate_rolling_vkey ~name:"RollingVKey_Stateful_Arch" ~tier:3 ~params () in
     write_file (Filename.concat out_dir "vcpu3_rolling_vkey.json") j3;
     write_file (Filename.concat out_dir "vcpu3_rolling_vkey.sail") s3;
     Printf.printf "[+] [VCPU 3] Synthesized RollingVKey_Stateful_Arch -> %s/vcpu3_rolling_vkey.json & .sail\n" out_dir;
 
-    let (j4, s4) = generate_ephemeral_vm ~name:"Ephemeral_JIT_Security_Arch" ~tier:4 () in
+    let (j4, s4) = generate_ephemeral_vm ~name:"Ephemeral_JIT_Security_Arch" ~tier:4 ~params () in
     write_file (Filename.concat out_dir "vcpu4_ephemeral_jit.json") j4;
     write_file (Filename.concat out_dir "vcpu4_ephemeral_jit.sail") s4;
     Printf.printf "[+] [VCPU 4] Synthesized Ephemeral_JIT_Security_Arch -> %s/vcpu4_ephemeral_jit.json & .sail\n" out_dir
@@ -324,41 +376,43 @@ module Make (Entropy : Entropy_port.S) = struct
   (* ============================================================================== *)
   (* 8-VCPU Federated Cascade Synthesis (without nested_vm)                         *)
   (* ============================================================================== *)
-  let synthesize_8vcpu_cascade ~(out_dir : string) () : unit =
+  let synthesize_8vcpu_cascade
+      ?(params : C_isa_sail_templates.synth_params = C_isa_sail_templates.default_params)
+      ~(out_dir : string) () : unit =
     (try Unix.mkdir out_dir 0o755 with _ -> ());
 
-    let (_, j1, s1) = generate_random_visa ~name:"vISA_AES_ExpandKey_Arch" ~tier:1 () in
+    let (_, j1, s1) = generate_random_visa ~name:"vISA_AES_ExpandKey_Arch" ~tier:1 ~params () in
     write_file (Filename.concat out_dir "vcpu1_expand_key.json") j1;
     write_file (Filename.concat out_dir "vcpu1_expand_key.sail") s1;
     Printf.printf "[+] [VCPU 1] Synthesized vISA_AES_ExpandKey_Arch -> %s/vcpu1_expand_key.json & .sail\n" out_dir;
 
-    let (j2, s2) = generate_rolling_vkey ~name:"RollingVKey_AES_SubBytesR1_Arch" ~tier:2 () in
+    let (j2, s2) = generate_rolling_vkey ~name:"RollingVKey_AES_SubBytesR1_Arch" ~tier:2 ~params () in
     write_file (Filename.concat out_dir "vcpu2_sub_bytes_r1.json") j2;
     write_file (Filename.concat out_dir "vcpu2_sub_bytes_r1.sail") s2;
     Printf.printf "[+] [VCPU 2] Synthesized RollingVKey_AES_SubBytesR1_Arch -> %s/vcpu2_sub_bytes_r1.json & .sail\n" out_dir;
 
-    let (_, j3, s3) = generate_random_visa ~name:"vISA_AES_ShiftMixR1_Arch" ~tier:3 () in
+    let (_, j3, s3) = generate_random_visa ~name:"vISA_AES_ShiftMixR1_Arch" ~tier:3 ~params () in
     write_file (Filename.concat out_dir "vcpu3_shift_mix_r1.json") j3;
     write_file (Filename.concat out_dir "vcpu3_shift_mix_r1.sail") s3;
     Printf.printf "[+] [VCPU 3] Synthesized vISA_AES_ShiftMixR1_Arch -> %s/vcpu3_shift_mix_r1.json & .sail\n" out_dir;
 
-    let (j4, s4) = generate_rolling_vkey ~name:"RollingVKey_AES_FeistelR1_Arch" ~tier:4 () in
+    let (j4, s4) = generate_rolling_vkey ~name:"RollingVKey_AES_FeistelR1_Arch" ~tier:4 ~params () in
     write_file (Filename.concat out_dir "vcpu4_feistel_xor_r1.json") j4;
     write_file (Filename.concat out_dir "vcpu4_feistel_xor_r1.sail") s4;
     Printf.printf "[+] [VCPU 4] Synthesized RollingVKey_AES_FeistelR1_Arch -> %s/vcpu4_feistel_xor_r1.json & .sail\n" out_dir;
-    let (j5, s5) = generate_rolling_vkey ~name:"RollingVKey_AES_SubBytesR2_Arch" ~tier:5 () in
+    let (j5, s5) = generate_rolling_vkey ~name:"RollingVKey_AES_SubBytesR2_Arch" ~tier:5 ~params () in
     write_file (Filename.concat out_dir "vcpu5_sub_bytes_r2.json") j5;
     write_file (Filename.concat out_dir "vcpu5_sub_bytes_r2.sail") s5;
     Printf.printf "[+] [VCPU 5] Synthesized RollingVKey_AES_SubBytesR2_Arch -> %s/vcpu5_sub_bytes_r2.json & .sail\n" out_dir;
-    let (_, j6, s6) = generate_random_visa ~name:"vISA_AES_ShiftMixR2_Arch" ~tier:6 () in
+    let (_, j6, s6) = generate_random_visa ~name:"vISA_AES_ShiftMixR2_Arch" ~tier:6 ~params () in
     write_file (Filename.concat out_dir "vcpu6_shift_mix_r2.json") j6;
     write_file (Filename.concat out_dir "vcpu6_shift_mix_r2.sail") s6;
     Printf.printf "[+] [VCPU 6] Synthesized vISA_AES_ShiftMixR2_Arch -> %s/vcpu6_shift_mix_r2.json & .sail\n" out_dir;
-    let (j7, s7) = generate_rolling_vkey ~name:"RollingVKey_AES_FeistelR2_Arch" ~tier:7 () in
+    let (j7, s7) = generate_rolling_vkey ~name:"RollingVKey_AES_FeistelR2_Arch" ~tier:7 ~params () in
     write_file (Filename.concat out_dir "vcpu7_feistel_xor_r2.json") j7;
     write_file (Filename.concat out_dir "vcpu7_feistel_xor_r2.sail") s7;
     Printf.printf "[+] [VCPU 7] Synthesized RollingVKey_AES_FeistelR2_Arch -> %s/vcpu7_feistel_xor_r2.json & .sail\n" out_dir;
-    let (j8, s8) = generate_ephemeral_vm ~name:"Ephemeral_JIT_AES_Finalize_Arch" ~tier:8 () in
+    let (j8, s8) = generate_ephemeral_vm ~name:"Ephemeral_JIT_AES_Finalize_Arch" ~tier:8 ~params () in
     write_file (Filename.concat out_dir "vcpu8_ephemeral_finalize.json") j8;
     write_file (Filename.concat out_dir "vcpu8_ephemeral_finalize.sail") s8;
     Printf.printf "[+] [VCPU 8] Synthesized Ephemeral_JIT_AES_Finalize_Arch -> %s/vcpu8_ephemeral_finalize.json & .sail\n" out_dir
@@ -366,15 +420,16 @@ module Make (Entropy : Entropy_port.S) = struct
   (* ============================================================================== *)
   (* Single VCPU Synthesis                                                          *)
   (* ============================================================================== *)
-  let synthesize_single ~(vcpu : string) ~(out_json : string) ?(out_sail : string option) ?(name : string option) () : unit =
+  let synthesize_single ~(vcpu : string) ~(out_json : string) ?(out_sail : string option) ?(name : string option)
+      ?(params : C_isa_sail_templates.synth_params = C_isa_sail_templates.default_params) () : unit =
     let (json_str, sail_str) =
       match vcpu with
       | "visa" ->
-          let (_, j, s) = generate_random_visa ?name ~tier:1 () in
+          let (_, j, s) = generate_random_visa ?name ~tier:1 ~params () in
           (j, s)
-      | "nested_vm" -> generate_nested_vm ?name ()
-      | "rolling_vkey" -> generate_rolling_vkey ?name ~tier:3 ()
-      | "ephemeral" -> generate_ephemeral_vm ?name ~tier:4 ()
+      | "nested_vm" -> generate_nested_vm ?name ~params ()
+      | "rolling_vkey" -> generate_rolling_vkey ?name ~tier:3 ~params ()
+      | "ephemeral" -> generate_ephemeral_vm ?name ~tier:4 ~params ()
       | other -> failwith (Printf.sprintf "Unknown VCPU architecture type: %s" other)
     in
     write_file out_json json_str;

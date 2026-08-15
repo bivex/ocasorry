@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 """
-sail_params_to_synth.py — Bridge: sail_optimal_params.json → ocasorry_synth CLI (Gap-1 fix).
+sail_params_to_synth.py — Bridge: sail_optimal_params.json → vectis_synth CLI.
 
-Reads the ML-optimized ISA parameters and translates them into ocasorry_synth
-CLI invocations, closing the feedback loop:
-  sail_dataset_gen → mlx_sail_optimizer → sail_optimal_params.json → ocasorry_synth
+Reads ML-optimized ISA parameters and translates them into vectis_synth
+CLI invocations with real parameter flags and unique per-build entropy:
+  sail_dataset_gen → mlx_sail_optimizer → sail_optimal_params.json → vectis_synth
 """
 import argparse
 import json
 import os
+import secrets
 import subprocess
 import sys
 from pathlib import Path
@@ -16,8 +17,7 @@ from pathlib import Path
 SYNTH_BIN = Path(__file__).parent.parent / "_build/default/bin/vectis_synth.exe"
 PARAMS_DEFAULT = Path(__file__).parent / "sail_optimal_params.json"
 
-# Maps optimal_params keys → ocasorry_synth CLI flags per vcpu type.
-# Only flags that ocasorry_synth actually accepts are emitted.
+# Maps optimal_params keys → vectis_synth CLI flags per vcpu type.
 FLAG_MAP = {
     "visa": {
         "gf_poly":     lambda v: f"--gf-poly {v}",
@@ -33,6 +33,7 @@ FLAG_MAP = {
         "key_bits":    lambda v: f"--key-bits {v}",
         "gf_poly":     lambda v: f"--gf-poly {v}",
         "lcg_mult":    lambda v: f"--lcg-mult {v}",
+        "lcg_delta":   lambda v: f"--lcg-delta {hex(int(str(v), 0))}",
         "state_regs":  lambda v: f"--state-regs {v}",
     },
     "ephemeral": {
@@ -49,9 +50,7 @@ VCPU_TYPE_FLAGS = {
     "ephemeral": "--vcpu ephemeral",
 }
 
-def build_command(vcpu: str, params: dict, output_dir: str) -> str:
-    # Use deterministic seed derived from optimized parameters
-    seed = sum(ord(c) for c in str(params)) % 10000 + 42
+def build_command(vcpu: str, params: dict, output_dir: str, seed: int) -> str:
     name = f"ML_Opt_{vcpu.upper()}_Arch"
     flags = [
         str(SYNTH_BIN),
@@ -60,16 +59,25 @@ def build_command(vcpu: str, params: dict, output_dir: str) -> str:
         f"--name {name}",
         f"--seed {seed}"
     ]
+    fmap = FLAG_MAP.get(vcpu, {})
+    for key, val in params.items():
+        if key in fmap:
+            try:
+                flags.append(fmap[key](val))
+            except Exception:
+                pass
     return " ".join(f for f in flags if f)
 
 def main():
-    ap = argparse.ArgumentParser(description="Bridge: sail_optimal_params.json → ocasorry_synth")
+    ap = argparse.ArgumentParser(description="Bridge: sail_optimal_params.json → vectis_synth")
     ap.add_argument("--params", default=str(PARAMS_DEFAULT),
                     help="Path to sail_optimal_params.json")
     ap.add_argument("--output-dir", default="examples/ml_optimized",
                     help="Output directory for synth artifacts")
     ap.add_argument("--run", action="store_true",
                     help="Actually run the generated commands")
+    ap.add_argument("--seed", type=int, default=None,
+                    help="Deterministic random seed integer (default: crypto-random)")
     ap.add_argument("--vcpu", default="all",
                     choices=["all", "visa", "nested", "rolling", "ephemeral"])
     args = ap.parse_args()
@@ -90,6 +98,7 @@ def main():
     print(f"\nVectis sail_params_to_synth — ISA Synthesis Commands")
     print(f"  params: {params_path}")
     print(f"  output: {args.output_dir}")
+    print(f"  seed:   {'<crypto-random>' if args.seed is None else args.seed}")
     print("=" * 60)
 
     for vcpu in vcpus:
@@ -98,9 +107,10 @@ def main():
         entry = data[vcpu]
         quality = entry.get("robust_quality", 0.0)
         params = entry.get("optimal_params", {})
-        cmd = build_command(vcpu, params, args.output_dir)
+        seed = args.seed if args.seed is not None else secrets.randbits(31)
+        cmd = build_command(vcpu, params, args.output_dir, seed)
         commands.append(cmd)
-        print(f"\n[{vcpu.upper()}]  robust_quality={quality:.5f}")
+        print(f"\n[{vcpu.upper()}]  robust_quality={quality:.5f} (seed={seed})")
         for k, v in params.items():
             print(f"    {k:20s} = {v}")
         print(f"  CMD: {cmd}")

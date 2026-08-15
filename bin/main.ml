@@ -170,8 +170,10 @@ let () =
   let enable_loki_invariants = ref false in
   let enable_micro_dispatcher = ref false in
   let enable_anti_vtil = ref false in
-  let visa_spec_files = ref [] in
+  let visa_spec_files = ref [] in    (* explicit --visa-spec paths *)
+  let globbed_spec_files = ref [] in (* collected from --visa-specs-dir *)
   let vm_profile = ref "" in
+  let seed_val = ref (-1) in
 
   let speclist = [
     ("-i", Arg.Set_string in_file, "Input C source file");
@@ -248,14 +250,27 @@ let () =
         Sys.readdir dir
         |> Array.iter (fun f ->
           if Filename.check_suffix f ".json" then
-            visa_spec_files := Filename.concat dir f :: !visa_spec_files
+            globbed_spec_files := Filename.concat dir f :: !globbed_spec_files
         )), "Directory containing multiple JSON ISA specification files");
+    ("--seed", Arg.Set_int seed_val, "Deterministic seed for reproducible obfuscation passes (default: OS entropy)");
   ] in
 
   let usage_msg = "Usage: vectis [-i <input.c> -o <output.c> [passes]] (run without args for interactive demo)" in
   Arg.parse speclist (fun _ -> ()) usage_msg;
 
-  List.iter (fun f -> ignore (C_visa_spec_service.VisaSpec.load_from_file f)) (List.rev !visa_spec_files);
+  if !seed_val >= 0 then System_entropy_adapter.Adapter.seed !seed_val;
+
+  (* Explicit --visa-spec with a non-vISA JSON is a user error: fail loudly.
+     Dir globs legitimately mix tiers: warn and skip non-vISA JSONs. *)
+  List.iter (fun f -> ignore (C_visa_spec_service.VisaSpec.load_from_file f))
+    (List.rev !visa_spec_files);
+  List.iter
+    (fun f ->
+      match C_visa_spec_service.VisaSpec.load_from_file f with
+      | _ -> ()
+      | exception Invalid_argument m ->
+          Printf.eprintf "[warn] skipping %s: %s\n%!" f m)
+    (List.rev !globbed_spec_files);
 
   if !in_file = "" then
     run_demo ()

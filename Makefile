@@ -29,8 +29,7 @@ VFLAGS       ?= --virtualize --nested-vm --rolling-vkey --ephemeral --literals -
 build:  ## Build OCaml binaries (required before ml-dataset / obfuscation)
 	eval $$(opam env) && dune build
 
-virtualize: build  ## Full 4-Tier Federated VCPU Virtualization + compilation (Usage: make virtualize IN=file.c BIN=app.bin)
-	@test -f $(SPEC) || (echo "[*] Spec not found, generating ML specs..." && $(PYTHON3) $(TOOLS)/sail_params_to_synth.py --run)
+virtualize: build ml-specs  ## Full 4-Tier Federated VCPU Virtualization + compilation (Usage: make virtualize IN=file.c BIN=app.bin)
 	@echo "======================================================================"
 	@echo "  💎 Vectis: 4-Tier Federated VCPU Virtualization Cascade"
 	@echo "======================================================================"
@@ -48,8 +47,7 @@ virtualize: build  ## Full 4-Tier Federated VCPU Virtualization + compilation (U
 	@echo "[✓] Virtualized binary compiled successfully -> $(BIN)"
 	@echo "======================================================================"
 
-obfuscate: build  ## Obfuscate C file with ML-optimized vISA (Usage: make obfuscate IN=file.c OUT=out.c)
-	@test -f $(SPEC) || (echo "[*] Spec not found, generating ML specs..." && $(PYTHON3) $(TOOLS)/sail_params_to_synth.py --run)
+obfuscate: build ml-specs  ## Obfuscate C file with ML-optimized vISA (Usage: make obfuscate IN=file.c OUT=out.c)
 	@echo "[Vectis] Obfuscating $(IN) -> $(OUT)"
 	@echo "         Profile: [$(PROFILE)] | Spec: [$(SPEC)]"
 	$(VECTIS_BIN) -i $(IN) -o $(OUT) --visa-spec $(SPEC) --vm-profile $(PROFILE) $(PASSES)

@@ -9,3 +9,5 @@ __pycache__/
 *.bin
 *.obf.c
 *.dylib
+examples/ml_optimized/
+tools/sail_synth_commands.sh

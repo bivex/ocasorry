@@ -16,6 +16,47 @@ let gen_mnemonic (rng : unit -> int) (prefix : string) : string =
   let b = syllables_.(rng () mod 16) in
   Printf.sprintf "%s_%s%s" prefix a b
 
+(* ============================================================================
+   ML parameter overrides (vectis_synth --gf-poly & friends).
+   Some v pins a formal-model constant after clamping/snapping; None keeps the
+   per-build random draw. These shape the synthesized spec only — tier-1 C
+   codegen never depends on them, so ML values cannot break emitted binaries.
+   ============================================================================ *)
+type synth_params = {
+  gf_poly     : int option;
+  rol_const   : int option;
+  imm_bits    : int option;
+  hash_bits   : int option;
+  stack_depth : int option;
+  state_regs  : int option;
+  key_bits    : int option;
+  lcg_mult    : int option;
+  lcg_delta   : int64 option;
+  page_shift  : int option;
+  wipe_passes : int option;
+  jit_regs    : int option;
+}
+
+let default_params = {
+  gf_poly = None; rol_const = None; imm_bits = None; hash_bits = None;
+  stack_depth = None; state_regs = None; key_bits = None; lcg_mult = None;
+  lcg_delta = None; page_shift = None; wipe_passes = None; jit_regs = None;
+}
+
+let clamp v lo hi = max lo (min hi v)
+
+(* Snap to the nearest member of a known-good pool. *)
+let snap pool v =
+  match pool with
+  | [] -> v
+  | x :: xs ->
+      List.fold_left (fun best candidate ->
+        if abs (candidate - v) < abs (best - v) then candidate else best
+      ) x xs
+
+(* Dataset-known irreducible GF(2^8) polys (sail_dataset_gen.GF_POLYS). *)
+let gf_poly_pool = [ 0x1B; 0x1D; 0x4D; 0x8D; 0xA3; 0xC5 ]
+
 
 (* ============================================================================
    Format A: R-type 32-bit ISA with unique mnemonic names and GF constants
@@ -38,10 +79,23 @@ let render_visa_sail
     ~(op_vret_v : int)
     ~(op_vbge_vv : int)
     ~(op_vj : int)
+    ~(vd_shift : int)
+    ~(vs1_shift : int)
+    ~(vs2_shift : int)
+    ~(params : synth_params)
     ~(rng : unit -> int) : string =
-  let imm_bits    = [| 12; 14; 16 |].(rng () mod 3) in
-  let gf_poly     = [| 0x1B; 0x1D; 0x4D; 0x8D; 0xA3 |].(rng () mod 5) in
-  let rol_const   = 1 + rng () mod 15 in
+  let imm_bits  = match params.imm_bits with
+    | Some v -> snap [ 12; 14; 16 ] v
+    | None -> [| 12; 14; 16 |].(rng () mod 3)
+  in
+  let gf_poly   = match params.gf_poly with
+    | Some v -> snap gf_poly_pool v
+    | None -> [| 0x1B; 0x1D; 0x4D; 0x8D; 0xA3 |].(rng () mod 5)
+  in
+  let rol_const = match params.rol_const with
+    | Some v -> clamp v 1 15
+    | None -> 1 + rng () mod 15
+  in
   let mv_xor_mask = 0xDEAD0000 lxor (op_vmv_vv lsl 16) in
   let n_add = gen_mnemonic rng "V" in let n_sub = gen_mnemonic rng "V" in
   let n_mul = gen_mnemonic rng "V" in let n_xor = gen_mnemonic rng "V" in
@@ -88,12 +142,14 @@ let render_visa_sail
     "val %s_decode : bits(32) -> option(%s_ast)\n\
      function %s_decode(inst) = {\n\
      \    let f6  : bits(6) = inst[31..26];\n\
-     \    let vs2 : bits(5) = inst[24..20];\n\
-     \    let vs1 : bits(5) = inst[19..15];\n\
-     \    let vd  : bits(5) = inst[11..7];\n\
+     \    let vs2 : bits(5) = inst[%d..%d];\n\
+     \    let vs1 : bits(5) = inst[%d..%d];\n\
+     \    let vd  : bits(5) = inst[%d..%d];\n\
      \    let imm : bits(%d) = inst[%d..0];\n\
      \    match f6 {\n"
-    isa_name isa_name isa_name imm_bits (imm_bits - 1));
+    isa_name isa_name isa_name
+    (vs2_shift + 4) vs2_shift (vs1_shift + 4) vs1_shift
+    (vd_shift + 4) vd_shift imm_bits (imm_bits - 1));
   let decode_arms = [
     (op_vadd_vv, n_add, "vd, vs1, vs2");
     (op_vsub_vv, n_sub, "vd, vs1, vs2");
@@ -153,10 +209,20 @@ let render_visa_sail
 
 let render_nested_vm_sail
     ~(vm_name : string)
+    ~(params : synth_params)
     ~(rng : unit -> int) : string =
-  let hash_bits   = [| 32; 48; 64 |].(rng () mod 3) in
-  let stack_depth = 4 + rng () mod 13 in
-  let state_regs  = 4 + rng () mod 9 in
+  let hash_bits   = match params.hash_bits with
+    | Some v -> snap [ 32; 48; 64 ] v
+    | None -> [| 32; 48; 64 |].(rng () mod 3)
+  in
+  let stack_depth = match params.stack_depth with
+    | Some v -> clamp v 4 16
+    | None -> 4 + rng () mod 13
+  in
+  let state_regs  = match params.state_regs with
+    | Some v -> clamp v 4 12
+    | None -> 4 + rng () mod 9
+  in
   let n_init   = gen_mnemonic rng "OX" in
   let n_disp   = gen_mnemonic rng "OX" in
   let n_mutk   = gen_mnemonic rng "OX" in
@@ -240,10 +306,20 @@ let render_rolling_vkey_sail
     ~(tier : int)
     ~(lcg_mult : int)
     ~(lcg_delta : int64)
+    ~(params : synth_params)
     ~(rng : unit -> int) : string =
-  let state_regs = 4 + rng () mod 5 in
-  let key_bits   = [| 32; 48; 64 |].(rng () mod 3) in
-  let gf_poly    = [| 0x1B; 0x1D; 0x4D; 0xA3; 0xC5 |].(rng () mod 5) in
+  let state_regs = match params.state_regs with
+    | Some v -> clamp v 4 8
+    | None -> 4 + rng () mod 5
+  in
+  let key_bits   = match params.key_bits with
+    | Some v -> snap [ 32; 48; 64 ] v
+    | None -> [| 32; 48; 64 |].(rng () mod 3)
+  in
+  let gf_poly    = match params.gf_poly with
+    | Some v -> snap gf_poly_pool v
+    | None -> [| 0x1B; 0x1D; 0x4D; 0xA3; 0xC5 |].(rng () mod 5)
+  in
   let n_xk   = gen_mnemonic rng "RK" in
   let n_add  = gen_mnemonic rng "RK" in
   let n_mul  = gen_mnemonic rng "RK" in
@@ -311,10 +387,20 @@ let render_rolling_vkey_sail
 let render_ephemeral_jit_sail
     ~(vm_name : string)
     ~(tier : int)
+    ~(params : synth_params)
     ~(rng : unit -> int) : string =
-  let page_shift  = 12 + rng () mod 4 in
-  let wipe_passes = 2  + rng () mod 5 in
-  let jit_regs    = 4  + rng () mod 4 in
+  let page_shift  = match params.page_shift with
+    | Some v -> clamp v 12 15
+    | None -> 12 + rng () mod 4
+  in
+  let wipe_passes = match params.wipe_passes with
+    | Some v -> clamp v 1 6
+    | None -> 2 + rng () mod 5
+  in
+  let jit_regs    = match params.jit_regs with
+    | Some v -> clamp v 4 7
+    | None -> 4 + rng () mod 4
+  in
   let guard_magic = 0xDEAD0000 lxor (rng () land 0xFFFF) in
   let n_alloc  = gen_mnemonic rng "EP" in
   let n_map    = gen_mnemonic rng "EP" in
