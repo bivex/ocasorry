@@ -165,6 +165,7 @@ let () =
   let enable_self_mod_vm = ref false in
   let enable_jitify = ref false in
   let visa_spec_file = ref "" in
+  let vm_profile = ref "" in
 
   let speclist = [
     ("-i", Arg.Set_string in_file, "Input C source file to obfuscate");
@@ -228,6 +229,7 @@ let () =
     ("--hook-detect", Arg.Set enable_hook_detect, "Enable Dynamic Hook Detection");
     ("--api-hash", Arg.Set enable_api_hash, "Enable Dynamic POSIX API Hashing (dlsym)");
     ("--constructor", Arg.Set enable_early_constructor, "Enable Pre-Main Security Constructor");
+    ("--vm-profile", Arg.Set_string vm_profile, "Set VM profile: compact, standard, hardened-128k, fortress-256k, titan-512k, colossus-1m");
     ("--visa-spec", Arg.Set_string visa_spec_file, "Path to Python/Sail generated JSON ISA specification file");
   ] in
 
@@ -299,6 +301,7 @@ let () =
       enable_c_nested_vm = !enable_nested_vm;
       enable_c_self_mod_vm = !enable_self_mod_vm;
       enable_c_jitify = !enable_jitify;
+      c_vm_profile = if !vm_profile = "" then None else Some !vm_profile;
     } in
     Printf.printf "[*] Obfuscating: %s -> %s\n%!" !in_file target_out;
     CilSourceObfuscator.obfuscate_c_file !in_file target_out config;

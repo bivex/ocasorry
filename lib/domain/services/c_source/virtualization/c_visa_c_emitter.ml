@@ -25,6 +25,15 @@ let emit_function_body
     ~(lay : visa_field_layout) : string =
   let cfi_seed = Int64.logand (Int64.abs reg_mask_base) 0xFFFFFFFFFFFFL in
   let cfi_xor = Int64.logxor reg_mask_step 0xDEADBEEFCAFEBABEL in
+  let prof = C_visa_profile_service.get_active_profile () in
+  let sbox_code = C_visa_profile_service.generate_sbox_luts prof.lut_count in
+  let (trap_code, trap_bindings) =
+    C_visa_profile_service.generate_synthetic_trap_handlers
+      ~start_slot:64
+      ~total_slots:prof.dispatch_size
+      ~lut_count:prof.lut_count
+  in
+  let trap_bindings_str = C_visa_profile_service.format_trap_bindings trap_bindings in
   Format.sprintf {|
 #include <stdint.h>
 #include <string.h>
@@ -32,6 +41,7 @@ let emit_function_body
 
 __attribute__((visibility("default")))
 %s %s(%s) {
+%s
     unsigned long long __vregs[%d];
     #define __VREG_ROT(r) (((unsigned int)(r) + %uU) & 0x3FU)
     #define __VREG_MASK(r) (0x%LxULL + ((unsigned long long)__VREG_ROT(r) * 0x%LxULL))
@@ -77,8 +87,8 @@ __attribute__((visibility("default")))
     unsigned char __funct6, __vm, __vs2, __vs1, __funct3, __vd;
 
     /* Direct Threading Dispatch Table via GNU C Computed Gotos */
-    static const void * const __dispatch_table[64] = {
-        [0 ... 63] = &&__h_default,
+    static const void * const __dispatch_table[%d] = {
+        [0 ... %d] = &&__h_default,
         [0x%X] = &&__h_vadd,
         [0x%X] = &&__h_vsub,
         [0x%X] = &&__h_vmul,
@@ -105,7 +115,8 @@ __attribute__((visibility("default")))
         [0x%X] = &&__h_vor_alt1,
         [0x%X] = &&__h_vmul_alt1,
         [0x%X] = &&__h_vmv_alt1,
-        [0x%X] = &&__h_vli_alt1
+        [0x%X] = &&__h_vli_alt1,
+%s
     };
 
     #define __VISA_DISPATCH() do { \
@@ -122,11 +133,12 @@ __attribute__((visibility("default")))
         __vd     = (unsigned char)((__inst >> %d)  & 0x1F); \
         __pc++; \
         __vm_state_acc = (__vm_state_acc ^ (__vd + __funct6)) * 0x517CC1B727220A95ULL; \
-        goto *__dispatch_table[__funct6 & 0x3F]; \
+        goto *__dispatch_table[__funct6 & 0x%X]; \
     } while (0)
 
     /* Enter Direct Threading pipeline */
     __VISA_DISPATCH();
+%s
 
 __h_vadd: {
     unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
@@ -319,6 +331,7 @@ __h_vret: ;
     ret_type_str
     fn_name
     fn_params
+    sbox_code
     vreg_total
     vreg_rot_seed
     reg_mask_base
@@ -332,6 +345,8 @@ __h_vret: ;
     cfi_seed
     cfi_xor
     arg_inits
+    prof.dispatch_size
+    (prof.dispatch_size - 1)
     op.vadd_vv
     op.vsub_vv
     op.vmul_vv
@@ -358,6 +373,7 @@ __h_vret: ;
     op.vmul_alt1
     op.vmv_alt1
     op.vli_alt1
+    trap_bindings_str
     word_count
     affine_p
     affine_s
@@ -370,6 +386,8 @@ __h_vret: ;
     lay.vs1_shift
     lay.funct3_shift
     lay.vd_shift
+    (prof.dispatch_size - 1)
+    trap_code
     (word_count - 2)
     cfi_xor
     out_reg

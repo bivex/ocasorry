@@ -208,6 +208,7 @@ let () =
               enable_c_nested_vm = !enable_nested_vm;
               enable_c_self_mod_vm = !enable_self_mod_vm;
               enable_c_jitify = !enable_jitify;
+              c_vm_profile = None;
             } in
             if is_verbose then
               Printf.eprintf "[ocasorry-cc] Obfuscating source: %s -> %s\n%!" arg tmp_c;

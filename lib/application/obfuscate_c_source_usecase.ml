@@ -56,12 +56,14 @@ type c_pipeline_config = {
   enable_c_nested_vm : bool;
   enable_c_self_mod_vm : bool;
   enable_c_jitify : bool;
+  c_vm_profile : string option;
 }
 
 let default_c_config = {
   enable_c_mba = true;
   enable_c_polynomial_mba = false;
   enable_c_float_mba = false;
+  c_vm_profile = None;
   enable_c_opaque = true;
   enable_c_dynamic_opaque = false;
   enable_c_diophantine = false;
@@ -178,6 +180,11 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
   module Jitify = C_jitify_service.Make (Entropy)
 
   let run_passes (cil_file : GoblintCil.Cil.file) (config : c_pipeline_config) : GoblintCil.Cil.file =
+    (match config.c_vm_profile with
+     | Some p_str ->
+         let prof = C_visa_profile_service.parse_profile p_str in
+         C_visa_profile_service.set_active_profile prof
+     | None -> ());
     let f = if config.enable_c_struct_permute then StructPermute.transform_file cil_file else cil_file in
     let f = if config.enable_c_inline then Inline.transform_file f else f in
     let f = if config.enable_c_merge then Merge.transform_file f else f in
