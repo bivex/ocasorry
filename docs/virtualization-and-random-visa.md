@@ -235,3 +235,126 @@ ocasorry -i input.c -o output.c \
 ```bash
 ocasorry-cc --ocasorry-virtualize --ocasorry-self-mod-vm -O2 main.c -o main.bin
 ```
+
+---
+
+## 🔗 8. Multi-VCPU Federated Sail Specification Pipeline
+
+> Cross-reference: [docs/4-vcpu-federated-virtualization.md](4-vcpu-federated-virtualization.md)
+
+### Overview
+
+`tools/visa_synthesizer.py` is OcaSorry's formal **Sail ISA Specification Synthesizer**. It produces per-build, randomized architecture descriptions in two complementary formats for each of the 4 VCPU tiers:
+
+- **`.sail`** — Formal Sail DSL specification (AST unions, decode clauses, execute semantics) suitable for theorem proving and formal ISA documentation.
+- **`.json`** — Structured JSON schema consumed directly by OcaSorry's OCaml pass pipeline at compile time.
+
+Every invocation generates different opcode mappings, register allocations, encryption keys, and bitfield layouts — ensuring **no two builds share an identical virtual architecture**.
+
+### CLI Usage
+
+```bash
+# Synthesize all 4 VCPU Sail + JSON specs into a directory
+python3 tools/visa_synthesizer.py --output-dir examples/ --name vISA_Custom_Arch
+
+# Synthesize a single named VCPU tier
+python3 tools/visa_synthesizer.py --vcpu visa        --output-json examples/vcpu1.json
+python3 tools/visa_synthesizer.py --vcpu nested_vm   --output-json examples/vcpu2.json
+python3 tools/visa_synthesizer.py --vcpu rolling_vkey --output-json examples/vcpu3.json
+python3 tools/visa_synthesizer.py --vcpu ephemeral   --output-json examples/vcpu4.json
+
+# Use a fixed seed for reproducible builds
+python3 tools/visa_synthesizer.py --output-dir examples/ --seed 42
+```
+
+**`--vcpu` flag values:**
+
+| Value | Target | Generated Files |
+| :--- | :--- | :--- |
+| `visa` | Tier 1: random_vISA Vector ISA | `vcpu1_visa.json` + `vcpu1_visa.sail` |
+| `nested_vm` | Tier 2: 2-Tier Hierarchical VM | `vcpu2_nested_vm.json` + `vcpu2_nested_vm.sail` |
+| `rolling_vkey` | Tier 3: Stateful Rolling Key VM | `vcpu3_rolling_vkey.json` + `vcpu3_rolling_vkey.sail` |
+| `ephemeral` | Tier 4: Ephemeral JIT Wiper VM | `vcpu4_ephemeral_jit.json` + `vcpu4_ephemeral_jit.sail` |
+| `all` (default) | All 4 tiers simultaneously | All 8 files |
+
+### How Each Spec Feeds the OCaml Pass Pipeline
+
+Each synthesized spec pair is consumed by a dedicated OCaml domain service within `lib/domain/services/c_source/virtualization/`:
+
+```
+tools/visa_synthesizer.py
+         │
+         ├── vcpu1_visa.json       ──►  c_visa_spec_service.ml
+         │                               (Tier 1: random_vISA VCPU injection)
+         │
+         ├── vcpu2_nested_vm.json  ──►  c_nested_vm_service.ml
+         │                               (Tier 2: Outer+Inner VM synthesis)
+         │
+         ├── vcpu3_rolling_vkey.json ──► c_rolling_vkey_service.ml
+         │                               (Tier 3: Rolling algebraic key chain)
+         │
+         └── vcpu4_ephemeral_jit.json ─► c_ephemeral_payload_service.ml
+                                          (Tier 4: mmap→exec→wipe pipeline)
+```
+
+The JSON schema consumed by `c_visa_spec_service.ml` (Tier 1) includes:
+- `pack_key` / `delta_key` — Per-instruction rolling XOR decryption parameters
+- `opcodes` — Randomized `funct6` mapping for all 18 vector instruction mnemonics
+- `layout` — Bitfield shift/mask constants for the 32-bit instruction word decoder
+- `reg_count` — Virtual register file size
+
+For Tier 3 (`c_rolling_vkey_service.ml`), the `initial_vkey`, `multiplier`, and `entropy_constant` fields directly initialize the algebraic key recurrence:
+
+```
+VKey_{n+1} = (VKey_n × multiplier) ⊕ (DecryptedOp_n + entropy_constant)
+```
+
+### Generated Sail Spec Structure
+
+Each `.sail` file follows the standard Sail ISA specification format:
+
+```sail
+/* Formal type definitions */
+type reg_index = range(0, 15)
+register R : vector(16, dec, bits(32))
+
+/* Instruction AST union */
+union ast = {
+    VADD_VV : (reg_index, reg_index, reg_index),
+    VLI_VI  : (reg_index, bits(14)),
+    VRET_V  : (reg_index),
+    ...
+}
+
+/* 32-bit word decoder */
+function decode(inst : bits(32)) -> option(ast) = {
+    let funct6 : bits(6) = inst[31..26];
+    match unsigned(funct6) {
+        <randomized_value> => Some(VADD_VV(vd, vs1, vs2)),
+        ...
+    }
+}
+
+/* Execute semantics */
+function execute(instruction : ast) -> unit = {
+    match instruction {
+        VADD_VV(vd, vs1, vs2) => R[vd] = R[vs1] + R[vs2],
+        ...
+    }
+}
+```
+
+The randomized `funct6` opcode values in the decoder are generated fresh per `visa_synthesizer.py` invocation, making the formal spec both machine-checkable and a cryptographic commitment to the build's instruction encoding.
+
+### Example: Running the Full 4-VCPU Pipeline
+
+The `build_license_demo.sh` script exercises the complete synthesis-to-binary pipeline:
+
+```bash
+./build_license_demo.sh
+# Step 1: visa_synthesizer.py --output-dir examples/ (all 4 tiers)
+# Step 2: ocasorry -i 01_license_keygen.c --visa-spec vcpu1_visa.json \
+#           --virtualize --nested-vm --rolling-vkey --ephemeral --cff ...
+# Step 3: clang -O2 01_license_keygen_obfuscated.c -o 01_license_keygen_virtualized.bin
+# Step 4: Automated test vectors (valid / tampered / default keys)
+```
