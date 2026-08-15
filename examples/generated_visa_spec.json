@@ -1,0 +1,38 @@
+{
+  "isa_name": "vISA_License_Cascade_Arch",
+  "isa_version": "1.0",
+  "word_bits": 32,
+  "reg_count": 16,
+  "pack_key": 3718214646,
+  "delta_key": 16777619,
+  "layout": {
+    "funct6_shift": 26,
+    "funct6_mask": 63,
+    "vm_shift": 25,
+    "vs2_shift": 20,
+    "vs1_shift": 15,
+    "funct3_shift": 12,
+    "vd_shift": 7,
+    "opcode_val": 43
+  },
+  "opcodes": {
+    "vadd_vv": 6,
+    "vsub_vv": 59,
+    "vmul_vv": 62,
+    "vxor_vv": 35,
+    "vand_vv": 18,
+    "vor_vv": 38,
+    "vsll_vv": 22,
+    "vsrl_vv": 30,
+    "vli_vi": 9,
+    "vmv_vv": 47,
+    "vle8_v": 54,
+    "vse8_v": 48,
+    "vret_v": 16,
+    "vbge_vv": 43,
+    "vblt_vv": 13,
+    "vbeq_vv": 33,
+    "vbne_vv": 57,
+    "vj": 41
+  }
+}

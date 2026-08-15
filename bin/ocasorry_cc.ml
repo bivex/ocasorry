@@ -143,6 +143,9 @@ let () =
       | "--ocasorry-hook-detect" -> enable_hook_detect := true
       | "--ocasorry-api-hash" -> enable_api_hash := true
       | "--ocasorry-constructor" -> enable_early_constructor := true
+      | arg_str when String.starts_with ~prefix:"--ocasorry-visa-spec=" arg_str ->
+          let spec_path = String.sub arg_str 21 (String.length arg_str - 21) in
+          ignore (C_visa_spec_service.VisaSpec.load_from_file spec_path)
       | _ -> (
           if Filename.check_suffix arg ".c" && not !disable_all && Sys.file_exists arg then (
             let tmp_c = Filename.temp_file "ocasorry_obf_" ".c" in

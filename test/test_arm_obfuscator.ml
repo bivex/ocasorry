@@ -63,7 +63,8 @@ let () =
   Suite_relational_morph.run ();
   Suite_granular_annotations.run ();
   Suite_irreducible_loop.run ();
+  Suite_visa_spec.run ();
 
   Printf.printf "\n=================================================================\n";
-  Printf.printf "       ALL 60 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
+  Printf.printf "       ALL 61 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
   Printf.printf "=================================================================\n%!"

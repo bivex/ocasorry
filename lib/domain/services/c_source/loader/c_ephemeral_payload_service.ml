@@ -12,6 +12,7 @@ module Make (Entropy : Entropy_port.S) = struct
     else if C_annotation_service.AnnotationHelper.has_annotation fd "ephemeral"
             || C_annotation_service.AnnotationHelper.has_annotation fd "ephemeral_jit" then true
     else if C_annotation_service.AnnotationHelper.has_any_vm_annotation fd then false
+    else if C_annotation_service.AnnotationHelper.has_custom_annotations fd then false
     else (
       let int_formals = List.filter (fun p -> isIntegralType p.vtype) fd.sformals in
       List.length fd.sformals = 1 && int_formals <> []
@@ -72,7 +73,7 @@ static void __ocasorry_free_ephemeral_page(void *ptr, size_t sz) {
 int %s(int %s) {
     size_t __sz = %d;
     unsigned char *__page = (unsigned char *)__ocasorry_alloc_ephemeral_page(__sz);
-    if (!__page) return %s + 42;
+    if (!__page) return %s + 100;
     
     /* Decrypt payload into ephemeral RAM page */
     for (size_t __i = 0; __i < __sz; __i++) {

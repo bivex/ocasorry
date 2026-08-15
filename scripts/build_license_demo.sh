@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
 # ==============================================================================
-#  OcaSorry - 4-VCPU Federated License Protection & Demo Builder
-#  Automates 4-Tier Virtualization, Full-Arsenal Obfuscation, and Verification
+#  OcaSorry - 4-VCPU Federated License Keygen Builder (Sail / Python vISA)
 # ==============================================================================
 
 set -euo pipefail
 
-# Resolve physical script directory even when executed through a symlink
 SOURCE="${BASH_SOURCE[0]}"
 while [ -h "$SOURCE" ]; do
   DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
@@ -14,7 +12,11 @@ while [ -h "$SOURCE" ]; do
   [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
 done
 SCRIPT_DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
-ROOT_DIR="$( cd -P "${SCRIPT_DIR}/.." >/dev/null 2>&1 && pwd )"
+if [[ -f "${SCRIPT_DIR}/dune-project" ]]; then
+  ROOT_DIR="${SCRIPT_DIR}"
+else
+  ROOT_DIR="$( cd -P "${SCRIPT_DIR}/.." >/dev/null 2>&1 && pwd )"
+fi
 
 # Colors
 C_RESET="\033[0m"
@@ -31,8 +33,9 @@ OUTPUT_C="${ROOT_DIR}/examples/01_license_keygen_obfuscated.c"
 OUTPUT_VIRT_C="${ROOT_DIR}/examples/01_license_keygen_virtualized.c"
 OUTPUT_BIN="${ROOT_DIR}/examples/01_license_keygen_virtualized.bin"
 OBF_BIN="${ROOT_DIR}/_build/default/bin/main.exe"
+VISA_JSON="${ROOT_DIR}/examples/generated_visa_spec.json"
+VISA_SAIL="${ROOT_DIR}/examples/generated_visa_spec.sail"
 
-# Export OPAM and Homebrew environment if present
 export PATH="${HOME}/.opam/default/bin:${PATH}:/opt/homebrew/bin:/usr/local/bin"
 
 echo -e "${C_CYAN}${C_BOLD}"
@@ -48,57 +51,31 @@ if [[ ! -f "${OBF_BIN}" ]]; then
     echo -e "${C_GREEN}[+] Dune build complete!${C_RESET}\n"
 fi
 
-# Step 2: Obfuscate source code with 4-VCPU Architecture and 27-pass defense arsenal
-echo -e "${C_BLUE}[1/3] Applying 4-VCPU Federated Virtualization & Hardening Arsenal...${C_RESET}"
-echo -e "${C_MAGENTA}  [4-VCPU Virtualization Cascade]:${C_RESET}"
-echo "      ├── Tier 1 (VCPU 1): random_vISA Vector Processor (.vbc opcode words)"
-echo "      ├── Tier 2 (VCPU 2): Nested Multi-Layer VM (Outer VM -> Inner VM dispatch)"
-echo "      ├── Tier 3 (VCPU 3): Stateful Rolling Key VM (VKey_{n+1} = f(VKey_n, Op_n))"
-echo "      └── Tier 4 (VCPU 4): In-Memory Ephemeral JIT VM (mmap -> execute -> zero -> munmap)"
-echo -e "${C_MAGENTA}  [Mathematical & Structural Hardening]:${C_RESET}"
-echo "      ├── High-Order Polynomial MBA & Affine Rings over Z_2^32 (Anti-Z3)"
-echo "      ├── Control Flow Flattening (CFF state machine dispatcher)"
-echo "      ├── Invariant & Dynamic Math Opaque Predicates"
-echo "      ├── Bogus Control Flow (BCF Cloning & Mutation)"
-echo "      ├── String Literal Encryption (EncodeLiterals)"
-echo "      ├── Scalar Variable Splitting (EncodeData)"
-echo "      ├── 256-Byte Lookup Table Arithmetic (LUT)"
-echo "      ├── Array Interleaving & Struct Permutation"
-echo "      ├── Homomorphic Data Encoding"
-echo "      └── Indirect Jump Tables & Call Graph Flattening"
-echo -e "${C_MAGENTA}  [Anti-Analysis, Anti-Debugging & Loader Stagers]:${C_RESET}"
-echo "      ├── Anti-Debug Active Termination (sysctl P_TRACED & ptrace PT_DENY_ATTACH)"
-echo "      ├── Anti-Disassembly (Junk Byte Desync opcodes)"
-echo "      ├── Self-Checksumming (CRC32 Memory Page Hash Guards)"
-echo "      ├── Timing Verification (mach_absolute_time delta anti-stepping)"
-echo "      ├── Dynamic Hook & Trampoline Detection"
-echo "      ├── Dynamic POSIX API Hashing (dlsym CRC32 import hiding)"
-echo "      ├── Pre-Main Security Constructor (__attribute__((constructor(101))))"
-echo "      ├── Identifier Homoglyph Renaming (_l1I_...)"
-echo "      └── Source Directives & #line Stripping"
+# Step 2: Synthesize a randomized Vector ISA with Python & Sail
+echo -e "${C_BLUE}[1/4] Synthesizing Formal Sail / JSON Vector ISA Architecture...${C_RESET}"
+python3 "${ROOT_DIR}/tools/visa_synthesizer.py" -o "${VISA_JSON}" -s "${VISA_SAIL}" --name="vISA_License_Cascade_Arch"
+echo -e "${C_GREEN}[+] Synthesized ISA Spec -> ${VISA_JSON}${C_RESET}"
+echo -e "${C_GREEN}[+] Formal Sail Spec -> ${VISA_SAIL}${C_RESET}\n"
+
+# Step 3: Obfuscate source code with 4-VCPU Architecture and Arsenal Defenses
+echo -e "${C_BLUE}[2/4] Applying 4-VCPU Virtualization with Synthesized ISA...${C_RESET}"
 
 "${OBF_BIN}" -i "${INPUT_SRC}" -o "${OUTPUT_C}" \
+    --visa-spec "${VISA_JSON}" \
     --virtualize \
+    --nested-vm \
+    --rolling-vkey \
+    --ephemeral \
     --poly-mba \
-    --cff \
-    --opaque \
-    --dyn-opaque \
-    --bcf \
-    --literals \
-    --split \
+    --relational-morph \
+    --irreducible-loop \
     --lut \
     --interleave \
     --permute-struct \
     --homomorphic \
-    --unroll \
-    --fission \
-    --indirect \
-    --call-flatten \
     --anti-debug \
     --anti-disasm \
-    --self-checksum \
     --timing-check \
-    --hook-detect \
     --api-hash \
     --constructor \
     --rename \
@@ -107,8 +84,8 @@ echo "      └── Source Directives & #line Stripping"
 cp "${OUTPUT_C}" "${OUTPUT_VIRT_C}"
 echo -e "\n${C_GREEN}[+] Obfuscated C source generated -> ${OUTPUT_C}${C_RESET}\n"
 
-# Step 3: Compile with Clang & Ad-Hoc Sign on macOS
-echo -e "${C_BLUE}[2/3] Compiling native AArch64 binary with clang -O2...${C_RESET}"
+# Step 4: Compile with Clang & Ad-Hoc Sign on macOS
+echo -e "${C_BLUE}[3/4] Compiling native AArch64 binary with clang -O2...${C_RESET}"
 clang -w -O2 "${OUTPUT_C}" -o "${OUTPUT_BIN}"
 
 if [[ "$(uname)" == "Darwin" ]] && command -v codesign &>/dev/null; then
@@ -117,8 +94,8 @@ fi
 
 echo -e "${C_GREEN}[+] Native executable compiled -> ${OUTPUT_BIN}${C_RESET}\n"
 
-# Step 4: Verification test vectors
-echo -e "${C_BLUE}[3/3] Running Validation Test Vectors on 4-VCPU Binary...${C_RESET}"
+# Step 5: Verification test vectors
+echo -e "${C_BLUE}[4/4] Running Validation Test Vectors on 4-VCPU Binary...${C_RESET}"
 
 # Test 1: Valid Key
 echo -ne "  [Test 1] Valid Key ('PRO-9842-KLM9-77'): "

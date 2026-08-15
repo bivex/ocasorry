@@ -164,6 +164,7 @@ let () =
   let enable_nested_vm = ref false in
   let enable_self_mod_vm = ref false in
   let enable_jitify = ref false in
+  let visa_spec_file = ref "" in
 
   let speclist = [
     ("-i", Arg.Set_string in_file, "Input C source file to obfuscate");
@@ -227,10 +228,14 @@ let () =
     ("--hook-detect", Arg.Set enable_hook_detect, "Enable Dynamic Hook Detection");
     ("--api-hash", Arg.Set enable_api_hash, "Enable Dynamic POSIX API Hashing (dlsym)");
     ("--constructor", Arg.Set enable_early_constructor, "Enable Pre-Main Security Constructor");
+    ("--visa-spec", Arg.Set_string visa_spec_file, "Path to Python/Sail generated JSON ISA specification file");
   ] in
 
   let usage_msg = "Usage: ocasorry [-i <input.c> -o <output.c> [passes]] (run without args for interactive demo)" in
   Arg.parse speclist (fun _ -> ()) usage_msg;
+
+  if !visa_spec_file <> "" then
+    ignore (C_visa_spec_service.VisaSpec.load_from_file !visa_spec_file);
 
   if !in_file = "" then
     run_demo ()

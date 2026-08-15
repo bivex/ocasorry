@@ -11,7 +11,8 @@ module Make (Entropy : Entropy_port.S) = struct
     val mutable helper_injected = false
 
     method! vfunc (fd : fundec) : fundec visitAction =
-      if fd.svar.vname = "main" || String.starts_with ~prefix:"__" fd.svar.vname then SkipChildren
+      if fd.svar.vname = "main" || String.starts_with ~prefix:"__" fd.svar.vname
+         || C_annotation_service.AnnotationHelper.should_skip_all fd then SkipChildren
       else (
         if not helper_injected then (
           helper_injected <- true;
@@ -19,9 +20,9 @@ module Make (Entropy : Entropy_port.S) = struct
             GText {|
 static int __ocasorry_check_function_hook(const void *fn_ptr) {
     if (!fn_ptr) return 1;
-    const unsigned char *code = (const unsigned char *)fn_ptr;
-    /* Check for immediate hook trampoline opcodes: 0xE9 / 0xFF on x86, or invalid zero */
-    if (code[0] == 0xE9 || (code[0] == 0xFF && code[1] == 0x25)) return 1; /* Hooked */
+    const unsigned int *code32 = (const unsigned int *)fn_ptr;
+    /* ARM64 Hook detection: LDR X16, #8 (0x58000050) / BRK #0 (0xD4200000) */
+    if (code32[0] == 0x58000050U || code32[0] == 0xD4200000U) return 1; /* Hooked */
     return 0; /* Clean */
 }
 |}
