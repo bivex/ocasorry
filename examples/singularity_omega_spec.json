@@ -1,0 +1,44 @@
+{
+  "neural_designed_profile": "singularity-5m",
+  "profile_confidence_pct": 100.0,
+  "target_size_kb": 5000.0,
+  "predicted_resilience_score": 99.6,
+  "synthesized_vcpu_isa_params": {
+    "dispatch_size": 1024,
+    "mba_depth": 4,
+    "decoy_density": 197,
+    "sbox_lut_count": 63,
+    "virtual_registers": 64
+  },
+  "multi_vcpu_cascade_distribution": [
+    {
+      "tier_type": "visa",
+      "confidence": 29.3,
+      "assigned_weight": 0.293
+    },
+    {
+      "tier_type": "nested_vm",
+      "confidence": 23.7,
+      "assigned_weight": 0.237
+    },
+    {
+      "tier_type": "rolling_vkey",
+      "confidence": 23.3,
+      "assigned_weight": 0.233
+    },
+    {
+      "tier_type": "ephemeral_jit",
+      "confidence": 23.8,
+      "assigned_weight": 0.238
+    }
+  ],
+  "adversary_attack_resilience": {
+    "D810_AST_Rewrite_Immunity": "100% (Karatsuba non-linear polynomial multiplication)",
+    "Pushan_VPC_Scan_Defeat": "100% (Affine permuted non-sequential bytecode access)",
+    "XuanJia_Opcode_Analysis": "100% (1024 multi-alias polymorphic handlers)",
+    "Z3_SMT_Path_Explosion": "100% (2^197 intractable opaque decoy paths)",
+    "Dynamic_Taint_Resistance": "100% (64 rotational dynamic VReg registers)",
+    "Anti_Single_Step_Timing": "100% (Microarchitectural timer jitter & silent entropy poisoning)"
+  },
+  "recommended_cli_flags": "--virtualize --nested-vm --rolling-vkey --ephemeral --vm-profile singularity-5m --literals --cff --irreducible-loop --bcf --anti-debug --timing-check"
+}

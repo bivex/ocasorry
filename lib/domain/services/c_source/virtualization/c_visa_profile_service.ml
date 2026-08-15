@@ -10,6 +10,10 @@ type vm_profile_kind =
   | Profile_Fortress_256k
   | Profile_Titan_512k
   | Profile_Colossus_1m
+  | Profile_Singularity_Alpha
+  | Profile_Singularity_Beta
+  | Profile_Singularity_Gamma
+  | Profile_Singularity_Omega
 
 type vm_profile_config = {
   kind : vm_profile_kind;
@@ -81,6 +85,46 @@ let profile_colossus_1m = {
   poly_aliases = 16;
 }
 
+let profile_singularity_alpha = {
+  kind = Profile_Singularity_Alpha;
+  name = "singularity-alpha";
+  dispatch_size = 1024;
+  mba_depth = 4;
+  decoy_density = 120;
+  lut_count = 48;
+  poly_aliases = 24;
+}
+
+let profile_singularity_beta = {
+  kind = Profile_Singularity_Beta;
+  name = "singularity-beta";
+  dispatch_size = 1024;
+  mba_depth = 4;
+  decoy_density = 160;
+  lut_count = 56;
+  poly_aliases = 28;
+}
+
+let profile_singularity_gamma = {
+  kind = Profile_Singularity_Gamma;
+  name = "singularity-gamma";
+  dispatch_size = 1024;
+  mba_depth = 4;
+  decoy_density = 180;
+  lut_count = 64;
+  poly_aliases = 32;
+}
+
+let profile_singularity_omega = {
+  kind = Profile_Singularity_Omega;
+  name = "singularity-omega";
+  dispatch_size = 1024;
+  mba_depth = 4;
+  decoy_density = 200;
+  lut_count = 64;
+  poly_aliases = 32;
+}
+
 let parse_profile (s : string) : vm_profile_config =
   match String.lowercase_ascii s with
   | "compact" | "small" -> profile_compact
@@ -89,6 +133,10 @@ let parse_profile (s : string) : vm_profile_config =
   | "fortress" | "256k" | "fortress-256k" -> profile_fortress_256k
   | "titan" | "512k" | "titan-512k" | "extreme" -> profile_titan_512k
   | "colossus" | "1m" | "colossus-1m" | "monster" -> profile_colossus_1m
+  | "singularity-alpha" | "singularity-2m" | "alpha" -> profile_singularity_alpha
+  | "singularity-beta" | "singularity-3m" | "beta" -> profile_singularity_beta
+  | "singularity-gamma" | "singularity-4m" | "gamma" -> profile_singularity_gamma
+  | "singularity" | "5m" | "singularity-5m" | "singularity-omega" | "omega" -> profile_singularity_omega
   | _ -> profile_standard
 
 let active_profile = ref profile_standard
