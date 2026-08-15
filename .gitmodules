@@ -1,3 +1,0 @@
-[submodule "vendor/random_vISA"]
-	path = vendor/random_vISA
-	url = https://github.com/bivex/random_vISA
