@@ -269,18 +269,29 @@ module Make (Entropy : Entropy_port.S) = struct
       );
 
       let vbc_words = List.rev !instrs in
+      let n_words = List.length vbc_words in
 
-      (* Packing 32-bit Vector Instruction Words with Active Rolling XOR Key Mask *)
+      (* Vector 6: Non-Linear Bytecode Mapping & Affine VPC Indexing (Anti-Pushan) *)
+      let rec gcd a b = if b = 0 then a else gcd b (a mod b) in
+      let affine_p =
+        let primes = [3; 5; 7; 11; 13; 17; 19; 23; 29; 31] in
+        match List.find_opt (fun p -> gcd p n_words = 1) primes with
+        | Some p -> p
+        | None -> 1
+      in
+      let affine_s = if n_words > 1 then 1 + (Entropy.next_int ~max:(n_words - 1)) else 0 in
       let pack_key_32 = Int64.to_int32 spec.pack_key in
       let delta_key_32 = Int64.to_int32 spec.delta_key in
-      let packed_words =
-        List.mapi
-          (fun idx w ->
-            let delta = Int32.mul (Int32.of_int idx) delta_key_32 in
-            let key = Int32.logxor pack_key_32 delta in
-            Int32.logxor w key)
-          vbc_words
-      in
+      let permuted_arr = Array.make n_words 0l in
+      List.iteri
+        (fun idx w ->
+          let delta = Int32.mul (Int32.of_int idx) delta_key_32 in
+          let key = Int32.logxor pack_key_32 delta in
+          let enc = Int32.logxor w key in
+          let slot = if n_words > 0 then (idx * affine_p + affine_s) mod n_words else 0 in
+          permuted_arr.(slot) <- enc)
+        vbc_words;
+      let packed_words = Array.to_list permuted_arr in
 
       let uint_ty = uintType in
       let array_type = TArray (uint_ty, Some (integer (List.length packed_words)), []) in
@@ -304,20 +315,16 @@ module Make (Entropy : Entropy_port.S) = struct
 
       let vreg_total = max 64 (!next_vreg + 32) in
 
-      let ret_type_str =
-        match fd.svar.vtype with
-        | TFun (ret_t, _, _, _) ->
-            if isIntegralType ret_t then (
-              match ret_t with
-              | TInt (IULongLong, _) | TInt (ILongLong, _) -> "unsigned long long"
-              | TInt (IULong, _) | TInt (ILong, _) -> "unsigned long"
-              | TInt (IUInt, _) -> "unsigned int"
-              | _ -> "int"
-            )
-            else if isPointerType ret_t then "void *"
-            else "int"
+      let type_to_str = function
+        | TInt (IULongLong, _) | TInt (ILongLong, _) -> "unsigned long long"
+        | TInt (IULong, _) | TInt (ILong, _) -> "unsigned long"
+        | TInt (IUInt, _) -> "unsigned int"
+        | TPtr (TInt ((IChar | ISChar), _), _) -> "const char *"
+        | TPtr (TInt (IUChar, _), _) -> "const unsigned char *"
+        | TPtr _ -> "void *"
         | _ -> "int"
       in
+      let ret_type_str = match fd.svar.vtype with TFun (t, _, _, _) -> type_to_str t | _ -> "int" in
 
       (* Vector 3: Entangled Register Affine Key Parameters *)
       let reg_mask_base = Int64.logand (Int64.abs (Entropy.next_int64 ())) 0xFFFFFFFFFFFFL in
@@ -335,19 +342,7 @@ module Make (Entropy : Entropy_port.S) = struct
       in
 
       let fn_params =
-        List.map
-          (fun p ->
-            let ty_str = match p.vtype with
-              | TInt (IULongLong, _) | TInt (ILongLong, _) -> "unsigned long long"
-              | TInt (IULong, _) | TInt (ILong, _) -> "unsigned long"
-              | TInt (IUInt, _) -> "unsigned int"
-              | TPtr (TInt (IChar, _), _) | TPtr (TInt (ISChar, _), _) -> "const char *"
-              | TPtr (TInt (IUChar, _), _) -> "const unsigned char *"
-              | TPtr _ -> "void *"
-              | _ -> "int"
-            in
-            Printf.sprintf "%s %s" ty_str p.vname)
-          fd.sformals
+        List.map (fun p -> Printf.sprintf "%s %s" (type_to_str p.vtype) p.vname) fd.sformals
         |> String.concat ", "
       in
 
@@ -363,6 +358,8 @@ module Make (Entropy : Entropy_port.S) = struct
           ~ptr_arg
           ~op
           ~out_reg:spec.abi.out_reg
+          ~affine_p
+          ~affine_s
           ~word_count:(List.length packed_words)
           ~vbc_name
           ~pack_key:spec.pack_key

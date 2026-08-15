@@ -15,6 +15,8 @@ let emit_function_body
     ~(ptr_arg : string)
     ~(op : visa_opcodes)
     ~(out_reg : int)
+    ~(affine_p : int)
+    ~(affine_s : int)
     ~(word_count : int)
     ~(vbc_name : string)
     ~(pack_key : int64)
@@ -78,7 +80,8 @@ __attribute__((visibility("default")))
 
     #define __VISA_DISPATCH() do { \
         if (__pc >= %d) goto __h_vret; \
-        __raw = %s[__pc]; \
+        unsigned int __slot = ((__pc * %uU) + %uU) %% %uU; \
+        __raw = %s[__slot]; \
         __key = 0x%LxU ^ (__pc * 0x%LxU); \
         __inst = __raw ^ __key; \
         __funct6 = (unsigned char)((__inst >> %d) & 0x%X); \
@@ -224,6 +227,9 @@ __h_vret: ;
     op.vret_v
     op.vbge_vv
     op.vj
+    word_count
+    affine_p
+    affine_s
     word_count
     vbc_name
     pack_key
