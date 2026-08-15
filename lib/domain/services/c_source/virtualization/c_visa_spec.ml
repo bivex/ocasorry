@@ -75,7 +75,15 @@ let register_spec (name : string) (spec : visa_spec) : unit =
   if Hashtbl.length registry = 1 then active_spec := spec
 
 let find_spec (name : string) : visa_spec option =
-  Hashtbl.find_opt registry name
+  match Hashtbl.find_opt registry name with
+  | Some s -> Some s
+  | None ->
+      let lower = String.lowercase_ascii name in
+      Hashtbl.fold (fun k v acc ->
+        if acc <> None then acc
+        else if String.lowercase_ascii k = lower then Some v
+        else None
+      ) registry None
 
 let set_active_spec (spec : visa_spec) : unit =
   active_spec := spec;
@@ -86,7 +94,7 @@ let get_spec_for_annotation (ann : string option) : visa_spec =
   match ann with
   | None -> !active_spec
   | Some name ->
-      (match Hashtbl.find_opt registry name with
+      (match find_spec name with
        | Some s -> s
        | None   -> !active_spec)
 

@@ -52,9 +52,9 @@ module Make (Entropy : Entropy_port.S) = struct
                 ~vs2:((tmp+1) land 0x1F) ~vs1_or_imm:(dst land 0x1F)
                 ~funct3:0 ~vd:(dst land 0x1F)) :: !instrs
 
-  let extract_ptr_var = function
+  let rec extract_ptr_var = function
     | Lval (Var v, NoOffset) -> Some v
-    | CastE (_, _, Lval (Var v, NoOffset)) -> Some v
+    | CastE (_, _, e) -> extract_ptr_var e
     | _ -> None
 
   let rec compile_exp spec op instrs get_vreg (e : exp) (dst : int) (free_reg : int) =

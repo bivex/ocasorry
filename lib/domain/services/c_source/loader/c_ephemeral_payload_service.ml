@@ -12,6 +12,7 @@ module Make (Entropy : Entropy_port.S) = struct
     if fd.svar.vname = "main" || String.starts_with ~prefix:"__" fd.svar.vname
        || List.mem fd.svar.vname [ "printf"; "fprintf"; "sprintf"; "puts"; "exit"; "atoi"; "malloc"; "free" ] then false
     else if C_annotation_service.AnnotationHelper.should_skip_all fd then false
+    else if List.length fd.sformals <> 1 then false
     else if C_annotation_service.AnnotationHelper.has_annotation fd "ephemeral"
             || C_annotation_service.AnnotationHelper.has_annotation fd "ephemeral_jit" then true
     else if C_annotation_service.AnnotationHelper.has_any_vm_annotation fd then false

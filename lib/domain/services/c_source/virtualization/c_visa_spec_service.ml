@@ -73,7 +73,6 @@ module Make (Entropy : Entropy_port.S) = struct
       Fix: pack_key uses full 64-bit representation (not truncated to 32 bits). *)
   let pack_bytecode spec n_words vbc_words =
     let rec gcd a b = if b = 0 then a else gcd b (a mod b) in
-    (* Fix: sample from wider prime set for better permutation entropy *)
     let primes = [| 3; 5; 7; 11; 13; 17; 19; 23; 29; 31; 37; 41; 43; 47; 53; 59 |] in
     let coprime_primes =
       Array.to_list primes |> List.filter (fun p -> gcd p n_words = 1)
@@ -85,20 +84,15 @@ module Make (Entropy : Entropy_port.S) = struct
           List.nth ps idx
     in
     let affine_s = if n_words > 1 then 1 + (Entropy.next_int ~max:(n_words - 1)) else 0 in
-    (* Fix: keep 64-bit pack_key, fold both halves *)
-    let pk = spec.C_visa_spec.pack_key in
-    let dk = spec.C_visa_spec.delta_key in
+    let pk32 = Int64.to_int32 spec.C_visa_spec.pack_key in
+    let dk32 = Int64.to_int32 spec.C_visa_spec.delta_key in
     let permuted_arr = Array.make n_words 0l in
     List.iteri
       (fun idx w ->
-        let delta_64 = Int64.mul (Int64.of_int idx) dk in
-        let key_64   = Int64.logxor pk delta_64 in
-        (* XOR both 32-bit halves of 64-bit key into word *)
-        let key_lo = Int64.to_int32 key_64 in
-        let key_hi = Int64.to_int32 (Int64.shift_right_logical key_64 32) in
-        let key32  = Int32.logxor key_lo key_hi in
-        let enc    = Int32.logxor w key32 in
-        let slot   = if n_words > 0 then (idx * affine_p + affine_s) mod n_words else 0 in
+        let delta = Int32.mul (Int32.of_int idx) dk32 in
+        let key = Int32.logxor pk32 delta in
+        let enc = Int32.logxor w key in
+        let slot = if n_words > 0 then (idx * affine_p + affine_s) mod n_words else 0 in
         permuted_arr.(slot) <- enc)
       vbc_words;
     (Array.to_list permuted_arr, affine_p, affine_s)
@@ -121,9 +115,11 @@ module Make (Entropy : Entropy_port.S) = struct
       (* Per-function ISA selection via annotation "ocasorry:visa:ISA_NAME".
          Falls back to active_spec if no specific ISA is named. *)
       let isa_annotation =
-        C_annotation_service.AnnotationHelper.get_annotations fd
-        |> List.find_opt (fun s -> String.length s > 5 && String.sub s 0 5 = "visa:")
-        |> Option.map (fun s -> String.sub s 5 (String.length s - 5))
+        C_annotation_service.AnnotationHelper.get_tokens fd
+        |> List.find_map (fun t ->
+            if String.starts_with ~prefix:"visa:" t then
+              Some (String.sub t 5 (String.length t - 5))
+            else None)
       in
       let spec = Spec.get_spec_for_annotation isa_annotation in
       let op   = spec.opcodes in

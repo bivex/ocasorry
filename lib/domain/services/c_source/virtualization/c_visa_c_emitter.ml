@@ -153,103 +153,72 @@ __attribute__((visibility("default")))
 
 __h_vadd: {
     unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
-    /* Non-Linear MBA ADD: (a ^ b) + ((a & b) << 1) */
     __VREG_SET(__vd, (__a ^ __b) + ((__a & __b) << 1));
     __VISA_DISPATCH();
 }
-
 __h_vadd_alt1: {
     unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
-    /* Alt1 MBA ADD: (a | b) + (a & b) */
     __VREG_SET(__vd, (__a | __b) + (__a & __b));
     __VISA_DISPATCH();
 }
-
 __h_vadd_alt2: {
     unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
-    /* Alt2 MBA ADD: (2 * (a | b)) - (a ^ b) */
     __VREG_SET(__vd, ((__a | __b) << 1) - (__a ^ __b));
     __VISA_DISPATCH();
 }
-
 __h_vsub: {
     unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
-    /* Non-Linear MBA SUB: (a ^ b) - ((~a & b) << 1) */
     __VREG_SET(__vd, (__a ^ __b) - ((~__a & __b) << 1));
     __VISA_DISPATCH();
 }
-
 __h_vsub_alt1: {
     unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
-    /* Alt1 MBA SUB: (a & ~b) - (~a & b) */
     __VREG_SET(__vd, (__a & ~__b) - (~__a & __b));
     __VISA_DISPATCH();
 }
-
 __h_vsub_alt2: {
     unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
-    /* Alt2 MBA SUB: (a ^ ~b) + 1 + ((a & ~b) << 1) */
     __VREG_SET(__vd, (__a ^ ~__b) + 1ULL + ((__a & ~__b) << 1));
     __VISA_DISPATCH();
 }
-
-__h_vmul: {
-    unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
-    __VREG_SET(__vd, (unsigned long long)(__a * __b));
+__h_vmul:
+    __VREG_SET(__vd, (unsigned long long)(__VREG_GET(__vs1) * __VREG_GET(__vs2)));
     __VISA_DISPATCH();
-}
-
-__h_vmul_alt1: {
-    unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
-    __VREG_SET(__vd, (unsigned long long)((__a ^ 0) * (__b ^ 0)));
+__h_vmul_alt1:
+    __VREG_SET(__vd, (unsigned long long)((__VREG_GET(__vs1) ^ 0) * (__VREG_GET(__vs2) ^ 0)));
     __VISA_DISPATCH();
-}
-
 __h_vxor: {
     unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
-    /* Non-Linear MBA XOR: (a | b) - (a & b) */
     __VREG_SET(__vd, (__a | __b) - (__a & __b));
     __VISA_DISPATCH();
 }
-
 __h_vxor_alt1: {
     unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
-    /* Alt1 MBA XOR: (~a & b) + (a & ~b) */
     __VREG_SET(__vd, (~__a & __b) + (__a & ~__b));
     __VISA_DISPATCH();
 }
-
 __h_vxor_alt2: {
     unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
-    /* Alt2 MBA XOR: (a + b) - ((a & b) << 1) */
     __VREG_SET(__vd, (__a + __b) - ((__a & __b) << 1));
     __VISA_DISPATCH();
 }
-
 __h_vand: {
     unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
-    /* Non-Linear MBA AND: (a | b) - (a ^ b) */
     __VREG_SET(__vd, (__a | __b) - (__a ^ __b));
     __VISA_DISPATCH();
 }
-
 __h_vand_alt1: {
     unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
-    /* Alt1 MBA AND: (a + b) - (a | b) */
     __VREG_SET(__vd, (__a + __b) - (__a | __b));
     __VISA_DISPATCH();
 }
-
 __h_vor: {
     unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
-    /* Non-Linear MBA OR: (a & b) + (a ^ b) */
     __VREG_SET(__vd, (__a & __b) + (__a ^ __b));
     __VISA_DISPATCH();
 }
-
 __h_vor_alt1: {
     unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
-    /* Alt1 MBA OR: (a + b) - (a & b) */
     __VREG_SET(__vd, (__a + __b) - (__a & __b));
     __VISA_DISPATCH();
 }
@@ -298,8 +267,8 @@ __h_vse8:
     __VISA_DISPATCH();
 
 __h_vbge: {
-    /* Decode 19-bit target from instruction bits [25:7] — fixed from 5-bit */
-    unsigned int __branch_target = (__inst >> 7) & 0x7FFFFU;
+    /* Decode 8-bit target from instruction bits [14:7] without vs1/vs2 collision */
+    unsigned int __branch_target = (__inst >> 7) & 0xFFU;
     if (__VREG_GET(__vs1) >= __VREG_GET(__vs2)) {
         __pc = (unsigned int)((__branch_target) + ((__vm_state_acc * (__vm_state_acc + 1ULL)) & 1ULL));
     }
@@ -346,6 +315,11 @@ __h_vret: ;
     __builtin_memset(__vstack_ctrl, 0, sizeof(__vstack_ctrl));
     return (%s)__res_val;
 }
+#undef __VREG_ROT
+#undef __VREG_MASK
+#undef __VREG_GET
+#undef __VREG_SET
+#undef __VISA_DISPATCH
 |}
     ret_type_str
     fn_name

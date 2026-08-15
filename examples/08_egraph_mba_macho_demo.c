@@ -49,7 +49,7 @@ int vcpu_rolling_stage(int h2) {
 /* Stage 5: Ephemeral JIT & E-Graph Verification Gate */
 __attribute__((annotate("ocasorry:ephemeral, egraph_mba")))
 int vcpu_ephemeral_verifier(int h3, int egraph_val) {
-    int target_h3 = 25352;
+    int target_h3 = 25548;
     int target_egraph = 8146;
     int diff_h3 = (h3 ^ target_h3);
     int diff_eg = (egraph_val ^ target_egraph);
@@ -99,8 +99,7 @@ int verify_macho_license(const char *key, int verbose) {
     /* 4. Tier 3: Rolling Virtual Key */
     int h3 = vcpu_rolling_stage(h2);
     if (verbose) {
-        printf("  | [Tier 3 Roll]   h3     = %6d (Target:  25352) %s\n",
-               h3, (h3 == 25352) ? " [OK]" : "[MISMATCH]");
+        printf("  | [Tier 3 Roll]   h3     = %6d (Target: %6d) %s\n", h3, 25548, (h3 == 25548) ? "[OK]" : "[MISMATCH]");
     }
 
     /* 5. Tier 4: Ephemeral JIT & E-Graph Verification Gate */

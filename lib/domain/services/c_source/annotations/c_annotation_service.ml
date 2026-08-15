@@ -44,13 +44,23 @@ module AnnotationHelper = struct
 
   let has_annotation (fd : fundec) (target : string) : bool =
     let target_clean = clean_token target in
-    List.mem target_clean (get_tokens fd)
+    let tokens = get_tokens fd in
+    List.exists
+      (fun t ->
+        t = target_clean
+        || String.starts_with ~prefix:(target_clean ^ ":") t
+        || String.starts_with ~prefix:(target_clean ^ "_") t)
+      tokens
 
   let has_any_vm_annotation (fd : fundec) : bool =
     let tokens = get_tokens fd in
     List.exists
       (fun t ->
-        List.mem t
+        List.exists
+          (fun vm_tag ->
+            t = vm_tag
+            || String.starts_with ~prefix:(vm_tag ^ ":") t
+            || String.starts_with ~prefix:(vm_tag ^ "_") t)
           [ "virtualize"; "visa"; "vector_vm";
             "nested_vm"; "nested";
             "rolling_vkey"; "rolling_key";
