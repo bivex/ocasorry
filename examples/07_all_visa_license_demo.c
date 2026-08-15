@@ -3,10 +3,10 @@
  *
  * Demonstrates that __attribute__((annotate("ocasorry:visa"))) is used
  * on EVERY individual stage in the cryptographic cascade:
- *  - Stage 1: Vector Parity (vISA)      -> Target: 12687
- *  - Stage 2: Algebraic Transform (vISA) -> Target: 12708
- *  - Stage 3: Feistel XOR (vISA)        -> Target: 12696
- *  - Stage 4: Token Validation (vISA)   -> Target: 12696 -> 1 (Valid) / 0 (Invalid)
+ *  - Stage 1: Vector Parity (vISA)      -> Target h1: 12687
+ *  - Stage 2: Algebraic Transform (vISA) -> Target h2: 12708
+ *  - Stage 3: Feistel XOR (vISA)        -> Target h3: 12696
+ *  - Stage 4: Galois Token Diff (vISA)  -> Target diff: 0 (Valid) / non-zero (Invalid)
  */
 
 extern int printf(const char *format, ...);
@@ -39,10 +39,10 @@ int vcpu3_feistel_stage(int h2) {
     return (h2 ^ 42) + 10;
 }
 
-/* Stage 4: Token Validation (random_vISA VCPU 4) */
+/* Stage 4: Galois Token Difference (random_vISA VCPU 4) */
 __attribute__((annotate("ocasorry:visa")))
-int vcpu4_token_validate(int h3) {
-    return (h3 == 12696) ? 1 : 0;
+int vcpu4_token_diff(int h3) {
+    return h3 ^ 12696;
 }
 
 /* Master Verifier: Hardened with CFF + BCF + String Encryption + Anti-Debug */
@@ -51,6 +51,7 @@ int verify_all_visa_license(const char *license_key, int verbose) {
     int h1 = 0;
     int h2 = 0;
     int h3 = 0;
+    int token_diff = 0;
     int is_valid = 0;
 
     if (license_key == (void*)0 || strlen(license_key) != 16) {
@@ -83,14 +84,18 @@ int verify_all_visa_license(const char *license_key, int verbose) {
                h3, (h3 == 12696) ? " [OK]" : "[MISMATCH]");
     }
 
-    is_valid = vcpu4_token_validate(h3);
+    token_diff = vcpu4_token_diff(h3);
+    is_valid = (token_diff == 0 && h1 == 12687 && h2 == 12708 && h3 == 12696);
+
     if (verbose) {
-        printf("  | [vISA Stage 4]  Result = %s\n",
-               (is_valid && h1 == 12687 && h2 == 12708 && h3 == 12696) ? "UNLOCKED (Valid)" : "LOCKED (Invalid)");
+        printf("  | [vISA Stage 4]  Diff = %5d (Target:     0) %s\n",
+               token_diff, (token_diff == 0) ? " [OK]" : "[MISMATCH]");
+        printf("  | [Auth Result]   Result = %s\n",
+               is_valid ? "UNLOCKED (Valid)" : "LOCKED (Invalid)");
         printf("  +===========================================================+\n\n");
     }
 
-    return (is_valid && h1 == 12687 && h2 == 12708 && h3 == 12696) ? 1 : 0;
+    return is_valid;
 }
 
 __attribute__((annotate("ocasorry:literals, api_hash")))
