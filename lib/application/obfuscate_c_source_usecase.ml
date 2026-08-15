@@ -59,6 +59,7 @@ type c_pipeline_config = {
   enable_c_egraph_mba : bool;
   c_egraph_depth : int;
   enable_c_eh_shadow : bool;
+  enable_c_loki_invariants : bool;
   c_vm_profile : string option;
 }
 
@@ -69,6 +70,7 @@ let default_c_config = {
   enable_c_egraph_mba = false;
   c_egraph_depth = 3;
   enable_c_eh_shadow = false;
+  enable_c_loki_invariants = false;
   c_vm_profile = None;
   enable_c_opaque = true;
   enable_c_dynamic_opaque = false;
@@ -187,6 +189,7 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
   module EGraphMBA = C_egraph_mba_service.Make (Entropy)
   module EHShadow = C_eh_shadowing_service.Make (Entropy)
   module VPCPath = C_vpc_path_invalidation_service.Make (Entropy)
+  module LokiInvariants = C_loki_invariant_service.Make (Entropy)
 
   let run_passes (cil_file : GoblintCil.Cil.file) (config : c_pipeline_config) : GoblintCil.Cil.file =
     (match config.c_vm_profile with
@@ -213,6 +216,7 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
     let f = if config.enable_c_instruction_subst then InstrSubst.transform_file f else f in
     let f = if config.enable_c_instruction_permute then InstrPermute.transform_file f else f in
     let f = if config.enable_c_constant_unfold then ConstUnfold.transform_file f else f in
+    let f = LokiInvariants.transform_file ~global:config.enable_c_loki_invariants f in
     let f = if config.enable_c_polynomial_mba then PolyMBA.transform_file f else f in
     let f = if config.enable_c_lut then LUT.transform_file f else f in
     let f = EGraphMBA.transform_file ~depth:config.c_egraph_depth ~global:config.enable_c_egraph_mba f in

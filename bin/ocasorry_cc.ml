@@ -157,6 +157,7 @@ let () =
               enable_c_egraph_mba = false;
               c_egraph_depth = 3;
               enable_c_eh_shadow = false;
+              enable_c_loki_invariants = false;
               enable_c_opaque = !enable_opaque;
               enable_c_dynamic_opaque = !enable_dyn_opaque;
               enable_c_diophantine = !enable_diophantine;

@@ -26,13 +26,14 @@ SRC="${ROOT_DIR}/examples/08_egraph_mba_macho_demo.c"
 OBF_SRC="${ROOT_DIR}/examples/08_egraph_mba_macho_demo_virtualized.c"
 OUT_BIN="${ROOT_DIR}/examples/08_egraph_mba_macho_demo_virtualized.bin"
 
-echo "[3/4] Obfuscating with E-Graph Equality Expansion MBA & 4-VCPU & EH Shadowing..."
+echo "[3/4] Obfuscating with E-Graph MBA & Loki Invariants & 4-VCPU & EH Shadowing..."
 "${ROOT_DIR}/_build/default/bin/main.exe" \
   -i "${SRC}" \
   -o "${OBF_SRC}" \
   --visa-spec "${SAIL_OUT}/vcpu1_visa.json" \
   --egraph-mba \
   --egraph-depth 3 \
+  --loki-invariants \
   --eh-shadow \
   --virtualize \
   --nested-vm \
