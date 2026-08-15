@@ -49,6 +49,18 @@ __attribute__((visibility("default")))
     unsigned int __vsp_c = 0;
     unsigned long long __vm_state_acc = 0x9E3779B97F4A7C15ULL;
 
+    /* Vector 12: Microarchitectural Timer Sampling & Anti-Single-Stepping */
+    #if defined(__aarch64__)
+    unsigned long long __t_entry;
+    __asm__ volatile("mrs %%0, cntvct_el0" : "=r"(__t_entry));
+    #elif defined(__x86_64__)
+    unsigned int __t_lo, __t_hi;
+    __asm__ volatile("rdtsc" : "=a"(__t_lo), "=d"(__t_hi));
+    unsigned long long __t_entry = ((unsigned long long)__t_hi << 32) | __t_lo;
+    #else
+    unsigned long long __t_entry = 0;
+    #endif
+
     /* Vector 8: Ephemeral Self-Scrubbing Bytecode Scratchpad */
     unsigned int __vbc_live[%d];
     memcpy(__vbc_live, %s, sizeof(__vbc_live));
@@ -153,8 +165,8 @@ __h_vsub_alt1: {
 
 __h_vsub_alt2: {
     unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
-    /* Alt2 MBA SUB: (a | ~b) - ~b - (a & b) */
-    __VREG_SET(__vd, (__a | ~__b) - ~__b - (__a & __b));
+    /* Alt2 MBA SUB: (a ^ ~b) + 1 + ((a & ~b) << 1) */
+    __VREG_SET(__vd, (__a ^ ~__b) + 1ULL + ((__a & ~__b) << 1));
     __VISA_DISPATCH();
 }
 
@@ -277,11 +289,26 @@ __h_vret: ;
     if (__vsp_c == 0 || ((__vstack_ctrl[--__vsp_c] ^ 0x%LxULL) != __cfi_canary)) {
         __builtin_trap();
     }
+    /* Vector 12: Microarchitectural Timer Check & Silent State Poisoning */
+    #if defined(__aarch64__)
+    unsigned long long __t_exit;
+    __asm__ volatile("mrs %%0, cntvct_el0" : "=r"(__t_exit));
+    #elif defined(__x86_64__)
+    unsigned int __x_lo, __x_hi;
+    __asm__ volatile("rdtsc" : "=a"(__x_lo), "=d"(__x_hi));
+    unsigned long long __t_exit = ((unsigned long long)__x_hi << 32) | __x_lo;
+    #else
+    unsigned long long __t_exit = 0;
+    #endif
+    unsigned long long __t_delta = (__t_exit > __t_entry) ? (__t_exit - __t_entry) : 0ULL;
+    unsigned long long __stepped = (__t_delta > 1000000000ULL) ? 1ULL : 0ULL;
+    __vm_state_acc ^= (__stepped * 0x9E3779B97F4A7C15ULL);
+
     /* Vector 11: Anti-Symbolic Quadratic Invariant & Dataflow Interlock */
     if (((__vm_state_acc * (__vm_state_acc + 1ULL)) & 1ULL) != 0ULL) {
         __builtin_trap();
     }
-    unsigned long long __res_val = __VREG_GET(%d) ^ ((__vm_state_acc * (__vm_state_acc + 1ULL)) & 1ULL);
+    unsigned long long __res_val = (__VREG_GET(%d) ^ (__stepped * 0xBADF00DULL)) ^ ((__vm_state_acc * (__vm_state_acc + 1ULL)) & 1ULL);
     __builtin_memset(__vregs, 0, sizeof(__vregs));
     __builtin_memset(__vbc_live, 0, sizeof(__vbc_live));
     __builtin_memset(__vstack_data, 0, sizeof(__vstack_data));
