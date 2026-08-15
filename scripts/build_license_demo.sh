@@ -77,7 +77,8 @@ echo -e "${C_BLUE}[2/4] Applying 4-VCPU Virtualization with Synthesized ISAs...$
     --api-hash \
     --constructor \
     --rename \
-    --strip
+    --strip \
+    --vm-profile titan
 
 cp "${OUTPUT_C}" "${OUTPUT_VIRT_C}"
 echo -e "\n${C_GREEN}[+] Obfuscated C source generated -> ${OUTPUT_C}${C_RESET}\n"

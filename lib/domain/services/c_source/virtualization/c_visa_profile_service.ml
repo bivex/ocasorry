@@ -134,11 +134,16 @@ let generate_synthetic_trap_handlers ~(start_slot : int) ~(total_slots : int) ~(
     unsigned long long __a = __VREG_GET(__vs1) ^ 0x%XULL, __b = __VREG_GET(__vs2) + 0x%XULL;
     unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
     unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
-    unsigned long long __x3 = (__x1 * 0x%XULL) ^ (__x2 + 0x%XULL);
-    __VREG_SET(__vd, ((__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1))%s);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x%XULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x%XULL) + 0x%XULL)%s);
     __VISA_DISPATCH();
 }
-|} label c1 c2 k c1 sbox_mod in
+|} label c1 c2 k c1 c2 sbox_mod in
       handlers := h_code :: !handlers
     done;
     (String.concat "" (List.rev !handlers), List.rev !bindings)

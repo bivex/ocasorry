@@ -5,16 +5,16 @@
   "isa_version": "2.0",
   "word_bits": 32,
   "reg_count": 16,
-  "pack_key": 1734744863,
+  "pack_key": 3869580846,
   "delta_key": 73244475,
-  "abi": {"in_regs": [3, 1, 5, 6, 0, 2, 7, 4], "out_reg": 0},
-  "layout": {"funct6_shift": 26, "funct6_mask": 63, "vm_shift": 25, "vs2_shift": 20, "vs1_shift": 15, "funct3_shift": 12, "vd_shift": 7, "opcode_val": 87},
+  "abi": {"in_regs": [2, 0, 5, 3, 7, 6, 1, 4], "out_reg": 1},
+  "layout": {"funct6_shift": 26, "funct6_mask": 63, "vm_shift": 25, "vs2_shift": 20, "vs1_shift": 15, "funct3_shift": 12, "vd_shift": 7, "opcode_val": 43},
   "opcodes": {
-    "vadd_vv": 61, "vsub_vv": 8, "vmul_vv": 29, "vxor_vv": 37, "vand_vv": 46, "vor_vv": 54,
-    "vsll_vv": 39, "vsrl_vv": 1, "vli_vi": 6, "vmv_vv": 21, "vle8_v": 17, "vse8_v": 16,
-    "vret_v": 63, "vbge_vv": 10, "vj": 57,
-    "vadd_alt1": 58, "vadd_alt2": 38, "vsub_alt1": 11, "vsub_alt2": 59,
-    "vxor_alt1": 19, "vxor_alt2": 44, "vand_alt1": 51, "vor_alt1": 45,
-    "vmul_alt1": 41, "vmv_alt1": 9, "vli_alt1": 55
+    "vadd_vv": 15, "vsub_vv": 19, "vmul_vv": 34, "vxor_vv": 7, "vand_vv": 4, "vor_vv": 57,
+    "vsll_vv": 61, "vsrl_vv": 47, "vli_vi": 39, "vmv_vv": 16, "vle8_v": 3, "vse8_v": 48,
+    "vret_v": 60, "vbge_vv": 58, "vj": 28,
+    "vadd_alt1": 35, "vadd_alt2": 36, "vsub_alt1": 43, "vsub_alt2": 5,
+    "vxor_alt1": 38, "vxor_alt2": 24, "vand_alt1": 14, "vor_alt1": 1,
+    "vmul_alt1": 46, "vmv_alt1": 59, "vli_alt1": 56
   }
 }

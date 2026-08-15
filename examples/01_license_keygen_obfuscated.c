@@ -201,104 +201,105 @@ static void __ocasorry_free_ephemeral_page(void *ptr, size_t sz) {
 }
 
 static unsigned char __packed_inner_bc_vcpu2_nested_matrix_1[12]  = 
-  {      (unsigned char)173,      (unsigned char)203,      (unsigned char)234,      (unsigned char)11, 
-        (unsigned char)61,      (unsigned char)70,      (unsigned char)101,      (unsigned char)133, 
-        (unsigned char)164,      (unsigned char)194,      (unsigned char)237,      (unsigned char)1};
-static unsigned char __packed_outer_bc_vcpu2_nested_matrix_1[5]  = {      (unsigned char)76,      (unsigned char)93,      (unsigned char)94,      (unsigned char)144, 
-        (unsigned char)95};
-static unsigned int __visa_program_vcpu1_vector_parity_1[36]  = 
-  {      2498106123U,      3010538350U,      23087297U,      1863344932U, 
-        326605907U,      3765875254U,      1670794793U,      84306188U, 
-        1478887279U,      2768977566U,      189420657U,      2125752788U, 
-        1203178423U,      2572657834U,      27975257U,      2816078780U, 
-        1791725727U,      2497457138U,      247495125U,      2115688776U, 
-        32315111U,      3387896026U,      2428423101U,      1830424080U, 
-        2056947443U,      1595782946U,      2978862981U,      3087756408U, 
-        372213339U,      2010981950U,      984830061U,      397472704U, 
-        2344979875U,      172990598U,      1014874873U,      1984364328U};
+  {      (unsigned char)175,      (unsigned char)205,      (unsigned char)236,      (unsigned char)9, 
+        (unsigned char)63,      (unsigned char)72,      (unsigned char)107,      (unsigned char)135, 
+        (unsigned char)166,      (unsigned char)196,      (unsigned char)235,      (unsigned char)3};
+static unsigned char __packed_outer_bc_vcpu2_nested_matrix_1[5]  = {      (unsigned char)159,      (unsigned char)144,      (unsigned char)145,      (unsigned char)221, 
+        (unsigned char)44};
+static unsigned int __visa_program_vcpu1_vector_parity_1[39]  = 
+  {      193952713U,      435323426U,      3491039482U,      2944046546U, 
+        2722895274U,      86809858U,      2358551399U,      2579015871U, 
+        2162110615U,      4165842287U,      2973809735U,      1206403864U, 
+        3856387696U,      273535432U,      1535234592U,      2077876101U, 
+        797176157U,      1064102197U,      3428970509U,      4150557669U, 
+        2136572734U,      1552022806U,      3188099566U,      300946246U, 
+        3936656414U,      1914577651U,      737692235U,      1319381027U, 
+        3575920251U,      2220769235U,      2847883316U,      2582205708U, 
+        653511524U,      2903037756U,      4041955732U,      1792239337U, 
+        2428824385U,      997649689U,      23853041U};
 static int __visa_engine_ready ;
 static char volatile   __enc_lit_1[56]  = 
-  {      227,      149,      229,      152, 
-        241,      214,      206,      217, 
-        212,      209,      220,      152, 
-        211,      221,      193,      152, 
-        222,      215,      202,      213, 
-        217,      204,      130,      152, 
-        245,      205,      203,      204, 
-        152,      218,      221,      152, 
-        221,      192,      217,      219, 
-        204,      212,      193,      152, 
-        137,      142,      152,      219, 
-        208,      217,      202,      217, 
-        219,      204,      221,      202, 
-        203,      150,      178,      184};
+  {      128,      246,      134,      251, 
+        146,      181,      173,      186, 
+        183,      178,      191,      251, 
+        176,      190,      162,      251, 
+        189,      180,      169,      182, 
+        186,      175,      225,      251, 
+        150,      174,      168,      175, 
+        251,      185,      190,      251, 
+        190,      163,      186,      184, 
+        175,      183,      162,      251, 
+        234,      237,      251,      184, 
+        179,      186,      169,      186, 
+        184,      175,      190,      169, 
+        168,      245,      209,      219};
 static char volatile   __dec_lit_1[56]  ;
 static int volatile   __init_lit_1  =    0;
 static char volatile   __enc_lit_2[56]  = 
-  {      137,      255,      143,      242, 
-        155,      188,      164,      179, 
-        190,      187,      182,      242, 
-        185,      183,      171,      242, 
-        180,      189,      160,      191, 
-        179,      166,      232,      242, 
-        159,      167,      161,      166, 
-        242,      176,      183,      242, 
-        183,      170,      179,      177, 
-        166,      190,      171,      242, 
-        227,      228,      242,      177, 
-        186,      179,      160,      179, 
-        177,      166,      183,      160, 
-        161,      252,      216,      210};
+  {      112,      6,      118,      11, 
+        98,      69,      93,      74, 
+        71,      66,      79,      11, 
+        64,      78,      82,      11, 
+        77,      68,      89,      70, 
+        74,      95,      17,      11, 
+        102,      94,      88,      95, 
+        11,      73,      78,      11, 
+        78,      83,      74,      72, 
+        95,      71,      82,      11, 
+        26,      29,      11,      72, 
+        67,      74,      89,      74, 
+        72,      95,      78,      89, 
+        88,      5,      33,      43};
 static char volatile   __dec_lit_2[56]  ;
 static int volatile   __init_lit_2  =    0;
 static char volatile   __enc_lit_3[77]  = 
-  {      154,      234,      156,      225, 
-        146,      148,      130,      130, 
-        132,      146,      146,      251, 
-        225,      141,      168,      162, 
-        164,      175,      178,      164, 
-        225,      170,      164,      184, 
-        225,      168,      178,      225, 
-        151,      128,      141,      136, 
-        133,      224,      225,      245, 
-        236,      151,      130,      145, 
-        148,      225,      135,      164, 
-        165,      164,      179,      160, 
-        181,      164,      165,      225, 
-        128,      180,      181,      169, 
-        174,      179,      168,      187, 
-        160,      181,      168,      174, 
-        175,      225,      148,      175, 
-        173,      174,      162,      170, 
-        164,      165,      239,      203, 
-        193};
+  {      197,      181,      195,      190, 
+        205,      203,      221,      221, 
+        219,      205,      205,      164, 
+        190,      210,      247,      253, 
+        251,      240,      237,      251, 
+        190,      245,      251,      231, 
+        190,      247,      237,      190, 
+        200,      223,      210,      215, 
+        218,      191,      190,      170, 
+        179,      200,      221,      206, 
+        203,      190,      216,      251, 
+        250,      251,      236,      255, 
+        234,      251,      250,      190, 
+        223,      235,      234,      246, 
+        241,      236,      247,      228, 
+        255,      234,      247,      241, 
+        240,      190,      203,      240, 
+        242,      241,      253,      245, 
+        251,      250,      176,      148, 
+        158};
 static char volatile   __dec_lit_3[77]  ;
 static int volatile   __init_lit_3  =    0;
 static char volatile   __enc_lit_4[59]  = 
-  {      74,      60,      76,      49, 
-        87,      80,      88,      93, 
-        84,      85,      43,      49, 
-        88,      127,      103,      112, 
-        125,      120,      117,      49, 
-        125,      120,      114,      116, 
-        127,      98,      116,      49, 
-        122,      116,      104,      48, 
-        49,      37,      60,      71, 
-        82,      65,      68,      49, 
-        82,      112,      98,      114, 
-        112,      117,      116,      49, 
-        67,      116,      123,      116, 
-        114,      101,      116,      117, 
-        63,      27,      17};
+  {      194,      180,      196,      185, 
+        223,      216,      208,      213, 
+        220,      221,      163,      185, 
+        208,      247,      239,      248, 
+        245,      240,      253,      185, 
+        245,      240,      250,      252, 
+        247,      234,      252,      185, 
+        242,      252,      224,      184, 
+        185,      173,      180,      207, 
+        218,      201,      204,      185, 
+        218,      248,      234,      250, 
+        248,      253,      252,      185, 
+        203,      252,      243,      252, 
+        250,      237,      252,      253, 
+        183,      147,      153};
 static char volatile   __dec_lit_4[59]  ;
 static int volatile   __init_lit_4  =    0;
 static char volatile   __enc_lit_5[23]  = 
-  {      186,      203,      188,      193, 
-        183,      132,      147,      136, 
-        135,      152,      136,      143, 
-        134,      193,      170,      132, 
-        152,      219,      193,      196, 
-        146,      235,      225};
+  {      188,      205,      186,      199, 
+        177,      130,      149,      142, 
+        129,      158,      142,      137, 
+        128,      199,      172,      130, 
+        158,      221,      199,      194, 
+        148,      237,      231};
 static char volatile   __dec_lit_5[23]  ;
 static int volatile   __init_lit_5  =    0;
 extern int printf(char const   *format  , ...) ;
@@ -314,14 +315,74 @@ static const unsigned char __vm_sbox_0[256] = {
     0x9B, 0x57, 0x02, 0xFF, 0xAA, 0x66, 0xD3, 0x8E, 0x7A, 0x37, 0xE2, 0x5E, 0x0B, 0xC6, 0xB3, 0x6F, 0xDA, 0x97, 0x43, 0x3E, 0xEB, 0xA6, 0x12, 0xCF, 0xBA, 0x76, 0x23, 0x9E, 0x4A, 0x07, 0xF2, 0xAF, 0x1B, 0xD6, 0x83, 0x7F, 0x2A, 0xE7, 0x53, 0x0E, 0xFB, 0xB6, 0x62, 0xDF, 0x8A, 0x46, 0x33, 0xEE, 0x5A, 0x17, 0xC2, 0xBF, 0x6B, 0x26, 0x93, 0x4F, 0x3A, 0xF7, 0xA2, 0x1E, 0xCB, 0x86, 0x72, 0x2F, 0x9A, 0x56, 0x03, 0xFE, 0xAB, 0x67, 0xD2, 0x8F, 0x7B, 0x36, 0xE3, 0x5F, 0x0A, 0xC7, 0xB2, 0x6E, 0xDB, 0x96, 0x42, 0x3F, 0xEA, 0xA7, 0x13, 0xCE, 0xBB, 0x77, 0x22, 0x9F, 0x4B, 0x06, 0xF3, 0xAE, 0x1A, 0xD7, 0x82, 0x7E, 0x2B, 0xE6, 0x52, 0x0F, 0xFA, 0xB7, 0x63, 0xDE, 0x8B, 0x47, 0x32, 0xEF, 0x5B, 0x16, 0xC3, 0xBE, 0x6A, 0x27, 0x92, 0x4E, 0x3B, 0xF6, 0xA3, 0x1F, 0xCA, 0x87, 0x73, 0x2E, 0x9B, 0x57, 0x02, 0xFF, 0xAA, 0x66, 0xD3, 0x8E, 0x7A, 0x37, 0xE2, 0x5E, 0x0B, 0xC6, 0xB3, 0x6F, 0xDA, 0x97, 0x43, 0x3E, 0xEB, 0xA6, 0x12, 0xCF, 0xBA, 0x76, 0x23, 0x9E, 0x4A, 0x07, 0xF2, 0xAF, 0x1B, 0xD6, 0x83, 0x7F, 0x2A, 0xE7, 0x53, 0x0E, 0xFB, 0xB6, 0x62, 0xDF, 0x8A, 0x46, 0x33, 0xEE, 0x5A, 0x17, 0xC2, 0xBF, 0x6B, 0x26, 0x93, 0x4F, 0x3A, 0xF7, 0xA2, 0x1E, 0xCB, 0x86, 0x72, 0x2F, 0x9A, 0x56, 0x03, 0xFE, 0xAB, 0x67, 0xD2, 0x8F, 0x7B, 0x36, 0xE3, 0x5F, 0x0A, 0xC7, 0xB2, 0x6E, 0xDB, 0x96, 0x42, 0x3F, 0xEA, 0xA7, 0x13, 0xCE, 0xBB, 0x77, 0x22, 0x9F, 0x4B, 0x06, 0xF3, 0xAE, 0x1A, 0xD7, 0x82, 0x7E, 0x2B, 0xE6, 0x52, 0x0F, 0xFA, 0xB7, 0x63, 0xDE, 0x8B, 0x47, 0x32, 0xEF, 0x5B, 0x16, 0xC3, 0xBE, 0x6A, 0x27, 0x92, 0x4E, 0x3B, 0xF6, 0xA3, 0x1F, 0xCA, 0x87, 0x73, 0x2E
 };
 
+static const unsigned char __vm_sbox_1[256] = {
+    0x09, 0xC4, 0xB1, 0x6D, 0xD8, 0x95, 0x41, 0x3C, 0xE9, 0xA4, 0x10, 0xCD, 0xB8, 0x74, 0x21, 0x9C, 0x48, 0x05, 0xF0, 0xAD, 0x19, 0xD4, 0x81, 0x7D, 0x28, 0xE5, 0x51, 0x0C, 0xF9, 0xB4, 0x60, 0xDD, 0x88, 0x44, 0x31, 0xEC, 0x58, 0x15, 0xC0, 0xBD, 0x69, 0x24, 0x91, 0x4D, 0x38, 0xF5, 0xA0, 0x1C, 0xC9, 0x84, 0x70, 0x2D, 0x98, 0x54, 0x01, 0xFC, 0xA9, 0x65, 0xD0, 0x8D, 0x79, 0x34, 0xE1, 0x5D, 0x08, 0xC5, 0xB0, 0x6C, 0xD9, 0x94, 0x40, 0x3D, 0xE8, 0xA5, 0x11, 0xCC, 0xB9, 0x75, 0x20, 0x9D, 0x49, 0x04, 0xF1, 0xAC, 0x18, 0xD5, 0x80, 0x7C, 0x29, 0xE4, 0x50, 0x0D, 0xF8, 0xB5, 0x61, 0xDC, 0x89, 0x45, 0x30, 0xED, 0x59, 0x14, 0xC1, 0xBC, 0x68, 0x25, 0x90, 0x4C, 0x39, 0xF4, 0xA1, 0x1D, 0xC8, 0x85, 0x71, 0x2C, 0x99, 0x55, 0x00, 0xFD, 0xA8, 0x64, 0xD1, 0x8C, 0x78, 0x35, 0xE0, 0x5C, 0x09, 0xC4, 0xB1, 0x6D, 0xD8, 0x95, 0x41, 0x3C, 0xE9, 0xA4, 0x10, 0xCD, 0xB8, 0x74, 0x21, 0x9C, 0x48, 0x05, 0xF0, 0xAD, 0x19, 0xD4, 0x81, 0x7D, 0x28, 0xE5, 0x51, 0x0C, 0xF9, 0xB4, 0x60, 0xDD, 0x88, 0x44, 0x31, 0xEC, 0x58, 0x15, 0xC0, 0xBD, 0x69, 0x24, 0x91, 0x4D, 0x38, 0xF5, 0xA0, 0x1C, 0xC9, 0x84, 0x70, 0x2D, 0x98, 0x54, 0x01, 0xFC, 0xA9, 0x65, 0xD0, 0x8D, 0x79, 0x34, 0xE1, 0x5D, 0x08, 0xC5, 0xB0, 0x6C, 0xD9, 0x94, 0x40, 0x3D, 0xE8, 0xA5, 0x11, 0xCC, 0xB9, 0x75, 0x20, 0x9D, 0x49, 0x04, 0xF1, 0xAC, 0x18, 0xD5, 0x80, 0x7C, 0x29, 0xE4, 0x50, 0x0D, 0xF8, 0xB5, 0x61, 0xDC, 0x89, 0x45, 0x30, 0xED, 0x59, 0x14, 0xC1, 0xBC, 0x68, 0x25, 0x90, 0x4C, 0x39, 0xF4, 0xA1, 0x1D, 0xC8, 0x85, 0x71, 0x2C, 0x99, 0x55, 0x00, 0xFD, 0xA8, 0x64, 0xD1, 0x8C, 0x78, 0x35, 0xE0, 0x5C
+};
+
+static const unsigned char __vm_sbox_2[256] = {
+    0xBE, 0x6A, 0x27, 0x92, 0x4E, 0x3B, 0xF6, 0xA3, 0x1F, 0xCA, 0x87, 0x73, 0x2E, 0x9B, 0x57, 0x02, 0xFF, 0xAA, 0x66, 0xD3, 0x8E, 0x7A, 0x37, 0xE2, 0x5E, 0x0B, 0xC6, 0xB3, 0x6F, 0xDA, 0x97, 0x43, 0x3E, 0xEB, 0xA6, 0x12, 0xCF, 0xBA, 0x76, 0x23, 0x9E, 0x4A, 0x07, 0xF2, 0xAF, 0x1B, 0xD6, 0x83, 0x7F, 0x2A, 0xE7, 0x53, 0x0E, 0xFB, 0xB6, 0x62, 0xDF, 0x8A, 0x46, 0x33, 0xEE, 0x5A, 0x17, 0xC2, 0xBF, 0x6B, 0x26, 0x93, 0x4F, 0x3A, 0xF7, 0xA2, 0x1E, 0xCB, 0x86, 0x72, 0x2F, 0x9A, 0x56, 0x03, 0xFE, 0xAB, 0x67, 0xD2, 0x8F, 0x7B, 0x36, 0xE3, 0x5F, 0x0A, 0xC7, 0xB2, 0x6E, 0xDB, 0x96, 0x42, 0x3F, 0xEA, 0xA7, 0x13, 0xCE, 0xBB, 0x77, 0x22, 0x9F, 0x4B, 0x06, 0xF3, 0xAE, 0x1A, 0xD7, 0x82, 0x7E, 0x2B, 0xE6, 0x52, 0x0F, 0xFA, 0xB7, 0x63, 0xDE, 0x8B, 0x47, 0x32, 0xEF, 0x5B, 0x16, 0xC3, 0xBE, 0x6A, 0x27, 0x92, 0x4E, 0x3B, 0xF6, 0xA3, 0x1F, 0xCA, 0x87, 0x73, 0x2E, 0x9B, 0x57, 0x02, 0xFF, 0xAA, 0x66, 0xD3, 0x8E, 0x7A, 0x37, 0xE2, 0x5E, 0x0B, 0xC6, 0xB3, 0x6F, 0xDA, 0x97, 0x43, 0x3E, 0xEB, 0xA6, 0x12, 0xCF, 0xBA, 0x76, 0x23, 0x9E, 0x4A, 0x07, 0xF2, 0xAF, 0x1B, 0xD6, 0x83, 0x7F, 0x2A, 0xE7, 0x53, 0x0E, 0xFB, 0xB6, 0x62, 0xDF, 0x8A, 0x46, 0x33, 0xEE, 0x5A, 0x17, 0xC2, 0xBF, 0x6B, 0x26, 0x93, 0x4F, 0x3A, 0xF7, 0xA2, 0x1E, 0xCB, 0x86, 0x72, 0x2F, 0x9A, 0x56, 0x03, 0xFE, 0xAB, 0x67, 0xD2, 0x8F, 0x7B, 0x36, 0xE3, 0x5F, 0x0A, 0xC7, 0xB2, 0x6E, 0xDB, 0x96, 0x42, 0x3F, 0xEA, 0xA7, 0x13, 0xCE, 0xBB, 0x77, 0x22, 0x9F, 0x4B, 0x06, 0xF3, 0xAE, 0x1A, 0xD7, 0x82, 0x7E, 0x2B, 0xE6, 0x52, 0x0F, 0xFA, 0xB7, 0x63, 0xDE, 0x8B, 0x47, 0x32, 0xEF, 0x5B, 0x16, 0xC3
+};
+
+static const unsigned char __vm_sbox_3[256] = {
+    0x2C, 0x99, 0x55, 0x00, 0xFD, 0xA8, 0x64, 0xD1, 0x8C, 0x78, 0x35, 0xE0, 0x5C, 0x09, 0xC4, 0xB1, 0x6D, 0xD8, 0x95, 0x41, 0x3C, 0xE9, 0xA4, 0x10, 0xCD, 0xB8, 0x74, 0x21, 0x9C, 0x48, 0x05, 0xF0, 0xAD, 0x19, 0xD4, 0x81, 0x7D, 0x28, 0xE5, 0x51, 0x0C, 0xF9, 0xB4, 0x60, 0xDD, 0x88, 0x44, 0x31, 0xEC, 0x58, 0x15, 0xC0, 0xBD, 0x69, 0x24, 0x91, 0x4D, 0x38, 0xF5, 0xA0, 0x1C, 0xC9, 0x84, 0x70, 0x2D, 0x98, 0x54, 0x01, 0xFC, 0xA9, 0x65, 0xD0, 0x8D, 0x79, 0x34, 0xE1, 0x5D, 0x08, 0xC5, 0xB0, 0x6C, 0xD9, 0x94, 0x40, 0x3D, 0xE8, 0xA5, 0x11, 0xCC, 0xB9, 0x75, 0x20, 0x9D, 0x49, 0x04, 0xF1, 0xAC, 0x18, 0xD5, 0x80, 0x7C, 0x29, 0xE4, 0x50, 0x0D, 0xF8, 0xB5, 0x61, 0xDC, 0x89, 0x45, 0x30, 0xED, 0x59, 0x14, 0xC1, 0xBC, 0x68, 0x25, 0x90, 0x4C, 0x39, 0xF4, 0xA1, 0x1D, 0xC8, 0x85, 0x71, 0x2C, 0x99, 0x55, 0x00, 0xFD, 0xA8, 0x64, 0xD1, 0x8C, 0x78, 0x35, 0xE0, 0x5C, 0x09, 0xC4, 0xB1, 0x6D, 0xD8, 0x95, 0x41, 0x3C, 0xE9, 0xA4, 0x10, 0xCD, 0xB8, 0x74, 0x21, 0x9C, 0x48, 0x05, 0xF0, 0xAD, 0x19, 0xD4, 0x81, 0x7D, 0x28, 0xE5, 0x51, 0x0C, 0xF9, 0xB4, 0x60, 0xDD, 0x88, 0x44, 0x31, 0xEC, 0x58, 0x15, 0xC0, 0xBD, 0x69, 0x24, 0x91, 0x4D, 0x38, 0xF5, 0xA0, 0x1C, 0xC9, 0x84, 0x70, 0x2D, 0x98, 0x54, 0x01, 0xFC, 0xA9, 0x65, 0xD0, 0x8D, 0x79, 0x34, 0xE1, 0x5D, 0x08, 0xC5, 0xB0, 0x6C, 0xD9, 0x94, 0x40, 0x3D, 0xE8, 0xA5, 0x11, 0xCC, 0xB9, 0x75, 0x20, 0x9D, 0x49, 0x04, 0xF1, 0xAC, 0x18, 0xD5, 0x80, 0x7C, 0x29, 0xE4, 0x50, 0x0D, 0xF8, 0xB5, 0x61, 0xDC, 0x89, 0x45, 0x30, 0xED, 0x59, 0x14, 0xC1, 0xBC, 0x68, 0x25, 0x90, 0x4C, 0x39, 0xF4, 0xA1, 0x1D, 0xC8, 0x85, 0x71
+};
+
+static const unsigned char __vm_sbox_4[256] = {
+    0x52, 0x0F, 0xFA, 0xB7, 0x63, 0xDE, 0x8B, 0x47, 0x32, 0xEF, 0x5B, 0x16, 0xC3, 0xBE, 0x6A, 0x27, 0x92, 0x4E, 0x3B, 0xF6, 0xA3, 0x1F, 0xCA, 0x87, 0x73, 0x2E, 0x9B, 0x57, 0x02, 0xFF, 0xAA, 0x66, 0xD3, 0x8E, 0x7A, 0x37, 0xE2, 0x5E, 0x0B, 0xC6, 0xB3, 0x6F, 0xDA, 0x97, 0x43, 0x3E, 0xEB, 0xA6, 0x12, 0xCF, 0xBA, 0x76, 0x23, 0x9E, 0x4A, 0x07, 0xF2, 0xAF, 0x1B, 0xD6, 0x83, 0x7F, 0x2A, 0xE7, 0x53, 0x0E, 0xFB, 0xB6, 0x62, 0xDF, 0x8A, 0x46, 0x33, 0xEE, 0x5A, 0x17, 0xC2, 0xBF, 0x6B, 0x26, 0x93, 0x4F, 0x3A, 0xF7, 0xA2, 0x1E, 0xCB, 0x86, 0x72, 0x2F, 0x9A, 0x56, 0x03, 0xFE, 0xAB, 0x67, 0xD2, 0x8F, 0x7B, 0x36, 0xE3, 0x5F, 0x0A, 0xC7, 0xB2, 0x6E, 0xDB, 0x96, 0x42, 0x3F, 0xEA, 0xA7, 0x13, 0xCE, 0xBB, 0x77, 0x22, 0x9F, 0x4B, 0x06, 0xF3, 0xAE, 0x1A, 0xD7, 0x82, 0x7E, 0x2B, 0xE6, 0x52, 0x0F, 0xFA, 0xB7, 0x63, 0xDE, 0x8B, 0x47, 0x32, 0xEF, 0x5B, 0x16, 0xC3, 0xBE, 0x6A, 0x27, 0x92, 0x4E, 0x3B, 0xF6, 0xA3, 0x1F, 0xCA, 0x87, 0x73, 0x2E, 0x9B, 0x57, 0x02, 0xFF, 0xAA, 0x66, 0xD3, 0x8E, 0x7A, 0x37, 0xE2, 0x5E, 0x0B, 0xC6, 0xB3, 0x6F, 0xDA, 0x97, 0x43, 0x3E, 0xEB, 0xA6, 0x12, 0xCF, 0xBA, 0x76, 0x23, 0x9E, 0x4A, 0x07, 0xF2, 0xAF, 0x1B, 0xD6, 0x83, 0x7F, 0x2A, 0xE7, 0x53, 0x0E, 0xFB, 0xB6, 0x62, 0xDF, 0x8A, 0x46, 0x33, 0xEE, 0x5A, 0x17, 0xC2, 0xBF, 0x6B, 0x26, 0x93, 0x4F, 0x3A, 0xF7, 0xA2, 0x1E, 0xCB, 0x86, 0x72, 0x2F, 0x9A, 0x56, 0x03, 0xFE, 0xAB, 0x67, 0xD2, 0x8F, 0x7B, 0x36, 0xE3, 0x5F, 0x0A, 0xC7, 0xB2, 0x6E, 0xDB, 0x96, 0x42, 0x3F, 0xEA, 0xA7, 0x13, 0xCE, 0xBB, 0x77, 0x22, 0x9F, 0x4B, 0x06, 0xF3, 0xAE, 0x1A, 0xD7, 0x82, 0x7E, 0x2B, 0xE6
+};
+
+static const unsigned char __vm_sbox_5[256] = {
+    0xC1, 0xBC, 0x68, 0x25, 0x90, 0x4C, 0x39, 0xF4, 0xA1, 0x1D, 0xC8, 0x85, 0x71, 0x2C, 0x99, 0x55, 0x00, 0xFD, 0xA8, 0x64, 0xD1, 0x8C, 0x78, 0x35, 0xE0, 0x5C, 0x09, 0xC4, 0xB1, 0x6D, 0xD8, 0x95, 0x41, 0x3C, 0xE9, 0xA4, 0x10, 0xCD, 0xB8, 0x74, 0x21, 0x9C, 0x48, 0x05, 0xF0, 0xAD, 0x19, 0xD4, 0x81, 0x7D, 0x28, 0xE5, 0x51, 0x0C, 0xF9, 0xB4, 0x60, 0xDD, 0x88, 0x44, 0x31, 0xEC, 0x58, 0x15, 0xC0, 0xBD, 0x69, 0x24, 0x91, 0x4D, 0x38, 0xF5, 0xA0, 0x1C, 0xC9, 0x84, 0x70, 0x2D, 0x98, 0x54, 0x01, 0xFC, 0xA9, 0x65, 0xD0, 0x8D, 0x79, 0x34, 0xE1, 0x5D, 0x08, 0xC5, 0xB0, 0x6C, 0xD9, 0x94, 0x40, 0x3D, 0xE8, 0xA5, 0x11, 0xCC, 0xB9, 0x75, 0x20, 0x9D, 0x49, 0x04, 0xF1, 0xAC, 0x18, 0xD5, 0x80, 0x7C, 0x29, 0xE4, 0x50, 0x0D, 0xF8, 0xB5, 0x61, 0xDC, 0x89, 0x45, 0x30, 0xED, 0x59, 0x14, 0xC1, 0xBC, 0x68, 0x25, 0x90, 0x4C, 0x39, 0xF4, 0xA1, 0x1D, 0xC8, 0x85, 0x71, 0x2C, 0x99, 0x55, 0x00, 0xFD, 0xA8, 0x64, 0xD1, 0x8C, 0x78, 0x35, 0xE0, 0x5C, 0x09, 0xC4, 0xB1, 0x6D, 0xD8, 0x95, 0x41, 0x3C, 0xE9, 0xA4, 0x10, 0xCD, 0xB8, 0x74, 0x21, 0x9C, 0x48, 0x05, 0xF0, 0xAD, 0x19, 0xD4, 0x81, 0x7D, 0x28, 0xE5, 0x51, 0x0C, 0xF9, 0xB4, 0x60, 0xDD, 0x88, 0x44, 0x31, 0xEC, 0x58, 0x15, 0xC0, 0xBD, 0x69, 0x24, 0x91, 0x4D, 0x38, 0xF5, 0xA0, 0x1C, 0xC9, 0x84, 0x70, 0x2D, 0x98, 0x54, 0x01, 0xFC, 0xA9, 0x65, 0xD0, 0x8D, 0x79, 0x34, 0xE1, 0x5D, 0x08, 0xC5, 0xB0, 0x6C, 0xD9, 0x94, 0x40, 0x3D, 0xE8, 0xA5, 0x11, 0xCC, 0xB9, 0x75, 0x20, 0x9D, 0x49, 0x04, 0xF1, 0xAC, 0x18, 0xD5, 0x80, 0x7C, 0x29, 0xE4, 0x50, 0x0D, 0xF8, 0xB5, 0x61, 0xDC, 0x89, 0x45, 0x30, 0xED, 0x59, 0x14
+};
+
+static const unsigned char __vm_sbox_6[256] = {
+    0x77, 0x22, 0x9F, 0x4B, 0x06, 0xF3, 0xAE, 0x1A, 0xD7, 0x82, 0x7E, 0x2B, 0xE6, 0x52, 0x0F, 0xFA, 0xB7, 0x63, 0xDE, 0x8B, 0x47, 0x32, 0xEF, 0x5B, 0x16, 0xC3, 0xBE, 0x6A, 0x27, 0x92, 0x4E, 0x3B, 0xF6, 0xA3, 0x1F, 0xCA, 0x87, 0x73, 0x2E, 0x9B, 0x57, 0x02, 0xFF, 0xAA, 0x66, 0xD3, 0x8E, 0x7A, 0x37, 0xE2, 0x5E, 0x0B, 0xC6, 0xB3, 0x6F, 0xDA, 0x97, 0x43, 0x3E, 0xEB, 0xA6, 0x12, 0xCF, 0xBA, 0x76, 0x23, 0x9E, 0x4A, 0x07, 0xF2, 0xAF, 0x1B, 0xD6, 0x83, 0x7F, 0x2A, 0xE7, 0x53, 0x0E, 0xFB, 0xB6, 0x62, 0xDF, 0x8A, 0x46, 0x33, 0xEE, 0x5A, 0x17, 0xC2, 0xBF, 0x6B, 0x26, 0x93, 0x4F, 0x3A, 0xF7, 0xA2, 0x1E, 0xCB, 0x86, 0x72, 0x2F, 0x9A, 0x56, 0x03, 0xFE, 0xAB, 0x67, 0xD2, 0x8F, 0x7B, 0x36, 0xE3, 0x5F, 0x0A, 0xC7, 0xB2, 0x6E, 0xDB, 0x96, 0x42, 0x3F, 0xEA, 0xA7, 0x13, 0xCE, 0xBB, 0x77, 0x22, 0x9F, 0x4B, 0x06, 0xF3, 0xAE, 0x1A, 0xD7, 0x82, 0x7E, 0x2B, 0xE6, 0x52, 0x0F, 0xFA, 0xB7, 0x63, 0xDE, 0x8B, 0x47, 0x32, 0xEF, 0x5B, 0x16, 0xC3, 0xBE, 0x6A, 0x27, 0x92, 0x4E, 0x3B, 0xF6, 0xA3, 0x1F, 0xCA, 0x87, 0x73, 0x2E, 0x9B, 0x57, 0x02, 0xFF, 0xAA, 0x66, 0xD3, 0x8E, 0x7A, 0x37, 0xE2, 0x5E, 0x0B, 0xC6, 0xB3, 0x6F, 0xDA, 0x97, 0x43, 0x3E, 0xEB, 0xA6, 0x12, 0xCF, 0xBA, 0x76, 0x23, 0x9E, 0x4A, 0x07, 0xF2, 0xAF, 0x1B, 0xD6, 0x83, 0x7F, 0x2A, 0xE7, 0x53, 0x0E, 0xFB, 0xB6, 0x62, 0xDF, 0x8A, 0x46, 0x33, 0xEE, 0x5A, 0x17, 0xC2, 0xBF, 0x6B, 0x26, 0x93, 0x4F, 0x3A, 0xF7, 0xA2, 0x1E, 0xCB, 0x86, 0x72, 0x2F, 0x9A, 0x56, 0x03, 0xFE, 0xAB, 0x67, 0xD2, 0x8F, 0x7B, 0x36, 0xE3, 0x5F, 0x0A, 0xC7, 0xB2, 0x6E, 0xDB, 0x96, 0x42, 0x3F, 0xEA, 0xA7, 0x13, 0xCE, 0xBB
+};
+
+static const unsigned char __vm_sbox_7[256] = {
+    0xE4, 0x50, 0x0D, 0xF8, 0xB5, 0x61, 0xDC, 0x89, 0x45, 0x30, 0xED, 0x59, 0x14, 0xC1, 0xBC, 0x68, 0x25, 0x90, 0x4C, 0x39, 0xF4, 0xA1, 0x1D, 0xC8, 0x85, 0x71, 0x2C, 0x99, 0x55, 0x00, 0xFD, 0xA8, 0x64, 0xD1, 0x8C, 0x78, 0x35, 0xE0, 0x5C, 0x09, 0xC4, 0xB1, 0x6D, 0xD8, 0x95, 0x41, 0x3C, 0xE9, 0xA4, 0x10, 0xCD, 0xB8, 0x74, 0x21, 0x9C, 0x48, 0x05, 0xF0, 0xAD, 0x19, 0xD4, 0x81, 0x7D, 0x28, 0xE5, 0x51, 0x0C, 0xF9, 0xB4, 0x60, 0xDD, 0x88, 0x44, 0x31, 0xEC, 0x58, 0x15, 0xC0, 0xBD, 0x69, 0x24, 0x91, 0x4D, 0x38, 0xF5, 0xA0, 0x1C, 0xC9, 0x84, 0x70, 0x2D, 0x98, 0x54, 0x01, 0xFC, 0xA9, 0x65, 0xD0, 0x8D, 0x79, 0x34, 0xE1, 0x5D, 0x08, 0xC5, 0xB0, 0x6C, 0xD9, 0x94, 0x40, 0x3D, 0xE8, 0xA5, 0x11, 0xCC, 0xB9, 0x75, 0x20, 0x9D, 0x49, 0x04, 0xF1, 0xAC, 0x18, 0xD5, 0x80, 0x7C, 0x29, 0xE4, 0x50, 0x0D, 0xF8, 0xB5, 0x61, 0xDC, 0x89, 0x45, 0x30, 0xED, 0x59, 0x14, 0xC1, 0xBC, 0x68, 0x25, 0x90, 0x4C, 0x39, 0xF4, 0xA1, 0x1D, 0xC8, 0x85, 0x71, 0x2C, 0x99, 0x55, 0x00, 0xFD, 0xA8, 0x64, 0xD1, 0x8C, 0x78, 0x35, 0xE0, 0x5C, 0x09, 0xC4, 0xB1, 0x6D, 0xD8, 0x95, 0x41, 0x3C, 0xE9, 0xA4, 0x10, 0xCD, 0xB8, 0x74, 0x21, 0x9C, 0x48, 0x05, 0xF0, 0xAD, 0x19, 0xD4, 0x81, 0x7D, 0x28, 0xE5, 0x51, 0x0C, 0xF9, 0xB4, 0x60, 0xDD, 0x88, 0x44, 0x31, 0xEC, 0x58, 0x15, 0xC0, 0xBD, 0x69, 0x24, 0x91, 0x4D, 0x38, 0xF5, 0xA0, 0x1C, 0xC9, 0x84, 0x70, 0x2D, 0x98, 0x54, 0x01, 0xFC, 0xA9, 0x65, 0xD0, 0x8D, 0x79, 0x34, 0xE1, 0x5D, 0x08, 0xC5, 0xB0, 0x6C, 0xD9, 0x94, 0x40, 0x3D, 0xE8, 0xA5, 0x11, 0xCC, 0xB9, 0x75, 0x20, 0x9D, 0x49, 0x04, 0xF1, 0xAC, 0x18, 0xD5, 0x80, 0x7C, 0x29
+};
+
+static const unsigned char __vm_sbox_8[256] = {
+    0x0A, 0xC7, 0xB2, 0x6E, 0xDB, 0x96, 0x42, 0x3F, 0xEA, 0xA7, 0x13, 0xCE, 0xBB, 0x77, 0x22, 0x9F, 0x4B, 0x06, 0xF3, 0xAE, 0x1A, 0xD7, 0x82, 0x7E, 0x2B, 0xE6, 0x52, 0x0F, 0xFA, 0xB7, 0x63, 0xDE, 0x8B, 0x47, 0x32, 0xEF, 0x5B, 0x16, 0xC3, 0xBE, 0x6A, 0x27, 0x92, 0x4E, 0x3B, 0xF6, 0xA3, 0x1F, 0xCA, 0x87, 0x73, 0x2E, 0x9B, 0x57, 0x02, 0xFF, 0xAA, 0x66, 0xD3, 0x8E, 0x7A, 0x37, 0xE2, 0x5E, 0x0B, 0xC6, 0xB3, 0x6F, 0xDA, 0x97, 0x43, 0x3E, 0xEB, 0xA6, 0x12, 0xCF, 0xBA, 0x76, 0x23, 0x9E, 0x4A, 0x07, 0xF2, 0xAF, 0x1B, 0xD6, 0x83, 0x7F, 0x2A, 0xE7, 0x53, 0x0E, 0xFB, 0xB6, 0x62, 0xDF, 0x8A, 0x46, 0x33, 0xEE, 0x5A, 0x17, 0xC2, 0xBF, 0x6B, 0x26, 0x93, 0x4F, 0x3A, 0xF7, 0xA2, 0x1E, 0xCB, 0x86, 0x72, 0x2F, 0x9A, 0x56, 0x03, 0xFE, 0xAB, 0x67, 0xD2, 0x8F, 0x7B, 0x36, 0xE3, 0x5F, 0x0A, 0xC7, 0xB2, 0x6E, 0xDB, 0x96, 0x42, 0x3F, 0xEA, 0xA7, 0x13, 0xCE, 0xBB, 0x77, 0x22, 0x9F, 0x4B, 0x06, 0xF3, 0xAE, 0x1A, 0xD7, 0x82, 0x7E, 0x2B, 0xE6, 0x52, 0x0F, 0xFA, 0xB7, 0x63, 0xDE, 0x8B, 0x47, 0x32, 0xEF, 0x5B, 0x16, 0xC3, 0xBE, 0x6A, 0x27, 0x92, 0x4E, 0x3B, 0xF6, 0xA3, 0x1F, 0xCA, 0x87, 0x73, 0x2E, 0x9B, 0x57, 0x02, 0xFF, 0xAA, 0x66, 0xD3, 0x8E, 0x7A, 0x37, 0xE2, 0x5E, 0x0B, 0xC6, 0xB3, 0x6F, 0xDA, 0x97, 0x43, 0x3E, 0xEB, 0xA6, 0x12, 0xCF, 0xBA, 0x76, 0x23, 0x9E, 0x4A, 0x07, 0xF2, 0xAF, 0x1B, 0xD6, 0x83, 0x7F, 0x2A, 0xE7, 0x53, 0x0E, 0xFB, 0xB6, 0x62, 0xDF, 0x8A, 0x46, 0x33, 0xEE, 0x5A, 0x17, 0xC2, 0xBF, 0x6B, 0x26, 0x93, 0x4F, 0x3A, 0xF7, 0xA2, 0x1E, 0xCB, 0x86, 0x72, 0x2F, 0x9A, 0x56, 0x03, 0xFE, 0xAB, 0x67, 0xD2, 0x8F, 0x7B, 0x36, 0xE3, 0x5F
+};
+
+static const unsigned char __vm_sbox_9[256] = {
+    0xB9, 0x75, 0x20, 0x9D, 0x49, 0x04, 0xF1, 0xAC, 0x18, 0xD5, 0x80, 0x7C, 0x29, 0xE4, 0x50, 0x0D, 0xF8, 0xB5, 0x61, 0xDC, 0x89, 0x45, 0x30, 0xED, 0x59, 0x14, 0xC1, 0xBC, 0x68, 0x25, 0x90, 0x4C, 0x39, 0xF4, 0xA1, 0x1D, 0xC8, 0x85, 0x71, 0x2C, 0x99, 0x55, 0x00, 0xFD, 0xA8, 0x64, 0xD1, 0x8C, 0x78, 0x35, 0xE0, 0x5C, 0x09, 0xC4, 0xB1, 0x6D, 0xD8, 0x95, 0x41, 0x3C, 0xE9, 0xA4, 0x10, 0xCD, 0xB8, 0x74, 0x21, 0x9C, 0x48, 0x05, 0xF0, 0xAD, 0x19, 0xD4, 0x81, 0x7D, 0x28, 0xE5, 0x51, 0x0C, 0xF9, 0xB4, 0x60, 0xDD, 0x88, 0x44, 0x31, 0xEC, 0x58, 0x15, 0xC0, 0xBD, 0x69, 0x24, 0x91, 0x4D, 0x38, 0xF5, 0xA0, 0x1C, 0xC9, 0x84, 0x70, 0x2D, 0x98, 0x54, 0x01, 0xFC, 0xA9, 0x65, 0xD0, 0x8D, 0x79, 0x34, 0xE1, 0x5D, 0x08, 0xC5, 0xB0, 0x6C, 0xD9, 0x94, 0x40, 0x3D, 0xE8, 0xA5, 0x11, 0xCC, 0xB9, 0x75, 0x20, 0x9D, 0x49, 0x04, 0xF1, 0xAC, 0x18, 0xD5, 0x80, 0x7C, 0x29, 0xE4, 0x50, 0x0D, 0xF8, 0xB5, 0x61, 0xDC, 0x89, 0x45, 0x30, 0xED, 0x59, 0x14, 0xC1, 0xBC, 0x68, 0x25, 0x90, 0x4C, 0x39, 0xF4, 0xA1, 0x1D, 0xC8, 0x85, 0x71, 0x2C, 0x99, 0x55, 0x00, 0xFD, 0xA8, 0x64, 0xD1, 0x8C, 0x78, 0x35, 0xE0, 0x5C, 0x09, 0xC4, 0xB1, 0x6D, 0xD8, 0x95, 0x41, 0x3C, 0xE9, 0xA4, 0x10, 0xCD, 0xB8, 0x74, 0x21, 0x9C, 0x48, 0x05, 0xF0, 0xAD, 0x19, 0xD4, 0x81, 0x7D, 0x28, 0xE5, 0x51, 0x0C, 0xF9, 0xB4, 0x60, 0xDD, 0x88, 0x44, 0x31, 0xEC, 0x58, 0x15, 0xC0, 0xBD, 0x69, 0x24, 0x91, 0x4D, 0x38, 0xF5, 0xA0, 0x1C, 0xC9, 0x84, 0x70, 0x2D, 0x98, 0x54, 0x01, 0xFC, 0xA9, 0x65, 0xD0, 0x8D, 0x79, 0x34, 0xE1, 0x5D, 0x08, 0xC5, 0xB0, 0x6C, 0xD9, 0x94, 0x40, 0x3D, 0xE8, 0xA5, 0x11, 0xCC
+};
+
+static const unsigned char __vm_sbox_10[256] = {
+    0x2F, 0x9A, 0x56, 0x03, 0xFE, 0xAB, 0x67, 0xD2, 0x8F, 0x7B, 0x36, 0xE3, 0x5F, 0x0A, 0xC7, 0xB2, 0x6E, 0xDB, 0x96, 0x42, 0x3F, 0xEA, 0xA7, 0x13, 0xCE, 0xBB, 0x77, 0x22, 0x9F, 0x4B, 0x06, 0xF3, 0xAE, 0x1A, 0xD7, 0x82, 0x7E, 0x2B, 0xE6, 0x52, 0x0F, 0xFA, 0xB7, 0x63, 0xDE, 0x8B, 0x47, 0x32, 0xEF, 0x5B, 0x16, 0xC3, 0xBE, 0x6A, 0x27, 0x92, 0x4E, 0x3B, 0xF6, 0xA3, 0x1F, 0xCA, 0x87, 0x73, 0x2E, 0x9B, 0x57, 0x02, 0xFF, 0xAA, 0x66, 0xD3, 0x8E, 0x7A, 0x37, 0xE2, 0x5E, 0x0B, 0xC6, 0xB3, 0x6F, 0xDA, 0x97, 0x43, 0x3E, 0xEB, 0xA6, 0x12, 0xCF, 0xBA, 0x76, 0x23, 0x9E, 0x4A, 0x07, 0xF2, 0xAF, 0x1B, 0xD6, 0x83, 0x7F, 0x2A, 0xE7, 0x53, 0x0E, 0xFB, 0xB6, 0x62, 0xDF, 0x8A, 0x46, 0x33, 0xEE, 0x5A, 0x17, 0xC2, 0xBF, 0x6B, 0x26, 0x93, 0x4F, 0x3A, 0xF7, 0xA2, 0x1E, 0xCB, 0x86, 0x72, 0x2F, 0x9A, 0x56, 0x03, 0xFE, 0xAB, 0x67, 0xD2, 0x8F, 0x7B, 0x36, 0xE3, 0x5F, 0x0A, 0xC7, 0xB2, 0x6E, 0xDB, 0x96, 0x42, 0x3F, 0xEA, 0xA7, 0x13, 0xCE, 0xBB, 0x77, 0x22, 0x9F, 0x4B, 0x06, 0xF3, 0xAE, 0x1A, 0xD7, 0x82, 0x7E, 0x2B, 0xE6, 0x52, 0x0F, 0xFA, 0xB7, 0x63, 0xDE, 0x8B, 0x47, 0x32, 0xEF, 0x5B, 0x16, 0xC3, 0xBE, 0x6A, 0x27, 0x92, 0x4E, 0x3B, 0xF6, 0xA3, 0x1F, 0xCA, 0x87, 0x73, 0x2E, 0x9B, 0x57, 0x02, 0xFF, 0xAA, 0x66, 0xD3, 0x8E, 0x7A, 0x37, 0xE2, 0x5E, 0x0B, 0xC6, 0xB3, 0x6F, 0xDA, 0x97, 0x43, 0x3E, 0xEB, 0xA6, 0x12, 0xCF, 0xBA, 0x76, 0x23, 0x9E, 0x4A, 0x07, 0xF2, 0xAF, 0x1B, 0xD6, 0x83, 0x7F, 0x2A, 0xE7, 0x53, 0x0E, 0xFB, 0xB6, 0x62, 0xDF, 0x8A, 0x46, 0x33, 0xEE, 0x5A, 0x17, 0xC2, 0xBF, 0x6B, 0x26, 0x93, 0x4F, 0x3A, 0xF7, 0xA2, 0x1E, 0xCB, 0x86, 0x72
+};
+
+static const unsigned char __vm_sbox_11[256] = {
+    0x5D, 0x08, 0xC5, 0xB0, 0x6C, 0xD9, 0x94, 0x40, 0x3D, 0xE8, 0xA5, 0x11, 0xCC, 0xB9, 0x75, 0x20, 0x9D, 0x49, 0x04, 0xF1, 0xAC, 0x18, 0xD5, 0x80, 0x7C, 0x29, 0xE4, 0x50, 0x0D, 0xF8, 0xB5, 0x61, 0xDC, 0x89, 0x45, 0x30, 0xED, 0x59, 0x14, 0xC1, 0xBC, 0x68, 0x25, 0x90, 0x4C, 0x39, 0xF4, 0xA1, 0x1D, 0xC8, 0x85, 0x71, 0x2C, 0x99, 0x55, 0x00, 0xFD, 0xA8, 0x64, 0xD1, 0x8C, 0x78, 0x35, 0xE0, 0x5C, 0x09, 0xC4, 0xB1, 0x6D, 0xD8, 0x95, 0x41, 0x3C, 0xE9, 0xA4, 0x10, 0xCD, 0xB8, 0x74, 0x21, 0x9C, 0x48, 0x05, 0xF0, 0xAD, 0x19, 0xD4, 0x81, 0x7D, 0x28, 0xE5, 0x51, 0x0C, 0xF9, 0xB4, 0x60, 0xDD, 0x88, 0x44, 0x31, 0xEC, 0x58, 0x15, 0xC0, 0xBD, 0x69, 0x24, 0x91, 0x4D, 0x38, 0xF5, 0xA0, 0x1C, 0xC9, 0x84, 0x70, 0x2D, 0x98, 0x54, 0x01, 0xFC, 0xA9, 0x65, 0xD0, 0x8D, 0x79, 0x34, 0xE1, 0x5D, 0x08, 0xC5, 0xB0, 0x6C, 0xD9, 0x94, 0x40, 0x3D, 0xE8, 0xA5, 0x11, 0xCC, 0xB9, 0x75, 0x20, 0x9D, 0x49, 0x04, 0xF1, 0xAC, 0x18, 0xD5, 0x80, 0x7C, 0x29, 0xE4, 0x50, 0x0D, 0xF8, 0xB5, 0x61, 0xDC, 0x89, 0x45, 0x30, 0xED, 0x59, 0x14, 0xC1, 0xBC, 0x68, 0x25, 0x90, 0x4C, 0x39, 0xF4, 0xA1, 0x1D, 0xC8, 0x85, 0x71, 0x2C, 0x99, 0x55, 0x00, 0xFD, 0xA8, 0x64, 0xD1, 0x8C, 0x78, 0x35, 0xE0, 0x5C, 0x09, 0xC4, 0xB1, 0x6D, 0xD8, 0x95, 0x41, 0x3C, 0xE9, 0xA4, 0x10, 0xCD, 0xB8, 0x74, 0x21, 0x9C, 0x48, 0x05, 0xF0, 0xAD, 0x19, 0xD4, 0x81, 0x7D, 0x28, 0xE5, 0x51, 0x0C, 0xF9, 0xB4, 0x60, 0xDD, 0x88, 0x44, 0x31, 0xEC, 0x58, 0x15, 0xC0, 0xBD, 0x69, 0x24, 0x91, 0x4D, 0x38, 0xF5, 0xA0, 0x1C, 0xC9, 0x84, 0x70, 0x2D, 0x98, 0x54, 0x01, 0xFC, 0xA9, 0x65, 0xD0, 0x8D, 0x79, 0x34, 0xE1
+};
+
+static const unsigned char __vm_sbox_12[256] = {
+    0xC2, 0xBF, 0x6B, 0x26, 0x93, 0x4F, 0x3A, 0xF7, 0xA2, 0x1E, 0xCB, 0x86, 0x72, 0x2F, 0x9A, 0x56, 0x03, 0xFE, 0xAB, 0x67, 0xD2, 0x8F, 0x7B, 0x36, 0xE3, 0x5F, 0x0A, 0xC7, 0xB2, 0x6E, 0xDB, 0x96, 0x42, 0x3F, 0xEA, 0xA7, 0x13, 0xCE, 0xBB, 0x77, 0x22, 0x9F, 0x4B, 0x06, 0xF3, 0xAE, 0x1A, 0xD7, 0x82, 0x7E, 0x2B, 0xE6, 0x52, 0x0F, 0xFA, 0xB7, 0x63, 0xDE, 0x8B, 0x47, 0x32, 0xEF, 0x5B, 0x16, 0xC3, 0xBE, 0x6A, 0x27, 0x92, 0x4E, 0x3B, 0xF6, 0xA3, 0x1F, 0xCA, 0x87, 0x73, 0x2E, 0x9B, 0x57, 0x02, 0xFF, 0xAA, 0x66, 0xD3, 0x8E, 0x7A, 0x37, 0xE2, 0x5E, 0x0B, 0xC6, 0xB3, 0x6F, 0xDA, 0x97, 0x43, 0x3E, 0xEB, 0xA6, 0x12, 0xCF, 0xBA, 0x76, 0x23, 0x9E, 0x4A, 0x07, 0xF2, 0xAF, 0x1B, 0xD6, 0x83, 0x7F, 0x2A, 0xE7, 0x53, 0x0E, 0xFB, 0xB6, 0x62, 0xDF, 0x8A, 0x46, 0x33, 0xEE, 0x5A, 0x17, 0xC2, 0xBF, 0x6B, 0x26, 0x93, 0x4F, 0x3A, 0xF7, 0xA2, 0x1E, 0xCB, 0x86, 0x72, 0x2F, 0x9A, 0x56, 0x03, 0xFE, 0xAB, 0x67, 0xD2, 0x8F, 0x7B, 0x36, 0xE3, 0x5F, 0x0A, 0xC7, 0xB2, 0x6E, 0xDB, 0x96, 0x42, 0x3F, 0xEA, 0xA7, 0x13, 0xCE, 0xBB, 0x77, 0x22, 0x9F, 0x4B, 0x06, 0xF3, 0xAE, 0x1A, 0xD7, 0x82, 0x7E, 0x2B, 0xE6, 0x52, 0x0F, 0xFA, 0xB7, 0x63, 0xDE, 0x8B, 0x47, 0x32, 0xEF, 0x5B, 0x16, 0xC3, 0xBE, 0x6A, 0x27, 0x92, 0x4E, 0x3B, 0xF6, 0xA3, 0x1F, 0xCA, 0x87, 0x73, 0x2E, 0x9B, 0x57, 0x02, 0xFF, 0xAA, 0x66, 0xD3, 0x8E, 0x7A, 0x37, 0xE2, 0x5E, 0x0B, 0xC6, 0xB3, 0x6F, 0xDA, 0x97, 0x43, 0x3E, 0xEB, 0xA6, 0x12, 0xCF, 0xBA, 0x76, 0x23, 0x9E, 0x4A, 0x07, 0xF2, 0xAF, 0x1B, 0xD6, 0x83, 0x7F, 0x2A, 0xE7, 0x53, 0x0E, 0xFB, 0xB6, 0x62, 0xDF, 0x8A, 0x46, 0x33, 0xEE, 0x5A, 0x17
+};
+
+static const unsigned char __vm_sbox_13[256] = {
+    0x70, 0x2D, 0x98, 0x54, 0x01, 0xFC, 0xA9, 0x65, 0xD0, 0x8D, 0x79, 0x34, 0xE1, 0x5D, 0x08, 0xC5, 0xB0, 0x6C, 0xD9, 0x94, 0x40, 0x3D, 0xE8, 0xA5, 0x11, 0xCC, 0xB9, 0x75, 0x20, 0x9D, 0x49, 0x04, 0xF1, 0xAC, 0x18, 0xD5, 0x80, 0x7C, 0x29, 0xE4, 0x50, 0x0D, 0xF8, 0xB5, 0x61, 0xDC, 0x89, 0x45, 0x30, 0xED, 0x59, 0x14, 0xC1, 0xBC, 0x68, 0x25, 0x90, 0x4C, 0x39, 0xF4, 0xA1, 0x1D, 0xC8, 0x85, 0x71, 0x2C, 0x99, 0x55, 0x00, 0xFD, 0xA8, 0x64, 0xD1, 0x8C, 0x78, 0x35, 0xE0, 0x5C, 0x09, 0xC4, 0xB1, 0x6D, 0xD8, 0x95, 0x41, 0x3C, 0xE9, 0xA4, 0x10, 0xCD, 0xB8, 0x74, 0x21, 0x9C, 0x48, 0x05, 0xF0, 0xAD, 0x19, 0xD4, 0x81, 0x7D, 0x28, 0xE5, 0x51, 0x0C, 0xF9, 0xB4, 0x60, 0xDD, 0x88, 0x44, 0x31, 0xEC, 0x58, 0x15, 0xC0, 0xBD, 0x69, 0x24, 0x91, 0x4D, 0x38, 0xF5, 0xA0, 0x1C, 0xC9, 0x84, 0x70, 0x2D, 0x98, 0x54, 0x01, 0xFC, 0xA9, 0x65, 0xD0, 0x8D, 0x79, 0x34, 0xE1, 0x5D, 0x08, 0xC5, 0xB0, 0x6C, 0xD9, 0x94, 0x40, 0x3D, 0xE8, 0xA5, 0x11, 0xCC, 0xB9, 0x75, 0x20, 0x9D, 0x49, 0x04, 0xF1, 0xAC, 0x18, 0xD5, 0x80, 0x7C, 0x29, 0xE4, 0x50, 0x0D, 0xF8, 0xB5, 0x61, 0xDC, 0x89, 0x45, 0x30, 0xED, 0x59, 0x14, 0xC1, 0xBC, 0x68, 0x25, 0x90, 0x4C, 0x39, 0xF4, 0xA1, 0x1D, 0xC8, 0x85, 0x71, 0x2C, 0x99, 0x55, 0x00, 0xFD, 0xA8, 0x64, 0xD1, 0x8C, 0x78, 0x35, 0xE0, 0x5C, 0x09, 0xC4, 0xB1, 0x6D, 0xD8, 0x95, 0x41, 0x3C, 0xE9, 0xA4, 0x10, 0xCD, 0xB8, 0x74, 0x21, 0x9C, 0x48, 0x05, 0xF0, 0xAD, 0x19, 0xD4, 0x81, 0x7D, 0x28, 0xE5, 0x51, 0x0C, 0xF9, 0xB4, 0x60, 0xDD, 0x88, 0x44, 0x31, 0xEC, 0x58, 0x15, 0xC0, 0xBD, 0x69, 0x24, 0x91, 0x4D, 0x38, 0xF5, 0xA0, 0x1C, 0xC9, 0x84
+};
+
+static const unsigned char __vm_sbox_14[256] = {
+    0xE7, 0x53, 0x0E, 0xFB, 0xB6, 0x62, 0xDF, 0x8A, 0x46, 0x33, 0xEE, 0x5A, 0x17, 0xC2, 0xBF, 0x6B, 0x26, 0x93, 0x4F, 0x3A, 0xF7, 0xA2, 0x1E, 0xCB, 0x86, 0x72, 0x2F, 0x9A, 0x56, 0x03, 0xFE, 0xAB, 0x67, 0xD2, 0x8F, 0x7B, 0x36, 0xE3, 0x5F, 0x0A, 0xC7, 0xB2, 0x6E, 0xDB, 0x96, 0x42, 0x3F, 0xEA, 0xA7, 0x13, 0xCE, 0xBB, 0x77, 0x22, 0x9F, 0x4B, 0x06, 0xF3, 0xAE, 0x1A, 0xD7, 0x82, 0x7E, 0x2B, 0xE6, 0x52, 0x0F, 0xFA, 0xB7, 0x63, 0xDE, 0x8B, 0x47, 0x32, 0xEF, 0x5B, 0x16, 0xC3, 0xBE, 0x6A, 0x27, 0x92, 0x4E, 0x3B, 0xF6, 0xA3, 0x1F, 0xCA, 0x87, 0x73, 0x2E, 0x9B, 0x57, 0x02, 0xFF, 0xAA, 0x66, 0xD3, 0x8E, 0x7A, 0x37, 0xE2, 0x5E, 0x0B, 0xC6, 0xB3, 0x6F, 0xDA, 0x97, 0x43, 0x3E, 0xEB, 0xA6, 0x12, 0xCF, 0xBA, 0x76, 0x23, 0x9E, 0x4A, 0x07, 0xF2, 0xAF, 0x1B, 0xD6, 0x83, 0x7F, 0x2A, 0xE7, 0x53, 0x0E, 0xFB, 0xB6, 0x62, 0xDF, 0x8A, 0x46, 0x33, 0xEE, 0x5A, 0x17, 0xC2, 0xBF, 0x6B, 0x26, 0x93, 0x4F, 0x3A, 0xF7, 0xA2, 0x1E, 0xCB, 0x86, 0x72, 0x2F, 0x9A, 0x56, 0x03, 0xFE, 0xAB, 0x67, 0xD2, 0x8F, 0x7B, 0x36, 0xE3, 0x5F, 0x0A, 0xC7, 0xB2, 0x6E, 0xDB, 0x96, 0x42, 0x3F, 0xEA, 0xA7, 0x13, 0xCE, 0xBB, 0x77, 0x22, 0x9F, 0x4B, 0x06, 0xF3, 0xAE, 0x1A, 0xD7, 0x82, 0x7E, 0x2B, 0xE6, 0x52, 0x0F, 0xFA, 0xB7, 0x63, 0xDE, 0x8B, 0x47, 0x32, 0xEF, 0x5B, 0x16, 0xC3, 0xBE, 0x6A, 0x27, 0x92, 0x4E, 0x3B, 0xF6, 0xA3, 0x1F, 0xCA, 0x87, 0x73, 0x2E, 0x9B, 0x57, 0x02, 0xFF, 0xAA, 0x66, 0xD3, 0x8E, 0x7A, 0x37, 0xE2, 0x5E, 0x0B, 0xC6, 0xB3, 0x6F, 0xDA, 0x97, 0x43, 0x3E, 0xEB, 0xA6, 0x12, 0xCF, 0xBA, 0x76, 0x23, 0x9E, 0x4A, 0x07, 0xF2, 0xAF, 0x1B, 0xD6, 0x83, 0x7F, 0x2A
+};
+
+static const unsigned char __vm_sbox_15[256] = {
+    0x15, 0xC0, 0xBD, 0x69, 0x24, 0x91, 0x4D, 0x38, 0xF5, 0xA0, 0x1C, 0xC9, 0x84, 0x70, 0x2D, 0x98, 0x54, 0x01, 0xFC, 0xA9, 0x65, 0xD0, 0x8D, 0x79, 0x34, 0xE1, 0x5D, 0x08, 0xC5, 0xB0, 0x6C, 0xD9, 0x94, 0x40, 0x3D, 0xE8, 0xA5, 0x11, 0xCC, 0xB9, 0x75, 0x20, 0x9D, 0x49, 0x04, 0xF1, 0xAC, 0x18, 0xD5, 0x80, 0x7C, 0x29, 0xE4, 0x50, 0x0D, 0xF8, 0xB5, 0x61, 0xDC, 0x89, 0x45, 0x30, 0xED, 0x59, 0x14, 0xC1, 0xBC, 0x68, 0x25, 0x90, 0x4C, 0x39, 0xF4, 0xA1, 0x1D, 0xC8, 0x85, 0x71, 0x2C, 0x99, 0x55, 0x00, 0xFD, 0xA8, 0x64, 0xD1, 0x8C, 0x78, 0x35, 0xE0, 0x5C, 0x09, 0xC4, 0xB1, 0x6D, 0xD8, 0x95, 0x41, 0x3C, 0xE9, 0xA4, 0x10, 0xCD, 0xB8, 0x74, 0x21, 0x9C, 0x48, 0x05, 0xF0, 0xAD, 0x19, 0xD4, 0x81, 0x7D, 0x28, 0xE5, 0x51, 0x0C, 0xF9, 0xB4, 0x60, 0xDD, 0x88, 0x44, 0x31, 0xEC, 0x58, 0x15, 0xC0, 0xBD, 0x69, 0x24, 0x91, 0x4D, 0x38, 0xF5, 0xA0, 0x1C, 0xC9, 0x84, 0x70, 0x2D, 0x98, 0x54, 0x01, 0xFC, 0xA9, 0x65, 0xD0, 0x8D, 0x79, 0x34, 0xE1, 0x5D, 0x08, 0xC5, 0xB0, 0x6C, 0xD9, 0x94, 0x40, 0x3D, 0xE8, 0xA5, 0x11, 0xCC, 0xB9, 0x75, 0x20, 0x9D, 0x49, 0x04, 0xF1, 0xAC, 0x18, 0xD5, 0x80, 0x7C, 0x29, 0xE4, 0x50, 0x0D, 0xF8, 0xB5, 0x61, 0xDC, 0x89, 0x45, 0x30, 0xED, 0x59, 0x14, 0xC1, 0xBC, 0x68, 0x25, 0x90, 0x4C, 0x39, 0xF4, 0xA1, 0x1D, 0xC8, 0x85, 0x71, 0x2C, 0x99, 0x55, 0x00, 0xFD, 0xA8, 0x64, 0xD1, 0x8C, 0x78, 0x35, 0xE0, 0x5C, 0x09, 0xC4, 0xB1, 0x6D, 0xD8, 0x95, 0x41, 0x3C, 0xE9, 0xA4, 0x10, 0xCD, 0xB8, 0x74, 0x21, 0x9C, 0x48, 0x05, 0xF0, 0xAD, 0x19, 0xD4, 0x81, 0x7D, 0x28, 0xE5, 0x51, 0x0C, 0xF9, 0xB4, 0x60, 0xDD, 0x88, 0x44, 0x31, 0xEC, 0x58
+};
+
     unsigned long long __vregs[64];
-    #define __VREG_ROT(r) (((unsigned int)(r) + 40U) & 0x3FU)
-    #define __VREG_MASK(r) (0x6e3c098e08c1ULL + ((unsigned long long)__VREG_ROT(r) * 0x9e3779b97f4a7c15ULL))
+    #define __VREG_ROT(r) (((unsigned int)(r) + 49U) & 0x3FU)
+    #define __VREG_MASK(r) (0x3d3326b93701ULL + ((unsigned long long)__VREG_ROT(r) * 0x9e3779b97f4a7c15ULL))
     #define __VREG_GET(r) (__vregs[__VREG_ROT(r)] ^ __VREG_MASK(r))
     #define __VREG_SET(r, val) do { __vregs[__VREG_ROT(r)] = ((unsigned long long)(val)) ^ __VREG_MASK(r); } while(0)
 
     for (int __i = 0; __i < 64; __i++) {
-        __vregs[__i] = (0x6e3c098e08c1ULL + ((unsigned long long)__i * 0x9e3779b97f4a7c15ULL));
+        __vregs[__i] = (0x3d3326b93701ULL + ((unsigned long long)__i * 0x9e3779b97f4a7c15ULL));
     }
 
     /* Vector 2: Dual Shadow Stack (VSP_data + VSP_ctrl) */
@@ -344,58 +405,505 @@ static const unsigned char __vm_sbox_0[256] = {
     #endif
 
     /* Vector 8: Ephemeral Self-Scrubbing Bytecode Scratchpad */
-    unsigned int __vbc_live[36];
+    unsigned int __vbc_live[39];
     memcpy(__vbc_live, __visa_program_vcpu1_vector_parity_1, sizeof(__vbc_live));
 
     const char *__ptr_ctx = (const char *)license_key;
-    const unsigned long long __cfi_canary = 0x6e3c098e08c1ULL ^ ((uintptr_t)__ptr_ctx * 0x9E3779B97F4A7C15ULL);
+    const unsigned long long __cfi_canary = 0x3d3326b93701ULL ^ ((uintptr_t)__ptr_ctx * 0x9E3779B97F4A7C15ULL);
 
     /* Push CFI Canary into Shadow Control Stack */
     __vstack_ctrl[__vsp_c++] = __cfi_canary ^ 0x409ac756b5b4c6abULL;
 
-    __VREG_SET(3, (unsigned long long)(uintptr_t)license_key);
+    __VREG_SET(2, (unsigned long long)(uintptr_t)license_key);
     unsigned int __pc = 0;
     unsigned int __raw, __key, __inst;
     unsigned char __funct6, __vm, __vs2, __vs1, __funct3, __vd;
 
     /* Direct Threading Dispatch Table via GNU C Computed Gotos */
-    static const void * const __dispatch_table[64] = {
-        [0 ... 63] = &&__h_default,
-        [0x3D] = &&__h_vadd,
-        [0x8] = &&__h_vsub,
-        [0x1D] = &&__h_vmul,
-        [0x25] = &&__h_vxor,
-        [0x2E] = &&__h_vand,
-        [0x36] = &&__h_vor,
-        [0x27] = &&__h_vsll,
-        [0x1] = &&__h_vsrl,
-        [0x6] = &&__h_vli,
-        [0x15] = &&__h_vmv,
-        [0x11] = &&__h_vle8,
-        [0x10] = &&__h_vse8,
-        [0x3F] = &&__h_vret,
-        [0xA] = &&__h_vbge,
-        [0x39] = &&__h_vj,
+    static const void * const __dispatch_table[512] = {
+        [0 ... 511] = &&__h_default,
+        [0xF] = &&__h_vadd,
+        [0x13] = &&__h_vsub,
+        [0x22] = &&__h_vmul,
+        [0x7] = &&__h_vxor,
+        [0x4] = &&__h_vand,
+        [0x39] = &&__h_vor,
+        [0x3D] = &&__h_vsll,
+        [0x2F] = &&__h_vsrl,
+        [0x27] = &&__h_vli,
+        [0x10] = &&__h_vmv,
+        [0x3] = &&__h_vle8,
+        [0x30] = &&__h_vse8,
+        [0x3C] = &&__h_vret,
+        [0x3A] = &&__h_vbge,
+        [0x1C] = &&__h_vj,
         /* Vector 9: Polymorphic Multi-Alias Handler Entries */
-        [0x3A] = &&__h_vadd_alt1,
-        [0x26] = &&__h_vadd_alt2,
-        [0xB] = &&__h_vsub_alt1,
-        [0x3B] = &&__h_vsub_alt2,
-        [0x13] = &&__h_vxor_alt1,
-        [0x2C] = &&__h_vxor_alt2,
-        [0x33] = &&__h_vand_alt1,
-        [0x2D] = &&__h_vor_alt1,
-        [0x29] = &&__h_vmul_alt1,
-        [0x9] = &&__h_vmv_alt1,
-        [0x37] = &&__h_vli_alt1,
-
+        [0x23] = &&__h_vadd_alt1,
+        [0x24] = &&__h_vadd_alt2,
+        [0x2B] = &&__h_vsub_alt1,
+        [0x5] = &&__h_vsub_alt2,
+        [0x26] = &&__h_vxor_alt1,
+        [0x18] = &&__h_vxor_alt2,
+        [0xE] = &&__h_vand_alt1,
+        [0x1] = &&__h_vor_alt1,
+        [0x2E] = &&__h_vmul_alt1,
+        [0x3B] = &&__h_vmv_alt1,
+        [0x38] = &&__h_vli_alt1,
+        [0x40] = &&__h_trap_64,
+        [0x41] = &&__h_trap_65,
+        [0x42] = &&__h_trap_66,
+        [0x43] = &&__h_trap_67,
+        [0x44] = &&__h_trap_68,
+        [0x45] = &&__h_trap_69,
+        [0x46] = &&__h_trap_70,
+        [0x47] = &&__h_trap_71,
+        [0x48] = &&__h_trap_72,
+        [0x49] = &&__h_trap_73,
+        [0x4A] = &&__h_trap_74,
+        [0x4B] = &&__h_trap_75,
+        [0x4C] = &&__h_trap_76,
+        [0x4D] = &&__h_trap_77,
+        [0x4E] = &&__h_trap_78,
+        [0x4F] = &&__h_trap_79,
+        [0x50] = &&__h_trap_80,
+        [0x51] = &&__h_trap_81,
+        [0x52] = &&__h_trap_82,
+        [0x53] = &&__h_trap_83,
+        [0x54] = &&__h_trap_84,
+        [0x55] = &&__h_trap_85,
+        [0x56] = &&__h_trap_86,
+        [0x57] = &&__h_trap_87,
+        [0x58] = &&__h_trap_88,
+        [0x59] = &&__h_trap_89,
+        [0x5A] = &&__h_trap_90,
+        [0x5B] = &&__h_trap_91,
+        [0x5C] = &&__h_trap_92,
+        [0x5D] = &&__h_trap_93,
+        [0x5E] = &&__h_trap_94,
+        [0x5F] = &&__h_trap_95,
+        [0x60] = &&__h_trap_96,
+        [0x61] = &&__h_trap_97,
+        [0x62] = &&__h_trap_98,
+        [0x63] = &&__h_trap_99,
+        [0x64] = &&__h_trap_100,
+        [0x65] = &&__h_trap_101,
+        [0x66] = &&__h_trap_102,
+        [0x67] = &&__h_trap_103,
+        [0x68] = &&__h_trap_104,
+        [0x69] = &&__h_trap_105,
+        [0x6A] = &&__h_trap_106,
+        [0x6B] = &&__h_trap_107,
+        [0x6C] = &&__h_trap_108,
+        [0x6D] = &&__h_trap_109,
+        [0x6E] = &&__h_trap_110,
+        [0x6F] = &&__h_trap_111,
+        [0x70] = &&__h_trap_112,
+        [0x71] = &&__h_trap_113,
+        [0x72] = &&__h_trap_114,
+        [0x73] = &&__h_trap_115,
+        [0x74] = &&__h_trap_116,
+        [0x75] = &&__h_trap_117,
+        [0x76] = &&__h_trap_118,
+        [0x77] = &&__h_trap_119,
+        [0x78] = &&__h_trap_120,
+        [0x79] = &&__h_trap_121,
+        [0x7A] = &&__h_trap_122,
+        [0x7B] = &&__h_trap_123,
+        [0x7C] = &&__h_trap_124,
+        [0x7D] = &&__h_trap_125,
+        [0x7E] = &&__h_trap_126,
+        [0x7F] = &&__h_trap_127,
+        [0x80] = &&__h_trap_128,
+        [0x81] = &&__h_trap_129,
+        [0x82] = &&__h_trap_130,
+        [0x83] = &&__h_trap_131,
+        [0x84] = &&__h_trap_132,
+        [0x85] = &&__h_trap_133,
+        [0x86] = &&__h_trap_134,
+        [0x87] = &&__h_trap_135,
+        [0x88] = &&__h_trap_136,
+        [0x89] = &&__h_trap_137,
+        [0x8A] = &&__h_trap_138,
+        [0x8B] = &&__h_trap_139,
+        [0x8C] = &&__h_trap_140,
+        [0x8D] = &&__h_trap_141,
+        [0x8E] = &&__h_trap_142,
+        [0x8F] = &&__h_trap_143,
+        [0x90] = &&__h_trap_144,
+        [0x91] = &&__h_trap_145,
+        [0x92] = &&__h_trap_146,
+        [0x93] = &&__h_trap_147,
+        [0x94] = &&__h_trap_148,
+        [0x95] = &&__h_trap_149,
+        [0x96] = &&__h_trap_150,
+        [0x97] = &&__h_trap_151,
+        [0x98] = &&__h_trap_152,
+        [0x99] = &&__h_trap_153,
+        [0x9A] = &&__h_trap_154,
+        [0x9B] = &&__h_trap_155,
+        [0x9C] = &&__h_trap_156,
+        [0x9D] = &&__h_trap_157,
+        [0x9E] = &&__h_trap_158,
+        [0x9F] = &&__h_trap_159,
+        [0xA0] = &&__h_trap_160,
+        [0xA1] = &&__h_trap_161,
+        [0xA2] = &&__h_trap_162,
+        [0xA3] = &&__h_trap_163,
+        [0xA4] = &&__h_trap_164,
+        [0xA5] = &&__h_trap_165,
+        [0xA6] = &&__h_trap_166,
+        [0xA7] = &&__h_trap_167,
+        [0xA8] = &&__h_trap_168,
+        [0xA9] = &&__h_trap_169,
+        [0xAA] = &&__h_trap_170,
+        [0xAB] = &&__h_trap_171,
+        [0xAC] = &&__h_trap_172,
+        [0xAD] = &&__h_trap_173,
+        [0xAE] = &&__h_trap_174,
+        [0xAF] = &&__h_trap_175,
+        [0xB0] = &&__h_trap_176,
+        [0xB1] = &&__h_trap_177,
+        [0xB2] = &&__h_trap_178,
+        [0xB3] = &&__h_trap_179,
+        [0xB4] = &&__h_trap_180,
+        [0xB5] = &&__h_trap_181,
+        [0xB6] = &&__h_trap_182,
+        [0xB7] = &&__h_trap_183,
+        [0xB8] = &&__h_trap_184,
+        [0xB9] = &&__h_trap_185,
+        [0xBA] = &&__h_trap_186,
+        [0xBB] = &&__h_trap_187,
+        [0xBC] = &&__h_trap_188,
+        [0xBD] = &&__h_trap_189,
+        [0xBE] = &&__h_trap_190,
+        [0xBF] = &&__h_trap_191,
+        [0xC0] = &&__h_trap_192,
+        [0xC1] = &&__h_trap_193,
+        [0xC2] = &&__h_trap_194,
+        [0xC3] = &&__h_trap_195,
+        [0xC4] = &&__h_trap_196,
+        [0xC5] = &&__h_trap_197,
+        [0xC6] = &&__h_trap_198,
+        [0xC7] = &&__h_trap_199,
+        [0xC8] = &&__h_trap_200,
+        [0xC9] = &&__h_trap_201,
+        [0xCA] = &&__h_trap_202,
+        [0xCB] = &&__h_trap_203,
+        [0xCC] = &&__h_trap_204,
+        [0xCD] = &&__h_trap_205,
+        [0xCE] = &&__h_trap_206,
+        [0xCF] = &&__h_trap_207,
+        [0xD0] = &&__h_trap_208,
+        [0xD1] = &&__h_trap_209,
+        [0xD2] = &&__h_trap_210,
+        [0xD3] = &&__h_trap_211,
+        [0xD4] = &&__h_trap_212,
+        [0xD5] = &&__h_trap_213,
+        [0xD6] = &&__h_trap_214,
+        [0xD7] = &&__h_trap_215,
+        [0xD8] = &&__h_trap_216,
+        [0xD9] = &&__h_trap_217,
+        [0xDA] = &&__h_trap_218,
+        [0xDB] = &&__h_trap_219,
+        [0xDC] = &&__h_trap_220,
+        [0xDD] = &&__h_trap_221,
+        [0xDE] = &&__h_trap_222,
+        [0xDF] = &&__h_trap_223,
+        [0xE0] = &&__h_trap_224,
+        [0xE1] = &&__h_trap_225,
+        [0xE2] = &&__h_trap_226,
+        [0xE3] = &&__h_trap_227,
+        [0xE4] = &&__h_trap_228,
+        [0xE5] = &&__h_trap_229,
+        [0xE6] = &&__h_trap_230,
+        [0xE7] = &&__h_trap_231,
+        [0xE8] = &&__h_trap_232,
+        [0xE9] = &&__h_trap_233,
+        [0xEA] = &&__h_trap_234,
+        [0xEB] = &&__h_trap_235,
+        [0xEC] = &&__h_trap_236,
+        [0xED] = &&__h_trap_237,
+        [0xEE] = &&__h_trap_238,
+        [0xEF] = &&__h_trap_239,
+        [0xF0] = &&__h_trap_240,
+        [0xF1] = &&__h_trap_241,
+        [0xF2] = &&__h_trap_242,
+        [0xF3] = &&__h_trap_243,
+        [0xF4] = &&__h_trap_244,
+        [0xF5] = &&__h_trap_245,
+        [0xF6] = &&__h_trap_246,
+        [0xF7] = &&__h_trap_247,
+        [0xF8] = &&__h_trap_248,
+        [0xF9] = &&__h_trap_249,
+        [0xFA] = &&__h_trap_250,
+        [0xFB] = &&__h_trap_251,
+        [0xFC] = &&__h_trap_252,
+        [0xFD] = &&__h_trap_253,
+        [0xFE] = &&__h_trap_254,
+        [0xFF] = &&__h_trap_255,
+        [0x100] = &&__h_trap_256,
+        [0x101] = &&__h_trap_257,
+        [0x102] = &&__h_trap_258,
+        [0x103] = &&__h_trap_259,
+        [0x104] = &&__h_trap_260,
+        [0x105] = &&__h_trap_261,
+        [0x106] = &&__h_trap_262,
+        [0x107] = &&__h_trap_263,
+        [0x108] = &&__h_trap_264,
+        [0x109] = &&__h_trap_265,
+        [0x10A] = &&__h_trap_266,
+        [0x10B] = &&__h_trap_267,
+        [0x10C] = &&__h_trap_268,
+        [0x10D] = &&__h_trap_269,
+        [0x10E] = &&__h_trap_270,
+        [0x10F] = &&__h_trap_271,
+        [0x110] = &&__h_trap_272,
+        [0x111] = &&__h_trap_273,
+        [0x112] = &&__h_trap_274,
+        [0x113] = &&__h_trap_275,
+        [0x114] = &&__h_trap_276,
+        [0x115] = &&__h_trap_277,
+        [0x116] = &&__h_trap_278,
+        [0x117] = &&__h_trap_279,
+        [0x118] = &&__h_trap_280,
+        [0x119] = &&__h_trap_281,
+        [0x11A] = &&__h_trap_282,
+        [0x11B] = &&__h_trap_283,
+        [0x11C] = &&__h_trap_284,
+        [0x11D] = &&__h_trap_285,
+        [0x11E] = &&__h_trap_286,
+        [0x11F] = &&__h_trap_287,
+        [0x120] = &&__h_trap_288,
+        [0x121] = &&__h_trap_289,
+        [0x122] = &&__h_trap_290,
+        [0x123] = &&__h_trap_291,
+        [0x124] = &&__h_trap_292,
+        [0x125] = &&__h_trap_293,
+        [0x126] = &&__h_trap_294,
+        [0x127] = &&__h_trap_295,
+        [0x128] = &&__h_trap_296,
+        [0x129] = &&__h_trap_297,
+        [0x12A] = &&__h_trap_298,
+        [0x12B] = &&__h_trap_299,
+        [0x12C] = &&__h_trap_300,
+        [0x12D] = &&__h_trap_301,
+        [0x12E] = &&__h_trap_302,
+        [0x12F] = &&__h_trap_303,
+        [0x130] = &&__h_trap_304,
+        [0x131] = &&__h_trap_305,
+        [0x132] = &&__h_trap_306,
+        [0x133] = &&__h_trap_307,
+        [0x134] = &&__h_trap_308,
+        [0x135] = &&__h_trap_309,
+        [0x136] = &&__h_trap_310,
+        [0x137] = &&__h_trap_311,
+        [0x138] = &&__h_trap_312,
+        [0x139] = &&__h_trap_313,
+        [0x13A] = &&__h_trap_314,
+        [0x13B] = &&__h_trap_315,
+        [0x13C] = &&__h_trap_316,
+        [0x13D] = &&__h_trap_317,
+        [0x13E] = &&__h_trap_318,
+        [0x13F] = &&__h_trap_319,
+        [0x140] = &&__h_trap_320,
+        [0x141] = &&__h_trap_321,
+        [0x142] = &&__h_trap_322,
+        [0x143] = &&__h_trap_323,
+        [0x144] = &&__h_trap_324,
+        [0x145] = &&__h_trap_325,
+        [0x146] = &&__h_trap_326,
+        [0x147] = &&__h_trap_327,
+        [0x148] = &&__h_trap_328,
+        [0x149] = &&__h_trap_329,
+        [0x14A] = &&__h_trap_330,
+        [0x14B] = &&__h_trap_331,
+        [0x14C] = &&__h_trap_332,
+        [0x14D] = &&__h_trap_333,
+        [0x14E] = &&__h_trap_334,
+        [0x14F] = &&__h_trap_335,
+        [0x150] = &&__h_trap_336,
+        [0x151] = &&__h_trap_337,
+        [0x152] = &&__h_trap_338,
+        [0x153] = &&__h_trap_339,
+        [0x154] = &&__h_trap_340,
+        [0x155] = &&__h_trap_341,
+        [0x156] = &&__h_trap_342,
+        [0x157] = &&__h_trap_343,
+        [0x158] = &&__h_trap_344,
+        [0x159] = &&__h_trap_345,
+        [0x15A] = &&__h_trap_346,
+        [0x15B] = &&__h_trap_347,
+        [0x15C] = &&__h_trap_348,
+        [0x15D] = &&__h_trap_349,
+        [0x15E] = &&__h_trap_350,
+        [0x15F] = &&__h_trap_351,
+        [0x160] = &&__h_trap_352,
+        [0x161] = &&__h_trap_353,
+        [0x162] = &&__h_trap_354,
+        [0x163] = &&__h_trap_355,
+        [0x164] = &&__h_trap_356,
+        [0x165] = &&__h_trap_357,
+        [0x166] = &&__h_trap_358,
+        [0x167] = &&__h_trap_359,
+        [0x168] = &&__h_trap_360,
+        [0x169] = &&__h_trap_361,
+        [0x16A] = &&__h_trap_362,
+        [0x16B] = &&__h_trap_363,
+        [0x16C] = &&__h_trap_364,
+        [0x16D] = &&__h_trap_365,
+        [0x16E] = &&__h_trap_366,
+        [0x16F] = &&__h_trap_367,
+        [0x170] = &&__h_trap_368,
+        [0x171] = &&__h_trap_369,
+        [0x172] = &&__h_trap_370,
+        [0x173] = &&__h_trap_371,
+        [0x174] = &&__h_trap_372,
+        [0x175] = &&__h_trap_373,
+        [0x176] = &&__h_trap_374,
+        [0x177] = &&__h_trap_375,
+        [0x178] = &&__h_trap_376,
+        [0x179] = &&__h_trap_377,
+        [0x17A] = &&__h_trap_378,
+        [0x17B] = &&__h_trap_379,
+        [0x17C] = &&__h_trap_380,
+        [0x17D] = &&__h_trap_381,
+        [0x17E] = &&__h_trap_382,
+        [0x17F] = &&__h_trap_383,
+        [0x180] = &&__h_trap_384,
+        [0x181] = &&__h_trap_385,
+        [0x182] = &&__h_trap_386,
+        [0x183] = &&__h_trap_387,
+        [0x184] = &&__h_trap_388,
+        [0x185] = &&__h_trap_389,
+        [0x186] = &&__h_trap_390,
+        [0x187] = &&__h_trap_391,
+        [0x188] = &&__h_trap_392,
+        [0x189] = &&__h_trap_393,
+        [0x18A] = &&__h_trap_394,
+        [0x18B] = &&__h_trap_395,
+        [0x18C] = &&__h_trap_396,
+        [0x18D] = &&__h_trap_397,
+        [0x18E] = &&__h_trap_398,
+        [0x18F] = &&__h_trap_399,
+        [0x190] = &&__h_trap_400,
+        [0x191] = &&__h_trap_401,
+        [0x192] = &&__h_trap_402,
+        [0x193] = &&__h_trap_403,
+        [0x194] = &&__h_trap_404,
+        [0x195] = &&__h_trap_405,
+        [0x196] = &&__h_trap_406,
+        [0x197] = &&__h_trap_407,
+        [0x198] = &&__h_trap_408,
+        [0x199] = &&__h_trap_409,
+        [0x19A] = &&__h_trap_410,
+        [0x19B] = &&__h_trap_411,
+        [0x19C] = &&__h_trap_412,
+        [0x19D] = &&__h_trap_413,
+        [0x19E] = &&__h_trap_414,
+        [0x19F] = &&__h_trap_415,
+        [0x1A0] = &&__h_trap_416,
+        [0x1A1] = &&__h_trap_417,
+        [0x1A2] = &&__h_trap_418,
+        [0x1A3] = &&__h_trap_419,
+        [0x1A4] = &&__h_trap_420,
+        [0x1A5] = &&__h_trap_421,
+        [0x1A6] = &&__h_trap_422,
+        [0x1A7] = &&__h_trap_423,
+        [0x1A8] = &&__h_trap_424,
+        [0x1A9] = &&__h_trap_425,
+        [0x1AA] = &&__h_trap_426,
+        [0x1AB] = &&__h_trap_427,
+        [0x1AC] = &&__h_trap_428,
+        [0x1AD] = &&__h_trap_429,
+        [0x1AE] = &&__h_trap_430,
+        [0x1AF] = &&__h_trap_431,
+        [0x1B0] = &&__h_trap_432,
+        [0x1B1] = &&__h_trap_433,
+        [0x1B2] = &&__h_trap_434,
+        [0x1B3] = &&__h_trap_435,
+        [0x1B4] = &&__h_trap_436,
+        [0x1B5] = &&__h_trap_437,
+        [0x1B6] = &&__h_trap_438,
+        [0x1B7] = &&__h_trap_439,
+        [0x1B8] = &&__h_trap_440,
+        [0x1B9] = &&__h_trap_441,
+        [0x1BA] = &&__h_trap_442,
+        [0x1BB] = &&__h_trap_443,
+        [0x1BC] = &&__h_trap_444,
+        [0x1BD] = &&__h_trap_445,
+        [0x1BE] = &&__h_trap_446,
+        [0x1BF] = &&__h_trap_447,
+        [0x1C0] = &&__h_trap_448,
+        [0x1C1] = &&__h_trap_449,
+        [0x1C2] = &&__h_trap_450,
+        [0x1C3] = &&__h_trap_451,
+        [0x1C4] = &&__h_trap_452,
+        [0x1C5] = &&__h_trap_453,
+        [0x1C6] = &&__h_trap_454,
+        [0x1C7] = &&__h_trap_455,
+        [0x1C8] = &&__h_trap_456,
+        [0x1C9] = &&__h_trap_457,
+        [0x1CA] = &&__h_trap_458,
+        [0x1CB] = &&__h_trap_459,
+        [0x1CC] = &&__h_trap_460,
+        [0x1CD] = &&__h_trap_461,
+        [0x1CE] = &&__h_trap_462,
+        [0x1CF] = &&__h_trap_463,
+        [0x1D0] = &&__h_trap_464,
+        [0x1D1] = &&__h_trap_465,
+        [0x1D2] = &&__h_trap_466,
+        [0x1D3] = &&__h_trap_467,
+        [0x1D4] = &&__h_trap_468,
+        [0x1D5] = &&__h_trap_469,
+        [0x1D6] = &&__h_trap_470,
+        [0x1D7] = &&__h_trap_471,
+        [0x1D8] = &&__h_trap_472,
+        [0x1D9] = &&__h_trap_473,
+        [0x1DA] = &&__h_trap_474,
+        [0x1DB] = &&__h_trap_475,
+        [0x1DC] = &&__h_trap_476,
+        [0x1DD] = &&__h_trap_477,
+        [0x1DE] = &&__h_trap_478,
+        [0x1DF] = &&__h_trap_479,
+        [0x1E0] = &&__h_trap_480,
+        [0x1E1] = &&__h_trap_481,
+        [0x1E2] = &&__h_trap_482,
+        [0x1E3] = &&__h_trap_483,
+        [0x1E4] = &&__h_trap_484,
+        [0x1E5] = &&__h_trap_485,
+        [0x1E6] = &&__h_trap_486,
+        [0x1E7] = &&__h_trap_487,
+        [0x1E8] = &&__h_trap_488,
+        [0x1E9] = &&__h_trap_489,
+        [0x1EA] = &&__h_trap_490,
+        [0x1EB] = &&__h_trap_491,
+        [0x1EC] = &&__h_trap_492,
+        [0x1ED] = &&__h_trap_493,
+        [0x1EE] = &&__h_trap_494,
+        [0x1EF] = &&__h_trap_495,
+        [0x1F0] = &&__h_trap_496,
+        [0x1F1] = &&__h_trap_497,
+        [0x1F2] = &&__h_trap_498,
+        [0x1F3] = &&__h_trap_499,
+        [0x1F4] = &&__h_trap_500,
+        [0x1F5] = &&__h_trap_501,
+        [0x1F6] = &&__h_trap_502,
+        [0x1F7] = &&__h_trap_503,
+        [0x1F8] = &&__h_trap_504,
+        [0x1F9] = &&__h_trap_505,
+        [0x1FA] = &&__h_trap_506,
+        [0x1FB] = &&__h_trap_507,
+        [0x1FC] = &&__h_trap_508,
+        [0x1FD] = &&__h_trap_509,
+        [0x1FE] = &&__h_trap_510,
+        [0x1FF] = &&__h_trap_511,
     };
 
     #define __VISA_DISPATCH() do { \
-        if (__pc >= 36) goto __h_vret; \
-        unsigned int __slot = ((__pc * 5U) + 19U) % 36U; \
+        if (__pc >= 39) goto __h_vret; \
+        unsigned int __slot = ((__pc * 5U) + 15U) % 39U; \
         __raw = __vbc_live[__slot]; \
-        __key = 0x67661b1fU ^ (__pc * 0x45d9f3bU); \
+        __key = 0xe6a51e2eU ^ (__pc * 0x45d9f3bU); \
         __inst = __raw ^ __key; \
         __funct6 = (unsigned char)((__inst >> 26) & 0x3F); \
         __vm     = (unsigned char)((__inst >> 25) & 0x01); \
@@ -405,11 +913,6283 @@ static const unsigned char __vm_sbox_0[256] = {
         __vd     = (unsigned char)((__inst >> 7)  & 0x1F); \
         __pc++; \
         __vm_state_acc = (__vm_state_acc ^ (__vd + __funct6)) * 0x517CC1B727220A95ULL; \
-        goto *__dispatch_table[__funct6 & 0x3F]; \
+        goto *__dispatch_table[__funct6 & 0x1FF]; \
     } while (0)
 
     /* Enter Direct Threading pipeline */
     __VISA_DISPATCH();
+
+__h_trap_64: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x8EDE6E40ULL, __b = __VREG_GET(__vs2) + 0x61306DC0ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x1B89CB80ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x8EDE6E40ULL) + 0x61306DC0ULL) ^ __vm_sbox_0[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_65: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x2D15E7F9ULL, __b = __VREG_GET(__vs2) + 0xB2AD2F77ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x87EBF2AEULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x2D15E7F9ULL) + 0xB2AD2F77ULL) ^ __vm_sbox_1[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_66: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xCB4D61B2ULL, __b = __VREG_GET(__vs2) + 0x429F12EULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xF44E19DCULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xCB4D61B2ULL) + 0x429F12EULL) ^ __vm_sbox_2[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_67: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x6984DB6BULL, __b = __VREG_GET(__vs2) + 0x55A6B2E5ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x60B0410AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x6984DB6BULL) + 0x55A6B2E5ULL) ^ __vm_sbox_3[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_68: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x7BC5524ULL, __b = __VREG_GET(__vs2) + 0xA723749CULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xCD126838ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x7BC5524ULL) + 0xA723749CULL) ^ __vm_sbox_4[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_69: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xA5F3CEDDULL, __b = __VREG_GET(__vs2) + 0xF8A03653ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x39748F66ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xA5F3CEDDULL) + 0xF8A03653ULL) ^ __vm_sbox_5[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_70: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x442B4896ULL, __b = __VREG_GET(__vs2) + 0x4A1CF80AULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xA5D6B694ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x442B4896ULL) + 0x4A1CF80AULL) ^ __vm_sbox_6[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_71: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xE262C24FULL, __b = __VREG_GET(__vs2) + 0x9B99B9C1ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x1238DDC2ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xE262C24FULL) + 0x9B99B9C1ULL) ^ __vm_sbox_7[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_72: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x809A3C08ULL, __b = __VREG_GET(__vs2) + 0xED167B78ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x7E9B04F0ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x809A3C08ULL) + 0xED167B78ULL) ^ __vm_sbox_8[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_73: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x1ED1B5C1ULL, __b = __VREG_GET(__vs2) + 0x3E933D2FULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xEAFD2C1EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x1ED1B5C1ULL) + 0x3E933D2FULL) ^ __vm_sbox_9[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_74: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xBD092F7AULL, __b = __VREG_GET(__vs2) + 0x900FFEE6ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x575F534CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xBD092F7AULL) + 0x900FFEE6ULL) ^ __vm_sbox_10[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_75: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x5B40A933ULL, __b = __VREG_GET(__vs2) + 0xE18CC09DULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xC3C17A7AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x5B40A933ULL) + 0xE18CC09DULL) ^ __vm_sbox_11[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_76: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xF97822ECULL, __b = __VREG_GET(__vs2) + 0x33098254ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x3023A1A8ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xF97822ECULL) + 0x33098254ULL) ^ __vm_sbox_12[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_77: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x97AF9CA5ULL, __b = __VREG_GET(__vs2) + 0x8486440BULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x9C85C8D6ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x97AF9CA5ULL) + 0x8486440BULL) ^ __vm_sbox_13[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_78: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x35E7165EULL, __b = __VREG_GET(__vs2) + 0xD60305C2ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x8E7F004ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x35E7165EULL) + 0xD60305C2ULL) ^ __vm_sbox_14[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_79: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xD41E9017ULL, __b = __VREG_GET(__vs2) + 0x277FC779ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x754A1732ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xD41E9017ULL) + 0x277FC779ULL) ^ __vm_sbox_15[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_80: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x725609D0ULL, __b = __VREG_GET(__vs2) + 0x78FC8930ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xE1AC3E60ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x725609D0ULL) + 0x78FC8930ULL) ^ __vm_sbox_0[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_81: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x108D8389ULL, __b = __VREG_GET(__vs2) + 0xCA794AE7ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x4E0E658EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x108D8389ULL) + 0xCA794AE7ULL) ^ __vm_sbox_1[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_82: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xAEC4FD42ULL, __b = __VREG_GET(__vs2) + 0x1BF60C9EULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xBA708CBCULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xAEC4FD42ULL) + 0x1BF60C9EULL) ^ __vm_sbox_2[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_83: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x4CFC76FBULL, __b = __VREG_GET(__vs2) + 0x6D72CE55ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x26D2B3EAULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x4CFC76FBULL) + 0x6D72CE55ULL) ^ __vm_sbox_3[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_84: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xEB33F0B4ULL, __b = __VREG_GET(__vs2) + 0xBEEF900CULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x9334DB18ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xEB33F0B4ULL) + 0xBEEF900CULL) ^ __vm_sbox_4[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_85: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x896B6A6DULL, __b = __VREG_GET(__vs2) + 0x106C51C3ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xFF970246ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x896B6A6DULL) + 0x106C51C3ULL) ^ __vm_sbox_5[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_86: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x27A2E426ULL, __b = __VREG_GET(__vs2) + 0x61E9137AULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x6BF92974ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x27A2E426ULL) + 0x61E9137AULL) ^ __vm_sbox_6[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_87: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xC5DA5DDFULL, __b = __VREG_GET(__vs2) + 0xB365D531ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xD85B50A2ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xC5DA5DDFULL) + 0xB365D531ULL) ^ __vm_sbox_7[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_88: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x6411D798ULL, __b = __VREG_GET(__vs2) + 0x4E296E8ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x44BD77D0ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x6411D798ULL) + 0x4E296E8ULL) ^ __vm_sbox_8[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_89: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x2495151ULL, __b = __VREG_GET(__vs2) + 0x565F589FULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xB11F9EFEULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x2495151ULL) + 0x565F589FULL) ^ __vm_sbox_9[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_90: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xA080CB0AULL, __b = __VREG_GET(__vs2) + 0xA7DC1A56ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x1D81C62CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xA080CB0AULL) + 0xA7DC1A56ULL) ^ __vm_sbox_10[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_91: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x3EB844C3ULL, __b = __VREG_GET(__vs2) + 0xF958DC0DULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x89E3ED5AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x3EB844C3ULL) + 0xF958DC0DULL) ^ __vm_sbox_11[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_92: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xDCEFBE7CULL, __b = __VREG_GET(__vs2) + 0x4AD59DC4ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xF6461488ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xDCEFBE7CULL) + 0x4AD59DC4ULL) ^ __vm_sbox_12[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_93: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x7B273835ULL, __b = __VREG_GET(__vs2) + 0x9C525F7BULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x62A83BB6ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x7B273835ULL) + 0x9C525F7BULL) ^ __vm_sbox_13[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_94: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x195EB1EEULL, __b = __VREG_GET(__vs2) + 0xEDCF2132ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xCF0A62E4ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x195EB1EEULL) + 0xEDCF2132ULL) ^ __vm_sbox_14[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_95: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xB7962BA7ULL, __b = __VREG_GET(__vs2) + 0x3F4BE2E9ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x3B6C8A12ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xB7962BA7ULL) + 0x3F4BE2E9ULL) ^ __vm_sbox_15[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_96: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x55CDA560ULL, __b = __VREG_GET(__vs2) + 0x90C8A4A0ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xA7CEB140ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x55CDA560ULL) + 0x90C8A4A0ULL) ^ __vm_sbox_0[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_97: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xF4051F19ULL, __b = __VREG_GET(__vs2) + 0xE2456657ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x1430D86EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xF4051F19ULL) + 0xE2456657ULL) ^ __vm_sbox_1[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_98: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x923C98D2ULL, __b = __VREG_GET(__vs2) + 0x33C2280EULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x8092FF9CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x923C98D2ULL) + 0x33C2280EULL) ^ __vm_sbox_2[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_99: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x3074128BULL, __b = __VREG_GET(__vs2) + 0x853EE9C5ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xECF526CAULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x3074128BULL) + 0x853EE9C5ULL) ^ __vm_sbox_3[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_100: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xCEAB8C44ULL, __b = __VREG_GET(__vs2) + 0xD6BBAB7CULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x59574DF8ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xCEAB8C44ULL) + 0xD6BBAB7CULL) ^ __vm_sbox_4[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_101: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x6CE305FDULL, __b = __VREG_GET(__vs2) + 0x28386D33ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xC5B97526ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x6CE305FDULL) + 0x28386D33ULL) ^ __vm_sbox_5[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_102: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xB1A7FB6ULL, __b = __VREG_GET(__vs2) + 0x79B52EEAULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x321B9C54ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xB1A7FB6ULL) + 0x79B52EEAULL) ^ __vm_sbox_6[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_103: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xA951F96FULL, __b = __VREG_GET(__vs2) + 0xCB31F0A1ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x9E7DC382ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xA951F96FULL) + 0xCB31F0A1ULL) ^ __vm_sbox_7[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_104: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x47897328ULL, __b = __VREG_GET(__vs2) + 0x1CAEB258ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xADFEAB0ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x47897328ULL) + 0x1CAEB258ULL) ^ __vm_sbox_8[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_105: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xE5C0ECE1ULL, __b = __VREG_GET(__vs2) + 0x6E2B740FULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x774211DEULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xE5C0ECE1ULL) + 0x6E2B740FULL) ^ __vm_sbox_9[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_106: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x83F8669AULL, __b = __VREG_GET(__vs2) + 0xBFA835C6ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xE3A4390CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x83F8669AULL) + 0xBFA835C6ULL) ^ __vm_sbox_10[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_107: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x222FE053ULL, __b = __VREG_GET(__vs2) + 0x1124F77DULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x5006603AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x222FE053ULL) + 0x1124F77DULL) ^ __vm_sbox_11[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_108: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xC0675A0CULL, __b = __VREG_GET(__vs2) + 0x62A1B934ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xBC688768ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xC0675A0CULL) + 0x62A1B934ULL) ^ __vm_sbox_12[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_109: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x5E9ED3C5ULL, __b = __VREG_GET(__vs2) + 0xB41E7AEBULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x28CAAE96ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x5E9ED3C5ULL) + 0xB41E7AEBULL) ^ __vm_sbox_13[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_110: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xFCD64D7EULL, __b = __VREG_GET(__vs2) + 0x59B3CA2ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x952CD5C4ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xFCD64D7EULL) + 0x59B3CA2ULL) ^ __vm_sbox_14[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_111: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x9B0DC737ULL, __b = __VREG_GET(__vs2) + 0x5717FE59ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x18EFCF2ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x9B0DC737ULL) + 0x5717FE59ULL) ^ __vm_sbox_15[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_112: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x394540F0ULL, __b = __VREG_GET(__vs2) + 0xA894C010ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x6DF12420ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x394540F0ULL) + 0xA894C010ULL) ^ __vm_sbox_0[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_113: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xD77CBAA9ULL, __b = __VREG_GET(__vs2) + 0xFA1181C7ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xDA534B4EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xD77CBAA9ULL) + 0xFA1181C7ULL) ^ __vm_sbox_1[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_114: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x75B43462ULL, __b = __VREG_GET(__vs2) + 0x4B8E437EULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x46B5727CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x75B43462ULL) + 0x4B8E437EULL) ^ __vm_sbox_2[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_115: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x13EBAE1BULL, __b = __VREG_GET(__vs2) + 0x9D0B0535ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xB31799AAULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x13EBAE1BULL) + 0x9D0B0535ULL) ^ __vm_sbox_3[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_116: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xB22327D4ULL, __b = __VREG_GET(__vs2) + 0xEE87C6ECULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x1F79C0D8ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xB22327D4ULL) + 0xEE87C6ECULL) ^ __vm_sbox_4[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_117: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x505AA18DULL, __b = __VREG_GET(__vs2) + 0x400488A3ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x8BDBE806ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x505AA18DULL) + 0x400488A3ULL) ^ __vm_sbox_5[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_118: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xEE921B46ULL, __b = __VREG_GET(__vs2) + 0x91814A5AULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xF83E0F34ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xEE921B46ULL) + 0x91814A5AULL) ^ __vm_sbox_6[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_119: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x8CC994FFULL, __b = __VREG_GET(__vs2) + 0xE2FE0C11ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x64A03662ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x8CC994FFULL) + 0xE2FE0C11ULL) ^ __vm_sbox_7[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_120: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x2B010EB8ULL, __b = __VREG_GET(__vs2) + 0x347ACDC8ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xD1025D90ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x2B010EB8ULL) + 0x347ACDC8ULL) ^ __vm_sbox_8[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_121: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xC9388871ULL, __b = __VREG_GET(__vs2) + 0x85F78F7FULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x3D6484BEULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xC9388871ULL) + 0x85F78F7FULL) ^ __vm_sbox_9[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_122: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x6770022AULL, __b = __VREG_GET(__vs2) + 0xD7745136ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xA9C6ABECULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x6770022AULL) + 0xD7745136ULL) ^ __vm_sbox_10[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_123: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x5A77BE3ULL, __b = __VREG_GET(__vs2) + 0x28F112EDULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x1628D31AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x5A77BE3ULL) + 0x28F112EDULL) ^ __vm_sbox_11[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_124: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xA3DEF59CULL, __b = __VREG_GET(__vs2) + 0x7A6DD4A4ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x828AFA48ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xA3DEF59CULL) + 0x7A6DD4A4ULL) ^ __vm_sbox_12[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_125: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x42166F55ULL, __b = __VREG_GET(__vs2) + 0xCBEA965BULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xEEED2176ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x42166F55ULL) + 0xCBEA965BULL) ^ __vm_sbox_13[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_126: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xE04DE90EULL, __b = __VREG_GET(__vs2) + 0x1D675812ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x5B4F48A4ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xE04DE90EULL) + 0x1D675812ULL) ^ __vm_sbox_14[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_127: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x7E8562C7ULL, __b = __VREG_GET(__vs2) + 0x6EE419C9ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xC7B16FD2ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x7E8562C7ULL) + 0x6EE419C9ULL) ^ __vm_sbox_15[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_128: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x1CBCDC80ULL, __b = __VREG_GET(__vs2) + 0xC060DB80ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x34139700ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x1CBCDC80ULL) + 0xC060DB80ULL) ^ __vm_sbox_0[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_129: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xBAF45639ULL, __b = __VREG_GET(__vs2) + 0x11DD9D37ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xA075BE2EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xBAF45639ULL) + 0x11DD9D37ULL) ^ __vm_sbox_1[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_130: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x592BCFF2ULL, __b = __VREG_GET(__vs2) + 0x635A5EEEULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xCD7E55CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x592BCFF2ULL) + 0x635A5EEEULL) ^ __vm_sbox_2[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_131: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xF76349ABULL, __b = __VREG_GET(__vs2) + 0xB4D720A5ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x793A0C8AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xF76349ABULL) + 0xB4D720A5ULL) ^ __vm_sbox_3[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_132: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x959AC364ULL, __b = __VREG_GET(__vs2) + 0x653E25CULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xE59C33B8ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x959AC364ULL) + 0x653E25CULL) ^ __vm_sbox_4[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_133: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x33D23D1DULL, __b = __VREG_GET(__vs2) + 0x57D0A413ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x51FE5AE6ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x33D23D1DULL) + 0x57D0A413ULL) ^ __vm_sbox_5[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_134: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xD209B6D6ULL, __b = __VREG_GET(__vs2) + 0xA94D65CAULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xBE608214ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xD209B6D6ULL) + 0xA94D65CAULL) ^ __vm_sbox_6[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_135: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x7041308FULL, __b = __VREG_GET(__vs2) + 0xFACA2781ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x2AC2A942ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x7041308FULL) + 0xFACA2781ULL) ^ __vm_sbox_7[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_136: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xE78AA48ULL, __b = __VREG_GET(__vs2) + 0x4C46E938ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x9724D070ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xE78AA48ULL) + 0x4C46E938ULL) ^ __vm_sbox_8[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_137: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xACB02401ULL, __b = __VREG_GET(__vs2) + 0x9DC3AAEFULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x386F79EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xACB02401ULL) + 0x9DC3AAEFULL) ^ __vm_sbox_9[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_138: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x4AE79DBAULL, __b = __VREG_GET(__vs2) + 0xEF406CA6ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x6FE91ECCULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x4AE79DBAULL) + 0xEF406CA6ULL) ^ __vm_sbox_10[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_139: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xE91F1773ULL, __b = __VREG_GET(__vs2) + 0x40BD2E5DULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xDC4B45FAULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xE91F1773ULL) + 0x40BD2E5DULL) ^ __vm_sbox_11[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_140: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x8756912CULL, __b = __VREG_GET(__vs2) + 0x9239F014ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x48AD6D28ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x8756912CULL) + 0x9239F014ULL) ^ __vm_sbox_12[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_141: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x258E0AE5ULL, __b = __VREG_GET(__vs2) + 0xE3B6B1CBULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xB50F9456ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x258E0AE5ULL) + 0xE3B6B1CBULL) ^ __vm_sbox_13[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_142: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xC3C5849EULL, __b = __VREG_GET(__vs2) + 0x35337382ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x2171BB84ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xC3C5849EULL) + 0x35337382ULL) ^ __vm_sbox_14[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_143: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x61FCFE57ULL, __b = __VREG_GET(__vs2) + 0x86B03539ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x8DD3E2B2ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x61FCFE57ULL) + 0x86B03539ULL) ^ __vm_sbox_15[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_144: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x347810ULL, __b = __VREG_GET(__vs2) + 0xD82CF6F0ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xFA3609E0ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x347810ULL) + 0xD82CF6F0ULL) ^ __vm_sbox_0[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_145: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x9E6BF1C9ULL, __b = __VREG_GET(__vs2) + 0x29A9B8A7ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x6698310EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x9E6BF1C9ULL) + 0x29A9B8A7ULL) ^ __vm_sbox_1[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_146: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x3CA36B82ULL, __b = __VREG_GET(__vs2) + 0x7B267A5EULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xD2FA583CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x3CA36B82ULL) + 0x7B267A5EULL) ^ __vm_sbox_2[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_147: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xDADAE53BULL, __b = __VREG_GET(__vs2) + 0xCCA33C15ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x3F5C7F6AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xDADAE53BULL) + 0xCCA33C15ULL) ^ __vm_sbox_3[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_148: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x79125EF4ULL, __b = __VREG_GET(__vs2) + 0x1E1FFDCCULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xABBEA698ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x79125EF4ULL) + 0x1E1FFDCCULL) ^ __vm_sbox_4[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_149: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x1749D8ADULL, __b = __VREG_GET(__vs2) + 0x6F9CBF83ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x1820CDC6ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x1749D8ADULL) + 0x6F9CBF83ULL) ^ __vm_sbox_5[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_150: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xB5815266ULL, __b = __VREG_GET(__vs2) + 0xC119813AULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x8482F4F4ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xB5815266ULL) + 0xC119813AULL) ^ __vm_sbox_6[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_151: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x53B8CC1FULL, __b = __VREG_GET(__vs2) + 0x129642F1ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xF0E51C22ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x53B8CC1FULL) + 0x129642F1ULL) ^ __vm_sbox_7[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_152: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xF1F045D8ULL, __b = __VREG_GET(__vs2) + 0x641304A8ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x5D474350ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xF1F045D8ULL) + 0x641304A8ULL) ^ __vm_sbox_8[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_153: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x9027BF91ULL, __b = __VREG_GET(__vs2) + 0xB58FC65FULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xC9A96A7EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x9027BF91ULL) + 0xB58FC65FULL) ^ __vm_sbox_9[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_154: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x2E5F394AULL, __b = __VREG_GET(__vs2) + 0x70C8816ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x360B91ACULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x2E5F394AULL) + 0x70C8816ULL) ^ __vm_sbox_10[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_155: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xCC96B303ULL, __b = __VREG_GET(__vs2) + 0x588949CDULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xA26DB8DAULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xCC96B303ULL) + 0x588949CDULL) ^ __vm_sbox_11[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_156: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x6ACE2CBCULL, __b = __VREG_GET(__vs2) + 0xAA060B84ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xECFE008ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x6ACE2CBCULL) + 0xAA060B84ULL) ^ __vm_sbox_12[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_157: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x905A675ULL, __b = __VREG_GET(__vs2) + 0xFB82CD3BULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x7B320736ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x905A675ULL) + 0xFB82CD3BULL) ^ __vm_sbox_13[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_158: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xA73D202EULL, __b = __VREG_GET(__vs2) + 0x4CFF8EF2ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xE7942E64ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xA73D202EULL) + 0x4CFF8EF2ULL) ^ __vm_sbox_14[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_159: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x457499E7ULL, __b = __VREG_GET(__vs2) + 0x9E7C50A9ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x53F65592ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x457499E7ULL) + 0x9E7C50A9ULL) ^ __vm_sbox_15[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_160: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xE3AC13A0ULL, __b = __VREG_GET(__vs2) + 0xEFF91260ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xC0587CC0ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xE3AC13A0ULL) + 0xEFF91260ULL) ^ __vm_sbox_0[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_161: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x81E38D59ULL, __b = __VREG_GET(__vs2) + 0x4175D417ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x2CBAA3EEULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x81E38D59ULL) + 0x4175D417ULL) ^ __vm_sbox_1[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_162: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x201B0712ULL, __b = __VREG_GET(__vs2) + 0x92F295CEULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x991CCB1CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x201B0712ULL) + 0x92F295CEULL) ^ __vm_sbox_2[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_163: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xBE5280CBULL, __b = __VREG_GET(__vs2) + 0xE46F5785ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x57EF24AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xBE5280CBULL) + 0xE46F5785ULL) ^ __vm_sbox_3[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_164: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x5C89FA84ULL, __b = __VREG_GET(__vs2) + 0x35EC193CULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x71E11978ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x5C89FA84ULL) + 0x35EC193CULL) ^ __vm_sbox_4[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_165: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xFAC1743DULL, __b = __VREG_GET(__vs2) + 0x8768DAF3ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xDE4340A6ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xFAC1743DULL) + 0x8768DAF3ULL) ^ __vm_sbox_5[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_166: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x98F8EDF6ULL, __b = __VREG_GET(__vs2) + 0xD8E59CAAULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x4AA567D4ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x98F8EDF6ULL) + 0xD8E59CAAULL) ^ __vm_sbox_6[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_167: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x373067AFULL, __b = __VREG_GET(__vs2) + 0x2A625E61ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xB7078F02ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x373067AFULL) + 0x2A625E61ULL) ^ __vm_sbox_7[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_168: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xD567E168ULL, __b = __VREG_GET(__vs2) + 0x7BDF2018ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x2369B630ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xD567E168ULL) + 0x7BDF2018ULL) ^ __vm_sbox_8[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_169: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x739F5B21ULL, __b = __VREG_GET(__vs2) + 0xCD5BE1CFULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x8FCBDD5EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x739F5B21ULL) + 0xCD5BE1CFULL) ^ __vm_sbox_9[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_170: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x11D6D4DAULL, __b = __VREG_GET(__vs2) + 0x1ED8A386ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xFC2E048CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x11D6D4DAULL) + 0x1ED8A386ULL) ^ __vm_sbox_10[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_171: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xB00E4E93ULL, __b = __VREG_GET(__vs2) + 0x7055653DULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x68902BBAULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xB00E4E93ULL) + 0x7055653DULL) ^ __vm_sbox_11[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_172: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x4E45C84CULL, __b = __VREG_GET(__vs2) + 0xC1D226F4ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xD4F252E8ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x4E45C84CULL) + 0xC1D226F4ULL) ^ __vm_sbox_12[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_173: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xEC7D4205ULL, __b = __VREG_GET(__vs2) + 0x134EE8ABULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x41547A16ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xEC7D4205ULL) + 0x134EE8ABULL) ^ __vm_sbox_13[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_174: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x8AB4BBBEULL, __b = __VREG_GET(__vs2) + 0x64CBAA62ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xADB6A144ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x8AB4BBBEULL) + 0x64CBAA62ULL) ^ __vm_sbox_14[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_175: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x28EC3577ULL, __b = __VREG_GET(__vs2) + 0xB6486C19ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x1A18C872ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x28EC3577ULL) + 0xB6486C19ULL) ^ __vm_sbox_15[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_176: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xC723AF30ULL, __b = __VREG_GET(__vs2) + 0x7C52DD0ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x867AEFA0ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xC723AF30ULL) + 0x7C52DD0ULL) ^ __vm_sbox_0[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_177: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x655B28E9ULL, __b = __VREG_GET(__vs2) + 0x5941EF87ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xF2DD16CEULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x655B28E9ULL) + 0x5941EF87ULL) ^ __vm_sbox_1[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_178: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x392A2A2ULL, __b = __VREG_GET(__vs2) + 0xAABEB13EULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x5F3F3DFCULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x392A2A2ULL) + 0xAABEB13EULL) ^ __vm_sbox_2[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_179: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xA1CA1C5BULL, __b = __VREG_GET(__vs2) + 0xFC3B72F5ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xCBA1652AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xA1CA1C5BULL) + 0xFC3B72F5ULL) ^ __vm_sbox_3[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_180: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x40019614ULL, __b = __VREG_GET(__vs2) + 0x4DB834ACULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x38038C58ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x40019614ULL) + 0x4DB834ACULL) ^ __vm_sbox_4[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_181: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xDE390FCDULL, __b = __VREG_GET(__vs2) + 0x9F34F663ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xA465B386ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xDE390FCDULL) + 0x9F34F663ULL) ^ __vm_sbox_5[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_182: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x7C708986ULL, __b = __VREG_GET(__vs2) + 0xF0B1B81AULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x10C7DAB4ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x7C708986ULL) + 0xF0B1B81AULL) ^ __vm_sbox_6[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_183: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x1AA8033FULL, __b = __VREG_GET(__vs2) + 0x422E79D1ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x7D2A01E2ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x1AA8033FULL) + 0x422E79D1ULL) ^ __vm_sbox_7[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_184: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xB8DF7CF8ULL, __b = __VREG_GET(__vs2) + 0x93AB3B88ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xE98C2910ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xB8DF7CF8ULL) + 0x93AB3B88ULL) ^ __vm_sbox_8[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_185: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x5716F6B1ULL, __b = __VREG_GET(__vs2) + 0xE527FD3FULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x55EE503EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x5716F6B1ULL) + 0xE527FD3FULL) ^ __vm_sbox_9[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_186: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xF54E706AULL, __b = __VREG_GET(__vs2) + 0x36A4BEF6ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xC250776CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xF54E706AULL) + 0x36A4BEF6ULL) ^ __vm_sbox_10[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_187: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x9385EA23ULL, __b = __VREG_GET(__vs2) + 0x882180ADULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x2EB29E9AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x9385EA23ULL) + 0x882180ADULL) ^ __vm_sbox_11[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_188: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x31BD63DCULL, __b = __VREG_GET(__vs2) + 0xD99E4264ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x9B14C5C8ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x31BD63DCULL) + 0xD99E4264ULL) ^ __vm_sbox_12[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_189: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xCFF4DD95ULL, __b = __VREG_GET(__vs2) + 0x2B1B041BULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x776ECF6ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xCFF4DD95ULL) + 0x2B1B041BULL) ^ __vm_sbox_13[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_190: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x6E2C574EULL, __b = __VREG_GET(__vs2) + 0x7C97C5D2ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x73D91424ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x6E2C574EULL) + 0x7C97C5D2ULL) ^ __vm_sbox_14[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_191: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xC63D107ULL, __b = __VREG_GET(__vs2) + 0xCE148789ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xE03B3B52ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xC63D107ULL) + 0xCE148789ULL) ^ __vm_sbox_15[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_192: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xAA9B4AC0ULL, __b = __VREG_GET(__vs2) + 0x1F914940ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x4C9D6280ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xAA9B4AC0ULL) + 0x1F914940ULL) ^ __vm_sbox_0[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_193: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x48D2C479ULL, __b = __VREG_GET(__vs2) + 0x710E0AF7ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xB8FF89AEULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x48D2C479ULL) + 0x710E0AF7ULL) ^ __vm_sbox_1[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_194: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xE70A3E32ULL, __b = __VREG_GET(__vs2) + 0xC28ACCAEULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x2561B0DCULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xE70A3E32ULL) + 0xC28ACCAEULL) ^ __vm_sbox_2[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_195: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x8541B7EBULL, __b = __VREG_GET(__vs2) + 0x14078E65ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x91C3D80AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x8541B7EBULL) + 0x14078E65ULL) ^ __vm_sbox_3[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_196: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x237931A4ULL, __b = __VREG_GET(__vs2) + 0x6584501CULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xFE25FF38ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x237931A4ULL) + 0x6584501CULL) ^ __vm_sbox_4[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_197: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xC1B0AB5DULL, __b = __VREG_GET(__vs2) + 0xB70111D3ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x6A882666ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xC1B0AB5DULL) + 0xB70111D3ULL) ^ __vm_sbox_5[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_198: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x5FE82516ULL, __b = __VREG_GET(__vs2) + 0x87DD38AULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xD6EA4D94ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x5FE82516ULL) + 0x87DD38AULL) ^ __vm_sbox_6[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_199: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xFE1F9ECFULL, __b = __VREG_GET(__vs2) + 0x59FA9541ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x434C74C2ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xFE1F9ECFULL) + 0x59FA9541ULL) ^ __vm_sbox_7[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_200: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x9C571888ULL, __b = __VREG_GET(__vs2) + 0xAB7756F8ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xAFAE9BF0ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x9C571888ULL) + 0xAB7756F8ULL) ^ __vm_sbox_8[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_201: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x3A8E9241ULL, __b = __VREG_GET(__vs2) + 0xFCF418AFULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x1C10C31EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x3A8E9241ULL) + 0xFCF418AFULL) ^ __vm_sbox_9[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_202: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xD8C60BFAULL, __b = __VREG_GET(__vs2) + 0x4E70DA66ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x8872EA4CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xD8C60BFAULL) + 0x4E70DA66ULL) ^ __vm_sbox_10[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_203: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x76FD85B3ULL, __b = __VREG_GET(__vs2) + 0x9FED9C1DULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xF4D5117AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x76FD85B3ULL) + 0x9FED9C1DULL) ^ __vm_sbox_11[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_204: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x1534FF6CULL, __b = __VREG_GET(__vs2) + 0xF16A5DD4ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x613738A8ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x1534FF6CULL) + 0xF16A5DD4ULL) ^ __vm_sbox_12[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_205: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xB36C7925ULL, __b = __VREG_GET(__vs2) + 0x42E71F8BULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xCD995FD6ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xB36C7925ULL) + 0x42E71F8BULL) ^ __vm_sbox_13[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_206: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x51A3F2DEULL, __b = __VREG_GET(__vs2) + 0x9463E142ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x39FB8704ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x51A3F2DEULL) + 0x9463E142ULL) ^ __vm_sbox_14[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_207: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xEFDB6C97ULL, __b = __VREG_GET(__vs2) + 0xE5E0A2F9ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xA65DAE32ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xEFDB6C97ULL) + 0xE5E0A2F9ULL) ^ __vm_sbox_15[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_208: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x8E12E650ULL, __b = __VREG_GET(__vs2) + 0x375D64B0ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x12BFD560ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x8E12E650ULL) + 0x375D64B0ULL) ^ __vm_sbox_0[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_209: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x2C4A6009ULL, __b = __VREG_GET(__vs2) + 0x88DA2667ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x7F21FC8EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x2C4A6009ULL) + 0x88DA2667ULL) ^ __vm_sbox_1[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_210: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xCA81D9C2ULL, __b = __VREG_GET(__vs2) + 0xDA56E81EULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xEB8423BCULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xCA81D9C2ULL) + 0xDA56E81EULL) ^ __vm_sbox_2[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_211: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x68B9537BULL, __b = __VREG_GET(__vs2) + 0x2BD3A9D5ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x57E64AEAULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x68B9537BULL) + 0x2BD3A9D5ULL) ^ __vm_sbox_3[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_212: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x6F0CD34ULL, __b = __VREG_GET(__vs2) + 0x7D506B8CULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xC4487218ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x6F0CD34ULL) + 0x7D506B8CULL) ^ __vm_sbox_4[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_213: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xA52846EDULL, __b = __VREG_GET(__vs2) + 0xCECD2D43ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x30AA9946ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xA52846EDULL) + 0xCECD2D43ULL) ^ __vm_sbox_5[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_214: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x435FC0A6ULL, __b = __VREG_GET(__vs2) + 0x2049EEFAULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x9D0CC074ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x435FC0A6ULL) + 0x2049EEFAULL) ^ __vm_sbox_6[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_215: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xE1973A5FULL, __b = __VREG_GET(__vs2) + 0x71C6B0B1ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x96EE7A2ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xE1973A5FULL) + 0x71C6B0B1ULL) ^ __vm_sbox_7[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_216: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x7FCEB418ULL, __b = __VREG_GET(__vs2) + 0xC3437268ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x75D10ED0ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x7FCEB418ULL) + 0xC3437268ULL) ^ __vm_sbox_8[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_217: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x1E062DD1ULL, __b = __VREG_GET(__vs2) + 0x14C0341FULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xE23335FEULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x1E062DD1ULL) + 0x14C0341FULL) ^ __vm_sbox_9[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_218: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xBC3DA78AULL, __b = __VREG_GET(__vs2) + 0x663CF5D6ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x4E955D2CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xBC3DA78AULL) + 0x663CF5D6ULL) ^ __vm_sbox_10[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_219: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x5A752143ULL, __b = __VREG_GET(__vs2) + 0xB7B9B78DULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xBAF7845AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x5A752143ULL) + 0xB7B9B78DULL) ^ __vm_sbox_11[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_220: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xF8AC9AFCULL, __b = __VREG_GET(__vs2) + 0x9367944ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x2759AB88ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xF8AC9AFCULL) + 0x9367944ULL) ^ __vm_sbox_12[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_221: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x96E414B5ULL, __b = __VREG_GET(__vs2) + 0x5AB33AFBULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x93BBD2B6ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x96E414B5ULL) + 0x5AB33AFBULL) ^ __vm_sbox_13[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_222: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x351B8E6EULL, __b = __VREG_GET(__vs2) + 0xAC2FFCB2ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x1DF9E4ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x351B8E6EULL) + 0xAC2FFCB2ULL) ^ __vm_sbox_14[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_223: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xD3530827ULL, __b = __VREG_GET(__vs2) + 0xFDACBE69ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x6C802112ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xD3530827ULL) + 0xFDACBE69ULL) ^ __vm_sbox_15[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_224: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x718A81E0ULL, __b = __VREG_GET(__vs2) + 0x4F298020ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xD8E24840ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x718A81E0ULL) + 0x4F298020ULL) ^ __vm_sbox_0[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_225: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xFC1FB99ULL, __b = __VREG_GET(__vs2) + 0xA0A641D7ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x45446F6EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xFC1FB99ULL) + 0xA0A641D7ULL) ^ __vm_sbox_1[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_226: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xADF97552ULL, __b = __VREG_GET(__vs2) + 0xF223038EULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xB1A6969CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xADF97552ULL) + 0xF223038EULL) ^ __vm_sbox_2[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_227: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x4C30EF0BULL, __b = __VREG_GET(__vs2) + 0x439FC545ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x1E08BDCAULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x4C30EF0BULL) + 0x439FC545ULL) ^ __vm_sbox_3[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_228: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xEA6868C4ULL, __b = __VREG_GET(__vs2) + 0x951C86FCULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x8A6AE4F8ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xEA6868C4ULL) + 0x951C86FCULL) ^ __vm_sbox_4[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_229: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x889FE27DULL, __b = __VREG_GET(__vs2) + 0xE69948B3ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xF6CD0C26ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x889FE27DULL) + 0xE69948B3ULL) ^ __vm_sbox_5[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_230: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x26D75C36ULL, __b = __VREG_GET(__vs2) + 0x38160A6AULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x632F3354ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x26D75C36ULL) + 0x38160A6AULL) ^ __vm_sbox_6[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_231: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xC50ED5EFULL, __b = __VREG_GET(__vs2) + 0x8992CC21ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xCF915A82ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xC50ED5EFULL) + 0x8992CC21ULL) ^ __vm_sbox_7[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_232: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x63464FA8ULL, __b = __VREG_GET(__vs2) + 0xDB0F8DD8ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x3BF381B0ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x63464FA8ULL) + 0xDB0F8DD8ULL) ^ __vm_sbox_8[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_233: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x17DC961ULL, __b = __VREG_GET(__vs2) + 0x2C8C4F8FULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xA855A8DEULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x17DC961ULL) + 0x2C8C4F8FULL) ^ __vm_sbox_9[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_234: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x9FB5431AULL, __b = __VREG_GET(__vs2) + 0x7E091146ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x14B7D00CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x9FB5431AULL) + 0x7E091146ULL) ^ __vm_sbox_10[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_235: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x3DECBCD3ULL, __b = __VREG_GET(__vs2) + 0xCF85D2FDULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x8119F73AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x3DECBCD3ULL) + 0xCF85D2FDULL) ^ __vm_sbox_11[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_236: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xDC24368CULL, __b = __VREG_GET(__vs2) + 0x210294B4ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xED7C1E68ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xDC24368CULL) + 0x210294B4ULL) ^ __vm_sbox_12[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_237: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x7A5BB045ULL, __b = __VREG_GET(__vs2) + 0x727F566BULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x59DE4596ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x7A5BB045ULL) + 0x727F566BULL) ^ __vm_sbox_13[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_238: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x189329FEULL, __b = __VREG_GET(__vs2) + 0xC3FC1822ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xC6406CC4ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x189329FEULL) + 0xC3FC1822ULL) ^ __vm_sbox_14[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_239: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xB6CAA3B7ULL, __b = __VREG_GET(__vs2) + 0x1578D9D9ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x32A293F2ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xB6CAA3B7ULL) + 0x1578D9D9ULL) ^ __vm_sbox_15[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_240: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x55021D70ULL, __b = __VREG_GET(__vs2) + 0x66F59B90ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x9F04BB20ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x55021D70ULL) + 0x66F59B90ULL) ^ __vm_sbox_0[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_241: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xF3399729ULL, __b = __VREG_GET(__vs2) + 0xB8725D47ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xB66E24EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xF3399729ULL) + 0xB8725D47ULL) ^ __vm_sbox_1[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_242: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x917110E2ULL, __b = __VREG_GET(__vs2) + 0x9EF1EFEULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x77C9097CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x917110E2ULL) + 0x9EF1EFEULL) ^ __vm_sbox_2[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_243: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x2FA88A9BULL, __b = __VREG_GET(__vs2) + 0x5B6BE0B5ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xE42B30AAULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x2FA88A9BULL) + 0x5B6BE0B5ULL) ^ __vm_sbox_3[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_244: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xCDE00454ULL, __b = __VREG_GET(__vs2) + 0xACE8A26CULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x508D57D8ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xCDE00454ULL) + 0xACE8A26CULL) ^ __vm_sbox_4[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_245: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x6C177E0DULL, __b = __VREG_GET(__vs2) + 0xFE656423ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xBCEF7F06ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x6C177E0DULL) + 0xFE656423ULL) ^ __vm_sbox_5[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_246: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xA4EF7C6ULL, __b = __VREG_GET(__vs2) + 0x4FE225DAULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x2951A634ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xA4EF7C6ULL) + 0x4FE225DAULL) ^ __vm_sbox_6[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_247: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xA886717FULL, __b = __VREG_GET(__vs2) + 0xA15EE791ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x95B3CD62ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xA886717FULL) + 0xA15EE791ULL) ^ __vm_sbox_7[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_248: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x46BDEB38ULL, __b = __VREG_GET(__vs2) + 0xF2DBA948ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x215F490ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x46BDEB38ULL) + 0xF2DBA948ULL) ^ __vm_sbox_8[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_249: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xE4F564F1ULL, __b = __VREG_GET(__vs2) + 0x44586AFFULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x6E781BBEULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xE4F564F1ULL) + 0x44586AFFULL) ^ __vm_sbox_9[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_250: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x832CDEAAULL, __b = __VREG_GET(__vs2) + 0x95D52CB6ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xDADA42ECULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x832CDEAAULL) + 0x95D52CB6ULL) ^ __vm_sbox_10[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_251: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x21645863ULL, __b = __VREG_GET(__vs2) + 0xE751EE6DULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x473C6A1AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x21645863ULL) + 0xE751EE6DULL) ^ __vm_sbox_11[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_252: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xBF9BD21CULL, __b = __VREG_GET(__vs2) + 0x38CEB024ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xB39E9148ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xBF9BD21CULL) + 0x38CEB024ULL) ^ __vm_sbox_12[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_253: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x5DD34BD5ULL, __b = __VREG_GET(__vs2) + 0x8A4B71DBULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x2000B876ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x5DD34BD5ULL) + 0x8A4B71DBULL) ^ __vm_sbox_13[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_254: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xFC0AC58EULL, __b = __VREG_GET(__vs2) + 0xDBC83392ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x8C62DFA4ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xFC0AC58EULL) + 0xDBC83392ULL) ^ __vm_sbox_14[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_255: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x9A423F47ULL, __b = __VREG_GET(__vs2) + 0x2D44F549ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xF8C506D2ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x9A423F47ULL) + 0x2D44F549ULL) ^ __vm_sbox_15[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_256: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x3879B900ULL, __b = __VREG_GET(__vs2) + 0x7EC1B700ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x65272E00ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x3879B900ULL) + 0x7EC1B700ULL) ^ __vm_sbox_0[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_257: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xD6B132B9ULL, __b = __VREG_GET(__vs2) + 0xD03E78B7ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xD189552EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xD6B132B9ULL) + 0xD03E78B7ULL) ^ __vm_sbox_1[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_258: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x74E8AC72ULL, __b = __VREG_GET(__vs2) + 0x21BB3A6EULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x3DEB7C5CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x74E8AC72ULL) + 0x21BB3A6EULL) ^ __vm_sbox_2[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_259: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x1320262BULL, __b = __VREG_GET(__vs2) + 0x7337FC25ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xAA4DA38AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x1320262BULL) + 0x7337FC25ULL) ^ __vm_sbox_3[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_260: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xB1579FE4ULL, __b = __VREG_GET(__vs2) + 0xC4B4BDDCULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x16AFCAB8ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xB1579FE4ULL) + 0xC4B4BDDCULL) ^ __vm_sbox_4[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_261: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x4F8F199DULL, __b = __VREG_GET(__vs2) + 0x16317F93ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x8311F1E6ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x4F8F199DULL) + 0x16317F93ULL) ^ __vm_sbox_5[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_262: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xEDC69356ULL, __b = __VREG_GET(__vs2) + 0x67AE414AULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xEF741914ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xEDC69356ULL) + 0x67AE414AULL) ^ __vm_sbox_6[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_263: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x8BFE0D0FULL, __b = __VREG_GET(__vs2) + 0xB92B0301ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x5BD64042ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x8BFE0D0FULL) + 0xB92B0301ULL) ^ __vm_sbox_7[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_264: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x2A3586C8ULL, __b = __VREG_GET(__vs2) + 0xAA7C4B8ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xC8386770ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x2A3586C8ULL) + 0xAA7C4B8ULL) ^ __vm_sbox_8[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_265: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xC86D0081ULL, __b = __VREG_GET(__vs2) + 0x5C24866FULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x349A8E9EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xC86D0081ULL) + 0x5C24866FULL) ^ __vm_sbox_9[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_266: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x66A47A3AULL, __b = __VREG_GET(__vs2) + 0xADA14826ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xA0FCB5CCULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x66A47A3AULL) + 0xADA14826ULL) ^ __vm_sbox_10[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_267: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x4DBF3F3ULL, __b = __VREG_GET(__vs2) + 0xFF1E09DDULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xD5EDCFAULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x4DBF3F3ULL) + 0xFF1E09DDULL) ^ __vm_sbox_11[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_268: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xA3136DACULL, __b = __VREG_GET(__vs2) + 0x509ACB94ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x79C10428ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xA3136DACULL) + 0x509ACB94ULL) ^ __vm_sbox_12[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_269: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x414AE765ULL, __b = __VREG_GET(__vs2) + 0xA2178D4BULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xE6232B56ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x414AE765ULL) + 0xA2178D4BULL) ^ __vm_sbox_13[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_270: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xDF82611EULL, __b = __VREG_GET(__vs2) + 0xF3944F02ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x52855284ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xDF82611EULL) + 0xF3944F02ULL) ^ __vm_sbox_14[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_271: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x7DB9DAD7ULL, __b = __VREG_GET(__vs2) + 0x451110B9ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xBEE779B2ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x7DB9DAD7ULL) + 0x451110B9ULL) ^ __vm_sbox_15[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_272: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x1BF15490ULL, __b = __VREG_GET(__vs2) + 0x968DD270ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x2B49A0E0ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x1BF15490ULL) + 0x968DD270ULL) ^ __vm_sbox_0[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_273: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xBA28CE49ULL, __b = __VREG_GET(__vs2) + 0xE80A9427ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x97ABC80EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xBA28CE49ULL) + 0xE80A9427ULL) ^ __vm_sbox_1[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_274: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x58604802ULL, __b = __VREG_GET(__vs2) + 0x398755DEULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x40DEF3CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x58604802ULL) + 0x398755DEULL) ^ __vm_sbox_2[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_275: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xF697C1BBULL, __b = __VREG_GET(__vs2) + 0x8B041795ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x7070166AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xF697C1BBULL) + 0x8B041795ULL) ^ __vm_sbox_3[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_276: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x94CF3B74ULL, __b = __VREG_GET(__vs2) + 0xDC80D94CULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xDCD23D98ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x94CF3B74ULL) + 0xDC80D94CULL) ^ __vm_sbox_4[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_277: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x3306B52DULL, __b = __VREG_GET(__vs2) + 0x2DFD9B03ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x493464C6ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x3306B52DULL) + 0x2DFD9B03ULL) ^ __vm_sbox_5[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_278: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xD13E2EE6ULL, __b = __VREG_GET(__vs2) + 0x7F7A5CBAULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xB5968BF4ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xD13E2EE6ULL) + 0x7F7A5CBAULL) ^ __vm_sbox_6[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_279: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x6F75A89FULL, __b = __VREG_GET(__vs2) + 0xD0F71E71ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x21F8B322ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x6F75A89FULL) + 0xD0F71E71ULL) ^ __vm_sbox_7[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_280: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xDAD2258ULL, __b = __VREG_GET(__vs2) + 0x2273E028ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x8E5ADA50ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xDAD2258ULL) + 0x2273E028ULL) ^ __vm_sbox_8[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_281: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xABE49C11ULL, __b = __VREG_GET(__vs2) + 0x73F0A1DFULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xFABD017EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xABE49C11ULL) + 0x73F0A1DFULL) ^ __vm_sbox_9[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_282: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x4A1C15CAULL, __b = __VREG_GET(__vs2) + 0xC56D6396ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x671F28ACULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x4A1C15CAULL) + 0xC56D6396ULL) ^ __vm_sbox_10[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_283: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xE8538F83ULL, __b = __VREG_GET(__vs2) + 0x16EA254DULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xD3814FDAULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xE8538F83ULL) + 0x16EA254DULL) ^ __vm_sbox_11[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_284: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x868B093CULL, __b = __VREG_GET(__vs2) + 0x6866E704ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x3FE37708ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x868B093CULL) + 0x6866E704ULL) ^ __vm_sbox_12[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_285: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x24C282F5ULL, __b = __VREG_GET(__vs2) + 0xB9E3A8BBULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xAC459E36ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x24C282F5ULL) + 0xB9E3A8BBULL) ^ __vm_sbox_13[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_286: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xC2F9FCAEULL, __b = __VREG_GET(__vs2) + 0xB606A72ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x18A7C564ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xC2F9FCAEULL) + 0xB606A72ULL) ^ __vm_sbox_14[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_287: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x61317667ULL, __b = __VREG_GET(__vs2) + 0x5CDD2C29ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x8509EC92ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x61317667ULL) + 0x5CDD2C29ULL) ^ __vm_sbox_15[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_288: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xFF68F020ULL, __b = __VREG_GET(__vs2) + 0xAE59EDE0ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xF16C13C0ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xFF68F020ULL) + 0xAE59EDE0ULL) ^ __vm_sbox_0[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_289: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x9DA069D9ULL, __b = __VREG_GET(__vs2) + 0xFFD6AF97ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x5DCE3AEEULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x9DA069D9ULL) + 0xFFD6AF97ULL) ^ __vm_sbox_1[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_290: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x3BD7E392ULL, __b = __VREG_GET(__vs2) + 0x5153714EULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xCA30621CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x3BD7E392ULL) + 0x5153714EULL) ^ __vm_sbox_2[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_291: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xDA0F5D4BULL, __b = __VREG_GET(__vs2) + 0xA2D03305ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x3692894AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xDA0F5D4BULL) + 0xA2D03305ULL) ^ __vm_sbox_3[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_292: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x7846D704ULL, __b = __VREG_GET(__vs2) + 0xF44CF4BCULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xA2F4B078ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x7846D704ULL) + 0xF44CF4BCULL) ^ __vm_sbox_4[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_293: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x167E50BDULL, __b = __VREG_GET(__vs2) + 0x45C9B673ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xF56D7A6ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x167E50BDULL) + 0x45C9B673ULL) ^ __vm_sbox_5[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_294: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xB4B5CA76ULL, __b = __VREG_GET(__vs2) + 0x9746782AULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x7BB8FED4ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xB4B5CA76ULL) + 0x9746782AULL) ^ __vm_sbox_6[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_295: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x52ED442FULL, __b = __VREG_GET(__vs2) + 0xE8C339E1ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xE81B2602ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x52ED442FULL) + 0xE8C339E1ULL) ^ __vm_sbox_7[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_296: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xF124BDE8ULL, __b = __VREG_GET(__vs2) + 0x3A3FFB98ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x547D4D30ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xF124BDE8ULL) + 0x3A3FFB98ULL) ^ __vm_sbox_8[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_297: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x8F5C37A1ULL, __b = __VREG_GET(__vs2) + 0x8BBCBD4FULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xC0DF745EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x8F5C37A1ULL) + 0x8BBCBD4FULL) ^ __vm_sbox_9[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_298: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x2D93B15AULL, __b = __VREG_GET(__vs2) + 0xDD397F06ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x2D419B8CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x2D93B15AULL) + 0xDD397F06ULL) ^ __vm_sbox_10[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_299: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xCBCB2B13ULL, __b = __VREG_GET(__vs2) + 0x2EB640BDULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x99A3C2BAULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xCBCB2B13ULL) + 0x2EB640BDULL) ^ __vm_sbox_11[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_300: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x6A02A4CCULL, __b = __VREG_GET(__vs2) + 0x80330274ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x605E9E8ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x6A02A4CCULL) + 0x80330274ULL) ^ __vm_sbox_12[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_301: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x83A1E85ULL, __b = __VREG_GET(__vs2) + 0xD1AFC42BULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x72681116ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x83A1E85ULL) + 0xD1AFC42BULL) ^ __vm_sbox_13[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_302: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xA671983EULL, __b = __VREG_GET(__vs2) + 0x232C85E2ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xDECA3844ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xA671983EULL) + 0x232C85E2ULL) ^ __vm_sbox_14[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_303: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x44A911F7ULL, __b = __VREG_GET(__vs2) + 0x74A94799ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x4B2C5F72ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x44A911F7ULL) + 0x74A94799ULL) ^ __vm_sbox_15[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_304: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xE2E08BB0ULL, __b = __VREG_GET(__vs2) + 0xC6260950ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xB78E86A0ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xE2E08BB0ULL) + 0xC6260950ULL) ^ __vm_sbox_0[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_305: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x81180569ULL, __b = __VREG_GET(__vs2) + 0x17A2CB07ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x23F0ADCEULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x81180569ULL) + 0x17A2CB07ULL) ^ __vm_sbox_1[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_306: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x1F4F7F22ULL, __b = __VREG_GET(__vs2) + 0x691F8CBEULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x9052D4FCULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x1F4F7F22ULL) + 0x691F8CBEULL) ^ __vm_sbox_2[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_307: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xBD86F8DBULL, __b = __VREG_GET(__vs2) + 0xBA9C4E75ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xFCB4FC2AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xBD86F8DBULL) + 0xBA9C4E75ULL) ^ __vm_sbox_3[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_308: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x5BBE7294ULL, __b = __VREG_GET(__vs2) + 0xC19102CULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x69172358ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x5BBE7294ULL) + 0xC19102CULL) ^ __vm_sbox_4[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_309: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xF9F5EC4DULL, __b = __VREG_GET(__vs2) + 0x5D95D1E3ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xD5794A86ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xF9F5EC4DULL) + 0x5D95D1E3ULL) ^ __vm_sbox_5[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_310: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x982D6606ULL, __b = __VREG_GET(__vs2) + 0xAF12939AULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x41DB71B4ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x982D6606ULL) + 0xAF12939AULL) ^ __vm_sbox_6[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_311: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x3664DFBFULL, __b = __VREG_GET(__vs2) + 0x8F5551ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xAE3D98E2ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x3664DFBFULL) + 0x8F5551ULL) ^ __vm_sbox_7[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_312: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xD49C5978ULL, __b = __VREG_GET(__vs2) + 0x520C1708ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x1A9FC010ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xD49C5978ULL) + 0x520C1708ULL) ^ __vm_sbox_8[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_313: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x72D3D331ULL, __b = __VREG_GET(__vs2) + 0xA388D8BFULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x8701E73EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x72D3D331ULL) + 0xA388D8BFULL) ^ __vm_sbox_9[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_314: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x110B4CEAULL, __b = __VREG_GET(__vs2) + 0xF5059A76ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xF3640E6CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x110B4CEAULL) + 0xF5059A76ULL) ^ __vm_sbox_10[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_315: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xAF42C6A3ULL, __b = __VREG_GET(__vs2) + 0x46825C2DULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x5FC6359AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xAF42C6A3ULL) + 0x46825C2DULL) ^ __vm_sbox_11[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_316: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x4D7A405CULL, __b = __VREG_GET(__vs2) + 0x97FF1DE4ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xCC285CC8ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x4D7A405CULL) + 0x97FF1DE4ULL) ^ __vm_sbox_12[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_317: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xEBB1BA15ULL, __b = __VREG_GET(__vs2) + 0xE97BDF9BULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x388A83F6ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xEBB1BA15ULL) + 0xE97BDF9BULL) ^ __vm_sbox_13[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_318: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x89E933CEULL, __b = __VREG_GET(__vs2) + 0x3AF8A152ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xA4ECAB24ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x89E933CEULL) + 0x3AF8A152ULL) ^ __vm_sbox_14[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_319: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x2820AD87ULL, __b = __VREG_GET(__vs2) + 0x8C756309ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x114ED252ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x2820AD87ULL) + 0x8C756309ULL) ^ __vm_sbox_15[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_320: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xC6582740ULL, __b = __VREG_GET(__vs2) + 0xDDF224C0ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x7DB0F980ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xC6582740ULL) + 0xDDF224C0ULL) ^ __vm_sbox_0[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_321: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x648FA0F9ULL, __b = __VREG_GET(__vs2) + 0x2F6EE677ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xEA1320AEULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x648FA0F9ULL) + 0x2F6EE677ULL) ^ __vm_sbox_1[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_322: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x2C71AB2ULL, __b = __VREG_GET(__vs2) + 0x80EBA82EULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x567547DCULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x2C71AB2ULL) + 0x80EBA82EULL) ^ __vm_sbox_2[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_323: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xA0FE946BULL, __b = __VREG_GET(__vs2) + 0xD26869E5ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xC2D76F0AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xA0FE946BULL) + 0xD26869E5ULL) ^ __vm_sbox_3[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_324: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x3F360E24ULL, __b = __VREG_GET(__vs2) + 0x23E52B9CULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x2F399638ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x3F360E24ULL) + 0x23E52B9CULL) ^ __vm_sbox_4[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_325: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xDD6D87DDULL, __b = __VREG_GET(__vs2) + 0x7561ED53ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x9B9BBD66ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xDD6D87DDULL) + 0x7561ED53ULL) ^ __vm_sbox_5[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_326: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x7BA50196ULL, __b = __VREG_GET(__vs2) + 0xC6DEAF0AULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x7FDE494ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x7BA50196ULL) + 0xC6DEAF0AULL) ^ __vm_sbox_6[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_327: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x19DC7B4FULL, __b = __VREG_GET(__vs2) + 0x185B70C1ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x74600BC2ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x19DC7B4FULL) + 0x185B70C1ULL) ^ __vm_sbox_7[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_328: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xB813F508ULL, __b = __VREG_GET(__vs2) + 0x69D83278ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xE0C232F0ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xB813F508ULL) + 0x69D83278ULL) ^ __vm_sbox_8[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_329: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x564B6EC1ULL, __b = __VREG_GET(__vs2) + 0xBB54F42FULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x4D245A1EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x564B6EC1ULL) + 0xBB54F42FULL) ^ __vm_sbox_9[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_330: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xF482E87AULL, __b = __VREG_GET(__vs2) + 0xCD1B5E6ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xB986814CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xF482E87AULL) + 0xCD1B5E6ULL) ^ __vm_sbox_10[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_331: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x92BA6233ULL, __b = __VREG_GET(__vs2) + 0x5E4E779DULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x25E8A87AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x92BA6233ULL) + 0x5E4E779DULL) ^ __vm_sbox_11[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_332: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x30F1DBECULL, __b = __VREG_GET(__vs2) + 0xAFCB3954ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x924ACFA8ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x30F1DBECULL) + 0xAFCB3954ULL) ^ __vm_sbox_12[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_333: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xCF2955A5ULL, __b = __VREG_GET(__vs2) + 0x147FB0BULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xFEACF6D6ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xCF2955A5ULL) + 0x147FB0BULL) ^ __vm_sbox_13[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_334: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x6D60CF5EULL, __b = __VREG_GET(__vs2) + 0x52C4BCC2ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x6B0F1E04ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x6D60CF5EULL) + 0x52C4BCC2ULL) ^ __vm_sbox_14[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_335: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xB984917ULL, __b = __VREG_GET(__vs2) + 0xA4417E79ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xD7714532ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xB984917ULL) + 0xA4417E79ULL) ^ __vm_sbox_15[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_336: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xA9CFC2D0ULL, __b = __VREG_GET(__vs2) + 0xF5BE4030ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x43D36C60ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xA9CFC2D0ULL) + 0xF5BE4030ULL) ^ __vm_sbox_0[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_337: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x48073C89ULL, __b = __VREG_GET(__vs2) + 0x473B01E7ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xB035938EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x48073C89ULL) + 0x473B01E7ULL) ^ __vm_sbox_1[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_338: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xE63EB642ULL, __b = __VREG_GET(__vs2) + 0x98B7C39EULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x1C97BABCULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xE63EB642ULL) + 0x98B7C39EULL) ^ __vm_sbox_2[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_339: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x84762FFBULL, __b = __VREG_GET(__vs2) + 0xEA348555ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x88F9E1EAULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x84762FFBULL) + 0xEA348555ULL) ^ __vm_sbox_3[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_340: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x22ADA9B4ULL, __b = __VREG_GET(__vs2) + 0x3BB1470CULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xF55C0918ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x22ADA9B4ULL) + 0x3BB1470CULL) ^ __vm_sbox_4[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_341: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xC0E5236DULL, __b = __VREG_GET(__vs2) + 0x8D2E08C3ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x61BE3046ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xC0E5236DULL) + 0x8D2E08C3ULL) ^ __vm_sbox_5[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_342: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x5F1C9D26ULL, __b = __VREG_GET(__vs2) + 0xDEAACA7AULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xCE205774ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x5F1C9D26ULL) + 0xDEAACA7AULL) ^ __vm_sbox_6[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_343: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xFD5416DFULL, __b = __VREG_GET(__vs2) + 0x30278C31ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x3A827EA2ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xFD5416DFULL) + 0x30278C31ULL) ^ __vm_sbox_7[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_344: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x9B8B9098ULL, __b = __VREG_GET(__vs2) + 0x81A44DE8ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xA6E4A5D0ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x9B8B9098ULL) + 0x81A44DE8ULL) ^ __vm_sbox_8[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_345: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x39C30A51ULL, __b = __VREG_GET(__vs2) + 0xD3210F9FULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x1346CCFEULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x39C30A51ULL) + 0xD3210F9FULL) ^ __vm_sbox_9[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_346: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xD7FA840AULL, __b = __VREG_GET(__vs2) + 0x249DD156ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x7FA8F42CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xD7FA840AULL) + 0x249DD156ULL) ^ __vm_sbox_10[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_347: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x7631FDC3ULL, __b = __VREG_GET(__vs2) + 0x761A930DULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xEC0B1B5AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x7631FDC3ULL) + 0x761A930DULL) ^ __vm_sbox_11[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_348: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x1469777CULL, __b = __VREG_GET(__vs2) + 0xC79754C4ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x586D4288ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x1469777CULL) + 0xC79754C4ULL) ^ __vm_sbox_12[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_349: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xB2A0F135ULL, __b = __VREG_GET(__vs2) + 0x1914167BULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xC4CF69B6ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xB2A0F135ULL) + 0x1914167BULL) ^ __vm_sbox_13[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_350: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x50D86AEEULL, __b = __VREG_GET(__vs2) + 0x6A90D832ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x313190E4ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x50D86AEEULL) + 0x6A90D832ULL) ^ __vm_sbox_14[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_351: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xEF0FE4A7ULL, __b = __VREG_GET(__vs2) + 0xBC0D99E9ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x9D93B812ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xEF0FE4A7ULL) + 0xBC0D99E9ULL) ^ __vm_sbox_15[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_352: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x8D475E60ULL, __b = __VREG_GET(__vs2) + 0xD8A5BA0ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x9F5DF40ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x8D475E60ULL) + 0xD8A5BA0ULL) ^ __vm_sbox_0[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_353: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x2B7ED819ULL, __b = __VREG_GET(__vs2) + 0x5F071D57ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x7658066EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x2B7ED819ULL) + 0x5F071D57ULL) ^ __vm_sbox_1[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_354: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xC9B651D2ULL, __b = __VREG_GET(__vs2) + 0xB083DF0EULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xE2BA2D9CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xC9B651D2ULL) + 0xB083DF0EULL) ^ __vm_sbox_2[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_355: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x67EDCB8BULL, __b = __VREG_GET(__vs2) + 0x200A0C5ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x4F1C54CAULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x67EDCB8BULL) + 0x200A0C5ULL) ^ __vm_sbox_3[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_356: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x6254544ULL, __b = __VREG_GET(__vs2) + 0x537D627CULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xBB7E7BF8ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x6254544ULL) + 0x537D627CULL) ^ __vm_sbox_4[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_357: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xA45CBEFDULL, __b = __VREG_GET(__vs2) + 0xA4FA2433ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x27E0A326ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xA45CBEFDULL) + 0xA4FA2433ULL) ^ __vm_sbox_5[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_358: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x429438B6ULL, __b = __VREG_GET(__vs2) + 0xF676E5EAULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x9442CA54ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x429438B6ULL) + 0xF676E5EAULL) ^ __vm_sbox_6[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_359: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xE0CBB26FULL, __b = __VREG_GET(__vs2) + 0x47F3A7A1ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xA4F182ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xE0CBB26FULL) + 0x47F3A7A1ULL) ^ __vm_sbox_7[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_360: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x7F032C28ULL, __b = __VREG_GET(__vs2) + 0x99706958ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x6D0718B0ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x7F032C28ULL) + 0x99706958ULL) ^ __vm_sbox_8[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_361: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x1D3AA5E1ULL, __b = __VREG_GET(__vs2) + 0xEAED2B0FULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xD9693FDEULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x1D3AA5E1ULL) + 0xEAED2B0FULL) ^ __vm_sbox_9[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_362: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xBB721F9AULL, __b = __VREG_GET(__vs2) + 0x3C69ECC6ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x45CB670CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xBB721F9AULL) + 0x3C69ECC6ULL) ^ __vm_sbox_10[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_363: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x59A99953ULL, __b = __VREG_GET(__vs2) + 0x8DE6AE7DULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xB22D8E3AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x59A99953ULL) + 0x8DE6AE7DULL) ^ __vm_sbox_11[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_364: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xF7E1130CULL, __b = __VREG_GET(__vs2) + 0xDF637034ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x1E8FB568ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xF7E1130CULL) + 0xDF637034ULL) ^ __vm_sbox_12[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_365: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x96188CC5ULL, __b = __VREG_GET(__vs2) + 0x30E031EBULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x8AF1DC96ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x96188CC5ULL) + 0x30E031EBULL) ^ __vm_sbox_13[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_366: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x3450067EULL, __b = __VREG_GET(__vs2) + 0x825CF3A2ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xF75403C4ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x3450067EULL) + 0x825CF3A2ULL) ^ __vm_sbox_14[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_367: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xD2878037ULL, __b = __VREG_GET(__vs2) + 0xD3D9B559ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x63B62AF2ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xD2878037ULL) + 0xD3D9B559ULL) ^ __vm_sbox_15[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_368: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x70BEF9F0ULL, __b = __VREG_GET(__vs2) + 0x25567710ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xD0185220ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x70BEF9F0ULL) + 0x25567710ULL) ^ __vm_sbox_0[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_369: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xEF673A9ULL, __b = __VREG_GET(__vs2) + 0x76D338C7ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x3C7A794EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xEF673A9ULL) + 0x76D338C7ULL) ^ __vm_sbox_1[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_370: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xAD2DED62ULL, __b = __VREG_GET(__vs2) + 0xC84FFA7EULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xA8DCA07CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xAD2DED62ULL) + 0xC84FFA7EULL) ^ __vm_sbox_2[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_371: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x4B65671BULL, __b = __VREG_GET(__vs2) + 0x19CCBC35ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x153EC7AAULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x4B65671BULL) + 0x19CCBC35ULL) ^ __vm_sbox_3[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_372: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xE99CE0D4ULL, __b = __VREG_GET(__vs2) + 0x6B497DECULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x81A0EED8ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xE99CE0D4ULL) + 0x6B497DECULL) ^ __vm_sbox_4[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_373: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x87D45A8DULL, __b = __VREG_GET(__vs2) + 0xBCC63FA3ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xEE031606ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x87D45A8DULL) + 0xBCC63FA3ULL) ^ __vm_sbox_5[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_374: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x260BD446ULL, __b = __VREG_GET(__vs2) + 0xE43015AULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x5A653D34ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x260BD446ULL) + 0xE43015AULL) ^ __vm_sbox_6[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_375: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xC4434DFFULL, __b = __VREG_GET(__vs2) + 0x5FBFC311ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xC6C76462ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xC4434DFFULL) + 0x5FBFC311ULL) ^ __vm_sbox_7[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_376: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x627AC7B8ULL, __b = __VREG_GET(__vs2) + 0xB13C84C8ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x33298B90ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x627AC7B8ULL) + 0xB13C84C8ULL) ^ __vm_sbox_8[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_377: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xB24171ULL, __b = __VREG_GET(__vs2) + 0x2B9467FULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x9F8BB2BEULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xB24171ULL) + 0x2B9467FULL) ^ __vm_sbox_9[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_378: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x9EE9BB2AULL, __b = __VREG_GET(__vs2) + 0x54360836ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xBEDD9ECULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x9EE9BB2AULL) + 0x54360836ULL) ^ __vm_sbox_10[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_379: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x3D2134E3ULL, __b = __VREG_GET(__vs2) + 0xA5B2C9EDULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x7850011AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x3D2134E3ULL) + 0xA5B2C9EDULL) ^ __vm_sbox_11[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_380: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xDB58AE9CULL, __b = __VREG_GET(__vs2) + 0xF72F8BA4ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xE4B22848ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xDB58AE9CULL) + 0xF72F8BA4ULL) ^ __vm_sbox_12[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_381: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x79902855ULL, __b = __VREG_GET(__vs2) + 0x48AC4D5BULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x51144F76ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x79902855ULL) + 0x48AC4D5BULL) ^ __vm_sbox_13[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_382: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x17C7A20EULL, __b = __VREG_GET(__vs2) + 0x9A290F12ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xBD7676A4ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x17C7A20EULL) + 0x9A290F12ULL) ^ __vm_sbox_14[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_383: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xB5FF1BC7ULL, __b = __VREG_GET(__vs2) + 0xEBA5D0C9ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x29D89DD2ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xB5FF1BC7ULL) + 0xEBA5D0C9ULL) ^ __vm_sbox_15[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_384: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x54369580ULL, __b = __VREG_GET(__vs2) + 0x3D229280ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x963AC500ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x54369580ULL) + 0x3D229280ULL) ^ __vm_sbox_0[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_385: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xF26E0F39ULL, __b = __VREG_GET(__vs2) + 0x8E9F5437ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x29CEC2EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xF26E0F39ULL) + 0x8E9F5437ULL) ^ __vm_sbox_1[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_386: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x90A588F2ULL, __b = __VREG_GET(__vs2) + 0xE01C15EEULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x6EFF135CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x90A588F2ULL) + 0xE01C15EEULL) ^ __vm_sbox_2[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_387: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x2EDD02ABULL, __b = __VREG_GET(__vs2) + 0x3198D7A5ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xDB613A8AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x2EDD02ABULL) + 0x3198D7A5ULL) ^ __vm_sbox_3[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_388: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xCD147C64ULL, __b = __VREG_GET(__vs2) + 0x8315995CULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x47C361B8ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xCD147C64ULL) + 0x8315995CULL) ^ __vm_sbox_4[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_389: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x6B4BF61DULL, __b = __VREG_GET(__vs2) + 0xD4925B13ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xB42588E6ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x6B4BF61DULL) + 0xD4925B13ULL) ^ __vm_sbox_5[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_390: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x9836FD6ULL, __b = __VREG_GET(__vs2) + 0x260F1CCAULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x2087B014ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x9836FD6ULL) + 0x260F1CCAULL) ^ __vm_sbox_6[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_391: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xA7BAE98FULL, __b = __VREG_GET(__vs2) + 0x778BDE81ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x8CE9D742ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xA7BAE98FULL) + 0x778BDE81ULL) ^ __vm_sbox_7[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_392: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x45F26348ULL, __b = __VREG_GET(__vs2) + 0xC908A038ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xF94BFE70ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x45F26348ULL) + 0xC908A038ULL) ^ __vm_sbox_8[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_393: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xE429DD01ULL, __b = __VREG_GET(__vs2) + 0x1A8561EFULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x65AE259EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xE429DD01ULL) + 0x1A8561EFULL) ^ __vm_sbox_9[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_394: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x826156BAULL, __b = __VREG_GET(__vs2) + 0x6C0223A6ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xD2104CCCULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x826156BAULL) + 0x6C0223A6ULL) ^ __vm_sbox_10[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_395: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x2098D073ULL, __b = __VREG_GET(__vs2) + 0xBD7EE55DULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x3E7273FAULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x2098D073ULL) + 0xBD7EE55DULL) ^ __vm_sbox_11[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_396: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xBED04A2CULL, __b = __VREG_GET(__vs2) + 0xEFBA714ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xAAD49B28ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xBED04A2CULL) + 0xEFBA714ULL) ^ __vm_sbox_12[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_397: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x5D07C3E5ULL, __b = __VREG_GET(__vs2) + 0x607868CBULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x1736C256ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x5D07C3E5ULL) + 0x607868CBULL) ^ __vm_sbox_13[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_398: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xFB3F3D9EULL, __b = __VREG_GET(__vs2) + 0xB1F52A82ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x8398E984ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xFB3F3D9EULL) + 0xB1F52A82ULL) ^ __vm_sbox_14[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_399: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x9976B757ULL, __b = __VREG_GET(__vs2) + 0x371EC39ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xEFFB10B2ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x9976B757ULL) + 0x371EC39ULL) ^ __vm_sbox_15[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_400: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x37AE3110ULL, __b = __VREG_GET(__vs2) + 0x54EEADF0ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x5C5D37E0ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x37AE3110ULL) + 0x54EEADF0ULL) ^ __vm_sbox_0[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_401: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xD5E5AAC9ULL, __b = __VREG_GET(__vs2) + 0xA66B6FA7ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xC8BF5F0EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xD5E5AAC9ULL) + 0xA66B6FA7ULL) ^ __vm_sbox_1[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_402: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x741D2482ULL, __b = __VREG_GET(__vs2) + 0xF7E8315EULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x3521863CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x741D2482ULL) + 0xF7E8315EULL) ^ __vm_sbox_2[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_403: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x12549E3BULL, __b = __VREG_GET(__vs2) + 0x4964F315ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xA183AD6AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x12549E3BULL) + 0x4964F315ULL) ^ __vm_sbox_3[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_404: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xB08C17F4ULL, __b = __VREG_GET(__vs2) + 0x9AE1B4CCULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xDE5D498ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xB08C17F4ULL) + 0x9AE1B4CCULL) ^ __vm_sbox_4[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_405: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x4EC391ADULL, __b = __VREG_GET(__vs2) + 0xEC5E7683ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x7A47FBC6ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x4EC391ADULL) + 0xEC5E7683ULL) ^ __vm_sbox_5[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_406: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xECFB0B66ULL, __b = __VREG_GET(__vs2) + 0x3DDB383AULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xE6AA22F4ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xECFB0B66ULL) + 0x3DDB383AULL) ^ __vm_sbox_6[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_407: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x8B32851FULL, __b = __VREG_GET(__vs2) + 0x8F57F9F1ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x530C4A22ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x8B32851FULL) + 0x8F57F9F1ULL) ^ __vm_sbox_7[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_408: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x2969FED8ULL, __b = __VREG_GET(__vs2) + 0xE0D4BBA8ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xBF6E7150ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x2969FED8ULL) + 0xE0D4BBA8ULL) ^ __vm_sbox_8[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_409: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xC7A17891ULL, __b = __VREG_GET(__vs2) + 0x32517D5FULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x2BD0987EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xC7A17891ULL) + 0x32517D5FULL) ^ __vm_sbox_9[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_410: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x65D8F24AULL, __b = __VREG_GET(__vs2) + 0x83CE3F16ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x9832BFACULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x65D8F24AULL) + 0x83CE3F16ULL) ^ __vm_sbox_10[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_411: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x4106C03ULL, __b = __VREG_GET(__vs2) + 0xD54B00CDULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x494E6DAULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x4106C03ULL) + 0xD54B00CDULL) ^ __vm_sbox_11[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_412: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xA247E5BCULL, __b = __VREG_GET(__vs2) + 0x26C7C284ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x70F70E08ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xA247E5BCULL) + 0x26C7C284ULL) ^ __vm_sbox_12[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_413: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x407F5F75ULL, __b = __VREG_GET(__vs2) + 0x7844843BULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xDD593536ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x407F5F75ULL) + 0x7844843BULL) ^ __vm_sbox_13[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_414: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xDEB6D92EULL, __b = __VREG_GET(__vs2) + 0xC9C145F2ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x49BB5C64ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xDEB6D92EULL) + 0xC9C145F2ULL) ^ __vm_sbox_14[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_415: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x7CEE52E7ULL, __b = __VREG_GET(__vs2) + 0x1B3E07A9ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xB61D8392ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x7CEE52E7ULL) + 0x1B3E07A9ULL) ^ __vm_sbox_15[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_416: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x1B25CCA0ULL, __b = __VREG_GET(__vs2) + 0x6CBAC960ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x227FAAC0ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x1B25CCA0ULL) + 0x6CBAC960ULL) ^ __vm_sbox_0[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_417: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xB95D4659ULL, __b = __VREG_GET(__vs2) + 0xBE378B17ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x8EE1D1EEULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xB95D4659ULL) + 0xBE378B17ULL) ^ __vm_sbox_1[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_418: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x5794C012ULL, __b = __VREG_GET(__vs2) + 0xFB44CCEULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xFB43F91CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x5794C012ULL) + 0xFB44CCEULL) ^ __vm_sbox_2[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_419: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xF5CC39CBULL, __b = __VREG_GET(__vs2) + 0x61310E85ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x67A6204AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xF5CC39CBULL) + 0x61310E85ULL) ^ __vm_sbox_3[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_420: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x9403B384ULL, __b = __VREG_GET(__vs2) + 0xB2ADD03CULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xD4084778ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x9403B384ULL) + 0xB2ADD03CULL) ^ __vm_sbox_4[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_421: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x323B2D3DULL, __b = __VREG_GET(__vs2) + 0x42A91F3ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x406A6EA6ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x323B2D3DULL) + 0x42A91F3ULL) ^ __vm_sbox_5[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_422: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xD072A6F6ULL, __b = __VREG_GET(__vs2) + 0x55A753AAULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xACCC95D4ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xD072A6F6ULL) + 0x55A753AAULL) ^ __vm_sbox_6[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_423: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x6EAA20AFULL, __b = __VREG_GET(__vs2) + 0xA7241561ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x192EBD02ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x6EAA20AFULL) + 0xA7241561ULL) ^ __vm_sbox_7[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_424: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xCE19A68ULL, __b = __VREG_GET(__vs2) + 0xF8A0D718ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x8590E430ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xCE19A68ULL) + 0xF8A0D718ULL) ^ __vm_sbox_8[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_425: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xAB191421ULL, __b = __VREG_GET(__vs2) + 0x4A1D98CFULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xF1F30B5EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xAB191421ULL) + 0x4A1D98CFULL) ^ __vm_sbox_9[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_426: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x49508DDAULL, __b = __VREG_GET(__vs2) + 0x9B9A5A86ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x5E55328CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x49508DDAULL) + 0x9B9A5A86ULL) ^ __vm_sbox_10[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_427: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xE7880793ULL, __b = __VREG_GET(__vs2) + 0xED171C3DULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xCAB759BAULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xE7880793ULL) + 0xED171C3DULL) ^ __vm_sbox_11[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_428: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x85BF814CULL, __b = __VREG_GET(__vs2) + 0x3E93DDF4ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x371980E8ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x85BF814CULL) + 0x3E93DDF4ULL) ^ __vm_sbox_12[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_429: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x23F6FB05ULL, __b = __VREG_GET(__vs2) + 0x90109FABULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xA37BA816ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x23F6FB05ULL) + 0x90109FABULL) ^ __vm_sbox_13[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_430: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xC22E74BEULL, __b = __VREG_GET(__vs2) + 0xE18D6162ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xFDDCF44ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xC22E74BEULL) + 0xE18D6162ULL) ^ __vm_sbox_14[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_431: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x6065EE77ULL, __b = __VREG_GET(__vs2) + 0x330A2319ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x7C3FF672ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x6065EE77ULL) + 0x330A2319ULL) ^ __vm_sbox_15[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_432: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xFE9D6830ULL, __b = __VREG_GET(__vs2) + 0x8486E4D0ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xE8A21DA0ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xFE9D6830ULL) + 0x8486E4D0ULL) ^ __vm_sbox_0[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_433: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x9CD4E1E9ULL, __b = __VREG_GET(__vs2) + 0xD603A687ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x550444CEULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x9CD4E1E9ULL) + 0xD603A687ULL) ^ __vm_sbox_1[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_434: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x3B0C5BA2ULL, __b = __VREG_GET(__vs2) + 0x2780683EULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xC1666BFCULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x3B0C5BA2ULL) + 0x2780683EULL) ^ __vm_sbox_2[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_435: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xD943D55BULL, __b = __VREG_GET(__vs2) + 0x78FD29F5ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x2DC8932AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xD943D55BULL) + 0x78FD29F5ULL) ^ __vm_sbox_3[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_436: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x777B4F14ULL, __b = __VREG_GET(__vs2) + 0xCA79EBACULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x9A2ABA58ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x777B4F14ULL) + 0xCA79EBACULL) ^ __vm_sbox_4[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_437: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x15B2C8CDULL, __b = __VREG_GET(__vs2) + 0x1BF6AD63ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x68CE186ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x15B2C8CDULL) + 0x1BF6AD63ULL) ^ __vm_sbox_5[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_438: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xB3EA4286ULL, __b = __VREG_GET(__vs2) + 0x6D736F1AULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x72EF08B4ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xB3EA4286ULL) + 0x6D736F1AULL) ^ __vm_sbox_6[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_439: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x5221BC3FULL, __b = __VREG_GET(__vs2) + 0xBEF030D1ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xDF512FE2ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x5221BC3FULL) + 0xBEF030D1ULL) ^ __vm_sbox_7[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_440: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xF05935F8ULL, __b = __VREG_GET(__vs2) + 0x106CF288ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x4BB35710ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xF05935F8ULL) + 0x106CF288ULL) ^ __vm_sbox_8[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_441: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x8E90AFB1ULL, __b = __VREG_GET(__vs2) + 0x61E9B43FULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xB8157E3EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x8E90AFB1ULL) + 0x61E9B43FULL) ^ __vm_sbox_9[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_442: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x2CC8296AULL, __b = __VREG_GET(__vs2) + 0xB36675F6ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x2477A56CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x2CC8296AULL) + 0xB36675F6ULL) ^ __vm_sbox_10[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_443: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xCAFFA323ULL, __b = __VREG_GET(__vs2) + 0x4E337ADULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x90D9CC9AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xCAFFA323ULL) + 0x4E337ADULL) ^ __vm_sbox_11[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_444: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x69371CDCULL, __b = __VREG_GET(__vs2) + 0x565FF964ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xFD3BF3C8ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x69371CDCULL) + 0x565FF964ULL) ^ __vm_sbox_12[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_445: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x76E9695ULL, __b = __VREG_GET(__vs2) + 0xA7DCBB1BULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x699E1AF6ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x76E9695ULL) + 0xA7DCBB1BULL) ^ __vm_sbox_13[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_446: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xA5A6104EULL, __b = __VREG_GET(__vs2) + 0xF9597CD2ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xD6004224ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xA5A6104EULL) + 0xF9597CD2ULL) ^ __vm_sbox_14[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_447: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x43DD8A07ULL, __b = __VREG_GET(__vs2) + 0x4AD63E89ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x42626952ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x43DD8A07ULL) + 0x4AD63E89ULL) ^ __vm_sbox_15[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_448: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xE21503C0ULL, __b = __VREG_GET(__vs2) + 0x9C530040ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xAEC49080ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xE21503C0ULL) + 0x9C530040ULL) ^ __vm_sbox_0[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_449: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x804C7D79ULL, __b = __VREG_GET(__vs2) + 0xEDCFC1F7ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x1B26B7AEULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x804C7D79ULL) + 0xEDCFC1F7ULL) ^ __vm_sbox_1[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_450: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x1E83F732ULL, __b = __VREG_GET(__vs2) + 0x3F4C83AEULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x8788DEDCULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x1E83F732ULL) + 0x3F4C83AEULL) ^ __vm_sbox_2[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_451: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xBCBB70EBULL, __b = __VREG_GET(__vs2) + 0x90C94565ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xF3EB060AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xBCBB70EBULL) + 0x90C94565ULL) ^ __vm_sbox_3[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_452: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x5AF2EAA4ULL, __b = __VREG_GET(__vs2) + 0xE246071CULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x604D2D38ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x5AF2EAA4ULL) + 0xE246071CULL) ^ __vm_sbox_4[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_453: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xF92A645DULL, __b = __VREG_GET(__vs2) + 0x33C2C8D3ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xCCAF5466ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xF92A645DULL) + 0x33C2C8D3ULL) ^ __vm_sbox_5[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_454: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x9761DE16ULL, __b = __VREG_GET(__vs2) + 0x853F8A8AULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x39117B94ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x9761DE16ULL) + 0x853F8A8AULL) ^ __vm_sbox_6[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_455: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x359957CFULL, __b = __VREG_GET(__vs2) + 0xD6BC4C41ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xA573A2C2ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x359957CFULL) + 0xD6BC4C41ULL) ^ __vm_sbox_7[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_456: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xD3D0D188ULL, __b = __VREG_GET(__vs2) + 0x28390DF8ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x11D5C9F0ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xD3D0D188ULL) + 0x28390DF8ULL) ^ __vm_sbox_8[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_457: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x72084B41ULL, __b = __VREG_GET(__vs2) + 0x79B5CFAFULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x7E37F11EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x72084B41ULL) + 0x79B5CFAFULL) ^ __vm_sbox_9[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_458: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x103FC4FAULL, __b = __VREG_GET(__vs2) + 0xCB329166ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xEA9A184CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x103FC4FAULL) + 0xCB329166ULL) ^ __vm_sbox_10[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_459: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xAE773EB3ULL, __b = __VREG_GET(__vs2) + 0x1CAF531DULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x56FC3F7AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xAE773EB3ULL) + 0x1CAF531DULL) ^ __vm_sbox_11[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_460: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x4CAEB86CULL, __b = __VREG_GET(__vs2) + 0x6E2C14D4ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xC35E66A8ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x4CAEB86CULL) + 0x6E2C14D4ULL) ^ __vm_sbox_12[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_461: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xEAE63225ULL, __b = __VREG_GET(__vs2) + 0xBFA8D68BULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x2FC08DD6ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xEAE63225ULL) + 0xBFA8D68BULL) ^ __vm_sbox_13[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_462: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x891DABDEULL, __b = __VREG_GET(__vs2) + 0x11259842ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x9C22B504ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x891DABDEULL) + 0x11259842ULL) ^ __vm_sbox_14[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_463: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x27552597ULL, __b = __VREG_GET(__vs2) + 0x62A259F9ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x884DC32ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x27552597ULL) + 0x62A259F9ULL) ^ __vm_sbox_15[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_464: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xC58C9F50ULL, __b = __VREG_GET(__vs2) + 0xB41F1BB0ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x74E70360ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xC58C9F50ULL) + 0xB41F1BB0ULL) ^ __vm_sbox_0[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_465: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x63C41909ULL, __b = __VREG_GET(__vs2) + 0x59BDD67ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xE1492A8EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x63C41909ULL) + 0x59BDD67ULL) ^ __vm_sbox_1[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_466: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x1FB92C2ULL, __b = __VREG_GET(__vs2) + 0x57189F1EULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x4DAB51BCULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x1FB92C2ULL) + 0x57189F1EULL) ^ __vm_sbox_2[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_467: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xA0330C7BULL, __b = __VREG_GET(__vs2) + 0xA89560D5ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xBA0D78EAULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xA0330C7BULL) + 0xA89560D5ULL) ^ __vm_sbox_3[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_468: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x3E6A8634ULL, __b = __VREG_GET(__vs2) + 0xFA12228CULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x266FA018ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x3E6A8634ULL) + 0xFA12228CULL) ^ __vm_sbox_4[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_469: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xDCA1FFEDULL, __b = __VREG_GET(__vs2) + 0x4B8EE443ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x92D1C746ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xDCA1FFEDULL) + 0x4B8EE443ULL) ^ __vm_sbox_5[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_470: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x7AD979A6ULL, __b = __VREG_GET(__vs2) + 0x9D0BA5FAULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xFF33EE74ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x7AD979A6ULL) + 0x9D0BA5FAULL) ^ __vm_sbox_6[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_471: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x1910F35FULL, __b = __VREG_GET(__vs2) + 0xEE8867B1ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x6B9615A2ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x1910F35FULL) + 0xEE8867B1ULL) ^ __vm_sbox_7[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_472: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xB7486D18ULL, __b = __VREG_GET(__vs2) + 0x40052968ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xD7F83CD0ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xB7486D18ULL) + 0x40052968ULL) ^ __vm_sbox_8[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_473: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x557FE6D1ULL, __b = __VREG_GET(__vs2) + 0x9181EB1FULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x445A63FEULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x557FE6D1ULL) + 0x9181EB1FULL) ^ __vm_sbox_9[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_474: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xF3B7608AULL, __b = __VREG_GET(__vs2) + 0xE2FEACD6ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xB0BC8B2CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xF3B7608AULL) + 0xE2FEACD6ULL) ^ __vm_sbox_10[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_475: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x91EEDA43ULL, __b = __VREG_GET(__vs2) + 0x347B6E8DULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x1D1EB25AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x91EEDA43ULL) + 0x347B6E8DULL) ^ __vm_sbox_11[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_476: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x302653FCULL, __b = __VREG_GET(__vs2) + 0x85F83044ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x8980D988ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x302653FCULL) + 0x85F83044ULL) ^ __vm_sbox_12[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_477: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xCE5DCDB5ULL, __b = __VREG_GET(__vs2) + 0xD774F1FBULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xF5E300B6ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xCE5DCDB5ULL) + 0xD774F1FBULL) ^ __vm_sbox_13[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_478: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x6C95476EULL, __b = __VREG_GET(__vs2) + 0x28F1B3B2ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x624527E4ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x6C95476EULL) + 0x28F1B3B2ULL) ^ __vm_sbox_14[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_479: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xACCC127ULL, __b = __VREG_GET(__vs2) + 0x7A6E7569ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xCEA74F12ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xACCC127ULL) + 0x7A6E7569ULL) ^ __vm_sbox_15[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_480: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xA9043AE0ULL, __b = __VREG_GET(__vs2) + 0xCBEB3720ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x3B097640ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xA9043AE0ULL) + 0xCBEB3720ULL) ^ __vm_sbox_0[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_481: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x473BB499ULL, __b = __VREG_GET(__vs2) + 0x1D67F8D7ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xA76B9D6EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x473BB499ULL) + 0x1D67F8D7ULL) ^ __vm_sbox_1[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_482: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xE5732E52ULL, __b = __VREG_GET(__vs2) + 0x6EE4BA8EULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x13CDC49CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xE5732E52ULL) + 0x6EE4BA8EULL) ^ __vm_sbox_2[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_483: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x83AAA80BULL, __b = __VREG_GET(__vs2) + 0xC0617C45ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x802FEBCAULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x83AAA80BULL) + 0xC0617C45ULL) ^ __vm_sbox_3[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_484: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x21E221C4ULL, __b = __VREG_GET(__vs2) + 0x11DE3DFCULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xEC9212F8ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x21E221C4ULL) + 0x11DE3DFCULL) ^ __vm_sbox_4[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_485: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xC0199B7DULL, __b = __VREG_GET(__vs2) + 0x635AFFB3ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x58F43A26ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xC0199B7DULL) + 0x635AFFB3ULL) ^ __vm_sbox_5[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_486: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x5E511536ULL, __b = __VREG_GET(__vs2) + 0xB4D7C16AULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xC5566154ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x5E511536ULL) + 0xB4D7C16AULL) ^ __vm_sbox_6[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_487: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xFC888EEFULL, __b = __VREG_GET(__vs2) + 0x6548321ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x31B88882ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xFC888EEFULL) + 0x6548321ULL) ^ __vm_sbox_7[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_488: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x9AC008A8ULL, __b = __VREG_GET(__vs2) + 0x57D144D8ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x9E1AAFB0ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x9AC008A8ULL) + 0x57D144D8ULL) ^ __vm_sbox_8[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_489: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x38F78261ULL, __b = __VREG_GET(__vs2) + 0xA94E068FULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xA7CD6DEULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x38F78261ULL) + 0xA94E068FULL) ^ __vm_sbox_9[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_490: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xD72EFC1AULL, __b = __VREG_GET(__vs2) + 0xFACAC846ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x76DEFE0CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xD72EFC1AULL) + 0xFACAC846ULL) ^ __vm_sbox_10[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_491: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x756675D3ULL, __b = __VREG_GET(__vs2) + 0x4C4789FDULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xE341253AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x756675D3ULL) + 0x4C4789FDULL) ^ __vm_sbox_11[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_492: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x139DEF8CULL, __b = __VREG_GET(__vs2) + 0x9DC44BB4ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x4FA34C68ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x139DEF8CULL) + 0x9DC44BB4ULL) ^ __vm_sbox_12[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_493: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xB1D56945ULL, __b = __VREG_GET(__vs2) + 0xEF410D6BULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xBC057396ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xB1D56945ULL) + 0xEF410D6BULL) ^ __vm_sbox_13[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_494: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x500CE2FEULL, __b = __VREG_GET(__vs2) + 0x40BDCF22ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x28679AC4ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x500CE2FEULL) + 0x40BDCF22ULL) ^ __vm_sbox_14[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_495: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xEE445CB7ULL, __b = __VREG_GET(__vs2) + 0x923A90D9ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x94C9C1F2ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xEE445CB7ULL) + 0x923A90D9ULL) ^ __vm_sbox_15[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_496: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x8C7BD670ULL, __b = __VREG_GET(__vs2) + 0xE3B75290ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x12BE920ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x8C7BD670ULL) + 0xE3B75290ULL) ^ __vm_sbox_0[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_497: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x2AB35029ULL, __b = __VREG_GET(__vs2) + 0x35341447ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x6D8E104EULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x2AB35029ULL) + 0x35341447ULL) ^ __vm_sbox_1[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_498: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xC8EAC9E2ULL, __b = __VREG_GET(__vs2) + 0x86B0D5FEULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xD9F0377CULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xC8EAC9E2ULL) + 0x86B0D5FEULL) ^ __vm_sbox_2[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_499: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x6722439BULL, __b = __VREG_GET(__vs2) + 0xD82D97B5ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x46525EAAULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x6722439BULL) + 0xD82D97B5ULL) ^ __vm_sbox_3[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_500: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x559BD54ULL, __b = __VREG_GET(__vs2) + 0x29AA596CULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xB2B485D8ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x559BD54ULL) + 0x29AA596CULL) ^ __vm_sbox_4[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_501: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xA391370DULL, __b = __VREG_GET(__vs2) + 0x7B271B23ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x1F16AD06ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xA391370DULL) + 0x7B271B23ULL) ^ __vm_sbox_5[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_502: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x41C8B0C6ULL, __b = __VREG_GET(__vs2) + 0xCCA3DCDAULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x8B78D434ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x41C8B0C6ULL) + 0xCCA3DCDAULL) ^ __vm_sbox_6[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_503: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xE0002A7FULL, __b = __VREG_GET(__vs2) + 0x1E209E91ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xF7DAFB62ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xE0002A7FULL) + 0x1E209E91ULL) ^ __vm_sbox_7[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_504: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x7E37A438ULL, __b = __VREG_GET(__vs2) + 0x6F9D6048ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x643D2290ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x7E37A438ULL) + 0x6F9D6048ULL) ^ __vm_sbox_8[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_505: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x1C6F1DF1ULL, __b = __VREG_GET(__vs2) + 0xC11A21FFULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xD09F49BEULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x1C6F1DF1ULL) + 0xC11A21FFULL) ^ __vm_sbox_9[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_506: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xBAA697AAULL, __b = __VREG_GET(__vs2) + 0x1296E3B6ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x3D0170ECULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xBAA697AAULL) + 0x1296E3B6ULL) ^ __vm_sbox_10[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_507: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x58DE1163ULL, __b = __VREG_GET(__vs2) + 0x6413A56DULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xA963981AULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x58DE1163ULL) + 0x6413A56DULL) ^ __vm_sbox_11[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_508: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xF7158B1CULL, __b = __VREG_GET(__vs2) + 0xB5906724ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x15C5BF48ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xF7158B1CULL) + 0xB5906724ULL) ^ __vm_sbox_12[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_509: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x954D04D5ULL, __b = __VREG_GET(__vs2) + 0x70D28DBULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x8227E676ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x954D04D5ULL) + 0x70D28DBULL) ^ __vm_sbox_13[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_510: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0x33847E8EULL, __b = __VREG_GET(__vs2) + 0x5889EA92ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0xEE8A0DA4ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0x33847E8EULL) + 0x5889EA92ULL) ^ __vm_sbox_14[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
+
+__h_trap_511: {
+    unsigned long long __a = __VREG_GET(__vs1) ^ 0xD1BBF847ULL, __b = __VREG_GET(__vs2) + 0xAA06AC49ULL;
+    unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
+    unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
+    unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
+    unsigned long long __bl = __x2 & 0xFFFFFFFFULL, __bh = __x2 >> 32;
+    unsigned long long __p0 = __al * __bl, __p2 = __ah * __bh;
+    unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
+    unsigned long long __x3 = __p0 + ((__p1 ^ 0x5AEC34D2ULL) << 32);
+    unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
+    __VREG_SET(__vd, ((__x4 ^ 0xD1BBF847ULL) + 0xAA06AC49ULL) ^ __vm_sbox_15[__VREG_GET(__vd) & 0xFF]);
+    __VISA_DISPATCH();
+}
 
 
 __h_vadd: {
@@ -557,7 +7337,7 @@ __h_vse8:
 
 __h_vbge:
     if (__VREG_GET(__vs1) >= __VREG_GET(__vs2)) {
-        __pc = (34);
+        __pc = (37);
     }
     __VISA_DISPATCH();
 
@@ -592,7 +7372,7 @@ __h_vret: ;
     if (((__vm_state_acc * (__vm_state_acc + 1ULL)) & 1ULL) != 0ULL) {
         __builtin_trap();
     }
-    unsigned long long __res_val = (__VREG_GET(0) ^ (__stepped * 0xBADF00DULL)) ^ ((__vm_state_acc * (__vm_state_acc + 1ULL)) & 1ULL);
+    unsigned long long __res_val = (__VREG_GET(1) ^ (__stepped * 0xBADF00DULL)) ^ ((__vm_state_acc * (__vm_state_acc + 1ULL)) & 1ULL);
     __builtin_memset(__vregs, 0, sizeof(__vregs));
     __builtin_memset(__vbc_live, 0, sizeof(__vbc_live));
     __builtin_memset(__vstack_data, 0, sizeof(__vstack_data));
@@ -600,7 +7380,7 @@ __h_vret: ;
     return (int)__res_val;
 }
 
-int __attribute__((__annotate__("ocasorry:nested_vm")))  _lIlOI0IOIIl_1(int _lOI011O1__2 ) 
+int __attribute__((__annotate__("ocasorry:nested_vm")))  _l1I0O_l0O0ll_001_1(int _lO0_1OlllI1_O_2 ) 
 { 
   int __outer_pc ;
   int __outer_running ;
@@ -622,7 +7402,7 @@ int __attribute__((__annotate__("ocasorry:nested_vm")))  _lIlOI0IOIIl_1(int _lOI
 
   {
   __t_start = __ocasorry_get_timestamp();
-  __desync_guard = 46046;
+  __desync_guard = 2136;
   {
   if ((__desync_guard & ~ __desync_guard) != 0) {
     return (0);
@@ -631,10 +7411,10 @@ int __attribute__((__annotate__("ocasorry:nested_vm")))  _lIlOI0IOIIl_1(int _lOI
   __ocasorry_enforce_anti_debug();
   __outer_pc = 0;
   __outer_running = 1;
-  __inner_key = 172;
+  __inner_key = 174;
   __nested_vm_result = 0;
   while (1) {
-    __outer_op = (int )__packed_outer_bc_vcpu2_nested_matrix_1[__outer_pc] ^ ((92 + __outer_pc * 17) & 255);
+    __outer_op = (int )__packed_outer_bc_vcpu2_nested_matrix_1[__outer_pc] ^ ((143 + __outer_pc * 17) & 255);
     __outer_pc ++;
     switch (__outer_op) {
     case 16: 
@@ -655,7 +7435,7 @@ int __attribute__((__annotate__("ocasorry:nested_vm")))  _lIlOI0IOIIl_1(int _lOI
       __inner_pc ++;
       __r_dst = (int )__packed_inner_bc_vcpu2_nested_matrix_1[__inner_pc] ^ ((__inner_key + __inner_pc * 31) & 255);
       __inner_pc ++;
-      __inner_vregs[__r_dst] = _lOI011O1__2;
+      __inner_vregs[__r_dst] = _lO0_1OlllI1_O_2;
       break;
       }
       case 2: 
@@ -728,7 +7508,7 @@ int __attribute__((__annotate__("ocasorry:nested_vm")))  _lIlOI0IOIIl_1(int _lOI
     }
     case 32: 
     {
-    __r_imm = (int )__packed_outer_bc_vcpu2_nested_matrix_1[__outer_pc] ^ ((92 + __outer_pc * 17) & 255);
+    __r_imm = (int )__packed_outer_bc_vcpu2_nested_matrix_1[__outer_pc] ^ ((143 + __outer_pc * 17) & 255);
     __outer_pc ++;
     __inner_key = (__inner_key * 33 + __r_imm) & 255;
     break;
@@ -892,17 +7672,17 @@ int vcpu4_ephemeral_jit(int h3) {
     return __valid;
 }
 
-int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  _l1l0IO_1l_3(char const   *_l_O1OllOOOIO_OOO_13 ) 
+int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  _l_llI_1_I_3(char const   *_l0IIO_0O_1_1I1_13 ) 
 { 
-  unsigned long _l001_OO1lO0I1__4 ;
-  int _lO1101__11O0OI__5 ;
-  int __attribute__((__annotate__("ocasorry:visa")))  _lIOOlO_IIIO_6 ;
-  int _lIOllO1O_0O__1_7 ;
-  int __attribute__((__annotate__("ocasorry:nested_vm")))  _llIl_l01001II0_8 ;
-  int _l_1_I0111I1O0l_9 ;
-  int __attribute__((__annotate__("ocasorry:rolling_vkey")))  _lIlOO_1l1lI0OO11_10 ;
-  int _lI_11l0____11 ;
-  int __attribute__((__annotate__("ocasorry:ephemeral")))  _l1_00IlIlO_12 ;
+  unsigned long _lIl_III111I_4 ;
+  int _llll_IIIOlO_0_O0_5 ;
+  int __attribute__((__annotate__("ocasorry:visa")))  _lI0____0__6 ;
+  int _l0_l_0_IIOOO0l_l_7 ;
+  int __attribute__((__annotate__("ocasorry:nested_vm")))  _l_1O_0IlOO1__8 ;
+  int _l10_1IlO0l_9 ;
+  int __attribute__((__annotate__("ocasorry:rolling_vkey")))  _lI_lI_O0OIll__10 ;
+  int _llI_I0O0_0_l_I_11 ;
+  int __attribute__((__annotate__("ocasorry:ephemeral")))  _l0l1l0I1OlIII_O_12 ;
   int volatile   __idx_1 ;
   int volatile   __idx_2 ;
   int volatile   __idx_3 ;
@@ -914,23 +7694,17 @@ int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")
   int __cff_state ;
 
   {
-  __cff_state = 16;
+  __cff_state = 14;
   while (1) {
     if (__cff_state != 0) {
       switch (__cff_state) {
-      case 21: 
-      {
-      __desync_guard = 34943;
-      __cff_state = 33;
-      break;
-      }
-      case 83: 
+      case 87: 
       {
       if (__init_lit_4 == 0) {
         __idx_4 = 0;
         while (1) {
           if (__idx_4 < 59) {
-            __dec_lit_4[__idx_4] = __enc_lit_4[__idx_4] ^ 17;
+            __dec_lit_4[__idx_4] = __enc_lit_4[__idx_4] ^ 153;
             __idx_4 ++;
           } else {
             break;
@@ -938,12 +7712,60 @@ int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")
         }
         __init_lit_4 = 1;
       }
-      __cff_state = 91;
+      __cff_state = 94;
       break;
       }
-      case 110: 
+      case 72: 
       {
-      if (_lI_11l0____11) {
+      if (__init_lit_3 == 0) {
+        __idx_3 = 0;
+        while (1) {
+          if (__idx_3 < 77) {
+            __dec_lit_3[__idx_3] = __enc_lit_3[__idx_3] ^ 158;
+            __idx_3 ++;
+          } else {
+            break;
+          }
+        }
+        __init_lit_3 = 1;
+      }
+      __cff_state = 87;
+      break;
+      }
+      case 64: 
+      {
+      if (__init_lit_2 == 0) {
+        __idx_2 = 0;
+        while (1) {
+          if (__idx_2 < 56) {
+            __dec_lit_2[__idx_2] = __enc_lit_2[__idx_2] ^ 43;
+            __idx_2 ++;
+          } else {
+            break;
+          }
+        }
+        __init_lit_2 = 1;
+      }
+      __cff_state = 72;
+      break;
+      }
+      case 124: 
+      {
+      __t_end = __ocasorry_get_timestamp();
+      __cff_state = 132;
+      break;
+      }
+      case 132: 
+      {
+      if (__t_end - __t_start < 1000000000) {
+
+      }
+      __cff_state = 0;
+      break;
+      }
+      case 117: 
+      {
+      if (_llI_I0O0_0_l_I_11) {
         __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
         (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_3[0]));
         return ((int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  )1);
@@ -952,36 +7774,7 @@ int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")
         (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_4[0]));
         return ((int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  )0);
       }
-      __cff_state = 123;
-      break;
-      }
-      case 44: 
-      {
-      __ocasorry_enforce_anti_debug();
-      __cff_state = 54;
-      break;
-      }
-      case 71: 
-      {
-      if (__init_lit_3 == 0) {
-        __idx_3 = 0;
-        while (1) {
-          if (__idx_3 < 77) {
-            __dec_lit_3[__idx_3] = __enc_lit_3[__idx_3] ^ 193;
-            __idx_3 ++;
-          } else {
-            break;
-          }
-        }
-        __init_lit_3 = 1;
-      }
-      __cff_state = 83;
-      break;
-      }
-      case 16: 
-      {
-      __t_start = __ocasorry_get_timestamp();
-      __cff_state = 21;
+      __cff_state = 124;
       break;
       }
       case 54: 
@@ -990,7 +7783,7 @@ int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")
         __idx_1 = 0;
         while (1) {
           if (__idx_1 < 56) {
-            __dec_lit_1[__idx_1] = __enc_lit_1[__idx_1] ^ 184;
+            __dec_lit_1[__idx_1] = __enc_lit_1[__idx_1] ^ 219;
             __idx_1 ++;
           } else {
             break;
@@ -998,87 +7791,74 @@ int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")
         }
         __init_lit_1 = 1;
       }
-      __cff_state = 67;
+      __cff_state = 64;
       break;
       }
-      case 67: 
+      case 94: 
       {
-      if (__init_lit_2 == 0) {
-        __idx_2 = 0;
-        while (1) {
-          if (__idx_2 < 56) {
-            __dec_lit_2[__idx_2] = __enc_lit_2[__idx_2] ^ 210;
-            __idx_2 ++;
-          } else {
-            break;
-          }
-        }
-        __init_lit_2 = 1;
-      }
-      __cff_state = 71;
-      break;
-      }
-      case 104: 
-      {
-      if (((_l001_OO1lO0I1__4 << 2) + 2) % 2 == 0) {
-        _lIOOlO_IIIO_6 = vcpu1_vector_parity(_l_O1OllOOOIO_OOO_13);
-        _lO1101__11O0OI__5 = (int )_lIOOlO_IIIO_6;
-        _llIl_l01001II0_8 = _lIlOI0IOIIl_1(_lO1101__11O0OI__5);
-        _lIOllO1O_0O__1_7 = (int )_llIl_l01001II0_8;
-        _lIlOO_1l1lI0OO11_10 = vcpu3_rolling_vkey(_lIOllO1O_0O__1_7);
-        _l_1_I0111I1O0l_9 = (int )_lIlOO_1l1lI0OO11_10;
-        _l1_00IlIlO_12 = vcpu4_ephemeral_jit(_l_1_I0111I1O0l_9);
-        _lI_11l0____11 = (int )_l1_00IlIlO_12;
-      } else {
-        _lIOOlO_IIIO_6 = vcpu1_vector_parity(_l_O1OllOOOIO_OOO_13);
-        _lO1101__11O0OI__5 = (int )_lIOOlO_IIIO_6;
-        _llIl_l01001II0_8 = _lIlOI0IOIIl_1(_lO1101__11O0OI__5);
-        _lIOllO1O_0O__1_7 = (int )_llIl_l01001II0_8;
-        _lIlOO_1l1lI0OO11_10 = vcpu3_rolling_vkey(_lIOllO1O_0O__1_7);
-        _l_1_I0111I1O0l_9 = (int )_lIlOO_1l1lI0OO11_10;
-        _l1_00IlIlO_12 = vcpu4_ephemeral_jit(_l_1_I0111I1O0l_9);
-        _lI_11l0____11 = (int )_l1_00IlIlO_12;
-      }
-      __cff_state = 110;
-      break;
-      }
-      case 33: 
-      {
-      if ((__desync_guard & ~ __desync_guard) != 0) {
-        return (0);
-      }
-      __cff_state = 44;
-      break;
-      }
-      case 91: 
-      {
-      if ((unsigned long )_l_O1OllOOOIO_OOO_13 == (unsigned long )((void *)0)) {
+      if ((unsigned long )_l0IIO_0O_1_1I1_13 == (unsigned long )((void *)0)) {
         __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
         (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_1[0]));
         return ((int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  )0);
       } else {
-        _l001_OO1lO0I1__4 = strlen(_l_O1OllOOOIO_OOO_13);
-        if (_l001_OO1lO0I1__4 != 16UL) {
+        _lIl_III111I_4 = strlen(_l0IIO_0O_1_1I1_13);
+        if (_lIl_III111I_4 != 16UL) {
           __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
           (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_2[0]));
           return ((int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  )0);
         }
       }
-      __cff_state = 104;
+      __cff_state = 105;
       break;
       }
-      case 123: 
+      case 31: 
       {
-      __t_end = __ocasorry_get_timestamp();
-      __cff_state = 130;
+      if ((__desync_guard & ~ __desync_guard) != 0) {
+        return (0);
+      }
+      __cff_state = 47;
       break;
       }
-      case 130: 
+      case 105: 
       {
-      if (__t_end - __t_start < 1000000000) {
-
+      if ((_lIl_III111I_4 | 1) % 2 != 0) {
+        _lI0____0__6 = vcpu1_vector_parity(_l0IIO_0O_1_1I1_13);
+        _llll_IIIOlO_0_O0_5 = (int )_lI0____0__6;
+        _l_1O_0IlOO1__8 = _l1I0O_l0O0ll_001_1(_llll_IIIOlO_0_O0_5);
+        _l0_l_0_IIOOO0l_l_7 = (int )_l_1O_0IlOO1__8;
+        _lI_lI_O0OIll__10 = vcpu3_rolling_vkey(_l0_l_0_IIOOO0l_l_7);
+        _l10_1IlO0l_9 = (int )_lI_lI_O0OIll__10;
+        _l0l1l0I1OlIII_O_12 = vcpu4_ephemeral_jit(_l10_1IlO0l_9);
+        _llI_I0O0_0_l_I_11 = (int )_l0l1l0I1OlIII_O_12;
+      } else {
+        _lI0____0__6 = vcpu1_vector_parity(_l0IIO_0O_1_1I1_13);
+        _llll_IIIOlO_0_O0_5 = (int )_lI0____0__6;
+        _l_1O_0IlOO1__8 = _l1I0O_l0O0ll_001_1(_llll_IIIOlO_0_O0_5);
+        _l0_l_0_IIOOO0l_l_7 = (int )_l_1O_0IlOO1__8;
+        _lI_lI_O0OIll__10 = vcpu3_rolling_vkey(_l0_l_0_IIOOO0l_l_7);
+        _l10_1IlO0l_9 = (int )_lI_lI_O0OIll__10;
+        _l0l1l0I1OlIII_O_12 = vcpu4_ephemeral_jit(_l10_1IlO0l_9);
+        _llI_I0O0_0_l_I_11 = (int )_l0l1l0I1OlIII_O_12;
       }
-      __cff_state = 0;
+      __cff_state = 117;
+      break;
+      }
+      case 14: 
+      {
+      __t_start = __ocasorry_get_timestamp();
+      __cff_state = 21;
+      break;
+      }
+      case 47: 
+      {
+      __ocasorry_enforce_anti_debug();
+      __cff_state = 54;
+      break;
+      }
+      case 21: 
+      {
+      __desync_guard = 51336;
+      __cff_state = 31;
       break;
       }
       }
@@ -1088,23 +7868,23 @@ int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")
   }
 }
 }
-int __attribute__((__annotate__("ocasorry:literals, api_hash")))  main(int _l1110OOII1_19 ,
-                                                                       char **_lOI1O011l_011l_20 ) ;
+int __attribute__((__annotate__("ocasorry:literals, api_hash")))  main(int _lllO1I_0_00_IOII_19 ,
+                                                                       char **_l111OOl__O00_20 ) ;
 static unsigned char const volatile   __dk[16]  __attribute__((__goblint_cil_pulledup__("main")))  = 
   {      (unsigned char const volatile   )0x0a,      (unsigned char const volatile   )0x08,      (unsigned char const volatile   )0x15,      (unsigned char const volatile   )0x77, 
         (unsigned char const volatile   )0x63,      (unsigned char const volatile   )0x62,      (unsigned char const volatile   )0x6e,      (unsigned char const volatile   )0x68, 
         (unsigned char const volatile   )0x77,      (unsigned char const volatile   )0x11,      (unsigned char const volatile   )0x16,      (unsigned char const volatile   )0x17, 
         (unsigned char const volatile   )0x63,      (unsigned char const volatile   )0x77,      (unsigned char const volatile   )0x6d,      (unsigned char const volatile   )0x6d};
-int __attribute__((__annotate__("ocasorry:literals, api_hash")))  main(int _l1110OOII1_19 ,
-                                                                       char **_lOI1O011l_011l_20 ) 
+int __attribute__((__annotate__("ocasorry:literals, api_hash")))  main(int _lllO1I_0_00_IOII_19 ,
+                                                                       char **_l111OOl__O00_20 ) 
 { 
   char volatile   __dk_buf[17] ;
   int volatile   __i ;
-  char const   *_lI100_1__l11_Il_14 ;
-  char const   *_lI0I11OI_1IO__15 ;
-  int _l_O1l_O1OOO0I_16 ;
-  int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  _lI_O101_OIOOlI_17 ;
-  int _lO01IOl_1l0_18 ;
+  char const   *_l01_1lO_I0_l_14 ;
+  char const   *_lIlO1I_1_O_15 ;
+  int _l___I_lO0OlIOO0O_16 ;
+  int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  _l0_llIO01l_17 ;
+  int _l1O1l1lIIOl__18 ;
   int volatile   __idx_5 ;
   void *__resolved_printf ;
 
@@ -1114,7 +7894,7 @@ int __attribute__((__annotate__("ocasorry:literals, api_hash")))  main(int _l111
     __idx_5 = 0;
     while (1) {
       if (__idx_5 < 23) {
-        __dec_lit_5[__idx_5] = __enc_lit_5[__idx_5] ^ 225;
+        __dec_lit_5[__idx_5] = __enc_lit_5[__idx_5] ^ 231;
         __idx_5 ++;
       } else {
         break;
@@ -1128,22 +7908,22 @@ int __attribute__((__annotate__("ocasorry:literals, api_hash")))  main(int _l111
     __i += (int volatile   )1;
   }
   __dk_buf[16] = (char volatile   )'\000';
-  if (_l1110OOII1_19 > 1) {
-    _lI0I11OI_1IO__15 = (char const   *)*(_lOI1O011l_011l_20 + 1);
+  if (_lllO1I_0_00_IOII_19 > 1) {
+    _lIlO1I_1_O_15 = (char const   *)*(_l111OOl__O00_20 + 1);
   } else {
-    _lI0I11OI_1IO__15 = (char const   *)(__dk_buf);
+    _lIlO1I_1_O_15 = (char const   *)(__dk_buf);
   }
-  _lI100_1__l11_Il_14 = _lI0I11OI_1IO__15;
+  _l01_1lO_I0_l_14 = _lIlO1I_1_O_15;
   __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
   (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_5[0]),
-                                                               _lI100_1__l11_Il_14);
-  _lI_O101_OIOOlI_17 = _l1l0IO_1l_3(_lI100_1__l11_Il_14);
-  _l_O1l_O1OOO0I_16 = (int )_lI_O101_OIOOlI_17;
-  if (_l_O1l_O1OOO0I_16) {
-    _lO01IOl_1l0_18 = 0;
+                                                               _l01_1lO_I0_l_14);
+  _l0_llIO01l_17 = _l_llI_1_I_3(_l01_1lO_I0_l_14);
+  _l___I_lO0OlIOO0O_16 = (int )_l0_llIO01l_17;
+  if (_l___I_lO0OlIOO0O_16) {
+    _l1O1l1lIIOl__18 = 0;
   } else {
-    _lO01IOl_1l0_18 = 1;
+    _l1O1l1lIIOl__18 = 1;
   }
-  return ((int __attribute__((__annotate__("ocasorry:literals, api_hash")))  )_lO01IOl_1l0_18);
+  return ((int __attribute__((__annotate__("ocasorry:literals, api_hash")))  )_l1O1l1lIIOl__18);
 }
 }
