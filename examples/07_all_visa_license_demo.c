@@ -1,8 +1,12 @@
 /**
  * 07_all_visa_license_demo.c — Pure 4-Stage vISA Obfuscated License Demo
  *
- * Demonstrates that __attribute__((annotate("ocasorry:visa"))) can be used
- * on EVERY individual stage in the cryptographic cascade.
+ * Demonstrates that __attribute__((annotate("ocasorry:visa"))) is used
+ * on EVERY individual stage in the cryptographic cascade:
+ *  - Stage 1: Vector Parity (vISA)      -> Target: 12687
+ *  - Stage 2: Algebraic Transform (vISA) -> Target: 12708
+ *  - Stage 3: Feistel XOR (vISA)        -> Target: 12696
+ *  - Stage 4: Token Validation (vISA)   -> Target: 12696 -> 1 (Valid) / 0 (Invalid)
  */
 
 extern int printf(const char *format, ...);
@@ -29,7 +33,7 @@ int vcpu2_algebraic_stage(int h1) {
     return h1 + 21;
 }
 
-/* Stage 3: Non-Linear XOR (random_vISA VCPU 3) */
+/* Stage 3: Non-Linear Feistel XOR (random_vISA VCPU 3) */
 __attribute__((annotate("ocasorry:visa")))
 int vcpu3_feistel_stage(int h2) {
     return (h2 ^ 42) + 10;
@@ -38,10 +42,7 @@ int vcpu3_feistel_stage(int h2) {
 /* Stage 4: Token Validation (random_vISA VCPU 4) */
 __attribute__((annotate("ocasorry:visa")))
 int vcpu4_token_validate(int h3) {
-    if (h3 == 12729) {
-        return 1;
-    }
-    return 0;
+    return (h3 == 12696) ? 1 : 0;
 }
 
 /* Master Verifier: Hardened with CFF + BCF + String Encryption + Anti-Debug */
@@ -78,18 +79,18 @@ int verify_all_visa_license(const char *license_key, int verbose) {
 
     h3 = vcpu3_feistel_stage(h2);
     if (verbose) {
-        printf("  | [vISA Stage 3]  h3 = %5d (Target: 12729) %s\n",
-               h3, (h3 == 12729) ? " [OK]" : "[MISMATCH]");
+        printf("  | [vISA Stage 3]  h3 = %5d (Target: 12696) %s\n",
+               h3, (h3 == 12696) ? " [OK]" : "[MISMATCH]");
     }
 
     is_valid = vcpu4_token_validate(h3);
     if (verbose) {
         printf("  | [vISA Stage 4]  Result = %s\n",
-               is_valid ? "UNLOCKED (Valid)" : "LOCKED (Invalid)");
+               (is_valid && h1 == 12687 && h2 == 12708 && h3 == 12696) ? "UNLOCKED (Valid)" : "LOCKED (Invalid)");
         printf("  +===========================================================+\n\n");
     }
 
-    return is_valid;
+    return (is_valid && h1 == 12687 && h2 == 12708 && h3 == 12696) ? 1 : 0;
 }
 
 __attribute__((annotate("ocasorry:literals, api_hash")))
