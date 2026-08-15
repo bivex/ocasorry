@@ -66,4 +66,9 @@ module AnnotationHelper = struct
     has_annotation fd "no_obf"
     || has_annotation fd "no_obfuscation"
     || has_annotation fd "skip"
+
+  let should_apply_pass (fd : fundec) (pass_tag : string) : bool =
+    if should_skip_all fd then false
+    else if has_custom_annotations fd then has_annotation fd pass_tag
+    else true
 end

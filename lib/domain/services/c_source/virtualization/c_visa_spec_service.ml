@@ -293,12 +293,20 @@ module Make (Entropy : Entropy_port.S) = struct
         | Lval (Var ptr_v, Index (idx_e, NoOffset)) ->
             compile_exp idx_e free_reg (free_reg + 1);
             emit (Spec.encode_inst spec ~funct6:op.vle8_v ~vm:1 ~vs2:(free_reg land 0x1F) ~vs1_or_imm:((get_vreg ptr_v.vname) land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
-        | Lval (Mem (BinOp (PlusPI, ptr_e, idx_e, _)), NoOffset) ->
+        | Lval (Mem (BinOp ((PlusPI | PlusA | IndexPI), ptr_e, idx_e, _)), NoOffset) ->
             (match extract_ptr_var ptr_e with
              | Some ptr_v ->
                  compile_exp idx_e free_reg (free_reg + 1);
                  emit (Spec.encode_inst spec ~funct6:op.vle8_v ~vm:1 ~vs2:(free_reg land 0x1F) ~vs1_or_imm:((get_vreg ptr_v.vname) land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
-             | None -> ())
+             | None ->
+                 (match extract_ptr_var idx_e with
+                  | Some ptr_v ->
+                      compile_exp ptr_e free_reg (free_reg + 1);
+                      emit (Spec.encode_inst spec ~funct6:op.vle8_v ~vm:1 ~vs2:(free_reg land 0x1F) ~vs1_or_imm:((get_vreg ptr_v.vname) land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
+                  | None -> ()))
+        | Lval (Mem (Lval (Var ptr_v, NoOffset)), NoOffset) ->
+            emit (Spec.encode_inst spec ~funct6:op.vli_vi ~vm:0 ~vs2:0 ~vs1_or_imm:0 ~funct3:0 ~vd:(free_reg land 0x1F));
+            emit (Spec.encode_inst spec ~funct6:op.vle8_v ~vm:1 ~vs2:(free_reg land 0x1F) ~vs1_or_imm:((get_vreg ptr_v.vname) land 0x1F) ~funct3:0 ~vd:(dst land 0x1F))
         | UnOp (Neg, e1, _) ->
             compile_exp e1 dst free_reg;
             emit (Spec.encode_inst spec ~funct6:op.vsub_vv ~vm:1 ~vs2:(dst land 0x1F) ~vs1_or_imm:0 ~funct3:0 ~vd:(dst land 0x1F))
@@ -359,6 +367,7 @@ module Make (Entropy : Entropy_port.S) = struct
             emit (encode_jump loop_start_idx)
         | If (cond, tb, fb, _, _) ->
             (match cond with
+             | BinOp (Lt, e1, e2, _)
              | UnOp (LNot, BinOp (Lt, e1, e2, _), _)
              | BinOp (Ge, e1, e2, _) ->
                  let t1 = !next_vreg in

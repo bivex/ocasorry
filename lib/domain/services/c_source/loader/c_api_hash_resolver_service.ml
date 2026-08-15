@@ -1,15 +1,15 @@
 open GoblintCil.Cil
 
 (** Domain Service: Dynamic POSIX API Hashing for CIL AST
-    Hides external library function names from import tables (nm, otool, readelf)
-    by resolving symbols at runtime via compile-time CRC32 hashes and dlsym.
+    Hides direct libc symbol imports (printf, puts, exit, malloc) behind runtime
+    CRC32 hash resolution via dlsym/RTLD_DEFAULT.
 *)
 module Make (Entropy : Entropy_port.S) = struct
-  let crc32_hash (s : string) : int64 =
+  let crc32 (str : string) : int64 =
     let crc = ref 0xFFFFFFFFL in
-    for i = 0 to String.length s - 1 do
-      let b = Int64.of_int (Char.code s.[i]) in
-      crc := Int64.logxor !crc b;
+    for i = 0 to String.length str - 1 do
+      let byte = Int64.of_int (Char.code str.[i]) in
+      crc := Int64.logxor !crc byte;
       for _ = 0 to 7 do
         let mask = Int64.logand !crc 1L in
         crc := Int64.shift_right_logical !crc 1;
@@ -26,7 +26,8 @@ module Make (Entropy : Entropy_port.S) = struct
     val mutable cur_fd : fundec option = None
 
     method! vfunc (fd : fundec) : fundec visitAction =
-      if String.starts_with ~prefix:"__ocasorry_" fd.svar.vname then SkipChildren
+      if String.starts_with ~prefix:"__ocasorry_" fd.svar.vname
+         || C_annotation_service.AnnotationHelper.should_skip_all fd then SkipChildren
       else (
         cur_fd <- Some fd;
         if not helper_injected then (
@@ -49,10 +50,16 @@ static uint32_t __ocasorry_calc_crc32(const char *s) {
 }
 
 static void *__ocasorry_resolve_symbol_hash(uint32_t target_hash, const char *name) {
-    void *h = dlopen(0, RTLD_LAZY);
-    if (!h) return 0;
-    if (name && __ocasorry_calc_crc32(name) == target_hash) {
-        return dlsym(h, name);
+    if (!name) return 0;
+    if (__ocasorry_calc_crc32(name) == target_hash) {
+#ifdef RTLD_DEFAULT
+        void *sym = dlsym(RTLD_DEFAULT, name);
+#else
+        void *sym = dlsym((void*)-2, name);
+#endif
+        if (sym) return sym;
+        void *h = dlopen(0, RTLD_LAZY);
+        if (h) return dlsym(h, name);
     }
     return 0;
 }
@@ -63,57 +70,46 @@ static void *__ocasorry_resolve_symbol_hash(uint32_t target_hash, const char *na
         DoChildren
       )
 
-    method! vstmt (s : stmt) : stmt visitAction =
-      match s.skind with
-      | Instr [ Call (ret_opt, Lval (Var fn_var, NoOffset), args, loc, eloc) ] ->
-          if Hashtbl.mem target_symbols fn_var.vname then (
-            match cur_fd with
-            | Some fd ->
-                let hash_val = Hashtbl.find target_symbols fn_var.vname in
-                let resolve_fn =
-                  makeGlobalVar "__ocasorry_resolve_symbol_hash"
-                    (TFun (voidPtrType, Some [ ("hash", uintType, []); ("name", charPtrType, []) ], false, []))
-                in
-                let var_name = "__resolved_" ^ fn_var.vname in
-                let tmp_ptr =
-                  match List.find_opt (fun v -> v.vname = var_name) fd.slocals with
-                  | Some existing -> existing
-                  | None -> makeLocalVar fd var_name voidPtrType
-                in
-                let hash_exp = kinteger64 IUInt hash_val in
-                let call_resolve =
-                  Call (Some (var tmp_ptr), Lval (var resolve_fn), [ hash_exp; mkString fn_var.vname ], loc, eloc)
-                in
-                let fn_ptr_type = TPtr (fn_var.vtype, []) in
-                let cast_fn_ptr = CastE (fn_ptr_type, Lval (var tmp_ptr)) in
-                let indirect_call = Call (ret_opt, Lval (Mem cast_fn_ptr, NoOffset), args, loc, eloc) in
-                ChangeTo (mkStmt (Block (mkBlock [ mkStmtOneInstr call_resolve; mkStmtOneInstr indirect_call ])))
-            | None -> DoChildren
-          ) else DoChildren
+    method! vinst (i : instr) : instr list visitAction =
+      match i with
+      | Call (ret_opt, Lval (Var fn_var, NoOffset), args, loc, _)
+        when Hashtbl.mem target_symbols fn_var.vname && cur_fd <> None ->
+          let fd = Option.get cur_fd in
+          let hash_val = Hashtbl.find target_symbols fn_var.vname in
+          let resolve_fn =
+            makeGlobalVar "__ocasorry_resolve_symbol_hash"
+              (TFun (voidPtrType, Some [ ("target_hash", uintType, []); ("name", charConstPtrType, []) ], false, []))
+          in
+          
+          let var_name = Printf.sprintf "__resolved_%s" fn_var.vname in
+          let resolved_ptr =
+            match List.find_opt (fun (v : varinfo) -> v.vname = var_name) fd.slocals with
+            | Some existing -> existing
+            | None -> makeLocalVar fd var_name voidPtrType
+          in
+
+          let call_resolve =
+            Call (Some (var resolved_ptr), Lval (var resolve_fn),
+                  [ kinteger64 IUInt hash_val; mkString fn_var.vname ], loc, loc)
+          in
+
+          let target_fun_type = fn_var.vtype in
+          let cast_fn_ptr = CastE (TPtr (target_fun_type, []), Lval (var resolved_ptr)) in
+          let call_indirect =
+            Call (ret_opt, Lval (Mem cast_fn_ptr, NoOffset), args, loc, loc)
+          in
+
+          ChangeTo [ call_resolve; call_indirect ]
       | _ -> DoChildren
   end
 
   let transform_file (f : file) : file =
-    let defined_funcs = Hashtbl.create 32 in
+    let targets = Hashtbl.create 16 in
     List.iter
-      (function
-        | GFun (fd, _) -> Hashtbl.add defined_funcs fd.svar.vname true
-        | _ -> ())
-      f.globals;
+      (fun name -> Hashtbl.add targets name (crc32 name))
+      [ "printf"; "puts"; "exit"; "malloc"; "free" ];
 
-    let target_symbols = Hashtbl.create 32 in
-    List.iter
-      (function
-        | GVarDecl (v, _) when not (Hashtbl.mem defined_funcs v.vname)
-                               && not (String.starts_with ~prefix:"__" v.vname)
-                               && (v.vname = "printf" || v.vname = "atoi" || v.vname = "exit" || v.vname = "malloc" || v.vname = "free") ->
-            Hashtbl.add target_symbols v.vname (crc32_hash v.vname)
-        | _ -> ())
-      f.globals;
-
-    if Hashtbl.length target_symbols > 0 then (
-      let vis = new api_resolver_visitor f target_symbols in
-      visitCilFileSameGlobals vis f;
-      f
-    ) else f
+    let vis = new api_resolver_visitor f targets in
+    visitCilFileSameGlobals vis f;
+    f
 end

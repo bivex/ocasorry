@@ -20,7 +20,7 @@ module Make (Entropy : Entropy_port.S) = struct
 
     method! vfunc (fd : fundec) : fundec visitAction =
       if fd.svar.vname = "main" || String.starts_with ~prefix:"__" fd.svar.vname
-         || C_annotation_service.AnnotationHelper.should_skip_all fd then SkipChildren
+         || not (C_annotation_service.AnnotationHelper.should_apply_pass fd "cff") then SkipChildren
       else (
         let orig_stmts = unwrap_blocks fd.sbody.bstmts in
         if List.length orig_stmts >= 2 then (

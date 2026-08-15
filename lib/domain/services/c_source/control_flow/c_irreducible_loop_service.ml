@@ -114,7 +114,7 @@ module Make (Entropy : Entropy_port.S) = struct
 
   let should_transform (fd : fundec) : bool =
     if fd.svar.vname = "main" || String.starts_with ~prefix:"__" fd.svar.vname then false
-    else if C_annotation_service.AnnotationHelper.should_skip_all fd then false
+    else if not (C_annotation_service.AnnotationHelper.should_apply_pass fd "irreducible_loop") then false
     else true
 
   let transform_function (fd : fundec) : unit =

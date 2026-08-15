@@ -25,7 +25,7 @@ module Make (Entropy : Entropy_port.S) = struct
 
   let apply_bcf_to_function (fd : fundec) : unit =
     if fd.svar.vname = "main" || String.starts_with ~prefix:"__" fd.svar.vname
-       || C_annotation_service.AnnotationHelper.should_skip_all fd then ()
+       || not (C_annotation_service.AnnotationHelper.should_apply_pass fd "bcf") then ()
     else
       let stmts = fd.sbody.bstmts in
       if List.length stmts < 2 then ()

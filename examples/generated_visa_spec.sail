@@ -42,20 +42,20 @@ function decode(inst : bits(32)) -> option(ast) = {
     let imm10  : bits(10)  = inst[24..15];
 
     match unsigned(funct6) {
-        6 => Some(VADD_VV(vd, vs1, vs2)),
-        59 => Some(VSUB_VV(vd, vs1, vs2)),
-        62 => Some(VMUL_VV(vd, vs1, vs2)),
-        35 => Some(VXOR_VV(vd, vs1, vs2)),
-        18 => Some(VAND_VV(vd, vs1, vs2)),
-        38  => Some(VOR_VV(vd, vs1, vs2)),
-        22 => Some(VSLL_VV(vd, vs1, vs2)),
-        30 => Some(VSRL_VV(vd, vs1, vs2)),
-        9  => Some(VLI_VI(vd, imm10)),
-        47  => Some(VMV_VV(vd, vs1)),
-        54  => Some(VLE8_V(vd, vs2)),
+        53 => Some(VADD_VV(vd, vs1, vs2)),
+        61 => Some(VSUB_VV(vd, vs1, vs2)),
+        47 => Some(VMUL_VV(vd, vs1, vs2)),
+        50 => Some(VXOR_VV(vd, vs1, vs2)),
+        7 => Some(VAND_VV(vd, vs1, vs2)),
+        24  => Some(VOR_VV(vd, vs1, vs2)),
+        41 => Some(VSLL_VV(vd, vs1, vs2)),
+        39 => Some(VSRL_VV(vd, vs1, vs2)),
+        60  => Some(VLI_VI(vd, imm10)),
+        22  => Some(VMV_VV(vd, vs1)),
+        52  => Some(VLE8_V(vd, vs2)),
         16  => Some(VRET_V(vd)),
-        43 => Some(VBGE_VV(vs1, vs2)),
-        41      => Some(VJ(inst)),
+        19 => Some(VBGE_VV(vs1, vs2)),
+        49      => Some(VJ(inst)),
         _ => None()
     }
 }

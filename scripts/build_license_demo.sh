@@ -45,11 +45,9 @@ echo "================================================================="
 echo -e "${C_RESET}"
 
 # Step 1: Ensure OcaSorry compiler executable is built
-if [[ ! -f "${OBF_BIN}" ]]; then
-    echo -e "${C_YELLOW}[*] Building OcaSorry compiler toolchain via dune...${C_RESET}"
-    (cd "${ROOT_DIR}" && dune build)
-    echo -e "${C_GREEN}[+] Dune build complete!${C_RESET}\n"
-fi
+echo -e "${C_YELLOW}[*] Building OcaSorry compiler toolchain via dune...${C_RESET}"
+(cd "${ROOT_DIR}" && dune build)
+echo -e "${C_GREEN}[+] Dune build complete!${C_RESET}\n"
 
 # Step 2: Synthesize a randomized Vector ISA with Python & Sail
 echo -e "${C_BLUE}[1/4] Synthesizing Formal Sail / JSON Vector ISA Architecture...${C_RESET}"
@@ -66,13 +64,9 @@ echo -e "${C_BLUE}[2/4] Applying 4-VCPU Virtualization with Synthesized ISA...${
     --nested-vm \
     --rolling-vkey \
     --ephemeral \
-    --poly-mba \
-    --relational-morph \
+    --cff \
     --irreducible-loop \
-    --lut \
-    --interleave \
-    --permute-struct \
-    --homomorphic \
+    --bcf \
     --anti-debug \
     --anti-disasm \
     --timing-check \

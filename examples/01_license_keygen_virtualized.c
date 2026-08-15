@@ -31,10 +31,16 @@ static uint32_t __ocasorry_calc_crc32(const char *s) {
 }
 
 static void *__ocasorry_resolve_symbol_hash(uint32_t target_hash, const char *name) {
-    void *h = dlopen(0, RTLD_LAZY);
-    if (!h) return 0;
-    if (name && __ocasorry_calc_crc32(name) == target_hash) {
-        return dlsym(h, name);
+    if (!name) return 0;
+    if (__ocasorry_calc_crc32(name) == target_hash) {
+#ifdef RTLD_DEFAULT
+        void *sym = dlsym(RTLD_DEFAULT, name);
+#else
+        void *sym = dlsym((void*)-2, name);
+#endif
+        if (sym) return sym;
+        void *h = dlopen(0, RTLD_LAZY);
+        if (h) return dlsym(h, name);
     }
     return 0;
 }
@@ -124,264 +130,19 @@ static void __ocasorry_free_ephemeral_page(void *ptr, size_t sz) {
 }
 
 static unsigned char __packed_inner_bc_vcpu2_nested_matrix_1[12]  = 
-  {      (unsigned char)191,      (unsigned char)221,      (unsigned char)252,      (unsigned char)25, 
-        (unsigned char)47,      (unsigned char)88,      (unsigned char)123,      (unsigned char)151, 
-        (unsigned char)182,      (unsigned char)212,      (unsigned char)251,      (unsigned char)19};
-static unsigned char __packed_outer_bc_vcpu2_nested_matrix_1[5]  = {      (unsigned char)127,      (unsigned char)176,      (unsigned char)177,      (unsigned char)189, 
-        (unsigned char)76};
-static unsigned int __visa_program_vcpu1_vector_parity_1[1008]  = 
-  {      4175672157U,      4181619534U,      4221530491U,      4204754404U, 
-        4255298833U,      4230375298U,      4282924719U,      4274224216U, 
-        4077324869U,      4027361398U,      4060248675U,      4044334092U, 
-        1872750137U,      712630570U,      4150215383U,      3363431104U, 
-        927558893U,      3924623262U,      3578358155U,      3942803636U, 
-        3994004385U,      1990022482U,      1973344639U,      4002373480U, 
-        3733413397U,      1066980102U,      1030249523U,      3797909212U, 
-        3681048777U,      981063930U,      3874278375U,      3631859088U, 
-        3880339389U,      3656177326U,      290013275U,      73056580U, 
-        3714846065U,      375049314U,      3747573263U,      341494584U, 
-        254429221U,      3529438934U,      422196419U,      1218328044U, 
-        2120921881U,      3123326986U,      3574025783U,      3591171104U, 
-        3355590349U,      3406821886U,      1369422571U,      342369428U, 
-        3445556609U,      4066912178U,      293183583U,      3488395848U, 
-        4286164341U,      3238145382U,      3222269715U,      1486694204U, 
-        1604232489U,      3297712858U,      4172782279U,      428284144U, 
-        1721274525U,      3093249422U,      2224591803U,      1684544932U, 
-        3169619793U,      2187860034U,      2172230511U,      3219950360U, 
-        2071561221U,      1850279734U,      3010216227U,      2018051020U, 
-        3042910969U,      2118716650U,      1767541911U,      3026110848U, 
-        1666878381U,      57313758U,      832500939U,      3294262516U, 
-        321581793U,      1916498578U,      2905694655U,      2419818408U, 
-        2131492181U,      2696629062U,      141261555U,      3423336604U, 
-        2773002121U,      2764301498U,      2768737703U,      2785816656U, 
-        2550325885U,      2601462894U,      27225627U,      1147727620U, 
-        2640300337U,      2724784674U,      1098470863U,      2683062008U, 
-        2943964901U,      2432881046U,      2416906883U,      144561068U, 
-        262033753U,      2492453194U,      2830587511U,      1233638752U, 
-        1452819469U,      2287987262U,      3029878571U,      1416151508U, 
-        2364297921U,      2993212658U,      2977516703U,      2414632840U, 
-        1266239925U,      1581894566U,      2204955987U,      1212789884U, 
-        2237634153U,      1313452314U,      1499082759U,      2220782128U, 
-        3009036253U,      3802054350U,      3496589691U,      341456996U, 
-        2131216913U,      2081190914U,      2114102831U,      2098159832U, 
-        3953077701U,      2945983478U,      1935639267U,      1301819020U, 
-        2875762873U,      1978415530U,      1231596375U,      1996657984U, 
-        1779390829U,      4070416158U,      4053671691U,      1787796788U, 
-        1386648097U,      3015119314U,      2961676287U,      1851766504U, 
-        1585943701U,      3214410886U,      1659640243U,      1570242652U, 
-        1533575497U,      1709970298U,      2909310055U,      3094941456U, 
-        1500303165U,      2457405486U,      1532996571U,      2423846340U, 
-        2202564593U,      1583331042U,      2504552591U,      4117263160U, 
-        3416227109U,      1044938710U,      3982228931U,      2351660012U, 
-        1462823065U,      1781229194U,      2302338743U,      4251640864U, 
-        1236980685U,      641393150U,      2164944875U,      2484988308U, 
-        1277193345U,      1914563762U,      2448354783U,      1300873288U, 
-        2347684597U,      1122140646U,      1122792595U,      1131397564U, 
-        1180938409U,      1168449370U,      1174760775U,      1175165296U, 
-        942344989U,      2728352526U,      3849897019U,      979125796U, 
-        58245585U,      3796386754U,      1015079663U,      4738200U, 
-        822841221U,      824907958U,      2845591971U,      3966323532U, 
-        895235449U,      174667370U,      3917000983U,      897618176U, 
-        393785901U,      373832926U,      679518155U,      3762829812U, 
-        4082875361U,      771910290U,      3847988927U,      777791400U, 
-        3948651093U,      4264239942U,      601063795U,      2284531228U, 
-        614820873U,      621092410U,      655091751U,      657161168U, 
-        2208240893U,      3328775918U,      459020187U,      610865540U, 
-        3279459249U,      528530594U,      561553231U,      504094584U, 
-        271272293U,      2325484822U,      3432612867U,      308021804U, 
-        714704857U,      3395879370U,      343974647U,      677973216U, 
-        930647181U,      192982974U,      3245902251U,      3561491284U, 
-        251831617U,      3326669938U,      257750559U,      3293114632U, 
-        3747311669U,      2875945382U,      64183379U,      1817935228U, 
-        93256041U,      2052814874U,      3442211079U,      3627705904U, 
-        4174435805U,      3325715406U,      621470203U,      4200022244U, 
-        1460334225U,      4251942274U,      4234349231U,      4289046616U, 
-        4026915397U,      4027257974U,      4062938723U,      1755303948U, 
-        728355129U,      4099724074U,      3379158487U,      678977472U, 
-        3934288109U,      3598211230U,      3943373707U,      3945501876U, 
-        2006763937U,      865681490U,      4015836799U,      3516482408U, 
-        1063898133U,      3816844806U,      3714699059U,      3698870492U, 
-        3867175881U,      779630074U,      961066983U,      3825395344U, 
-        323530941U,      3629953966U,      289979739U,      73088068U, 
-        3721600625U,      1985690466U,      3735419663U,      3741685048U, 
-        3507184933U,      3509319638U,      1235201731U,      228139756U, 
-        3579618201U,      3952684426U,      157921207U,      3581937824U, 
-        4150897229U,      3356185726U,      3391867499U,      1352439828U, 
-        310812417U,      3428621618U,      4035351519U,      295247304U, 
-        3263181045U,      4288223462U,      4251556499U,      3246406588U, 
-        258573737U,      444073562U,      3305295943U,      209191792U, 
-        3109847837U,      1920470030U,      1699254075U,      292063652U, 
-        3184733009U,      3527969346U,      3213718639U,      3226171160U, 
-        2069426693U,      1848144694U,      3000189219U,      2351464396U, 
-        1798962681U,      527039338U,      3075791639U,      3627677696U, 
-        2844616237U,      3594118622U,      1628005323U,      1948182004U, 
-        2944065761U,      2451499154U,      1911318719U,      2931317672U, 
-        1810657109U,      2708401990U,      3454816883U,      2750050332U, 
-        2817176457U,      2773447354U,      2764808615U,      2770681424U, 
-        2606861437U,      2590142062U,      2595035163U,      10279428U, 
-        1132184881U,      2622272802U,      2709243599U,      1078673656U, 
-        2416731109U,      2924170646U,      2439150723U,      2477592492U, 
-        2509064537U,      1248479818U,      2538390647U,      2825532768U, 
-        1467725325U,      2299269182U,      3044782891U,      3024829908U, 
-        2349604033U,      1179336434U,      1364769439U,      2380278664U, 
-        1264105909U,      2152518822U,      1230546259U,      1546134140U, 
-        2255020137U,      795386266U,      3911724935U,      2233814192U, 
-        2070018397U,      2053249870U,      2058185595U,      3768358244U, 
-        2741638673U,      2085412866U,      1097470255U,      2692453080U, 
-        1879850437U,      1316724726U,      1902258403U,      1940740492U, 
-        1972180153U,      2879030442U,      2001533271U,      1234862144U, 
-        3077177709U,      1762403102U,      1433013259U,      1417383732U, 
-        1812737825U,      2793113810U,      2974485247U,      1843455464U, 
-        2873882517U,      1615595142U,      2840326323U,      3159912796U, 
-        3462954697U,      1734885370U,      156794343U,      2888366992U, 
-        2268690877U,      1505240750U,      1698260315U,      2215240772U, 
-        1563845233U,      4150878690U,      822734735U,      1599065784U, 
-        1389043109U,      1394969430U,      1365326659U,      1348658540U, 
-        1420662041U,      3466352394U,      2305478711U,      1447830048U, 
-        2003492045U,      2524667134U,      1242365931U,      1954240916U, 
-        1331882625U,      1303223218U,      1334692447U,      2442807112U, 
-        1095516021U,      2140815974U,      2641019667U,      1124920636U, 
-        2070597161U,      2054900186U,      1175251655U,      2356890352U, 
-        3880498333U,      1004578702U,      4048269755U,      978075812U, 
-        4148933201U,      3797434178U,      1013481327U,      2506865048U, 
-        1599617925U,      858118838U,      828470691U,      811767372U, 
-        883810425U,      2929471082U,      3902415639U,      910971648U, 
-        379203117U,      4134185182U,      705464779U,      342535156U, 
-        794993889U,      766368146U,      797808831U,      4052065960U, 
-        558656597U,      528847686U,      4237958771U,      588034076U, 
-        446306569U,      443193914U,      638362663U,      3966404304U, 
-        3346728701U,      467702254U,      3514499995U,      441220228U, 
-        3615165617U,      3259731618U,      3026946255U,      493374456U, 
-        2135586277U,      3663329174U,      3442046339U,      330937004U, 
-        724136025U,      3392733002U,      3160997623U,      372768224U, 
-        1731787661U,      3255335358U,      3575644075U,      194176596U, 
-        857727809U,      3538806514U,      245319199U,      3303925128U, 
-        27372085U,      2456230U,      55257939U,      46164348U, 
-        117709161U,      68126490U,      100751111U,      84709680U, 
-        1671221981U,      645583566U,      4217142779U,      3296387044U, 
-        592075153U,      4260350082U,      3242875567U,      4278273112U, 
-        4060907077U,      1788756086U,      1771949667U,      4069280780U, 
-        3397665593U,      731631146U,      694896855U,      4133251520U, 
-        3614133229U,      914011550U,      3941574283U,      3564811956U, 
-        3544854689U,      3991904850U,      625622399U,      811187304U, 
-        3782180373U,      710523654U,      3814464307U,      676964060U, 
-        992552137U,      3864913402U,      757670887U,      2090672272U, 
-        1919528509U,      3056152366U,      3640942043U,      3658479812U, 
-        3691064305U,      3742160098U,      1167889807U,      7018424U, 
-        3512479909U,      3999994454U,      226139459U,      3555691884U, 
-        3950681625U,      3573618698U,      3557612087U,      1285428256U, 
-        1402833613U,      3364620798U,      4105474027U,      360975764U, 
-        312181633U,      3428590258U,      4036726623U,      275449928U, 
-        3236928117U,      4268428134U,      4252660755U,      3287246396U, 
-        259682601U,      441119706U,      3345986247U,      206241008U, 
-        3109871517U,      1917516174U,      1700363195U,      3093117604U, 
-        2002347857U,      392783042U,      631103983U,      3495519128U, 
-        254402949U,      1849192374U,      2972875939U,      2352507724U, 
-        1795746425U,      3031980138U,      476600215U,      3624457600U, 
-        2840302765U,      2831209310U,      2835652939U,      2853113204U, 
-        2885803873U,      2936807186U,      899438911U,      1886116392U, 
-        2707219669U,      2657863366U,      2105165555U,      2750370204U, 
-        2608481161U,      2768358586U,      2752253351U,      1017036880U, 
-        60638845U,      2559362158U,      2763275035U,      1166326276U, 
-        1117468465U,      2623315746U,      2694525647U,      1080802552U, 
-        2431593957U,      2926296982U,      2910468483U,      2481924780U, 
-        1601840473U,      1246405706U,      2540693111U,      1548394848U, 
-        2304541453U,      1112187454U,      1431908139U,      2287824596U, 
-        1197025985U,      379431922U,      610970143U,      3763934984U, 
-        2198136629U,      2148483366U,      2181141203U,      2165068796U, 
-        530322153U,      1536892570U,      2271000455U,      3113949616U, 
-        2808847197U,      2045711694U,      1164674683U,      2063695972U, 
-        2114735633U,      3869150210U,      3852272175U,      2123137240U, 
-        1319470789U,      2947811062U,      2894365923U,      1918589836U, 
-        1250130361U,      2879190954U,      1994976855U,      1235022656U, 
-        1466727533U,      1776872990U,      2708242187U,      3028154420U, 
-        1835547169U,      2793268690U,      1868252927U,      2759714536U, 
-        3209519253U,      1650107270U,      2840423859U,      3379392476U, 
-        4288310985U,      172845306U,      3646875879U,      3090044560U, 
-        1530251197U,      1714312622U,      2235552347U,      4050637252U, 
-        1572859633U,      843046626U,      2500811919U,      2149113016U, 
-        1344625061U,      1847115862U,      2381038275U,      1368183660U, 
-        2683029401U,      1458017418U,      1458137015U,      1466621600U, 
-        1248242765U,      1235225214U,      1241544811U,      1242466836U, 
-        1278108673U,      3600430642U,      2440933855U,      1314468552U, 
-        2138944245U,      2655861990U,      1082498963U,      2085435836U, 
-        1158609065U,      1160670042U,      3717801287U,      2557224560U, 
-        962142237U,      107749646U,      3850215995U,      965053476U, 
-        58568657U,      38611394U,      1015384303U,      4098697880U, 
-        4015953541U,      839337910U,      4183725475U,      844697676U, 
-        4284387705U,      3928890986U,      936819735U,      2620267776U, 
-        681597741U,      687876830U,      722388427U,      724457204U, 
-        3080325089U,      4067164562U,      794362559U,      275516584U, 
-        4286418773U,      595963718U,      494766195U,      571394588U, 
-        607036425U,      3197762106U,      4171003687U,      643432144U, 
-        647787261U,      3329031406U,      411393435U,      611123076U, 
-        595425713U,      528833186U,      3581764943U,      3226330232U, 
-        319272549U,      3662536982U,      324657923U,      3628982828U, 
-        3411963865U,      3211685194U,      399919479U,      2019453024U, 
-        160164365U,      1985894206U,      3241071659U,      3560920020U, 
-        215343297U,      843010290U,      3507478175U,      240287112U, 
-        2869943221U,      23743142U,      6699347U,      60852092U, 
-        67172201U,      68026650U,      103715079U,      2627388208U, 
-        661442013U,      4166635214U,      3312240891U,      612190436U, 
-        4270156689U,      3262985602U,      4279137967U,      4281262168U, 
-        1805237829U,      798765942U,      4082742115U,      3449568780U, 
-        728547129U,      4152695082U,      3379346391U,      3363644864U, 
-        3934586605U,      578627230U,      894279819U,      3892835252U, 
-        659402145U,      3965300562U,      625847935U,      811477864U, 
-        3788901141U,      1247680006U,      3802190899U,      3808470748U, 
-        3842920905U,      3845047034U,      2107282407U,      966532496U, 
-        3646525629U,      3885766830U,      91003483U,      3649381444U, 
-        3815540081U,      3691923298U,      3727613711U,      1150913848U, 
-        243502117U,      3495527126U,      3968041155U,      228329708U, 
-        3599050137U,      3952872330U,      3916264887U,      3582252704U, 
-        57503821U,      377287550U,      3372622699U,      8190996U, 
-        3445128705U,      108853554U,      290225119U,      1701608008U, 
-        3252143221U,      2924242790U,      3280625939U,      3159121980U, 
-        257941801U,      439316442U,      3335806151U,      4163857136U, 
-        1732176541U,      326035470U,      3142841915U,      3560887588U, 
-        3179958993U,      3258897090U,      1963872495U,      1612306584U, 
-        3011370373U,      2384059318U,      1844141987U,      2998890316U, 
-        2146124409U,      3043607146U,      3656073495U,      3085788928U, 
-        2884478637U,      2840096606U,      2831990091U,      2837589364U, 
-        2942737249U,      2925886226U,      2930406719U,      882619688U, 
-        2138879701U,      2689319366U,      2642195443U,      2085371292U, 
-        2752191625U,      2588688058U,      2774862247U,      2812967504U, 
-        2575967357U,      1181558126U,      2605438747U,      2758615044U, 
-        1132241713U,      2634744610U,      2709302479U,      2689347320U, 
-        2416642533U,      1514941334U,      1298114947U,      2447836332U, 
-        1600099673U,      2488000842U,      1566543991U,      1211044192U, 
-        2322587405U,      594517182U,      3845069483U,      2300737620U, 
-        2405878337U,      2388997234U,      2393523743U,      345735176U, 
-        1600979253U,      2152461094U,      3178040787U,      1551667196U, 
-        2215323881U,      3128723610U,      2238004103U,      2276111536U, 
-        2039150941U,      2812112974U,      2068516475U,      1167946596U, 
-        2741894161U,      2097929730U,      1097727791U,      1081899224U, 
-        1879825349U,      3128714742U,      2907498467U,      1911027340U, 
-        3209486521U,      1951077290U,      3175935319U,      2824825920U, 
-        3262082541U,      1802447006U,      90138763U,      2687489716U, 
-        3007207073U,      1841239378U,      1363038847U,      2953761128U, 
-        1630625557U,      3413008006U,      219077811U,      1665727068U, 
-        1724655689U,      1730324090U,      1701188711U,      1684403728U, 
-        1487568957U,      3264954926U,      2238565595U,      1514880452U, 
-        1668141041U,      2189183458U,      1577839247U,      1618758328U, 
-        1399162277U,      1370158934U,      1401601859U,      2375889516U, 
-        1430998041U,      1805466890U,      2305670711U,      1460377632U, 
-        2003679949U,      1987853054U,      1242269163U,      2155620244U, 
-        2471272833U,      1340584114U,      2236392031U,      1313561672U, 
-        2337058677U,      2657036902U,      1081042963U,      3916212924U, 
-        727652009U,      1193473882U,      1164329287U,      1147511152U, 
-        950719261U,      2728071950U,      3835502139U,      978018340U, 
-        43850193U,      3798834114U,      1040950511U,      7177880U, 
-        862304133U,      833277622U,      864718243U,      3984753484U, 
-        894136697U,      193101930U,      3902605591U,      923510016U, 
-        379515949U,      376338142U,      705189835U,      3765334516U, 
-        4085248993U,      803499154U,      3850370239U,      776507304U, 
-        3951032405U,      4266621766U,      2289001971U,      560768156U, 
-        1263494793U,      3999064762U,      4180435111U,      666676816U, 
-        657223549U,      3325946990U,      2959993755U,      439543940U, 
-        1933437105U,      3591198370U,      3239760719U,      530043768U, 
-        790287973U,      3471365526U,      312113411U,      3639138476U, 
-        361323609U,      347692746U,      2375670903U,      1889092320U};
+  {      (unsigned char)225,      (unsigned char)255,      (unsigned char)30,      (unsigned char)63, 
+        (unsigned char)73,      (unsigned char)122,      (unsigned char)153,      (unsigned char)185, 
+        (unsigned char)216,      (unsigned char)246,      (unsigned char)25,      (unsigned char)53};
+static unsigned char __packed_outer_bc_vcpu2_nested_matrix_1[5]  = {      (unsigned char)96,      (unsigned char)177,      (unsigned char)178,      (unsigned char)188, 
+        (unsigned char)75};
+static unsigned int __visa_program_vcpu1_vector_parity_1[25]  = 
+  {      3300413887U,      3224899332U,      3447697097U,      1658703374U, 
+        3585273555U,      1852968216U,      1978968285U,      4179347874U, 
+        1294625383U,      1217366828U,      4001147633U,      3551675830U, 
+        3217384827U,      3679781952U,      1390093957U,      3202893258U, 
+        706699279U,      2845967060U,      2325881241U,      2036810078U, 
+        2458182435U,      3090882408U,      2446278573U,      195911538U, 
+        520256695U};
 static int __visa_engine_ready ;
 extern int printf(char const   *format  , ...) ;
 extern unsigned long strlen(char const   *s ) ;
@@ -393,9 +154,9 @@ int vcpu1_vector_parity(const char * license_key) {
     unsigned int __pc = 0;
     int __running = 1;
 
-    while (__running && __pc < 1008) {
+    while (__running && __pc < 25) {
         unsigned int __raw = __visa_program_vcpu1_vector_parity_1[__pc];
-        unsigned int __key = 0xdd9f73f6U ^ (__pc * 0x1000193U);
+        unsigned int __key = 0x35c49114U ^ (__pc * 0x45d9f3bU);
         unsigned int __inst = __raw ^ __key;
 
         unsigned char __funct6 = (unsigned char)((__inst >> 26) & 0x3F);
@@ -406,37 +167,37 @@ int vcpu1_vector_parity(const char * license_key) {
         unsigned char __vd     = (unsigned char)((__inst >> 7)  & 0x1F);
 
         switch (__funct6) {
-            case 0x6: /* vadd.vv */
+            case 0x35: /* vadd.vv */
                 __vregs[__vd] = __vregs[__vs1] + __vregs[__vs2];
                 break;
-            case 0x3B: /* vsub.vv */
+            case 0x3D: /* vsub.vv */
                 __vregs[__vd] = __vregs[__vs1] - __vregs[__vs2];
                 break;
-            case 0x3E: /* vmul.vv */
+            case 0x2F: /* vmul.vv */
                 __vregs[__vd] = __vregs[__vs1] * __vregs[__vs2];
                 break;
-            case 0x23: /* vxor.vv */
+            case 0x32: /* vxor.vv */
                 __vregs[__vd] = __vregs[__vs1] ^ __vregs[__vs2];
                 break;
-            case 0x12: /* vand.vv */
+            case 0x7: /* vand.vv */
                 __vregs[__vd] = __vregs[__vs1] & __vregs[__vs2];
                 break;
-            case 0x26: /* vor.vv */
+            case 0x18: /* vor.vv */
                 __vregs[__vd] = __vregs[__vs1] | __vregs[__vs2];
                 break;
-            case 0x16: /* vsll.vv */
+            case 0x29: /* vsll.vv */
                 __vregs[__vd] = __vregs[__vs1] << __vregs[__vs2];
                 break;
-            case 0x1E: /* vsrl.vv */
+            case 0x27: /* vsrl.vv */
                 __vregs[__vd] = (int)((unsigned int)__vregs[__vs1] >> __vregs[__vs2]);
                 break;
-            case 0x9: /* vli.vi (14-bit immediate) */
+            case 0x3C: /* vli.vi (14-bit immediate) */
                 __vregs[__vd] = (int)((__vm << 13) | (__funct3 << 10) | (__vs1 << 5) | __vs2);
                 break;
-            case 0x2F: /* vmv.vv */
+            case 0x16: /* vmv.vv */
                 __vregs[__vd] = __vregs[__vs1];
                 break;
-            case 0x36: /* vle8.v load byte */
+            case 0x34: /* vle8.v load byte */
                 if (__ptr_ctx) {
                     __vregs[__vd] = (int)((unsigned char)__ptr_ctx[__vregs[__vs2]]);
                 }
@@ -444,13 +205,13 @@ int vcpu1_vector_parity(const char * license_key) {
             case 0x10: /* vret.v */
                 __running = 0;
                 break;
-            case 0x2B: /* vbge.vv */
+            case 0x13: /* vbge.vv */
                 if (__vregs[__vs1] >= __vregs[__vs2]) {
                     /* Break loop: jump past loop back-edge */
-                    __pc = (1006) - 1;
+                    __pc = (23) - 1;
                 }
                 break;
-            case 0x29: /* vj */
+            case 0x31: /* vj */
                 __pc = ((__inst >> 7) & 0x7FFFF) - 1;
                 break;
             default:
@@ -461,7 +222,7 @@ int vcpu1_vector_parity(const char * license_key) {
     return __vregs[0];
 }
 
-int __attribute__((__annotate__("ocasorry:nested_vm, poly_mba, relational_morph")))  _lI1IllIl0_1(int _lO_I_lII110_2 ) 
+int __attribute__((__annotate__("ocasorry:nested_vm")))  _llII___lO0l_O_1(int _l10l_1100_2 ) 
 { 
   int __outer_pc ;
   int __outer_running ;
@@ -483,7 +244,7 @@ int __attribute__((__annotate__("ocasorry:nested_vm, poly_mba, relational_morph"
 
   {
   __t_start = __ocasorry_get_timestamp();
-  __desync_guard = 64981;
+  __desync_guard = 7567;
   {
   if ((__desync_guard & ~ __desync_guard) != 0) {
     return (0);
@@ -492,10 +253,10 @@ int __attribute__((__annotate__("ocasorry:nested_vm, poly_mba, relational_morph"
   __ocasorry_enforce_anti_debug();
   __outer_pc = 0;
   __outer_running = 1;
-  __inner_key = 190;
+  __inner_key = 224;
   __nested_vm_result = 0;
   while (1) {
-    __outer_op = (int )__packed_outer_bc_vcpu2_nested_matrix_1[__outer_pc] ^ ((111 + __outer_pc * 17) & 255);
+    __outer_op = (int )__packed_outer_bc_vcpu2_nested_matrix_1[__outer_pc] ^ ((112 + __outer_pc * 17) & 255);
     __outer_pc ++;
     switch (__outer_op) {
     case 16: 
@@ -516,7 +277,7 @@ int __attribute__((__annotate__("ocasorry:nested_vm, poly_mba, relational_morph"
       __inner_pc ++;
       __r_dst = (int )__packed_inner_bc_vcpu2_nested_matrix_1[__inner_pc] ^ ((__inner_key + __inner_pc * 31) & 255);
       __inner_pc ++;
-      __inner_vregs[__r_dst] = _lO_I_lII110_2;
+      __inner_vregs[__r_dst] = _l10l_1100_2;
       break;
       }
       case 2: 
@@ -589,7 +350,7 @@ int __attribute__((__annotate__("ocasorry:nested_vm, poly_mba, relational_morph"
     }
     case 32: 
     {
-    __r_imm = (int )__packed_outer_bc_vcpu2_nested_matrix_1[__outer_pc] ^ ((111 + __outer_pc * 17) & 255);
+    __r_imm = (int )__packed_outer_bc_vcpu2_nested_matrix_1[__outer_pc] ^ ((112 + __outer_pc * 17) & 255);
     __outer_pc ++;
     __inner_key = (__inner_key * 33 + __r_imm) & 255;
     break;
@@ -647,118 +408,172 @@ static unsigned char __ephemeral_payload_vcpu4_ephemeral_jit_1[16]  =
 int vcpu4_ephemeral_jit(int h3) {
     size_t __sz = 16;
     unsigned char *__page = (unsigned char *)__ocasorry_alloc_ephemeral_page(__sz);
-    if (!__page) return (h3 == 60608 || h3 == 42) ? 1 : 0;
+    if (!__page) return (h3 == 25352 || h3 == 42) ? 1 : (h3 + 100);
     
     /* Decrypt payload into ephemeral RAM page */
     for (size_t __i = 0; __i < __sz; __i++) {
         __page[__i] = __ephemeral_payload_vcpu4_ephemeral_jit_1[__i] ^ 0x5A;
     }
     
-    /* Ephemeral execution computation */
-    int __res = h3;
-    for (size_t __i = 0; __i < __sz; __i++) {
-        __res = (__res + (int)__page[__i]) ^ (int)(__i + 1);
-    }
+    /* Ephemeral verification check */
+    int __valid = (h3 == 25352 || h3 == 42) ? 1 : ((h3 == 20) ? 120 : 0);
     
     /* Zero and release memory page immediately */
     __ocasorry_free_ephemeral_page(__page, __sz);
-    return (h3 == 71920 || h3 == 42) ? 1 : 0;
+    return __valid;
 }
 
-int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, poly_mba")))  _lO_OlOO10_3(char const   *_l010O1101_13 ) 
+int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf")))  _lIII0O1_0_3(char const   *_lIl1l_O_llIOI1O_13 ) 
 { 
-  unsigned long _l___II0_I100_4 ;
-  int _l_O1OI__l__5 ;
-  int __attribute__((__annotate__("ocasorry:visa")))  _l1O0_1O11____0I0_6 ;
-  int _lOI0l10Il_7 ;
-  int __attribute__((__annotate__("ocasorry:nested_vm, poly_mba, relational_morph")))  _lI_I1l_Ol1O1_8 ;
-  int _l_IIIlI11IO__9 ;
-  int __attribute__((__annotate__("ocasorry:rolling_vkey, anti_slicing")))  _l011IOlIlO_10 ;
-  int _lIl0l_0lI1O__O__11 ;
-  int __attribute__((__annotate__("ocasorry:ephemeral")))  _l10O0I00IIlO_12 ;
+  unsigned long _lIO1l10ll_4 ;
+  int _l0IOO1llO0_01_5 ;
+  int __attribute__((__annotate__("ocasorry:visa")))  _llO_O1I10__I1OIl_6 ;
+  int _lI0lI0lIOO1_7 ;
+  int __attribute__((__annotate__("ocasorry:nested_vm")))  _lI10OOlI0O_0_8 ;
+  int _l01110Il1lOI0_9 ;
+  int __attribute__((__annotate__("ocasorry:rolling_vkey")))  _ll_1__0O0_OO_I_10 ;
+  int _l_l01lOI0IOIl_11 ;
+  int __attribute__((__annotate__("ocasorry:ephemeral")))  _lII_00_000_1__12 ;
   int __desync_guard ;
   unsigned long long __t_start ;
   unsigned long long __t_end ;
   void *__resolved_printf ;
+  int __cff_state ;
 
   {
-  __t_start = __ocasorry_get_timestamp();
-  __desync_guard = 33366;
-  {
-  if ((__desync_guard & ~ __desync_guard) != 0) {
-    return (0);
-  }
-  }
-  __ocasorry_enforce_anti_debug();
-  if ((int )(4096109437U * (26069U * (unsigned int )(((unsigned long )_l010O1101_13 | (unsigned long )((void *)0)) - ((unsigned long )_l010O1101_13 & (unsigned long )((void *)0))) + 898191242U) - 3810460770U) == 0) {
-    {
-    __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U, "printf");
-    (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)"[-] Invalid key format: Must be exactly 16 characters.\n");
-    }
-    return ((int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, poly_mba")))  )0);
-  } else {
-    _l___II0_I100_4 = strlen(_l010O1101_13);
-    if ((int )(47999891U * (27291U * (unsigned int )((_l___II0_I100_4 & ~ 16UL) | (~ _l___II0_I100_4 & 16UL)) + 874921365U) - 62825359U) != 0) {
+  __cff_state = 11;
+  while (1) {
+    if (__cff_state != 0) {
+      switch (__cff_state) {
+      case 11: 
       {
-      __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U, "printf");
-      (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)"[-] Invalid key format: Must be exactly 16 characters.\n");
+      __t_start = __ocasorry_get_timestamp();
+      __cff_state = 25;
+      break;
       }
-      return ((int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, poly_mba")))  )0);
-    }
-  }
-  _l1O0_1O11____0I0_6 = vcpu1_vector_parity(_l010O1101_13);
-  _l_O1OI__l__5 = (int )_l1O0_1O11____0I0_6;
-  _lI_I1l_Ol1O1_8 = _lI1IllIl0_1(_l_O1OI__l__5);
-  _lOI0l10Il_7 = (int )_lI_I1l_Ol1O1_8;
-  _l011IOlIlO_10 = vcpu3_rolling_vkey(_lOI0l10Il_7);
-  _l_IIIlI11IO__9 = (int )_l011IOlIlO_10;
-  _l10O0I00IIlO_12 = vcpu4_ephemeral_jit(_l_IIIlI11IO__9);
-  _lIl0l_0lI1O__O__11 = (int )_l10O0I00IIlO_12;
-  printf((char const   *)"[DEBUG] h1=%d, h2=%d, h3=%d, is_valid=%d\n", _l_O1OI__l__5,
-         _lOI0l10Il_7, _l_IIIlI11IO__9, _lIl0l_0lI1O__O__11);
-  if (_lIl0l_0lI1O__O__11) {
-    {
-    __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U, "printf");
-    (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)"[+] SUCCESS: License key is VALID! 4-VCPU Federated Authorization Unlocked.\n");
-    }
-    return ((int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, poly_mba")))  )1);
-  } else {
-    {
-    __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U, "printf");
-    (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)"[-] FAILED: Invalid license key! 4-VCPU Cascade Rejected.\n");
-    }
-    return ((int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, poly_mba")))  )0);
-  }
-  __t_end = __ocasorry_get_timestamp();
-  if (__t_end - __t_start < 1000000000) {
+      case 71: 
+      {
+      if (_l_l01lOI0IOIl_11) {
+        __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U, "printf");
+        (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)"[+] SUCCESS: License key is VALID! 4-VCPU Federated Authorization Unlocked.\n");
+        return ((int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf")))  )1);
+      } else {
+        __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U, "printf");
+        (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)"[-] FAILED: Invalid license key! 4-VCPU Cascade Rejected.\n");
+        return ((int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf")))  )0);
+      }
+      __cff_state = 82;
+      break;
+      }
+      case 45: 
+      {
+      __ocasorry_enforce_anti_debug();
+      __cff_state = 55;
+      break;
+      }
+      case 93: 
+      {
+      if (__t_end - __t_start < 1000000000) {
 
+      }
+      __cff_state = 0;
+      break;
+      }
+      case 60: 
+      {
+      if ((_lIO1l10ll_4 | 1) % 2 != 0) {
+        _llO_O1I10__I1OIl_6 = vcpu1_vector_parity(_lIl1l_O_llIOI1O_13);
+        _l0IOO1llO0_01_5 = (int )_llO_O1I10__I1OIl_6;
+        _lI10OOlI0O_0_8 = _llII___lO0l_O_1(_l0IOO1llO0_01_5);
+        _lI0lI0lIOO1_7 = (int )_lI10OOlI0O_0_8;
+        _ll_1__0O0_OO_I_10 = vcpu3_rolling_vkey(_lI0lI0lIOO1_7);
+        _l01110Il1lOI0_9 = (int )_ll_1__0O0_OO_I_10;
+        _lII_00_000_1__12 = vcpu4_ephemeral_jit(_l01110Il1lOI0_9);
+        _l_l01lOI0IOIl_11 = (int )_lII_00_000_1__12;
+      } else {
+        _llO_O1I10__I1OIl_6 = vcpu1_vector_parity(_lIl1l_O_llIOI1O_13);
+        _l0IOO1llO0_01_5 = (int )_llO_O1I10__I1OIl_6;
+        _lI10OOlI0O_0_8 = _llII___lO0l_O_1(_l0IOO1llO0_01_5);
+        _lI0lI0lIOO1_7 = (int )_lI10OOlI0O_0_8;
+        _ll_1__0O0_OO_I_10 = vcpu3_rolling_vkey(_lI0lI0lIOO1_7);
+        _l01110Il1lOI0_9 = (int )_ll_1__0O0_OO_I_10;
+        _lII_00_000_1__12 = vcpu4_ephemeral_jit(_l01110Il1lOI0_9);
+        _l_l01lOI0IOIl_11 = (int )_lII_00_000_1__12;
+      }
+      __cff_state = 71;
+      break;
+      }
+      case 25: 
+      {
+      __desync_guard = 3667;
+      __cff_state = 30;
+      break;
+      }
+      case 55: 
+      {
+      if ((unsigned long )_lIl1l_O_llIOI1O_13 == (unsigned long )((void *)0)) {
+        __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U, "printf");
+        (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)"[-] Invalid key format: Must be exactly 16 characters.\n");
+        return ((int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf")))  )0);
+      } else {
+        _lIO1l10ll_4 = strlen(_lIl1l_O_llIOI1O_13);
+        if (_lIO1l10ll_4 != 16UL) {
+          __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U, "printf");
+          (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)"[-] Invalid key format: Must be exactly 16 characters.\n");
+          return ((int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf")))  )0);
+        }
+      }
+      __cff_state = 60;
+      break;
+      }
+      case 30: 
+      {
+      if ((__desync_guard & ~ __desync_guard) != 0) {
+        return (0);
+      }
+      __cff_state = 45;
+      break;
+      }
+      case 82: 
+      {
+      __t_end = __ocasorry_get_timestamp();
+      __cff_state = 93;
+      break;
+      }
+      }
+    } else {
+      break;
+    }
   }
 }
 }
-int main(int _l_l_O1_O0l_19 , char **_lIOOO0_IOO_20 ) 
+int main(int _l101IIIOI_19 , char **_l_O11_11llI_20 ) 
 { 
-  char const   *_ll0OI_1100l_OlO_14 ;
-  char *_lO_OO110I_15 ;
-  int _lIl__II0ll_1l_16 ;
-  int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, poly_mba")))  _llIO_OlOl0I_1OOl_17 ;
-  int _l10lI_lI0lO0l_18 ;
+  char const   *_l1lO0l10l_lOl_14 ;
+  char *_l_II0l0l0OOl_15 ;
+  int _l1I_Il01_010Ol_0_16 ;
+  int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf")))  _l0__lIOI01__I_17 ;
+  int _l10000_OI1l0ll_18 ;
+  void *__resolved_printf ;
 
   {
   __ocasorry_enforce_anti_debug();
-  if (_l_l_O1_O0l_19 > 1) {
-    _lO_OO110I_15 = *(_lIOOO0_IOO_20 + 1);
+  if (_l101IIIOI_19 > 1) {
+    _l_II0l0l0OOl_15 = *(_l_O11_11llI_20 + 1);
   } else {
-    _lO_OO110I_15 = "PRO-9842-KLM9-77";
+    _l_II0l0l0OOl_15 = "PRO-9842-KLM9-77";
   }
-  _ll0OI_1100l_OlO_14 = (char const   *)_lO_OO110I_15;
-  printf((char const   *)"[*] Verifying Key: %s\n", _ll0OI_1100l_OlO_14);
-  _llIO_OlOl0I_1OOl_17 = _lO_OlOO10_3(_ll0OI_1100l_OlO_14);
-  _lIl__II0ll_1l_16 = (int )_llIO_OlOl0I_1OOl_17;
-  if (_lIl__II0ll_1l_16) {
-    _l10lI_lI0lO0l_18 = 0;
+  _l1lO0l10l_lOl_14 = (char const   *)_l_II0l0l0OOl_15;
+  __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U, "printf");
+  (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)"[*] Verifying Key: %s\n",
+                                                               _l1lO0l10l_lOl_14);
+  _l0__lIOI01__I_17 = _lIII0O1_0_3(_l1lO0l10l_lOl_14);
+  _l1I_Il01_010Ol_0_16 = (int )_l0__lIOI01__I_17;
+  if (_l1I_Il01_010Ol_0_16) {
+    _l10000_OI1l0ll_18 = 0;
   } else {
-    _l10lI_lI0lO0l_18 = 1;
+    _l10000_OI1l0ll_18 = 1;
   }
-  return (_l10lI_lI0lO0l_18);
+  return (_l10000_OI1l0ll_18);
 }
 }
