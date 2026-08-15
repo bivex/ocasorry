@@ -244,7 +244,7 @@ ocasorry-cc --ocasorry-virtualize --ocasorry-self-mod-vm -O2 main.c -o main.bin
 
 ### Overview
 
-`tools/visa_synthesizer.py` is OcaSorry's formal **Sail ISA Specification Synthesizer**. It produces per-build, randomized architecture descriptions in two complementary formats for each of the 4 VCPU tiers:
+`ocasorry-synth` (`Synthesize_isa_usecase`) is OcaSorry's native DDD **Sail ISA Specification Synthesizer**. It produces per-build, randomized architecture descriptions in two complementary formats for each of the VCPU tiers:
 
 - **`.sail`** — Formal Sail DSL specification (AST unions, decode clauses, execute semantics) suitable for theorem proving and formal ISA documentation.
 - **`.json`** — Structured JSON schema consumed directly by OcaSorry's OCaml pass pipeline at compile time.
@@ -255,16 +255,19 @@ Every invocation generates different opcode mappings, register allocations, encr
 
 ```bash
 # Synthesize all 4 VCPU Sail + JSON specs into a directory
-python3 tools/visa_synthesizer.py --output-dir examples/ --name vISA_Custom_Arch
+./_build/default/bin/ocasorry_synth.exe --output-dir examples/ --name vISA_Custom_Arch
+
+# Synthesize 8-VCPU specs for AES block cipher demo
+./_build/default/bin/ocasorry_synth.exe --vcpu 8vcpu --output-dir examples/
 
 # Synthesize a single named VCPU tier
-python3 tools/visa_synthesizer.py --vcpu visa        --output-json examples/vcpu1.json
-python3 tools/visa_synthesizer.py --vcpu nested_vm   --output-json examples/vcpu2.json
-python3 tools/visa_synthesizer.py --vcpu rolling_vkey --output-json examples/vcpu3.json
-python3 tools/visa_synthesizer.py --vcpu ephemeral   --output-json examples/vcpu4.json
+./_build/default/bin/ocasorry_synth.exe --vcpu visa        --output-json examples/vcpu1.json
+./_build/default/bin/ocasorry_synth.exe --vcpu nested_vm   --output-json examples/vcpu2.json
+./_build/default/bin/ocasorry_synth.exe --vcpu rolling_vkey --output-json examples/vcpu3.json
+./_build/default/bin/ocasorry_synth.exe --vcpu ephemeral   --output-json examples/vcpu4.json
 
 # Use a fixed seed for reproducible builds
-python3 tools/visa_synthesizer.py --output-dir examples/ --seed 42
+./_build/default/bin/ocasorry_synth.exe --output-dir examples/ --seed 42
 ```
 
 **`--vcpu` flag values:**
@@ -275,6 +278,7 @@ python3 tools/visa_synthesizer.py --output-dir examples/ --seed 42
 | `nested_vm` | Tier 2: 2-Tier Hierarchical VM | `vcpu2_nested_vm.json` + `vcpu2_nested_vm.sail` |
 | `rolling_vkey` | Tier 3: Stateful Rolling Key VM | `vcpu3_rolling_vkey.json` + `vcpu3_rolling_vkey.sail` |
 | `ephemeral` | Tier 4: Ephemeral JIT Wiper VM | `vcpu4_ephemeral_jit.json` + `vcpu4_ephemeral_jit.sail` |
+| `8vcpu` | 8-VCPU Cascade (AES Feistel) | 8 `.json` + 8 `.sail` files |
 | `all` (default) | All 4 tiers simultaneously | All 8 files |
 
 ### How Each Spec Feeds the OCaml Pass Pipeline
@@ -282,7 +286,7 @@ python3 tools/visa_synthesizer.py --output-dir examples/ --seed 42
 Each synthesized spec pair is consumed by a dedicated OCaml domain service within `lib/domain/services/c_source/virtualization/`:
 
 ```
-tools/visa_synthesizer.py
+ocasorry-synth (C_isa_synthesizer_service.ml)
          │
          ├── vcpu1_visa.json       ──►  c_visa_spec_service.ml
          │                               (Tier 1: random_vISA VCPU injection)

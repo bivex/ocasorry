@@ -2,7 +2,7 @@
 
 **OcaSorry** is an advanced **C source-to-source obfuscator** and **4-VCPU federated virtualization engine** written in **OCaml 5**, engineered following **Domain-Driven Design (DDD)** and **Hexagonal Architecture (Ports & Adapters)**.
 
-It combines **C Source AST transformations** (powered by George Necula's [CIL / Goblint-CIL](https://github.com/cil-project/cil)) with a **4-Tier Cascading Virtual Processor Pipeline**, a **drop-in compiler wrapper (`ocasorry-cc`)**, a **native AArch64 JIT emitter**, and formal **Sail ISA specifications** synthesized per build by `tools/visa_synthesizer.py`.
+It combines **C Source AST transformations** (powered by George Necula's [CIL / Goblint-CIL](https://github.com/goblint/cil)) with a **4-Tier Cascading Virtual Processor Pipeline**, a **drop-in compiler wrapper (`ocasorry-cc`)**, a **native AArch64 JIT emitter**, and formal **Sail ISA specifications** synthesized per build by the native DDD engine (`ocasorry-synth`).
 
 ---
 
@@ -171,7 +171,7 @@ make -C examples CC=../_build/default/bin/ocasorry_cc.exe run
 ```
 
 This script:
-1. Synthesizes all 4 Sail + JSON VCPU specs via `tools/visa_synthesizer.py`
+1. Synthesizes all 4 Sail + JSON VCPU specs via native DDD `ocasorry-synth`
 2. Obfuscates `examples/01_license_keygen.c` with 4-VCPU + 10 protection passes
 3. Compiles the native AArch64 binary with `clang -O2`
 4. Runs automated test vectors (valid, tampered, default keys)
@@ -180,20 +180,23 @@ This script:
 
 ## 🔧 Tools
 
-### `tools/visa_synthesizer.py` — Formal Sail ISA Synthesizer
+### `ocasorry-synth` — Native DDD Formal Sail ISA Synthesizer
 
-Synthesizes randomized per-build Sail (`.sail`) and JSON (`.json`) ISA specifications for all 4 VCPU tiers:
+Synthesizes randomized per-build Sail (`.sail`) and JSON (`.json`) ISA specifications for all 4 VCPU tiers (or 8 VCPU cryptographic cascades) with zero external Python dependencies:
 
 ```bash
 # Synthesize all 4 VCPU specs into examples/
-python3 tools/visa_synthesizer.py --output-dir examples/ --name vISA_Custom_Arch
+./_build/default/bin/ocasorry_synth.exe --output-dir examples/ --name vISA_Custom_Arch
+
+# Synthesize 8-VCPU AES/Feistel specs into examples/
+./_build/default/bin/ocasorry_synth.exe --vcpu 8vcpu --output-dir examples/
 
 # Synthesize a single VCPU tier
-python3 tools/visa_synthesizer.py --vcpu visa --output-json examples/my_visa.json
+./_build/default/bin/ocasorry_synth.exe --vcpu visa --output-json examples/my_visa.json
 
 # Flags:
-#   --vcpu {visa,nested_vm,rolling_vkey,ephemeral,all}
-#   --output-dir DIR    Write all 4 spec pairs (*.sail + *.json)
+#   --vcpu {visa,nested_vm,rolling_vkey,ephemeral,all,8vcpu}
+#   --output-dir DIR    Write all spec pairs (*.sail + *.json)
 #   --output-json FILE  Single-tier JSON output path
 #   --output-sail FILE  Single-tier Sail output path
 #   --seed INT          Deterministic random seed

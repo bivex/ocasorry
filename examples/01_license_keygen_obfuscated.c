@@ -201,102 +201,102 @@ static void __ocasorry_free_ephemeral_page(void *ptr, size_t sz) {
 }
 
 static unsigned char __packed_inner_bc_vcpu2_nested_matrix_1[12]  = 
-  {      (unsigned char)214,      (unsigned char)246,      (unsigned char)21,      (unsigned char)54, 
-        (unsigned char)70,      (unsigned char)115,      (unsigned char)146,      (unsigned char)176, 
-        (unsigned char)207,      (unsigned char)239,      (unsigned char)2,      (unsigned char)44};
-static unsigned char __packed_outer_bc_vcpu2_nested_matrix_1[5]  = {      (unsigned char)126,      (unsigned char)79,      (unsigned char)176,      (unsigned char)190, 
-        (unsigned char)77};
+  {      (unsigned char)206,      (unsigned char)238,      (unsigned char)13,      (unsigned char)46, 
+        (unsigned char)94,      (unsigned char)107,      (unsigned char)138,      (unsigned char)168, 
+        (unsigned char)199,      (unsigned char)231,      (unsigned char)10,      (unsigned char)36};
+static unsigned char __packed_outer_bc_vcpu2_nested_matrix_1[5]  = {      (unsigned char)146,      (unsigned char)163,      (unsigned char)132,      (unsigned char)170, 
+        (unsigned char)57};
 static unsigned int __visa_program_vcpu1_vector_parity_1[25]  = 
-  {      2945687833U,      2924372234U,      2901369663U,      1542383520U, 
-        2884592853U,      1099818566U,      1592715883U,      3820972188U, 
-        1357737857U,      1374612658U,      2768203175U,      4087116744U, 
-        3968725501U,      4122998126U,      1458468115U,      4290770564U, 
-        1223522857U,      3921574490U,      3172794191U,      1337884016U, 
-        3137305701U,      3988701462U,      3505341115U,      1341113772U, 
-        2498708561U};
+  {      2929931761U,      2854447946U,      2808400519U,      751217216U, 
+        3215559325U,      342452566U,      1005571219U,      3204492780U, 
+        53546537U,      110423906U,      2221395647U,      2041127416U, 
+        4259184949U,      1900961806U,      482362059U,      485695876U, 
+        1677984833U,      62482074U,      3770238423U,      1669080336U, 
+        4171204461U,      304118566U,      1607752675U,      1169570620U, 
+        3843627257U};
 static int __visa_engine_ready ;
 static char volatile   __enc_lit_1[56]  = 
-  {      185,      207,      191,      194, 
-        171,      140,      148,      131, 
-        142,      139,      134,      194, 
-        137,      135,      155,      194, 
-        132,      141,      144,      143, 
-        131,      150,      216,      194, 
-        175,      151,      145,      150, 
-        194,      128,      135,      194, 
-        135,      154,      131,      129, 
-        150,      142,      155,      194, 
-        211,      212,      194,      129, 
-        138,      131,      144,      131, 
-        129,      150,      135,      144, 
-        145,      204,      232,      226};
+  {      19,      101,      21,      104, 
+        1,      38,      62,      41, 
+        36,      33,      44,      104, 
+        35,      45,      49,      104, 
+        46,      39,      58,      37, 
+        41,      60,      114,      104, 
+        5,      61,      59,      60, 
+        104,      42,      45,      104, 
+        45,      48,      41,      43, 
+        60,      36,      49,      104, 
+        121,      126,      104,      43, 
+        32,      41,      58,      41, 
+        43,      60,      45,      58, 
+        59,      102,      66,      72};
 static char volatile   __dec_lit_1[56]  ;
 static int volatile   __init_lit_1  =    0;
 static char volatile   __enc_lit_2[56]  = 
-  {      105,      31,      111,      18, 
-        123,      92,      68,      83, 
-        94,      91,      86,      18, 
-        89,      87,      75,      18, 
-        84,      93,      64,      95, 
-        83,      70,      8,      18, 
-        127,      71,      65,      70, 
-        18,      80,      87,      18, 
-        87,      74,      83,      81, 
-        70,      94,      75,      18, 
-        3,      4,      18,      81, 
-        90,      83,      64,      83, 
-        81,      70,      87,      64, 
-        65,      28,      56,      50};
+  {      186,      204,      188,      193, 
+        168,      143,      151,      128, 
+        141,      136,      133,      193, 
+        138,      132,      152,      193, 
+        135,      142,      147,      140, 
+        128,      149,      219,      193, 
+        172,      148,      146,      149, 
+        193,      131,      132,      193, 
+        132,      153,      128,      130, 
+        149,      141,      152,      193, 
+        208,      215,      193,      130, 
+        137,      128,      147,      128, 
+        130,      149,      132,      147, 
+        146,      207,      235,      225};
 static char volatile   __dec_lit_2[56]  ;
 static int volatile   __init_lit_2  =    0;
 static char volatile   __enc_lit_3[77]  = 
-  {      49,      65,      55,      74, 
-        57,      63,      41,      41, 
-        47,      57,      57,      80, 
-        74,      38,      3,      9, 
-        15,      4,      25,      15, 
-        74,      1,      15,      19, 
-        74,      3,      25,      74, 
-        60,      43,      38,      35, 
-        46,      75,      74,      94, 
-        71,      60,      41,      58, 
-        63,      74,      44,      15, 
-        14,      15,      24,      11, 
-        30,      15,      14,      74, 
-        43,      31,      30,      2, 
-        5,      24,      3,      16, 
-        11,      30,      3,      5, 
-        4,      74,      63,      4, 
-        6,      5,      9,      1, 
-        15,      14,      68,      96, 
-        106};
+  {      4,      116,      2,      127, 
+        12,      10,      28,      28, 
+        26,      12,      12,      101, 
+        127,      19,      54,      60, 
+        58,      49,      44,      58, 
+        127,      52,      58,      38, 
+        127,      54,      44,      127, 
+        9,      30,      19,      22, 
+        27,      126,      127,      107, 
+        114,      9,      28,      15, 
+        10,      127,      25,      58, 
+        59,      58,      45,      62, 
+        43,      58,      59,      127, 
+        30,      42,      43,      55, 
+        48,      45,      54,      37, 
+        62,      43,      54,      48, 
+        49,      127,      10,      49, 
+        51,      48,      60,      52, 
+        58,      59,      113,      85, 
+        95};
 static char volatile   __dec_lit_3[77]  ;
 static int volatile   __init_lit_3  =    0;
 static char volatile   __enc_lit_4[59]  = 
-  {      41,      95,      47,      82, 
-        52,      51,      59,      62, 
-        55,      54,      72,      82, 
-        59,      28,      4,      19, 
-        30,      27,      22,      82, 
-        30,      27,      17,      23, 
-        28,      1,      23,      82, 
-        25,      23,      11,      83, 
-        82,      70,      95,      36, 
-        49,      34,      39,      82, 
-        49,      19,      1,      17, 
-        19,      22,      23,      82, 
-        32,      23,      24,      23, 
-        17,      6,      23,      22, 
-        92,      120,      114};
+  {      19,      101,      21,      104, 
+        14,      9,      1,      4, 
+        13,      12,      114,      104, 
+        1,      38,      62,      41, 
+        36,      33,      44,      104, 
+        36,      33,      43,      45, 
+        38,      59,      45,      104, 
+        35,      45,      49,      105, 
+        104,      124,      101,      30, 
+        11,      24,      29,      104, 
+        11,      41,      59,      43, 
+        41,      44,      45,      104, 
+        26,      45,      34,      45, 
+        43,      60,      45,      44, 
+        102,      66,      72};
 static char volatile   __dec_lit_4[59]  ;
 static int volatile   __init_lit_4  =    0;
 static char volatile   __enc_lit_5[23]  = 
-  {      9,      120,      15,      114, 
-        4,      55,      32,      59, 
-        52,      43,      59,      60, 
-        53,      114,      25,      55, 
-        43,      104,      114,      119, 
-        33,      88,      82};
+  {      76,      61,      74,      55, 
+        65,      114,      101,      126, 
+        113,      110,      126,      121, 
+        112,      55,      92,      114, 
+        110,      45,      55,      50, 
+        100,      29,      23};
 static char volatile   __dec_lit_5[23]  ;
 static int volatile   __init_lit_5  =    0;
 extern int printf(char const   *format  , ...) ;
@@ -313,26 +313,26 @@ int vcpu1_vector_parity(const char * license_key) {
     /* Direct Threading Dispatch Table via GNU C Computed Gotos */
     static const void * const __dispatch_table[64] = {
         [0 ... 63] = &&__h_default,
-        [0xB] = &&__h_vadd,
-        [0x0] = &&__h_vsub,
-        [0xD] = &&__h_vmul,
+        [0xC] = &&__h_vadd,
+        [0x13] = &&__h_vsub,
+        [0x2C] = &&__h_vmul,
         [0x9] = &&__h_vxor,
-        [0x22] = &&__h_vand,
-        [0x18] = &&__h_vor,
-        [0x12] = &&__h_vsll,
-        [0x31] = &&__h_vsrl,
-        [0x1E] = &&__h_vli,
-        [0x23] = &&__h_vmv,
-        [0xC] = &&__h_vle8,
-        [0x16] = &&__h_vret,
-        [0x24] = &&__h_vbge,
-        [0x4] = &&__h_vj
+        [0x12] = &&__h_vand,
+        [0x2A] = &&__h_vor,
+        [0x39] = &&__h_vsll,
+        [0xA] = &&__h_vsrl,
+        [0x35] = &&__h_vli,
+        [0x16] = &&__h_vmv,
+        [0x36] = &&__h_vle8,
+        [0x3D] = &&__h_vret,
+        [0x1E] = &&__h_vbge,
+        [0x11] = &&__h_vj
     };
 
     #define __VISA_DISPATCH() do { \
         if (__pc >= 25) goto __h_vret; \
         __raw = __visa_program_vcpu1_vector_parity_1[__pc]; \
-        __key = 0xd6ef61aeU ^ (__pc * 0x1000193U); \
+        __key = 0x7bdff55aU ^ (__pc * 0x45d9f3bU); \
         __inst = __raw ^ __key; \
         __funct6 = (unsigned char)((__inst >> 26) & 0x3F); \
         __vm     = (unsigned char)((__inst >> 25) & 0x01); \
@@ -410,7 +410,7 @@ __h_vret:
     return __vregs[0];
 }
 
-int __attribute__((__annotate__("ocasorry:nested_vm")))  _l_IOOl10IO1l1_0__1(int _l01OO_l10_ll1I_2 ) 
+int __attribute__((__annotate__("ocasorry:nested_vm")))  _l0__O1_l0_O_1(int _lO_OIOO0l0_2 ) 
 { 
   int __outer_pc ;
   int __outer_running ;
@@ -432,7 +432,7 @@ int __attribute__((__annotate__("ocasorry:nested_vm")))  _l_IOOl10IO1l1_0__1(int
 
   {
   __t_start = __ocasorry_get_timestamp();
-  __desync_guard = 8019;
+  __desync_guard = 35587;
   {
   if ((__desync_guard & ~ __desync_guard) != 0) {
     return (0);
@@ -441,10 +441,10 @@ int __attribute__((__annotate__("ocasorry:nested_vm")))  _l_IOOl10IO1l1_0__1(int
   __ocasorry_enforce_anti_debug();
   __outer_pc = 0;
   __outer_running = 1;
-  __inner_key = 215;
+  __inner_key = 207;
   __nested_vm_result = 0;
   while (1) {
-    __outer_op = (int )__packed_outer_bc_vcpu2_nested_matrix_1[__outer_pc] ^ ((110 + __outer_pc * 17) & 255);
+    __outer_op = (int )__packed_outer_bc_vcpu2_nested_matrix_1[__outer_pc] ^ ((130 + __outer_pc * 17) & 255);
     __outer_pc ++;
     switch (__outer_op) {
     case 16: 
@@ -465,7 +465,7 @@ int __attribute__((__annotate__("ocasorry:nested_vm")))  _l_IOOl10IO1l1_0__1(int
       __inner_pc ++;
       __r_dst = (int )__packed_inner_bc_vcpu2_nested_matrix_1[__inner_pc] ^ ((__inner_key + __inner_pc * 31) & 255);
       __inner_pc ++;
-      __inner_vregs[__r_dst] = _l01OO_l10_ll1I_2;
+      __inner_vregs[__r_dst] = _lO_OIOO0l0_2;
       break;
       }
       case 2: 
@@ -538,7 +538,7 @@ int __attribute__((__annotate__("ocasorry:nested_vm")))  _l_IOOl10IO1l1_0__1(int
     }
     case 32: 
     {
-    __r_imm = (int )__packed_outer_bc_vcpu2_nested_matrix_1[__outer_pc] ^ ((110 + __outer_pc * 17) & 255);
+    __r_imm = (int )__packed_outer_bc_vcpu2_nested_matrix_1[__outer_pc] ^ ((130 + __outer_pc * 17) & 255);
     __outer_pc ++;
     __inner_key = (__inner_key * 33 + __r_imm) & 255;
     break;
@@ -700,17 +700,17 @@ int vcpu4_ephemeral_jit(int h3) {
     return __valid;
 }
 
-int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  _l_0O_1lOl1_3(char const   *_l0llO_IIlO_13 ) 
+int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  _l1OlI1lO____3(char const   *_l1O_0lI01___13 ) 
 { 
-  unsigned long _lI_l0I1l__OO1_4 ;
-  int _l_0I11I1O1I_5 ;
-  int __attribute__((__annotate__("ocasorry:visa")))  _lOl0II0lI11IlO_I_6 ;
-  int _l101_00I____l0_7 ;
-  int __attribute__((__annotate__("ocasorry:nested_vm")))  _lOII10l_OlI_8 ;
-  int _l_l_IOIl_Ol_l__9 ;
-  int __attribute__((__annotate__("ocasorry:rolling_vkey")))  _l1_lI_0IOll_10 ;
-  int _lI__1l_I_1011l_11 ;
-  int __attribute__((__annotate__("ocasorry:ephemeral")))  _l0l10_11IIIO0_I__12 ;
+  unsigned long _l_Il1OO0_10l_4 ;
+  int _lO_OI_0Ol_I1_5 ;
+  int __attribute__((__annotate__("ocasorry:visa")))  _lIl0_lO1IOIlI_6 ;
+  int _l__0_lIOI0lI_IO_7 ;
+  int __attribute__((__annotate__("ocasorry:nested_vm")))  _lI0IO_0OOI1_8 ;
+  int _lll_1_OIlOO_9 ;
+  int __attribute__((__annotate__("ocasorry:rolling_vkey")))  _l011Il__I00IO_10 ;
+  int _l_I0lI1001Il1I_11 ;
+  int __attribute__((__annotate__("ocasorry:ephemeral")))  _lI_010l_I_O__O_12 ;
   int volatile   __idx_1 ;
   int volatile   __idx_2 ;
   int volatile   __idx_3 ;
@@ -722,25 +722,120 @@ int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")
   int __cff_state ;
 
   {
-  __cff_state = 17;
+  __cff_state = 14;
   while (1) {
     if (__cff_state != 0) {
       switch (__cff_state) {
-      case 90: 
+      case 102: 
       {
-      if ((unsigned long )_l0llO_IIlO_13 == (unsigned long )((void *)0)) {
+      if ((_l_Il1OO0_10l_4 | 1) % 2 != 0) {
+        _lIl0_lO1IOIlI_6 = vcpu1_vector_parity(_l1O_0lI01___13);
+        _lO_OI_0Ol_I1_5 = (int )_lIl0_lO1IOIlI_6;
+        _lI0IO_0OOI1_8 = _l0__O1_l0_O_1(_lO_OI_0Ol_I1_5);
+        _l__0_lIOI0lI_IO_7 = (int )_lI0IO_0OOI1_8;
+        _l011Il__I00IO_10 = vcpu3_rolling_vkey(_l__0_lIOI0lI_IO_7);
+        _lll_1_OIlOO_9 = (int )_l011Il__I00IO_10;
+        _lI_010l_I_O__O_12 = vcpu4_ephemeral_jit(_lll_1_OIlOO_9);
+        _l_I0lI1001Il1I_11 = (int )_lI_010l_I_O__O_12;
+      } else {
+        _lIl0_lO1IOIlI_6 = vcpu1_vector_parity(_l1O_0lI01___13);
+        _lO_OI_0Ol_I1_5 = (int )_lIl0_lO1IOIlI_6;
+        _lI0IO_0OOI1_8 = _l0__O1_l0_O_1(_lO_OI_0Ol_I1_5);
+        _l__0_lIOI0lI_IO_7 = (int )_lI0IO_0OOI1_8;
+        _l011Il__I00IO_10 = vcpu3_rolling_vkey(_l__0_lIOI0lI_IO_7);
+        _lll_1_OIlOO_9 = (int )_l011Il__I00IO_10;
+        _lI_010l_I_O__O_12 = vcpu4_ephemeral_jit(_lll_1_OIlOO_9);
+        _l_I0lI1001Il1I_11 = (int )_lI_010l_I_O__O_12;
+      }
+      __cff_state = 114;
+      break;
+      }
+      case 77: 
+      {
+      if (__init_lit_3 == 0) {
+        __idx_3 = 0;
+        while (1) {
+          if (__idx_3 < 77) {
+            __dec_lit_3[__idx_3] = __enc_lit_3[__idx_3] ^ 95;
+            __idx_3 ++;
+          } else {
+            break;
+          }
+        }
+        __init_lit_3 = 1;
+      }
+      __cff_state = 87;
+      break;
+      }
+      case 68: 
+      {
+      if (__init_lit_2 == 0) {
+        __idx_2 = 0;
+        while (1) {
+          if (__idx_2 < 56) {
+            __dec_lit_2[__idx_2] = __enc_lit_2[__idx_2] ^ 225;
+            __idx_2 ++;
+          } else {
+            break;
+          }
+        }
+        __init_lit_2 = 1;
+      }
+      __cff_state = 77;
+      break;
+      }
+      case 98: 
+      {
+      if ((unsigned long )_l1O_0lI01___13 == (unsigned long )((void *)0)) {
         __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
         (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_1[0]));
         return ((int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  )0);
       } else {
-        _lI_l0I1l__OO1_4 = strlen(_l0llO_IIlO_13);
-        if (_lI_l0I1l__OO1_4 != 16UL) {
+        _l_Il1OO0_10l_4 = strlen(_l1O_0lI01___13);
+        if (_l_Il1OO0_10l_4 != 16UL) {
           __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
           (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_2[0]));
           return ((int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  )0);
         }
       }
-      __cff_state = 101;
+      __cff_state = 102;
+      break;
+      }
+      case 133: 
+      {
+      if (__t_end - __t_start < 1000000000) {
+
+      }
+      __cff_state = 0;
+      break;
+      }
+      case 87: 
+      {
+      if (__init_lit_4 == 0) {
+        __idx_4 = 0;
+        while (1) {
+          if (__idx_4 < 59) {
+            __dec_lit_4[__idx_4] = __enc_lit_4[__idx_4] ^ 72;
+            __idx_4 ++;
+          } else {
+            break;
+          }
+        }
+        __init_lit_4 = 1;
+      }
+      __cff_state = 98;
+      break;
+      }
+      case 14: 
+      {
+      __t_start = __ocasorry_get_timestamp();
+      __cff_state = 23;
+      break;
+      }
+      case 120: 
+      {
+      __t_end = __ocasorry_get_timestamp();
+      __cff_state = 133;
       break;
       }
       case 52: 
@@ -749,7 +844,7 @@ int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")
         __idx_1 = 0;
         while (1) {
           if (__idx_1 < 56) {
-            __dec_lit_1[__idx_1] = __enc_lit_1[__idx_1] ^ 226;
+            __dec_lit_1[__idx_1] = __enc_lit_1[__idx_1] ^ 72;
             __idx_1 ++;
           } else {
             break;
@@ -757,24 +852,12 @@ int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")
         }
         __init_lit_1 = 1;
       }
-      __cff_state = 62;
+      __cff_state = 68;
       break;
       }
-      case 22: 
+      case 114: 
       {
-      __desync_guard = 11502;
-      __cff_state = 33;
-      break;
-      }
-      case 17: 
-      {
-      __t_start = __ocasorry_get_timestamp();
-      __cff_state = 22;
-      break;
-      }
-      case 117: 
-      {
-      if (_lI__1l_I_1011l_11) {
+      if (_l_I0lI1001Il1I_11) {
         __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
         (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_3[0]));
         return ((int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  )1);
@@ -786,107 +869,24 @@ int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")
       __cff_state = 120;
       break;
       }
-      case 62: 
+      case 23: 
       {
-      if (__init_lit_2 == 0) {
-        __idx_2 = 0;
-        while (1) {
-          if (__idx_2 < 56) {
-            __dec_lit_2[__idx_2] = __enc_lit_2[__idx_2] ^ 50;
-            __idx_2 ++;
-          } else {
-            break;
-          }
-        }
-        __init_lit_2 = 1;
-      }
-      __cff_state = 78;
+      __desync_guard = 565;
+      __cff_state = 32;
       break;
       }
-      case 86: 
-      {
-      if (__init_lit_4 == 0) {
-        __idx_4 = 0;
-        while (1) {
-          if (__idx_4 < 59) {
-            __dec_lit_4[__idx_4] = __enc_lit_4[__idx_4] ^ 114;
-            __idx_4 ++;
-          } else {
-            break;
-          }
-        }
-        __init_lit_4 = 1;
-      }
-      __cff_state = 90;
-      break;
-      }
-      case 47: 
+      case 43: 
       {
       __ocasorry_enforce_anti_debug();
       __cff_state = 52;
       break;
       }
-      case 132: 
-      {
-      if (__t_end - __t_start < 1000000000) {
-
-      }
-      __cff_state = 0;
-      break;
-      }
-      case 120: 
-      {
-      __t_end = __ocasorry_get_timestamp();
-      __cff_state = 132;
-      break;
-      }
-      case 33: 
+      case 32: 
       {
       if ((__desync_guard & ~ __desync_guard) != 0) {
         return (0);
       }
-      __cff_state = 47;
-      break;
-      }
-      case 101: 
-      {
-      if ((_lI_l0I1l__OO1_4 * (_lI_l0I1l__OO1_4 + 1)) % 2 == 0) {
-        _lOl0II0lI11IlO_I_6 = vcpu1_vector_parity(_l0llO_IIlO_13);
-        _l_0I11I1O1I_5 = (int )_lOl0II0lI11IlO_I_6;
-        _lOII10l_OlI_8 = _l_IOOl10IO1l1_0__1(_l_0I11I1O1I_5);
-        _l101_00I____l0_7 = (int )_lOII10l_OlI_8;
-        _l1_lI_0IOll_10 = vcpu3_rolling_vkey(_l101_00I____l0_7);
-        _l_l_IOIl_Ol_l__9 = (int )_l1_lI_0IOll_10;
-        _l0l10_11IIIO0_I__12 = vcpu4_ephemeral_jit(_l_l_IOIl_Ol_l__9);
-        _lI__1l_I_1011l_11 = (int )_l0l10_11IIIO0_I__12;
-      } else {
-        _lOl0II0lI11IlO_I_6 = vcpu1_vector_parity(_l0llO_IIlO_13);
-        _l_0I11I1O1I_5 = (int )_lOl0II0lI11IlO_I_6;
-        _lOII10l_OlI_8 = _l_IOOl10IO1l1_0__1(_l_0I11I1O1I_5);
-        _l101_00I____l0_7 = (int )_lOII10l_OlI_8;
-        _l1_lI_0IOll_10 = vcpu3_rolling_vkey(_l101_00I____l0_7);
-        _l_l_IOIl_Ol_l__9 = (int )_l1_lI_0IOll_10;
-        _l0l10_11IIIO0_I__12 = vcpu4_ephemeral_jit(_l_l_IOIl_Ol_l__9);
-        _lI__1l_I_1011l_11 = (int )_l0l10_11IIIO0_I__12;
-      }
-      __cff_state = 117;
-      break;
-      }
-      case 78: 
-      {
-      if (__init_lit_3 == 0) {
-        __idx_3 = 0;
-        while (1) {
-          if (__idx_3 < 77) {
-            __dec_lit_3[__idx_3] = __enc_lit_3[__idx_3] ^ 106;
-            __idx_3 ++;
-          } else {
-            break;
-          }
-        }
-        __init_lit_3 = 1;
-      }
-      __cff_state = 86;
+      __cff_state = 43;
       break;
       }
       }
@@ -896,23 +896,23 @@ int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")
   }
 }
 }
-int __attribute__((__annotate__("ocasorry:literals, api_hash")))  main(int _l_l_Ol00l1lI__19 ,
-                                                                       char **_llOI10l_O1_20 ) ;
+int __attribute__((__annotate__("ocasorry:literals, api_hash")))  main(int _lIl10O_11000O_19 ,
+                                                                       char **_lll1III01O_l_20 ) ;
 static unsigned char const volatile   __dk[16]  __attribute__((__goblint_cil_pulledup__("main")))  = 
   {      (unsigned char const volatile   )0x0a,      (unsigned char const volatile   )0x08,      (unsigned char const volatile   )0x15,      (unsigned char const volatile   )0x77, 
         (unsigned char const volatile   )0x63,      (unsigned char const volatile   )0x62,      (unsigned char const volatile   )0x6e,      (unsigned char const volatile   )0x68, 
         (unsigned char const volatile   )0x77,      (unsigned char const volatile   )0x11,      (unsigned char const volatile   )0x16,      (unsigned char const volatile   )0x17, 
         (unsigned char const volatile   )0x63,      (unsigned char const volatile   )0x77,      (unsigned char const volatile   )0x6d,      (unsigned char const volatile   )0x6d};
-int __attribute__((__annotate__("ocasorry:literals, api_hash")))  main(int _l_l_Ol00l1lI__19 ,
-                                                                       char **_llOI10l_O1_20 ) 
+int __attribute__((__annotate__("ocasorry:literals, api_hash")))  main(int _lIl10O_11000O_19 ,
+                                                                       char **_lll1III01O_l_20 ) 
 { 
   char volatile   __dk_buf[17] ;
   int volatile   __i ;
-  char const   *_l_0l0I0OIl1l_lll_14 ;
-  char const   *_lI_ll0OO0_Il0Il_15 ;
-  int _lIOOlI_0I1O1OIIO_16 ;
-  int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  _l1IO1_1O__17 ;
-  int _lOlO1_OO0_18 ;
+  char const   *_lI_10O11I00lI11_14 ;
+  char const   *_l1IlOIO1I_15 ;
+  int _lO11l_1__1_16 ;
+  int __attribute__((__annotate__("ocasorry:cff, irreducible_loop, bcf, literals")))  _l1lIl_I_1__Il_17 ;
+  int _llIIIlIl1O0OII_18 ;
   int volatile   __idx_5 ;
   void *__resolved_printf ;
 
@@ -922,7 +922,7 @@ int __attribute__((__annotate__("ocasorry:literals, api_hash")))  main(int _l_l_
     __idx_5 = 0;
     while (1) {
       if (__idx_5 < 23) {
-        __dec_lit_5[__idx_5] = __enc_lit_5[__idx_5] ^ 82;
+        __dec_lit_5[__idx_5] = __enc_lit_5[__idx_5] ^ 23;
         __idx_5 ++;
       } else {
         break;
@@ -936,22 +936,22 @@ int __attribute__((__annotate__("ocasorry:literals, api_hash")))  main(int _l_l_
     __i += (int volatile   )1;
   }
   __dk_buf[16] = (char volatile   )'\000';
-  if (_l_l_Ol00l1lI__19 > 1) {
-    _lI_ll0OO0_Il0Il_15 = (char const   *)*(_llOI10l_O1_20 + 1);
+  if (_lIl10O_11000O_19 > 1) {
+    _l1IlOIO1I_15 = (char const   *)*(_lll1III01O_l_20 + 1);
   } else {
-    _lI_ll0OO0_Il0Il_15 = (char const   *)(__dk_buf);
+    _l1IlOIO1I_15 = (char const   *)(__dk_buf);
   }
-  _l_0l0I0OIl1l_lll_14 = _lI_ll0OO0_Il0Il_15;
+  _lI_10O11I00lI11_14 = _l1IlOIO1I_15;
   __resolved_printf = __ocasorry_resolve_symbol_hash(3524737521U);
   (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_5[0]),
-                                                               _l_0l0I0OIl1l_lll_14);
-  _l1IO1_1O__17 = _l_0O_1lOl1_3(_l_0l0I0OIl1l_lll_14);
-  _lIOOlI_0I1O1OIIO_16 = (int )_l1IO1_1O__17;
-  if (_lIOOlI_0I1O1OIIO_16) {
-    _lOlO1_OO0_18 = 0;
+                                                               _lI_10O11I00lI11_14);
+  _l1lIl_I_1__Il_17 = _l1OlI1lO____3(_lI_10O11I00lI11_14);
+  _lO11l_1__1_16 = (int )_l1lIl_I_1__Il_17;
+  if (_lO11l_1__1_16) {
+    _llIIIlIl1O0OII_18 = 0;
   } else {
-    _lOlO1_OO0_18 = 1;
+    _llIIIlIl1O0OII_18 = 1;
   }
-  return ((int __attribute__((__annotate__("ocasorry:literals, api_hash")))  )_lOlO1_OO0_18);
+  return ((int __attribute__((__annotate__("ocasorry:literals, api_hash")))  )_llIIIlIl1O0OII_18);
 }
 }

@@ -49,8 +49,8 @@ echo -e "${C_YELLOW}[*] Building OcaSorry compiler toolchain via dune...${C_RESE
 echo -e "${C_GREEN}[+] Dune build complete!${C_RESET}\n"
 
 # Step 2: Synthesize formal Sail & JSON specifications for all 8 VCPU Tiers
-echo -e "${C_BLUE}[1/4] Synthesizing Formal Sail Specifications for all 8 VCPUs...${C_RESET}"
-python3 "${ROOT_DIR}/tools/visa_synthesizer.py" --vcpu 8vcpu --output-dir "${EXAMPLES_DIR}"
+echo -e "${C_BLUE}[1/4] Synthesizing Formal Sail Specifications for all 8 VCPUs via Native DDD Synthesizer...${C_RESET}"
+"${ROOT_DIR}/_build/default/bin/ocasorry_synth.exe" --vcpu 8vcpu --output-dir "${EXAMPLES_DIR}"
 echo -e "${C_GREEN}[+] All 8 Sail VCPU Specifications Synthesized successfully!${C_RESET}\n"
 
 # Step 3: Obfuscate source code with 8-VCPU Architecture

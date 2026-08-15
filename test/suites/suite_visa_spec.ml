@@ -2,7 +2,7 @@ open Ocasorry_lib
 open Helpers
 
 let run () =
-  Printf.printf "\n--- [Suite 61] Python/Sail Dynamic 4-VCPU Architecture Synthesizer Tests ---\n%!";
+  Printf.printf "\n--- [Suite 61] Native DDD Dynamic 4-VCPU Architecture Synthesizer Tests ---\n%!";
 
   let tmp_dir = Filename.temp_file "custom_4vcpu_" "" in
   (try Sys.remove tmp_dir with _ -> ());
@@ -14,11 +14,10 @@ let run () =
   let rolling_sail_path = Filename.concat tmp_dir "vcpu3_rolling_vkey.sail" in
   let ephemeral_sail_path = Filename.concat tmp_dir "vcpu4_ephemeral_jit.sail" in
 
-  (* 1. Run Python synthesizer to generate all 4 Sail specifications *)
-  let gen_cmd = Printf.sprintf "python3 tools/visa_synthesizer.py --output-dir %s --name=vISA_Custom_Demo_Arch"
-    (Filename.quote tmp_dir) in
-  let gen_res = Sys.command gen_cmd in
-  assert_bool "Python 4-VCPU Synthesizer executed successfully" (gen_res = 0);
+  (* 1. Run Native DDD synthesizer to generate all 4 Sail specifications *)
+  let module Synth = Synthesize_isa_usecase.Make (System_entropy_adapter.Adapter) in
+  Synth.synthesize_4vcpu ~name:"vISA_Custom_Demo_Arch" ~out_dir:tmp_dir ();
+
   assert_bool "Generated VCPU 1 Sail spec exists" (Sys.file_exists spec_sail_path);
   assert_bool "Generated VCPU 2 Nested VM Sail spec exists" (Sys.file_exists nested_sail_path);
   assert_bool "Generated VCPU 3 Rolling Key Sail spec exists" (Sys.file_exists rolling_sail_path);

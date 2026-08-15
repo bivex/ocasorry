@@ -7,3 +7,8 @@
  (name ocasorry_cc)
  (public_name ocasorry-cc)
  (libraries ocasorry_lib unix str))
+
+(executable
+ (name ocasorry_synth)
+ (public_name ocasorry-synth)
+ (libraries ocasorry_lib unix str))
