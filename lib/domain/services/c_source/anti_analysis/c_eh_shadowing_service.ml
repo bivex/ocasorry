@@ -48,18 +48,35 @@ module Make (Entropy : Entropy_port.S) = struct
 
     file.globals <- table_global :: (GFun (pers_fundec, locUnknown)) :: file.globals
 
-  (** Injects decoy CFI escape sequences & shadow landing pad descriptors *)
+  (** Injects decoy CFI escape sequences & shadow landing pad descriptors (XuanJia) *)
   let inject_shadow_cfi (fd : fundec) : unit =
     incr shadow_counter;
-    let asm_templates = [
-      ".cfi_remember_state\n\t";
-      ".cfi_def_cfa_offset 128\n\t";
-      ".cfi_offset 30, -16\n\t";
-      ".cfi_offset 29, -32\n\t";
-      ".cfi_restore_state\n\t";
-      "b 2f\n\t";
-      "2:\n\t";
-    ] in
+    let r = Entropy.next_int ~max:3 in
+    let asm_templates =
+      if r = 0 then [
+        ".cfi_remember_state\n\t";
+        ".cfi_def_cfa_offset 128\n\t";
+        ".cfi_offset 30, -16\n\t";
+        ".cfi_offset 29, -32\n\t";
+        ".cfi_restore_state\n\t";
+        "b 2f\n\t";
+        "2:\n\t";
+      ] else if r = 1 then [
+        ".cfi_remember_state\n\t";
+        ".cfi_signal_frame\n\t";
+        ".cfi_def_cfa 29, 64\n\t";
+        ".cfi_restore_state\n\t";
+        "b 3f\n\t";
+        "3:\n\t";
+      ] else [
+        ".cfi_remember_state\n\t";
+        ".cfi_escape 0x16, 30, 2, 0x7e, 0x00\n\t";
+        ".cfi_restore_state\n\t";
+        "b 4f\n\t";
+        "4:\n\t";
+      ]
+    in
+
 
     let shadow_stmt =
       mkStmt (Instr [
