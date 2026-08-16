@@ -83,6 +83,10 @@ ml-synthesize:  ## RL-synthesize MBA-hardened C11 VCPU kernels for all tiers
 ml-discriminate: build  ## Measure True Polymorphic Diversity Index (TPDI) via Apple MLX
 	$(PYTHON3) $(TOOLS)/mlx_polymorphism_discriminator.py --test
 
+ml-metamorph: build  ## Measure True Metamorphic Diversity Index (MDI) via Apple MLX
+	$(PYTHON3) $(TOOLS)/mlx_metamorphism_evaluator.py --test --samples 10
+
+
 ml-benchmark: build  ## Full Benchmark: TPDI (10 builds) + Formal Z3 Soundness + License Demo
 	@echo "======================================================================"
 	@echo "  💎 Vectis: Running Complete Polymorphic & Security Benchmark"
