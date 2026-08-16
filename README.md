@@ -35,8 +35,14 @@
 
 | Document | Topic & Focus |
 | :--- | :--- |
-| 🧠 **[MLX Neural Engine & AI](docs/mlx-ai-neural-subsystem.md)** | Apple Silicon MLX models, PPO synthesis, dataset gen, Z3 SMT verifier |
 | 🏛️ **[Architecture](docs/architecture.md)** | Hexagonal layer design, Entities, Ports (SPI), Domain Services |
+| ⚡ **[Virtual ISA v2](docs/vm-isa.md)** | 18 typed opcodes, condition flags (ZF, NF, CF, VF), state masking, steppers |
+| 🧠 **[Neural Rewriter & E-Graph](docs/neural-rewriter.md)** | E-graph equality saturation, verified MBA rules, candidate generator, SMT |
+| 🛡️ **[Security Model & Threats](docs/security-model.md)** | Threat classes, state masking, Anti-Pushan invariant, DoD 5220.22-M wipe |
+| 📦 **[SDK & CLI Guide](docs/sdk.md)** | Python SDK API (`VectisCompiler`), YAML configuration, `bin/vectis_cli.py` |
+| 📈 **[Benchmarks & Metrics](docs/benchmarks.md)** | TPDI Grade A (75.00), Black-box resistance (98.88%), 70 test suites |
+| 🔨 **[Build & Developer Guide](docs/build.md)** | Prerequisites, OCaml 5 + Dune, test runners, ML pipeline integration |
+| 🧠 **[MLX Neural Engine & AI](docs/mlx-ai-neural-subsystem.md)** | Apple Silicon MLX models, PPO synthesis, dataset gen, Z3 SMT verifier |
 | 🛡️ **[4-VCPU Virtualization](docs/4-vcpu-federated-virtualization.md)** | 4-Tier VCPU cascade, formal Sail specifications, keygen solver |
 | 🧬 **[ISA Pipeline](docs/isa-generation-pipeline.md)** | End-to-end guide: Sail/JSON synthesis to target C11 runtime |
 | 🗝️ **[License Keygen](docs/license-keygen.md)** | Meet-in-the-middle solver, cascade math, Python & C keygen tools |
@@ -45,6 +51,7 @@
 | 🔄 **[Two-Level JIT & Signals](docs/two-tier-jit.md)** | Staging engine, Apple Silicon W^X cache, `ucontext_t` PC redirection |
 | 🛠️ **[Compiler Wrapper](docs/compiler-wrapper.md)** | `vectis-cc` integration for CMake, Makefiles, and build scripts |
 | 📋 **[CIL Capabilities](docs/cil-capabilities.md)** | Checkbox roadmap of all implemented features via Goblint-CIL |
+
 
 ---
 
