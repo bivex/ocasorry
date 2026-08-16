@@ -158,10 +158,37 @@ module Make (Entropy : Entropy_port.S) = struct
         emit_vli_14 spec op instrs 1 tmp;
         emit2 (vxor ()) tmp dst dst
 
+    (* Tahr Step 3: Attribute-Driven Instruction Reduction Rules (<-) *)
+    | BinOp (PlusA, e1, Const (CInt (i, _, _)), _) when Z.to_int i = 0 ->
+        compile_exp spec op instrs get_vreg e1 dst free_reg
+    | BinOp (PlusA, Const (CInt (i, _, _)), e1, _) when Z.to_int i = 0 ->
+        compile_exp spec op instrs get_vreg e1 dst free_reg
+    | BinOp (MinusA, e1, Const (CInt (i, _, _)), _) when Z.to_int i = 0 ->
+        compile_exp spec op instrs get_vreg e1 dst free_reg
+    | BinOp (BXor, e1, Const (CInt (i, _, _)), _) when Z.to_int i = 0 ->
+        compile_exp spec op instrs get_vreg e1 dst free_reg
+    | BinOp (BXor, Const (CInt (i, _, _)), e1, _) when Z.to_int i = 0 ->
+        compile_exp spec op instrs get_vreg e1 dst free_reg
+    | BinOp (Mult, e1, Const (CInt (i, _, _)), _) when Z.to_int i = 1 ->
+        compile_exp spec op instrs get_vreg e1 dst free_reg
+    | BinOp (Mult, Const (CInt (i, _, _)), e1, _) when Z.to_int i = 1 ->
+        compile_exp spec op instrs get_vreg e1 dst free_reg
+    | BinOp (Mult, _, Const (CInt (i, _, _)), _) when Z.to_int i = 0 ->
+        emit_vli_14 spec op instrs 0 dst
+    | BinOp (Mult, Const (CInt (i, _, _)), _, _) when Z.to_int i = 0 ->
+        emit_vli_14 spec op instrs 0 dst
+    | BinOp (Mult, e1, Const (CInt (i, _, _)), _) when Z.to_int i = 2 ->
+        compile_exp spec op instrs get_vreg e1 dst (free_reg + 1);
+        emit_vli_14 spec op instrs 1 free_reg;
+        instrs := (Spec.encode_inst spec ~funct6:op.C_visa_spec.vsll_vv ~vm:1
+                    ~vs2:(free_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F)
+                    ~funct3:0 ~vd:(dst land 0x1F)) :: !instrs
+
     | BinOp (bin_op, e1, e2, _) ->
         let t = free_reg in
         compile_exp spec op instrs get_vreg e1 dst (free_reg + 1);
         compile_exp spec op instrs get_vreg e2 t   (free_reg + 2);
+
         (match bin_op with
          | PlusA   ->
              try_stochastic_expand free_reg
