@@ -83,9 +83,20 @@ module Make (Entropy : Entropy_port.S) = struct
             DoChildren
 
       | BinOp (Div, e1, e2, ty) ->
-          let is_zero = BinOp (Eq, e2, integer 0, intType) in
-          let safe_div = Question (is_zero, integer 0, BinOp (Div, e1, e2, ty), ty) in
-          ChangeTo safe_div
+          let choice = Entropy.next_int ~max:3 in
+          if choice = 0 then
+            let is_zero = BinOp (Eq, e2, integer 0, intType) in
+            let safe_div = Question (is_zero, integer 0, BinOp (Div, e1, e2, ty), ty) in
+            ChangeTo safe_div
+          else if choice = 1 then
+            (* e2 == 0 ? 0 : (e1 / (e2 | (e2 == 0))) *)
+            let is_zero = BinOp (Eq, e2, integer 0, ty) in
+            let non_zero_denom = BinOp (BOr, e2, is_zero, ty) in
+            let div_safe = BinOp (Div, e1, non_zero_denom, ty) in
+            let safe_expr = Question (BinOp (Eq, e2, integer 0, intType), integer 0, div_safe, ty) in
+            ChangeTo safe_expr
+          else
+            DoChildren
 
       | _ -> DoChildren
   end
