@@ -24,12 +24,13 @@ from mlx_neural_env import SMTAttackEnv, REAL_MBA_ACTIONS
 # Action subsets per VCPU tier — aligns MBA synthesis with architectural role.
 # Each tier gets actions suited to its security model.
 VCPU_TIER_ACTIONS = {
-    "visa":          [0, 2, 4, 6, 7],   # DECOMP_ADD, AFFINE_XOR, QUADRATIC_INV, DECOY, ROT
-    "nested_vm":     [1, 3, 5, 6, 7],   # DECOMP_SUB, DEMORGAN_OR, AFFINE_SBOX, DECOY, ROT
-    "rolling_vkey":  [0, 5, 4, 7, 2],   # DECOMP_ADD, AFFINE_SBOX, QUADRATIC, ROT, AFFINE_XOR
-    "ephemeral_jit": [2, 5, 6, 3, 0],   # AFFINE_XOR, AFFINE_SBOX, DECOY, DEMORGAN, DECOMP_ADD
-    "all":           list(range(8)),     # all 8 actions (default)
+    "visa":          [0, 2, 4, 6, 8, 9],       # DECOMP_ADD, AFFINE_XOR, QUADRATIC, ROLLING_KEY, DECOY, ROT
+    "nested_vm":     [1, 3, 5, 7, 8, 9],       # DECOMP_SUB, DEMORGAN_OR, AFFINE_SBOX, STATE_MIX, DECOY, ROT
+    "rolling_vkey":  [0, 6, 7, 5, 4, 8, 9],    # DECOMP_ADD, ROLLING_CASCADE, STATE_MIX, SBOX, QUADRATIC, DECOY, ROT
+    "ephemeral_jit": [2, 5, 6, 3, 8, 9],       # AFFINE_XOR, SBOX, ROLLING_KEY, DEMORGAN, DECOY, ROT
+    "all":           list(range(10)),          # all 10 actions (default)
 }
+
 
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
@@ -234,10 +235,16 @@ uint64_t neural_vcpu_compute(uint64_t a, uint64_t b) {{
 
     __VREG_SET(0, a);
     __VREG_SET(1, b);
-    /* accumulator used only by DECOY_JUMP_GUARD steps */
+    /* accumulator and rolling key used by MBA & state entanglement steps */
     uint64_t __vm_state_acc __attribute__((unused)) = 0x9E3779B97F4A7C15ULL;
+    uint64_t __vkey_epoch[4] __attribute__((unused)) = {{
+        0x9E3779B97F4A7C15ULL, 0x517CC1B727220A95ULL,
+        0x63C63CD93839C9B9ULL, 0x14057B7EF767814FULL
+    }};
+
     uint64_t __a = __VREG_GET(0);
     uint64_t __b = __VREG_GET(1);
+
 
     /* ── RL-synthesized Z3-verified transformations ── */
 {transforms}
@@ -311,9 +318,11 @@ def run_step_by_step_verification() -> bool:
     _, rew, _, info = env.step(0)   # MBA_DECOMP_ADD
     print(f"  [✓] {env.ACTION_NAMES[0]}: status={info['status']} valid={info['valid']} reward={rew:.2f}")
     state2 = env.reset("ADD")
-    _, rew2, _, info2 = env.step(6) # DECOY_JUMP_GUARD
-    print(f"  [✓] {env.ACTION_NAMES[6]}: status={info2['status']} valid={info2['valid']} reward={rew2:.2f} (must=0.0)")
+    decoy_idx = env.ACTION_NAMES.index("DECOY_JUMP_GUARD")
+    _, rew2, _, info2 = env.step(decoy_idx)
+    print(f"  [✓] {env.ACTION_NAMES[decoy_idx]}: status={info2['status']} valid={info2['valid']} reward={rew2:.2f} (must=0.0)")
     assert rew2 == 0.0, "DECOY must earn zero reward!"
+
 
     # Step 3 – model forward pass
     print("\n[Step 3/5] Testing MLX Actor-Critic PPO forward pass...", flush=True)

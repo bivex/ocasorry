@@ -17,6 +17,8 @@ REAL_MBA_ACTIONS = frozenset({
     "MBA_DEMORGAN_OR",
     "QUADRATIC_INVARIANT",
     "AFFINE_SBOX_ENTANGLE",
+    "ROLLING_KEY_CASCADE",
+    "STATE_ENTANGLED_AFFINE",
 })
 
 
@@ -57,16 +59,12 @@ def extract_ast_features(expr):
 
 class SMTAttackEnv:
     """
-    64-Bit Formal Verification & SMT Attack Simulation Environment.
+    64-Bit Formal Verification & Adversarial Hardness SMT Environment.
 
-    Strict SMT result handling:
-      unsat   → semantically proven equivalent → reward (positive)
-      sat     → counterexample found (bug)     → reward = -100, done
-      unknown → solver timed out (unproven)    → reward = -50,  done
-
-    DECOY/ROTATION actions do NOT mutate current_expr.  They always produce
-    unsat (trivially, orig == current), but earn ZERO reward to prevent the
-    policy from learning to emit no-op obfuscation.
+    Features:
+    - Strict SMT result handling (unsat = sound, sat/unknown = penalty)
+    - Forward-Only Attacker Hardness Evaluation (z3.simplify resistance & grammar wall)
+    - Dynamic Rolling Key K_epoch Entanglement
     """
 
     ACTION_NAMES = [
@@ -76,14 +74,20 @@ class SMTAttackEnv:
         "MBA_DEMORGAN_OR",       # x | y  <=> (x ^ y)  + (x & y)
         "QUADRATIC_INVARIANT",   # (a*(a+1)) & 1 == 0  -> zero invariant xor
         "AFFINE_SBOX_ENTANGLE",  # reversible affine layer in Z_{2^64}
+        "ROLLING_KEY_CASCADE",   # dynamic (e * C1) ^ K_epoch with mirror inverse
+        "STATE_ENTANGLED_AFFINE",# dynamic (e * C2) ^ K_epoch with mirror inverse
         "DECOY_JUMP_GUARD",      # C-only: accumulator churn (no AST change)
         "REGISTER_ROTATION_SEED" # C-only: VREG rotation comment (no AST change)
     ]
 
-    # 64-bit affine constants verified: K1 * INV_K1 ≡ 1 (mod 2^64)
-    K1_64    = 0x9E3779B97F4A7C15
-    INV_K1_64 = 0xF1DE83E19937733D
-    K2_64    = 0x517CC1B727220A95
+    # 64-bit affine constants verified: K * INV_K ≡ 1 (mod 2^64)
+    K1_64      = 0x9E3779B97F4A7C15
+    INV_K1_64  = 0xF1DE83E19937733D
+    K2_64      = 0x517CC1B727220A95
+    C1_64      = 0x5851F42D4C957F2D
+    INV_C1_64  = 0xC097EF87329E28A5
+    C2_64      = 0x14057B7EF767814F
+    INV_C2_64  = 0xE68DB5FACB22F5AF
 
     def __init__(self, bit_width: int = 64):
         self.bit_width = bit_width
@@ -103,6 +107,7 @@ class SMTAttackEnv:
         }
         self.orig_expr = op_map.get(target_op, self.a_sym + self.b_sym)
         self.current_expr = self.orig_expr
+        self.attacker_fwd_expr = self.orig_expr
 
         self.c_code_steps: list[tuple[str, str]] = []
         self.history: list[str] = []
@@ -137,39 +142,66 @@ class SMTAttackEnv:
 
         if action == "MBA_DECOMP_ADD":
             self.current_expr = (self.current_expr ^ b) + ((self.current_expr & b) << 1) - b
+            self.attacker_fwd_expr = self.current_expr
             self.c_code_steps.append(("MBA_DECOMP_ADD",
                 "__cur = (__cur ^ __b) + ((__cur & __b) << 1ULL) - __b;"))
         elif action == "MBA_DECOMP_SUB":
-            # Identity holds when current_expr ≡ a (first step only).
-            # On later steps the Z3 proof is still sound, but the semantic
-            # label "SUB decomposition" is misleading — tracked in comments.
             self.current_expr = (self.current_expr ^ b) - ((~self.current_expr & b) << 1) + b
+            self.attacker_fwd_expr = self.current_expr
             self.c_code_steps.append(("MBA_DECOMP_SUB",
                 "__cur = (__cur ^ __b) - ((~__cur & __b) << 1ULL) + __b;"))
         elif action == "MBA_AFFINE_XOR":
             self.current_expr = (self.current_expr | b) - (self.current_expr & b) - b + (a ^ b)
+            self.attacker_fwd_expr = self.current_expr
             self.c_code_steps.append(("MBA_AFFINE_XOR",
                 "__cur = ((__cur | __b) - (__cur & __b)) - __b + (__a ^ __b);"))
         elif action == "MBA_DEMORGAN_OR":
             self.current_expr = (self.current_expr ^ b) + (self.current_expr & b) - b
+            self.attacker_fwd_expr = self.current_expr
             self.c_code_steps.append(("MBA_DEMORGAN_OR",
                 "__cur = (__cur ^ __b) + (__cur & __b) - __b;"))
         elif action == "QUADRATIC_INVARIANT":
-            # (a*(a+1)) is always even in Z_{2^n} → bit-0 is zero → safe xor identity
             inv = (a * (a + 1)) & 1
             self.current_expr = self.current_expr ^ inv
+            self.attacker_fwd_expr = self.current_expr
             self.c_code_steps.append(("QUADRATIC_INVARIANT",
                 "__cur ^= ((__a * (__a + 1ULL)) & 1ULL);"))
         elif action == "AFFINE_SBOX_ENTANGLE":
-            k1    = z3.BitVecVal(self.K1_64,    self.bit_width)
+            k1     = z3.BitVecVal(self.K1_64,    self.bit_width)
             inv_k1 = z3.BitVecVal(self.INV_K1_64, self.bit_width)
-            k2    = z3.BitVecVal(self.K2_64,    self.bit_width)
+            k2     = z3.BitVecVal(self.K2_64,    self.bit_width)
             self.current_expr = (((self.current_expr + k2) * k1) * inv_k1) - k2
+            self.attacker_fwd_expr = (self.current_expr + k2) * k1
             self.c_code_steps.append(("AFFINE_SBOX_ENTANGLE",
                 f"__cur = (((__cur + 0x{self.K2_64:016X}ULL) * 0x{self.K1_64:016X}ULL)"
                 f" * 0x{self.INV_K1_64:016X}ULL) - 0x{self.K2_64:016X}ULL;"))
+        elif action == "ROLLING_KEY_CASCADE":
+            c1     = z3.BitVecVal(self.C1_64,     self.bit_width)
+            inv_c1 = z3.BitVecVal(self.INV_C1_64, self.bit_width)
+            k_epoch = z3.BitVec(f"k_epoch_{self.steps}", self.bit_width)
+            # Forward transform
+            fwd = (self.current_expr * c1) ^ k_epoch
+            # Mirror inverse (sound verifier closure)
+            bwd = (fwd ^ k_epoch) * inv_c1
+            self.current_expr = bwd
+            self.attacker_fwd_expr = fwd
+            slot = (self.steps - 1) % 4
+            self.c_code_steps.append(("ROLLING_KEY_CASCADE",
+                f"__cur = (__cur * 0x{self.C1_64:016X}ULL) ^ __vkey_epoch[{slot}];\n"
+                f"    __cur = (__cur ^ __vkey_epoch[{slot}]) * 0x{self.INV_C1_64:016X}ULL;"))
+        elif action == "STATE_ENTANGLED_AFFINE":
+            c2     = z3.BitVecVal(self.C2_64,     self.bit_width)
+            inv_c2 = z3.BitVecVal(self.INV_C2_64, self.bit_width)
+            k_epoch = z3.BitVec(f"k_epoch_{self.steps}_s", self.bit_width)
+            fwd = (self.current_expr * c2) ^ k_epoch
+            bwd = (fwd ^ k_epoch) * inv_c2
+            self.current_expr = bwd
+            self.attacker_fwd_expr = fwd
+            slot = self.steps % 4
+            self.c_code_steps.append(("STATE_ENTANGLED_AFFINE",
+                f"__cur = (__cur * 0x{self.C2_64:016X}ULL) ^ __vkey_epoch[{slot}];\n"
+                f"    __cur = (__cur ^ __vkey_epoch[{slot}]) * 0x{self.INV_C2_64:016X}ULL;"))
         elif action == "DECOY_JUMP_GUARD":
-            # C-only side-effect; no AST mutation → always earns zero reward.
             self.c_code_steps.append(("DECOY_JUMP_GUARD",
                 "__vm_state_acc = (__vm_state_acc * 0x63c63cd93839c9b9ULL)"
                 " ^ 0x517CC1B727220A95ULL;"))
@@ -190,12 +222,20 @@ class SMTAttackEnv:
         if res == z3.unsat:
             is_valid = True
             if is_decoy:
-                # DECOY trivially passes (orig == current) → zero reward,
-                # prevents policy from gaming the verifier with no-ops.
                 reward = 0.0
             else:
                 counts, depth = extract_ast_features(self.current_expr)
-                reward = (solve_duration * 1000.0) + (self.current_expr.size() * 0.15) + (depth * 0.3)
+                # Attacker-view hardness evaluation
+                simp_fwd = z3.simplify(self.attacker_fwd_expr)
+                fwd_size = self.attacker_fwd_expr.size()
+                simp_size = simp_fwd.size()
+                
+                # Bonus if attacker view resists simplification (does not collapse)
+                hardness_bonus = 15.0 if simp_size >= fwd_size else 0.0
+                if any(act in ("ROLLING_KEY_CASCADE", "STATE_ENTANGLED_AFFINE") for act in self.history):
+                    hardness_bonus += 25.0
+                    
+                reward = (solve_duration * 1000.0) + (self.current_expr.size() * 0.15) + (depth * 0.3) + hardness_bonus
         elif res == z3.sat:
             # Counterexample: semantic bug — hard penalty, abort episode.
             is_valid, reward, done = False, -100.0, True
@@ -209,3 +249,4 @@ class SMTAttackEnv:
             "z3_time": solve_duration,
             "is_decoy": is_decoy,
         }
+
