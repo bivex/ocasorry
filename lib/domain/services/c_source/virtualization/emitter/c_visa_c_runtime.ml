@@ -198,7 +198,7 @@ let emit_vbank
     ~(reg_mask_step : int64) : string =
   ignore vs;
   let mult = (Random.int 15) * 2 + 1 in
-  let off  = Random.int vreg_total in
+  let off  = if vreg_total > 0 then Random.int vreg_total else 0 in
   let clobber = rand_prologue_jitter () in
   Printf.sprintf {|
     /* Anti-VTIL / Anti-NoVmp: Overlapping Aliased VCPU Register Matrix & Dynamic Register Cycling (Gap 2) */

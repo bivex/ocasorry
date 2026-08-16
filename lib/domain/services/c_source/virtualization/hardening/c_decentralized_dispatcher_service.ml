@@ -47,17 +47,28 @@ module Make (Entropy : Entropy_port.S) = struct
         let right_stmt = build_binary_dispatcher selector right_cases in
         mkStmt (If (cond, mkBlock [ left_stmt ], mkBlock [ right_stmt ], locUnknown, locUnknown))
 
-  (** Injects a decoy 32-way hub inside dead code guarded by Diophantine invariant *)
-  let inject_decoy_hub (fd : fundec) : stmt =
+  (** Injects a decoy 32-way hub inside dead code guarded by Diophantine invariant.
+      [selector_exp] must be the switch selector expression already live in scope —
+      using a runtime value prevents Clang -O2 DCE from folding the predicate away. *)
+  let inject_decoy_hub (fd : fundec) ~(selector_exp : exp) : stmt =
     incr decoy_counter;
     let decoy_state = makeLocalVar fd (Printf.sprintf "__decoy_hub_state_%d" !decoy_counter) intType in
     let decoy_sink = makeLocalVar fd (Printf.sprintf "__decoy_hub_sink_%d" !decoy_counter) intType in
+    let dh_x_sq = makeLocalVar fd (Printf.sprintf "__dh_x_sq_%d" !decoy_counter) intType in
 
-    (* Diophantine invariant: (x^2) % 4 == 2 is ALWAYS FALSE over integers *)
-    let x_val = 100 + Entropy.next_int ~max:500 in
-    let x_sq = x_val * x_val in
-    let x_sq_mod_4 = x_sq mod 4 in (* Always 0 or 1, never 2 *)
-    let opaque_cond = BinOp (Eq, integer x_sq_mod_4, integer 2, intType) in
+    (* Emit runtime CIL AST: dh_x_sq = selector * selector; cond = (dh_x_sq % 4) == 2
+       (x^2) % 4 is ALWAYS 0 or 1, never 2, so the guard is an opaque false predicate.
+       Because selector_exp is a runtime variable the compiler cannot constant-fold this. *)
+    let assign_sq =
+      mkStmtOneInstr
+        (Set
+           ( var dh_x_sq
+           , BinOp (Mult, selector_exp, selector_exp, intType)
+           , locUnknown
+           , locUnknown ))
+    in
+    let sq_mod_4 = BinOp (Mod, Lval (var dh_x_sq), integer 4, intType) in
+    let opaque_cond = BinOp (Eq, sq_mod_4, integer 2, intType) in
 
     (* Build 32 fake handler cases to inflate D_out for topological scanners *)
     let fake_cases = ref [] in
@@ -76,7 +87,7 @@ module Make (Entropy : Entropy_port.S) = struct
     let decoy_switch =
       mkStmt (Switch (Lval (var decoy_state), mkBlock (List.rev !fake_cases), [], locUnknown, locUnknown))
     in
-    mkStmt (If (opaque_cond, mkBlock [ decoy_switch ], mkBlock [], locUnknown, locUnknown))
+    mkStmt (Block (mkBlock [ assign_sq; mkStmt (If (opaque_cond, mkBlock [ decoy_switch ], mkBlock [], locUnknown, locUnknown)) ]))
 
   class decentralized_visitor (fd : fundec) = object
     inherit nopCilVisitor
@@ -109,7 +120,7 @@ module Make (Entropy : Entropy_port.S) = struct
           if List.length !case_pairs >= 2 then (
             let sorted_cases = List.sort (fun (v1, _) (v2, _) -> compare v1 v2) !case_pairs in
             let binary_tree_stmt = build_binary_dispatcher selector sorted_cases in
-            let decoy_stmt = inject_decoy_hub fd in
+            let decoy_stmt = inject_decoy_hub fd ~selector_exp:selector in
             let combined = mkBlock [ decoy_stmt; binary_tree_stmt ] in
             ChangeTo (mkStmt (Block combined))
           ) else
