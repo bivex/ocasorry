@@ -248,7 +248,7 @@ __h_vse8:
     __VISA_DISP_MEM();
 __h_vbge: {
 %s
-    /* Anti-Concolic Cryptographic ARX Path Trap (Vector 5) */
+    /* Anti-Concolic Cryptographic ARX Path Trap (Vector 5) & DynOpVm CFG Edge Keying */
     unsigned long long __arx_v = (unsigned long long)%s;
     unsigned long long __arx_k = 0x9E3779B97F4A7C15ULL;
     __arx_v += __arx_k;
@@ -257,12 +257,15 @@ __h_vbge: {
     __arx_k = ((__arx_k << 16) | (__arx_k >> 48)) ^ __arx_v;
     if (__VREG_GET(%s) >= __VREG_GET(%s)) {
         %s = (unsigned int)((__branch_target) + ((__arx_v * (__arx_v + 1ULL)) & 1ULL));
+        %s = ((%s * 0x623d443fbfa30237ULL) ^ ((unsigned long long)__branch_target * 0xA5A55A5AULL)) * 0x9E3779B97F4A7C15ULL;
+    } else {
+        %s = ((%s * 0x517CC1B727220A95ULL) ^ ((unsigned long long)%s * 0x5A5AA5A5ULL)) * 0x3141592653589793ULL;
     }
     __VISA_DISP_CTRL();
 }
 __h_vj: {
     unsigned int __jump_target = (%s >> 7) & 0x7FFFFU;
-    /* Anti-Concolic Cryptographic ARX Path Trap (Vector 5) */
+    /* Anti-Concolic Cryptographic ARX Path Trap (Vector 5) & DynOpVm CFG Edge Keying */
     unsigned long long __arx_v = (unsigned long long)%s;
     unsigned long long __arx_k = 0x517CC1B727220A95ULL;
     __arx_v += __arx_k;
@@ -270,8 +273,10 @@ __h_vj: {
     __arx_v = ((__arx_v << 32) | (__arx_v >> 32)) + __arx_k;
     __arx_k = ((__arx_k << 16) | (__arx_k >> 48)) ^ __arx_v;
     %s = (unsigned int)((__jump_target) + ((__arx_v * (__arx_v + 1ULL)) & 1ULL));
+    %s = ((%s * 0x3141592653589793ULL) ^ ((unsigned long long)__jump_target * 0xC3C33C3CULL)) * 0x623d443fbfa30237ULL;
     __VISA_DISP_CTRL();
 }
+
 
 __h_vjit: {
     /* Architecture A: Polymorphic In-VM Ephemeral AArch64 JIT Escape Gate */
@@ -404,9 +409,10 @@ __h_default:
   (* vse8 *)
   vs.vpd (vs.dss - 1) vs.vsd vs.vpd vs.vs1
   (* vbge *)
-  branch_target_line vs.vma vs.vs1 vs.vs2 vs.pc
+  branch_target_line vs.vma vs.vs1 vs.vs2 vs.pc vs.vma vs.vma vs.vma vs.vma vs.pc
   (* vj *)
-  vs.ins vs.vma vs.pc
+  vs.ins vs.vma vs.pc vs.vma vs.vma
+
 
   (* vjit *)
   vs.vs1 vs.vs2
