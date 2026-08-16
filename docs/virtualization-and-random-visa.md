@@ -372,3 +372,52 @@ The `scripts/build_license_demo.sh` script exercises the complete synthesis-to-b
 # Step 3: clang -O2 01_license_keygen_obfuscated.c -o 01_license_keygen_virtualized.bin
 # Step 4: Automated test vectors (valid / tampered / default keys)
 ```
+
+---
+
+## ⚡ 9. In-VM Dynamic Ephemeral AArch64 JIT Escape Gate (Architecture A)
+
+In addition to pure software interpretation (Fetch-Decode-Execute), Vectis incorporates a **hybrid JIT-in-VM escape mechanism** directly within the `random_vISA` direct-threading dispatch loop.
+
+### Architectural Diagram:
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│                    Virtual Machine (vISA)                    │
+│                                                              │
+│  [Fetch Opcode] ──► [Decode [25:7]] ──► __dispatch_table     │
+│                                              │               │
+│       ┌──────────────────────────────────────┴──────┐        │
+│       ▼                                             ▼        │
+│  [Standard Opcodes]                         [0x23: VJIT]     │
+│  (vadd, vsub, vxor...)                              │        │
+│                                                     ▼        │
+│                                     ┌───────────────────────┐│
+│                                     │ Alloc MAP_JIT Page    ││
+│                                     │ Copy VRegs to (w0,w1) ││
+│                                     │ Dynamic AArch64 Synth ││
+│                                     │ Execute in Hardware   ││
+│                                     │ 3-Pass DoD Memory Wipe││
+│                                     │ Return to VReg[vd]    ││
+│                                     └───────────────────────┘│
+└──────────────────────────────────────────────────────────────┘
+```
+
+### Opcode Specifications (`vjit_vv` & `vjit_alt1`)
+
+The virtual ISA allocates distinct random opcode slots for JIT escape operations:
+* **`vjit_vv` (Standard Alias)**: Synthesizes high-order arithmetic and bitwise mixing (`((a ^ b) * 3) + 42`).
+* **`vjit_alt1` (Polymorphic Alias)**: Synthesizes affine and constant-scrambled operations (`((a + b) ^ 0x5A) * 5`).
+
+### Runtime Handlers & Lifecycle
+
+When the vISA interpreter encounters a `VJIT` opcode, the `__h_vjit` handler executes the following lifecycle:
+
+1. **Register Bridging**: Virtual registers `__VREG_GET(__vs1)` and `__VREG_GET(__vs2)` are extracted into local unsigned 64-bit parameters.
+2. **JIT Page Allocation**: An anonymous, executable memory page is allocated via `mmap(NULL, sz, PROT_READ | PROT_WRITE | PROT_EXEC, MAP_ANON | MAP_PRIVATE | MAP_JIT, -1, 0)`.
+3. **Write Protection Toggle (macOS W^X)**: `pthread_jit_write_protect_np(0)` permits writing machine instructions.
+4. **Machine Code Synthesis**: 32-bit AArch64 instructions are written directly to the buffer.
+5. **Execution Toggle & Cache Invalidation**: `pthread_jit_write_protect_np(1)` switches the page to execute mode, and `sys_icache_invalidate(__jpage, sz)` synchronizes the instruction cache.
+6. **Native Hardware Invocation**: Direct execution on the host CPU with zero VM overhead.
+7. **3-Pass DoD Secure Sanitization**: The buffer is overwritten with `0x55` $\to$ `0xAA` $\to$ `0x00` pattern sequences to prevent memory dumping forensics, followed by `munmap`.
+8. **Virtual Register Writeback**: Result is stored via `__VREG_SET(__vd, __jres)` and execution resumes with `__VISA_DISPATCH()`.

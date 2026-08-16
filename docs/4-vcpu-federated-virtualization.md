@@ -55,6 +55,7 @@ graph TD
   - 64 virtual vector registers (`__vregs[64]`).
   - Immediate packing (`vli.vi`), conditional branch comparisons (`vbge.vv`), memory vector loading (`vle8.v`), and pointer arithmetic.
   - Per-instruction rolling XOR decryption: $\text{Key}_{pc} = \text{PackKey} \oplus (pc \times \Delta_{\text{key}})$, where $\Delta_{\text{key}}$ is a random odd 32-bit integer.
+  - **In-VM Ephemeral JIT Escape Gate (`vjit_vv` & `vjit_alt1`)**: Dynamically allocates `MAP_JIT` pages from within the interpreter, compiles native AArch64 fragments, executes in hardware, and writes back to `vregs` before 3-pass DoD wiping.
 
 ### 2️⃣ Tier 2 (VCPU 2): `nested_vm` (2-Tier Hierarchical VM)
 * **Annotation**: `__attribute__((annotate("vectis:nested_vm")))`
@@ -73,13 +74,15 @@ graph TD
     $$VKey_{n+1} = (VKey_n \times \text{Mult}_{\text{LCG}}) \oplus (Dec_n + \Delta_{\text{LCG}})$$
   - Out-of-order execution, isolated opcode tracing, or memory byte patching causes immediate desynchronization of all subsequent instruction decryptions.
 
-### 4️⃣ Tier 4 (VCPU 4): `ephemeral_jit` (In-Memory JIT Wiper VM)
+### 4️⃣ Tier 4 (VCPU 4): `ephemeral_jit` (In-Memory Native AArch64 JIT Wiper VM)
 * **Annotation**: `__attribute__((annotate("vectis:ephemeral")))`
 * **Formal Sail Spec**: [`examples/optimal_license_sail/vcpu4_ephemeral_jit.sail`](file:///Volumes/External/Code/ocasorry/examples/optimal_license_sail/vcpu4_ephemeral_jit.sail)
 * **Characteristics**:
-  - Allocated dynamically into anonymous RAM pages via `mmap(PROT_READ | PROT_WRITE)`.
-  - Bytecode payload is decrypted directly in RAM, executed via native AArch64 machine code staging (4096-byte page alignment), and **immediately zeroed (`memset 0`) and unmapped (`munmap`)**.
-  - Prevents RAM memory dumping and core dump reconstruction of validation logic.
+  - **Native AArch64 Machine Code Compiler**: Directly translates CIL AST functions into 32-bit AArch64 machine words with symbolic label resolution, callee parameter preservation (`w0..w3` $\to$ `w4..w7`), and disjoint scratch registers (`w12..w15`).
+  - **Polymorphic Decoy Insertion**: 20% probability non-destructive `WZR` / `NOP` decoy instruction injection.
+  - **Dynamic Session Encryption**: Bytecode payload in `.rodata` is encrypted with a unique random session key per function.
+  - **Multi-Pass Memory Sanitization**: Memory page is wiped using a 3-pass DoD 5220.22-M sequence (`0x55` $\to$ `0xAA` $\to$ `0x00`) and freed via `munmap` after execution.
+  - Supports compositional multi-stage chaining and high-frequency loop execution (5,000+ continuous iterations).
 
 ---
 

@@ -12,7 +12,7 @@
 [![License](https://img.shields.io/badge/License-PolyForm%20Noncommercial%201.0.0-008080.svg?style=for-the-badge)](LICENSE)
 
 <p align="center">
-  <b>Vectis</b> transforms standard C code into resilient, mathematically obfuscated C11 source code backed by per-build synthesized <b>Multi-Tier Virtual Processors (VCPUs)</b>, <b>Apple MLX Neural Synthesis</b>, <b>E-Graph Equality MBA</b>, and <b>61+ military-grade protection passes</b>.
+  <b>Vectis</b> transforms standard C code into resilient, mathematically obfuscated C11 source code backed by per-build synthesized <b>Multi-Tier Virtual Processors (VCPUs)</b>, <b>Apple MLX Neural Synthesis</b>, <b>Native AArch64 Machine Code JIT Backend</b>, <b>In-VM Ephemeral JIT Escape Gates</b>, <b>E-Graph Equality MBA</b>, and <b>66+ military-grade protection passes</b>.
 </p>
 
 ---
@@ -21,7 +21,8 @@
 
 ## 💠 Core Architectural Pillars
 
-* 🔷 **Federated 4-Tier VCPU Cascade**: Vector `random_vISA`, 2-tier `NestedVM`, stateful `RollingVKey`, and in-memory `EphemeralJIT`.
+* 🔷 **Federated 4-Tier VCPU Cascade**: Vector `random_vISA` (with In-VM JIT Escape Gates), 2-tier `NestedVM`, stateful `RollingVKey`, and in-memory `EphemeralJIT` (powered by a native AArch64 machine code compiler).
+* ⚡ **In-VM Dynamic JIT Escape Gates (`VJIT`)**: Hybrid virtual machine architecture that dynamically compiles and executes native machine code on host CPU hardware mid-interpretation, wiping pages via 3-pass DoD 5220.22-M routines.
 * 🧠 **Apple MLX Neural Subsystem**: PPO RL agent on Metal GPU for real-time MBA synthesis + 3-Level Z3 SMT formal verification.
 * 🧬 **Multi-ISA per-Function Routing**: Compile different C functions into completely distinct, randomized virtual processor architectures within the same binary.
 * 🌌 **E-Graph MBA Expansion**: Infinite non-linear bitwise identities generated via e-graph equality saturation (*arXiv:2603.03624*).
