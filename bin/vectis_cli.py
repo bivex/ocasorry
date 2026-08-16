@@ -64,6 +64,9 @@ def cmd_benchmark(args):
     if target in ("all", "jit"):
         print("[*] Running Vectis Ephemeral Native Trace JIT Benchmark...")
         os.system(f"python3 {PROJECT_ROOT / 'benchmarks/ephemeral_jit_benchmark.py'}")
+    if target in ("all", "concolic"):
+        print("[*] Running Vectis Anti-Concolic Path Explosion Benchmark...")
+        os.system(f"python3 {PROJECT_ROOT / 'benchmarks/anti_concolic_benchmark.py'}")
 
 
 
@@ -117,7 +120,7 @@ def main():
 
     # benchmark
     p_bench = subparsers.add_parser("benchmark", help="Run adversarial deobfuscation benchmarks")
-    p_bench.add_argument("--type", choices=["all", "smt", "mba", "diff", "poly", "trace", "jit"], default="all", help="Benchmark class to execute")
+    p_bench.add_argument("--type", choices=["all", "smt", "mba", "diff", "poly", "trace", "jit", "concolic"], default="all", help="Benchmark class to execute")
     p_bench.add_argument("--iterations", type=int, default=None, help="Statistical repeats for the diffing benchmark (default: 20)")
 
     # dataset

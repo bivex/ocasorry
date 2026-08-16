@@ -262,16 +262,31 @@ __h_vse8:
     __VISA_DISP_MEM();
 __h_vbge: {
 %s
+    /* Anti-Concolic Cryptographic ARX Path Trap (Vector 5) */
+    unsigned long long __arx_v = (unsigned long long)%s;
+    unsigned long long __arx_k = 0x9E3779B97F4A7C15ULL;
+    __arx_v += __arx_k;
+    __arx_k = ((__arx_k << 13) | (__arx_k >> 51)) ^ __arx_v;
+    __arx_v = ((__arx_v << 32) | (__arx_v >> 32)) + __arx_k;
+    __arx_k = ((__arx_k << 16) | (__arx_k >> 48)) ^ __arx_v;
     if (__VREG_GET(%s) >= __VREG_GET(%s)) {
-        %s = (unsigned int)((__branch_target) + ((%s * (%s + 1ULL)) & 1ULL));
+        %s = (unsigned int)((__branch_target) + ((__arx_v * (__arx_v + 1ULL)) & 1ULL));
     }
     __VISA_DISP_CTRL();
 }
 __h_vj: {
     unsigned int __jump_target = (%s >> 7) & 0x7FFFFU;
-    %s = (unsigned int)((__jump_target) + ((%s * (%s + 1ULL)) & 1ULL));
+    /* Anti-Concolic Cryptographic ARX Path Trap (Vector 5) */
+    unsigned long long __arx_v = (unsigned long long)%s;
+    unsigned long long __arx_k = 0x517CC1B727220A95ULL;
+    __arx_v += __arx_k;
+    __arx_k = ((__arx_k << 13) | (__arx_k >> 51)) ^ __arx_v;
+    __arx_v = ((__arx_v << 32) | (__arx_v >> 32)) + __arx_k;
+    __arx_k = ((__arx_k << 16) | (__arx_k >> 48)) ^ __arx_v;
+    %s = (unsigned int)((__jump_target) + ((__arx_v * (__arx_v + 1ULL)) & 1ULL));
     __VISA_DISP_CTRL();
 }
+
 __h_vjit: {
     /* Architecture A: Polymorphic In-VM Ephemeral AArch64 JIT Escape Gate */
     unsigned long long __a = __VREG_GET(%s), __b = __VREG_GET(%s);
@@ -382,9 +397,10 @@ __h_default:
   (* vse8 *)
   vs.vpd (vs.dss - 1) vs.vsd vs.vpd vs.vs1
   (* vbge *)
-  branch_target_line vs.vs1 vs.vs2 vs.pc vs.vma vs.vma
+  branch_target_line vs.vma vs.vs1 vs.vs2 vs.pc
   (* vj *)
-  vs.ins vs.pc vs.vma vs.vma
+  vs.ins vs.vma vs.pc
+
   (* vjit *)
   vs.vs1 vs.vs2
   len1 enc_insns1_str key1
