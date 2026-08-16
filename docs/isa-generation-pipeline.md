@@ -197,7 +197,24 @@ vectis -i input.c -o output.obf.c \
   --virtualize
 ```
 
-### 4.3 Macro Scope Isolation (`#undef`)
+### 4.3 Automatic Per-Function Fragmentation (active by default)
+
+Explicit `visa:NAME` annotations are optional. When the loaded pool holds
+more than one spec, **every function without an explicit name is bound to
+its own ISA via a stable hash of its name** (`C_visa_spec.get_fragmented_spec`).
+`make virtualize` / `make obfuscate` load the whole pool via
+`--visa-specs-dir examples/ml_optimized`, where `make ml-specs` synthesizes a
+fresh fragmentation pool (`visa_f0..N.json`, unique seeds/opcode tables/layouts
+per fragment) on every build.
+
+Security effect (measured, N=20 × 3 builds): recovering one opcode table
+(~130 secret bits) no longer transfers to any other function — the attacker
+pays per function, not per binary. Cross-release 3-gram similarity median
+drops from ~87% to ~79% and the identical-build tail (max pair similarity
+100%) is eliminated.
+
+### 4.4 Macro Scope Isolation (`#undef`)
+
 To prevent macro redefinition warnings when multiple VCPU emulators are synthesized in a single `.c` file, `c_visa_c_emitter.ml` automatically emits clean-up directives:
 ```c
     return (int)__res_val;

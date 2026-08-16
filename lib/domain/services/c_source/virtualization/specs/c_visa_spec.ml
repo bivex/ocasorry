@@ -100,6 +100,24 @@ let get_spec_for_annotation (ann : string option) : visa_spec =
        | Some s -> s
        | None   -> !active_spec)
 
+(** All registered specs, sorted by name for deterministic enumeration.
+    This is the loaded ISA pool used for per-function fragmentation. *)
+let list_specs () : visa_spec list =
+  Hashtbl.fold (fun _ s acc -> s :: acc) registry []
+  |> List.sort (fun a b -> compare a.isa_name b.isa_name)
+
+(** Per-function ISA fragmentation: when the pool holds more than one spec,
+    a function without an explicit "visa:NAME" annotation is bound to its own
+    ISA via a stable hash of its name. Recovering one opcode table then does
+    not transfer to any other function — the attacker pays per function, not
+    per binary (~130 secret bits of opcode table per ISA slot). *)
+let get_fragmented_spec (fn_name : string) : visa_spec =
+  match list_specs () with
+  | [] | [ _ ] -> !active_spec
+  | specs ->
+      let idx = Hashtbl.hash fn_name mod List.length specs in
+      List.nth specs idx
+
 let get_active_spec () : visa_spec = !active_spec
 
 (** Layout soundness invariants.

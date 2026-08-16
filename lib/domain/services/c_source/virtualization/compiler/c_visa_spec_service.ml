@@ -118,7 +118,9 @@ module Make (Entropy : Entropy_port.S) = struct
       generate_visa_runtime file;
 
       (* Per-function ISA selection via annotation "vectis:visa:ISA_NAME".
-         Falls back to active_spec if no specific ISA is named. *)
+         Without an explicit name, the function is bound to its OWN ISA from
+         the loaded pool via a stable name hash (fragmentation: recovering
+         one opcode table does not transfer to other functions). *)
       let isa_annotation =
         C_annotation_service.AnnotationHelper.get_tokens fd
         |> List.find_map (fun t ->
@@ -126,7 +128,11 @@ module Make (Entropy : Entropy_port.S) = struct
               Some (String.sub t 5 (String.length t - 5))
             else None)
       in
-      let spec = Spec.get_spec_for_annotation isa_annotation in
+      let spec =
+        match isa_annotation with
+        | Some _ -> Spec.get_spec_for_annotation isa_annotation
+        | None -> Spec.get_fragmented_spec fd.svar.vname
+      in
       let op   = spec.opcodes in
       let lay  = spec.layout in
 

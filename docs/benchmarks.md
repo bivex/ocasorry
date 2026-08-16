@@ -66,13 +66,13 @@ python3 benchmarks/mba_simplification_benchmark.py
 
 ## 🔍 3. Binary Diffing & CFG Alignment
 
-Measures the divergence of instruction 3-grams between independent compilations of the same source code. Each build draws fresh OS entropy (unique ISA layout per invocation), so single-shot similarity varies widely (observed 61–100% per pair) — the benchmark therefore runs **N = 20 statistical iterations × 3 randomized builds** (60 pairwise samples) and reports the median ± σ:
+Measures the divergence of instruction 3-grams between **independent releases** of the same source: every build synthesizes a fresh per-function vISA fragmentation pool (unique opcode tables + layouts per function, regenerated per build — as `make virtualize` does), so two builds never share ISA tables. Single-shot similarity varies widely — the benchmark runs **N = 20 statistical iterations × 3 randomized builds** (60 pairwise samples) and reports the median ± σ:
 
 | Metric | Baseline (Unobfuscated) | Vectis Randomized Virtualization | Security Implication |
 |---|---|---|---|
-| **Build-to-Build Similarity (median)** | **100.0%** | **~87% ± 8σ** | Graph isomorphism partially broken; roadmap target <50% |
+| **Build-to-Build Similarity (median)** | **100.0%** | **~79% ± 8σ** (was ~87% pre-fragmentation) | Graph isomorphism partially broken; identical-build tail eliminated (max pair 100% → ~90%); roadmap target <50% |
 | **Instruction Expansion (median)** | $1.0\times$ | **~23×** | Massive search space inflation |
-| **Diffing Resistance Score** | 0.0 / 100.0 | **~13 / 100.0** | Increased manual reversing effort |
+| **Diffing Resistance Score** | 0.0 / 100.0 | **~21 / 100.0** (was ~13) | +65% relative resistance; attacker pays per function, not per binary |
 
 ```bash
 python3 benchmarks/binary_diffing_benchmark.py              # N=20 (default)

@@ -80,6 +80,8 @@ def main():
                     help="Deterministic random seed integer (default: crypto-random)")
     ap.add_argument("--vcpu", default="all",
                     choices=["all", "visa", "nested", "rolling", "ephemeral"])
+    ap.add_argument("--visa-count", type=int, default=4,
+                    help="Number of per-function vISA fragment specs to synthesize (fragmentation pool)")
     args = ap.parse_args()
 
     params_path = Path(args.params)
@@ -124,6 +126,44 @@ def main():
                     print(f"  [✓] Synth OK")
                 else:
                     print(f"  [✗] Error: {r.stderr[:200]}")
+
+    # Per-function vISA fragmentation pool: N independent visa specs, each
+    # with its own seed/opcode table/layout. Loaded together via
+    # --visa-specs-dir, the compiler binds every virtualized function to its
+    # own ISA (see C_visa_spec.get_fragmented_spec).
+    if args.vcpu in ("all", "visa") and "visa" in data:
+        params = data["visa"].get("optimal_params", {})
+        base_seed = args.seed if args.seed is not None else secrets.randbits(31)
+        print(f"\n[VISA x{args.visa_count}]  fragmentation pool (base seed={base_seed})")
+        for i in range(args.visa_count):
+            frag_seed = base_seed + i + 1
+            frag_json = os.path.join(args.output_dir, f"visa_f{i}.json")
+            name = f"ML_Opt_VISA_F{i}_Arch"
+            flags = [
+                str(SYNTH_BIN), "--vcpu visa",
+                f"--output-json {frag_json}",
+                f"--name {name}",
+                f"--seed {frag_seed}",
+            ]
+            fmap = FLAG_MAP.get("visa", {})
+            for key, val in params.items():
+                if key in fmap:
+                    try:
+                        flags.append(fmap[key](val))
+                    except Exception:
+                        pass
+            cmd = " ".join(flags)
+            commands.append(cmd)
+            print(f"  CMD: {cmd}")
+            if args.run:
+                if not SYNTH_BIN.exists():
+                    print(f"  [!] Binary not found: {SYNTH_BIN} — skipping execution")
+                else:
+                    r = subprocess.run(cmd.split(), capture_output=True, text=True)
+                    if r.returncode == 0:
+                        print(f"  [✓] Fragment {i} OK")
+                    else:
+                        print(f"  [✗] Error: {r.stderr[:200]}")
 
     script_path = Path(__file__).parent / "sail_synth_commands.sh"
     with open(script_path, "w") as f:

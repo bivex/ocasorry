@@ -31,9 +31,11 @@ import numpy as np
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MAIN_BIN     = os.path.join(PROJECT_ROOT, "_build/default/bin/main.exe")
+SYNTH_BIN    = os.path.join(PROJECT_ROOT, "_build/default/bin/vectis_synth.exe")
 
 ITERATIONS   = 20     # Number of statistical repeats (3 randomized builds each)
 BUILDS_PER_ITERATION = 3
+POOL_SIZE    = 3      # vISA fragments synthesized fresh per build
 
 SAMPLE_C_CODE = """\
 extern int printf(const char *format, ...);
@@ -89,16 +91,37 @@ def jaccard_similarity(set_a, set_b):
     union = len(set_a.union(set_b))
     return float(intersection) / max(1, union)
 
+def synthesize_pool(tmpdir, tag, size=POOL_SIZE):
+    """Fresh per-build vISA fragmentation pool (unique opcode tables/layouts).
+
+    Models independent releases: every `make virtualize` regenerates the
+    pool, so two builds never share ISA tables. Falls back to the committed
+    pool dir (single table) if the synth binary is unavailable."""
+    specs_dir = os.path.join(tmpdir, f"specs_{tag}")
+    os.makedirs(specs_dir, exist_ok=True)
+    if not os.path.exists(SYNTH_BIN):
+        return os.path.join(PROJECT_ROOT, "examples/ml_optimized")
+    for k in range(size):
+        subprocess.run([
+            SYNTH_BIN, "--vcpu", "visa",
+            "--output-json", os.path.join(specs_dir, f"visa_f{k}.json"),
+            "--name", f"Bench_{tag}_F{k}_Arch"
+        ], check=True, capture_output=True)   # no --seed: fresh OS entropy
+    return specs_dir
+
+
 def build_obfuscated(src_c, tmpdir, tag):
-    """One randomized Vectis build: fresh OS entropy -> unique ISA layout."""
+    """One randomized Vectis build: fresh ISA pool + fresh pass entropy."""
     obf_c   = os.path.join(tmpdir, f"obf_{tag}.c")
     obf_bin = os.path.join(tmpdir, f"obf_{tag}.bin")
+    specs_dir = synthesize_pool(tmpdir, tag)
     subprocess.run([
         MAIN_BIN, "-i", src_c, "-o", obf_c,
         "--virtualize", "--poly-mba", "--opaque", "--dyn-opaque",
         "--rolling-vkey", "--vcpu-scramble",
         "--decentralized-disp", "--split-bb", "--bcf", "--relational-morph",
-        "--indirect", "--micro-dispatcher"
+        "--indirect", "--micro-dispatcher",
+        "--visa-specs-dir", specs_dir
     ], check=True, capture_output=True)
     subprocess.run(["clang", "-w", "-O2", obf_c, "-o", obf_bin], check=True)
     return extract_disassembly_blocks(obf_bin)

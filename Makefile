@@ -19,6 +19,7 @@ OUT          ?= /tmp/vectis_obfuscated.c
 BIN          ?= /tmp/vectis_obfuscated.bin
 PROFILE      ?= fortress-256k
 SPEC         ?= $(EXAMPLES)/ml_optimized/visa.json
+SPECS_DIR    ?= $(EXAMPLES)/ml_optimized
 PASSES       ?= --virtualize --rolling-vkey --bcf --cff --anti-debug --egraph-mba --anti-vtil
 
 # Full 4-Tier Federated VCPU Virtualization flags
@@ -36,10 +37,10 @@ virtualize: build ml-specs  ## Full 4-Tier Federated VCPU Virtualization + compi
 	@echo "  Input Source : $(IN)"
 	@echo "  Output C     : $(OUT)"
 	@echo "  Binary Target: $(BIN)"
-	@echo "  vISA Spec    : $(SPEC)"
+	@echo "  vISA Pool    : $(SPECS_DIR) (per-function ISA fragmentation)"
 	@echo "  VM Profile   : $(PROFILE)"
 	@echo "----------------------------------------------------------------------"
-	$(VECTIS_BIN) -i $(IN) -o $(OUT) --visa-spec $(SPEC) --vm-profile $(PROFILE) $(VFLAGS)
+	$(VECTIS_BIN) -i $(IN) -o $(OUT) --visa-specs-dir $(SPECS_DIR) --vm-profile $(PROFILE) $(VFLAGS)
 	@echo "[✓] Virtualized C source emitted -> $(OUT)"
 	@echo "[*] Compiling with clang -w -O2 -fvisibility=hidden..."
 	clang -w -O2 -fvisibility=hidden $(OUT) -o $(BIN)
@@ -49,8 +50,8 @@ virtualize: build ml-specs  ## Full 4-Tier Federated VCPU Virtualization + compi
 
 obfuscate: build ml-specs  ## Obfuscate C file with ML-optimized vISA (Usage: make obfuscate IN=file.c OUT=out.c)
 	@echo "[Vectis] Obfuscating $(IN) -> $(OUT)"
-	@echo "         Profile: [$(PROFILE)] | Spec: [$(SPEC)]"
-	$(VECTIS_BIN) -i $(IN) -o $(OUT) --visa-spec $(SPEC) --vm-profile $(PROFILE) $(PASSES)
+	@echo "         Profile: [$(PROFILE)] | ISA Pool: [$(SPECS_DIR)]"
+	$(VECTIS_BIN) -i $(IN) -o $(OUT) --visa-specs-dir $(SPECS_DIR) --vm-profile $(PROFILE) $(PASSES)
 	@echo "[✓] Successfully obfuscated -> $(OUT)"
 
 compile-obf: obfuscate  ## Obfuscate and compile to binary with Clang (Usage: make compile-obf IN=file.c BIN=app.bin)
