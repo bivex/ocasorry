@@ -52,6 +52,7 @@ let emit_dispatch_table
    trap_bindings_str
 
 let emit_dispatch_macro
+    ~(vs : C_visa_c_runtime.var_set)
     ~(word_count : int)
     ~(affine_p : int)
     ~(affine_s : int)
@@ -59,29 +60,56 @@ let emit_dispatch_macro
     ~(delta_key : int64)
     ~(lay : visa_field_layout)
     ~(prof : C_visa_profile_service.vm_profile_config) : string =
-  let pk32 = Int64.to_int32 pack_key in
-  let dk32 = Int64.to_int32 delta_key in
+  let pk32     = Int64.to_int32 pack_key in
+  let dk32     = Int64.to_int32 delta_key in
   let mask_size = prof.dispatch_size - 1 in
   Printf.sprintf {|
     #define __VISA_DISPATCH() do { \
-        if (__pc >= %d) goto __h_vret; \
-        unsigned int __slot = ((__pc * %uU) + %uU) %% %uU; \
-        __raw = __vbc_live[__slot]; \
-        __key = 0x%lXU ^ (__pc * 0x%lXU); \
-        __inst = __raw ^ __key; \
-        __funct6 = (unsigned char)((__inst >> %d) & 0x%X); \
-        __vm     = (unsigned char)((__inst >> %d) & 0x01); \
-        __vs2    = (unsigned char)((__inst >> %d) & 0x1F); \
-        __vs1    = (unsigned char)((__inst >> %d) & 0x1F); \
-        __funct3 = (unsigned char)((__inst >> %d) & 0x07); \
-        __vd     = (unsigned char)((__inst >> %d)  & 0x1F); \
+        if (%s >= %d) goto __h_vret; \
+        unsigned int __slot = ((%s * %uU) + %uU) %% %uU; \
+        %s = %s[__slot]; \
+        %s = 0x%lXU ^ (%s * 0x%lXU); \
+        %s = %s ^ %s; \
+        %s = (unsigned char)((%s >> %d) & 0x%X); \
+        %s = (unsigned char)((%s >> %d) & 0x01); \
+        %s = (unsigned char)((%s >> %d) & 0x1F); \
+        %s = (unsigned char)((%s >> %d) & 0x1F); \
+        %s = (unsigned char)((%s >> %d) & 0x07); \
+        %s = (unsigned char)((%s >> %d)  & 0x1F); \
         /* Anti-Pushan: Non-linear Quadratic VPC Stepper */ \
-        __pc = (__pc + 1U) + (unsigned int)((__vm_state_acc * (__vm_state_acc + 1ULL)) & 1ULL); \
-        __vm_state_acc = ((__vm_state_acc * 0x63c63cd93839c9b9ULL) ^ (__vd + __funct6 + ((unsigned long long)__pc * 0x9E3779B9ULL))) * 0x517CC1B727220A95ULL; \
-        goto *__dispatch_table[__funct6 & 0x%X]; \
+        %s = (%s + 1U) + (unsigned int)((%s * (%s + 1ULL)) & 1ULL); \
+        %s = ((%s * 0x%LxULL) ^ (%s + %s + ((unsigned long long)%s * 0x9E3779B9ULL))) * 0x517CC1B727220A95ULL; \
+        goto *__dispatch_table[%s & 0x%X]; \
     } while (0)
 
     /* Enter Direct Threading pipeline */
     __VISA_DISPATCH();
-|} word_count affine_p affine_s word_count pk32 dk32
-   lay.funct6_shift lay.funct6_mask lay.vm_shift lay.vs2_shift lay.vs1_shift lay.funct3_shift lay.vd_shift mask_size
+|}
+  (* pc bounds *)
+  vs.pc word_count
+  (* slot *)
+  vs.pc affine_p affine_s word_count
+  (* raw = vbl[slot] *)
+  vs.rw vs.vbl
+  (* key *)
+  vs.ky pk32 vs.pc dk32
+  (* inst *)
+  vs.ins vs.rw vs.ky
+  (* field decodes — funct6 *)
+  vs.f6 vs.ins lay.funct6_shift lay.funct6_mask
+  (* vm *)
+  vs.vm vs.ins lay.vm_shift
+  (* vs2 *)
+  vs.vs2 vs.ins lay.vs2_shift
+  (* vs1 *)
+  vs.vs1 vs.ins lay.vs1_shift
+  (* funct3 *)
+  vs.f3 vs.ins lay.funct3_shift
+  (* vd *)
+  vs.vd vs.ins lay.vd_shift
+  (* pc step *)
+  vs.pc vs.pc vs.vma vs.vma
+  (* state acc *)
+  vs.vma vs.vma vs.gold1 vs.vd vs.f6 vs.pc
+  (* dispatch *)
+  vs.f6 mask_size
