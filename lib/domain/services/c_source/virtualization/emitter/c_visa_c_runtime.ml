@@ -66,6 +66,8 @@ let make_var_set () : var_set =
     vbl      = "__vbl_"  ^ s ();
     vbm      = "__vbm_"  ^ s ();
     fae      = "__fae_"  ^ s ();
+
+
     alloc_fn = "__vma_"  ^ s ();
     free_fn  = "__vmf_"  ^ s ();
     dss      = 48 + (Random.int 48);   (* 48..95  — always multiple of 8-ish *)
@@ -150,7 +152,7 @@ let emit_vbank
     ~(reg_mask_step : int64) : string =
   ignore vs;
   Printf.sprintf {|
-    /* Anti-VTIL / Anti-NoVmp: Overlapping Aliased VCPU Register Matrix */
+    /* Anti-VTIL / Anti-NoVmp: Overlapping Aliased VCPU Register Matrix & Dynamic Register Cycling (Gap 2) */
     union __attribute__((aligned(16))) {
         unsigned char __b[1024];
         unsigned long long __q[%d];
@@ -164,6 +166,8 @@ let emit_vbank
         __vbank.__q[__i] = (0x%LxULL + ((unsigned long long)__i * 0x%LxULL));
     }
 |} vreg_total vreg_rot_seed reg_mask_base reg_mask_step vreg_total reg_mask_base reg_mask_step
+
+
 
 let emit_shadow_and_cfi
     ~(vs : var_set)
@@ -316,6 +320,8 @@ __h_vret: ;
   vs.vsd vs.vsd
   vs.vsc vs.vsc
   ret_type_str
+
+
 
 
 

@@ -99,6 +99,8 @@ module CostModel = struct
     match target with
     | MinimizeSize -> sz +. (dp *. 0.5)
     | MaximizeComplexity -> (sz *. 2.0) +. (dp *. 3.0)
+    | NegativeSize -> -. ((sz *. 2.0) +. (dp *. 3.0))
+
 end
 
 module CandidateGenerator = struct

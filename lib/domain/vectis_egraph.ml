@@ -188,6 +188,7 @@ let saturate (eg : egraph) ?(max_iters=4) () : int =
 type cost_target =
   | MinimizeSize
   | MaximizeComplexity
+  | NegativeSize
 
 let compute_node_cost (target : cost_target) (node : enode) (child_costs : int list) : int =
   let children_sum = List.fold_left (+) 0 child_costs in
@@ -206,6 +207,15 @@ let compute_node_cost (target : cost_target) (node : enode) (child_costs : int l
       | EN_BinOp (Add, _, _, _) -> 10 + children_sum
       | EN_BinOp _ -> 8 + children_sum
       | EN_Select _ -> 15 + children_sum)
+  | NegativeSize ->
+      (* Adversarial inversion (Gap 4): larger/deeper non-linear AST yields lower (more negative) cost *)
+      (match node with
+      | EN_Const _ | EN_Var _ -> -1
+      | EN_UnOp _ -> -5 + children_sum
+      | EN_BinOp (Xor, _, _, _) -> -15 + children_sum
+      | EN_BinOp (Add, _, _, _) -> -12 + children_sum
+      | EN_BinOp _ -> -10 + children_sum
+      | EN_Select _ -> -20 + children_sum)
 
 (** Extract the optimal AST expression from the E-Graph with cycle prevention *)
 let extract (eg : egraph) (root : eclass_id) ?(target=MinimizeSize) ?(max_depth=6) () : ir_exp =
@@ -224,27 +234,32 @@ let extract (eg : egraph) (root : eclass_id) ?(target=MinimizeSize) ?(max_depth=
     | None ->
         let visiting' = r :: visiting in
         let nodes = !(Hashtbl.find eg.classes r) in
-        let best_cost = ref (if target = MinimizeSize then 1_000_000 else -1) in
+        let is_better c best =
+          match target with
+          | MaximizeComplexity -> c > best
+          | MinimizeSize | NegativeSize -> c < best
+        in
+        let best_cost = ref (if target = MaximizeComplexity then -1_000_000 else 1_000_000) in
         let best_exp  = ref (Const (0L, I64)) in
 
         List.iter (fun node ->
           match node with
           | EN_Const (v, ty) ->
               let c = compute_node_cost target node [] in
-              if (target = MinimizeSize && c < !best_cost) || (target = MaximizeComplexity && c > !best_cost) then (
+              if is_better c !best_cost then (
                 best_cost := c;
                 best_exp := Const (v, ty)
               )
           | EN_Var (name, ty) ->
               let c = compute_node_cost target node [] in
-              if (target = MinimizeSize && c < !best_cost) || (target = MaximizeComplexity && c > !best_cost) then (
+              if is_better c !best_cost then (
                 best_cost := c;
                 best_exp := Var (name, ty)
               )
           | EN_UnOp (op, c1, ty) ->
               let (c1_cost, e1) = find_best c1 visiting' (depth + 1) in
               let c = compute_node_cost target node [ c1_cost ] in
-              if (target = MinimizeSize && c < !best_cost) || (target = MaximizeComplexity && c > !best_cost) then (
+              if is_better c !best_cost then (
                 best_cost := c;
                 best_exp := UnOp (op, e1, ty)
               )
@@ -252,7 +267,7 @@ let extract (eg : egraph) (root : eclass_id) ?(target=MinimizeSize) ?(max_depth=
               let (c1_cost, e1) = find_best c1 visiting' (depth + 1) in
               let (c2_cost, e2) = find_best c2 visiting' (depth + 1) in
               let c = compute_node_cost target node [ c1_cost; c2_cost ] in
-              if (target = MinimizeSize && c < !best_cost) || (target = MaximizeComplexity && c > !best_cost) then (
+              if is_better c !best_cost then (
                 best_cost := c;
                 best_exp := BinOp (op, e1, e2, ty)
               )
@@ -261,11 +276,12 @@ let extract (eg : egraph) (root : eclass_id) ?(target=MinimizeSize) ?(max_depth=
               let (c1_cost, e1) = find_best c1 visiting' (depth + 1) in
               let (c2_cost, e2) = find_best c2 visiting' (depth + 1) in
               let c = compute_node_cost target node [ cc_cost; c1_cost; c2_cost ] in
-              if (target = MinimizeSize && c < !best_cost) || (target = MaximizeComplexity && c > !best_cost) then (
+              if is_better c !best_cost then (
                 best_cost := c;
                 best_exp := Select (ec, e1, e2, ty)
               )
         ) nodes;
+
 
         Hashtbl.replace memo_cost r !best_cost;
         Hashtbl.replace memo_exp r !best_exp;

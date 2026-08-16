@@ -18,5 +18,9 @@ let run () =
   let extracted_complex = extract eg root ~target:MaximizeComplexity () in
   assert_bool "Complex extraction increases AST size" (exp_size extracted_complex > exp_size expr);
 
+  let extracted_neg = extract eg root ~target:NegativeSize () in
+  assert_bool "NegativeSize extraction yields maximally obfuscated AST" (exp_size extracted_neg > exp_size expr);
+
   let extracted_min = extract eg root ~target:MinimizeSize () in
   assert_bool "Minimal extraction is compact" (exp_size extracted_min <= exp_size extracted_complex)
+

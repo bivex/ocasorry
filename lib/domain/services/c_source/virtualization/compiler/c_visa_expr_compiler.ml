@@ -57,6 +57,26 @@ module Make (Entropy : Entropy_port.S) = struct
     | CastE (_, _, e) -> extract_ptr_var e
     | _ -> None
 
+  (* Gap 3: In-Bytecode Dead Code & Junk Instruction Insertion *)
+  let emit_junk_insn spec op instrs free_reg =
+    if Entropy.next_int ~max:100 < 25 then (
+      let junk_dst = (free_reg + 3 + Entropy.next_int ~max:4) land 0x1F in
+      let r = Entropy.next_int ~max:4 in
+      if r = 0 then (
+        instrs := (Spec.encode_inst spec ~funct6:op.C_visa_spec.vxor_vv ~vm:1
+                    ~vs2:junk_dst ~vs1_or_imm:junk_dst ~funct3:0 ~vd:junk_dst) :: !instrs
+      ) else if r = 1 then (
+        let c = Entropy.next_int ~max:0x3FFF in
+        emit_vli_14 spec op instrs c junk_dst
+      ) else if r = 2 then (
+        instrs := (Spec.encode_inst spec ~funct6:op.C_visa_spec.vadd_vv ~vm:1
+                    ~vs2:junk_dst ~vs1_or_imm:junk_dst ~funct3:0 ~vd:junk_dst) :: !instrs
+      ) else (
+        instrs := (Spec.encode_inst spec ~funct6:op.C_visa_spec.vsll_vv ~vm:1
+                    ~vs2:(junk_dst land 0x1F) ~vs1_or_imm:(junk_dst land 0x1F) ~funct3:0 ~vd:junk_dst) :: !instrs
+      )
+    )
+
   let rec compile_exp spec op instrs get_vreg (e : exp) (dst : int) (free_reg : int) =
     let pick arr n = arr.(Entropy.next_int ~max:n) in
     let vadd () = pick [| op.C_visa_spec.vadd_vv; op.vadd_alt1; op.vadd_alt2 |] 3 in
@@ -68,8 +88,10 @@ module Make (Entropy : Entropy_port.S) = struct
     let emit2 funct6 vs2r vs1r vdr =
       instrs := (Spec.encode_inst spec ~funct6 ~vm:1
                   ~vs2:(vs2r land 0x1F) ~vs1_or_imm:(vs1r land 0x1F)
-                  ~funct3:0 ~vd:(vdr land 0x1F)) :: !instrs
+                  ~funct3:0 ~vd:(vdr land 0x1F)) :: !instrs;
+      emit_junk_insn spec op instrs free_reg
     in
+
 
 
     match e with
