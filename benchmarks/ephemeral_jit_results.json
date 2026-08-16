@@ -1,0 +1,26 @@
+[
+  {
+    "mode": "1_native_baseline",
+    "median_us": 970.5,
+    "min_us": 930.0,
+    "max_us": 1314.0,
+    "std_dev_us": 104.11575289071294,
+    "overhead_multiplier": 1.0
+  },
+  {
+    "mode": "2_interpreted_vm",
+    "median_us": 937.5,
+    "min_us": 928.0,
+    "max_us": 995.0,
+    "std_dev_us": 16.886311024021797,
+    "overhead_multiplier": 0.97
+  },
+  {
+    "mode": "3_vectis_ephemeral_jit",
+    "median_us": 935.0,
+    "min_us": 926.0,
+    "max_us": 980.0,
+    "std_dev_us": 11.807942242406165,
+    "overhead_multiplier": 0.96
+  }
+]
