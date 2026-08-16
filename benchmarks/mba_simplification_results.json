@@ -1,0 +1,57 @@
+[
+  {
+    "target": "0_ground_truth_raw",
+    "ast_nodes_obfuscated": 3,
+    "ast_nodes_z3_simplified": 3,
+    "z3_size_reduction_pct": 0.0,
+    "z3_completely_simplified": true,
+    "synthesis_recovered": true,
+    "synthesis_recovered_form": "x + y",
+    "synthesis_time_sec": 0.0004,
+    "resistance_status": "SIMPLIFIED"
+  },
+  {
+    "target": "1_linear_mba_depth1",
+    "ast_nodes_obfuscated": 5,
+    "ast_nodes_z3_simplified": 8,
+    "z3_size_reduction_pct": -60.0,
+    "z3_completely_simplified": false,
+    "synthesis_recovered": true,
+    "synthesis_recovered_form": "x + y",
+    "synthesis_time_sec": 0.0048,
+    "resistance_status": "STRONG"
+  },
+  {
+    "target": "2_recursive_mba_depth2",
+    "ast_nodes_obfuscated": 10,
+    "ast_nodes_z3_simplified": 14,
+    "z3_size_reduction_pct": -40.0,
+    "z3_completely_simplified": false,
+    "synthesis_recovered": true,
+    "synthesis_recovered_form": "x + y",
+    "synthesis_time_sec": 0.0214,
+    "resistance_status": "STRONG"
+  },
+  {
+    "target": "3_polynomial_mba_depth3",
+    "ast_nodes_obfuscated": 12,
+    "ast_nodes_z3_simplified": 9,
+    "z3_size_reduction_pct": 25.0,
+    "z3_completely_simplified": false,
+    "synthesis_recovered": true,
+    "synthesis_recovered_form": "x ^ y",
+    "synthesis_time_sec": 0.0035,
+    "resistance_status": "STRONG"
+  },
+  {
+    "target": "4_egraph_saturated_depth4",
+    "ast_nodes_obfuscated": 11,
+    "ast_nodes_z3_simplified": 14,
+    "z3_size_reduction_pct": -27.3,
+    "z3_completely_simplified": false,
+    "synthesis_recovered": true,
+    "synthesis_recovered_form": "x ^ y",
+    "synthesis_time_sec": 0.0211,
+    "resistance_status": "STRONG"
+  }
+]

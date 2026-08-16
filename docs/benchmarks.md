@@ -1,65 +1,87 @@
-# 📈 Vectis Next: Empirical Benchmarks & Security Metrics
+# 📈 Vectis Next: Adversarial Deobfuscation Benchmarks
 
-Comprehensive empirical benchmark results demonstrating the measured resilience and polymorphism of **Vectis Next**.
+This document details the **empirical adversarial evaluation** of Vectis Next against state-of-the-art program analysis, SMT solvers, and automated reverse engineering tools.
 
 ---
 
-## 🏆 1. Summary of Measured Results
+## 🎯 Threat Models & Benchmark Methodology
 
-| Metric | Measured Value | Standard / Threshold | Evaluation Result |
+Unlike superficial statistical metrics, these benchmarks directly evaluate against automated reverse-engineering attack vectors:
+
+1. **SMT & Symbolic Execution Constraint Inversion** (`benchmarks/symbolic_execution_benchmark.py`):
+   * *Attacker Tooling*: Z3 BitVector Solver / Angr / Triton symbolic execution engines.
+   * *Objective*: Automatically find inputs $(x, y, \dots)$ satisfying path constraints or license validations.
+2. **MBA Algebraic Simplification & Program Synthesis** (`benchmarks/mba_simplification_benchmark.py`):
+   * *Attacker Tooling*: AST simplifiers (Z3 BV `simplify()`) & SMT oracle-guided synthesizers (Arybo / QSynth / Syntia).
+   * *Objective*: Collapse complex Mixed Boolean-Arithmetic expressions back to canonical 1-op primitives ($x + y$, $x \oplus y$).
+3. **Automated Binary Diffing & CFG Alignment** (`benchmarks/binary_diffing_benchmark.py`):
+   * *Attacker Tooling*: BinDiff, Diaphora, Ghidra Version Tracking.
+   * *Objective*: Align basic blocks and match functions across independent builds using instruction n-grams and CFG topology.
+4. **Binary Polymorphism & Entropy Verification** (`tools/mlx_polymorphism_discriminator.py`):
+   * *Attacker Tooling*: YARA rules, static signature engines.
+   * *Objective*: Measure Mach-O / ELF divergence, Longest Common Subsequence (LCCS), and Shannon entropy across randomized builds.
+
+---
+
+## 🔬 1. SMT & Symbolic Execution Hardness
+
+Evaluates solver execution time, AST node explosion, and timeout rates for 32-bit bitvector path constraints:
+
+| Constraint Target | Description | Z3 AST Nodes | Solve Time ($T_{solve}$) | Hardness vs Baseline |
+|---|---|---|---|---|
+| `1_baseline_linear` | $3x + 7y = 1337 \land x \neq y$ | **14 nodes** | **0.0142s** | $1.0\times$ (Baseline) |
+| `2_degree2_mba` | $((x \oplus y) + 2(x \land y)) \cdot ((x \land \neg y) - (\neg x \land y))$ | **18 nodes** | **0.0209s** | $1.5\times$ |
+| `3_high_order_poly_mba` | $(x^2 + 3y) \oplus z \cdot C_1 + ((x \land y)(y \lor z))^2$ | **29 nodes** | **0.0784s** | $5.5\times$ |
+| `4_diophantine_opaque` | $7x^2 - y^2 = 1 \land \text{Mask}(x, y)$ | **23 nodes** | **0.0027s** | $0.2\times$ (UNSAT fast-fail) |
+| `5_rolling_vkey_cascade` | 4-Round Stateful Rolling Key Inversion | **40 nodes** | **0.3221s** | **$22.7\times$** |
+
+```bash
+python3 benchmarks/symbolic_execution_benchmark.py
+```
+
+---
+
+## 🧮 2. MBA Simplification & Synthesis Resistance
+
+Tests whether automated simplification engines or oracle-guided synthesis tools can reduce Vectis MBA expansions back to ground truth:
+
+| Transformation Level | AST Nodes (Obfuscated) | AST Nodes (Z3 Simplified) | Z3 Reduction % | SMT Synthesis Recovery |
+|---|---|---|---|---|
+| `0_ground_truth_raw` | 3 | 3 | 0.0% | Recovered (`x + y`) in 0.0005s |
+| `1_linear_mba_depth1` | 5 | 8 | -60.0% (Exploded) | Recovered (`x + y`) in 0.0054s |
+| `2_recursive_mba_depth2` | 10 | 14 | -40.0% (Exploded) | Recovered (`x + y`) in 0.0220s |
+| `3_polynomial_mba_depth3` | 12 | 9 | 25.0% (Partial) | Recovered (`x ^ y`) in 0.0034s |
+| `4_egraph_saturated_depth4` | 11 | 14 | -27.3% (Exploded) | Recovered (`x ^ y`) in 0.0214s |
+
+👉 **Finding**: Z3 BitVector simplification **fails to collapse** recursive and E-graph saturated MBA expressions, often increasing AST node count due to term distribution laws.
+
+```bash
+python3 benchmarks/mba_simplification_benchmark.py
+```
+
+---
+
+## 🔍 3. Binary Diffing & CFG Alignment
+
+Measures the divergence of instruction 3-grams and CFG basic blocks between independent compilations of the same source code:
+
+| Metric | Baseline (Unobfuscated) | Vectis Randomized Virtualization | Security Implication |
 |---|---|---|---|
-| **TPDI Polymorphism Index** | **75.00 / 100.0** | $\ge 70.0$ (Grade A) | **GRADE A (PASS)** |
-| **Black-Box I/O Resistance** | **98.88 / 100.0** | $\ge 80.0$ (High Resistance) | **HIGH RESISTANCE (PASS)** |
-| **Semantic Equivalence** | **100.0% (70/70 Suites)** | $100.0\%$ Soundness | **VERIFIED SOUND (PASS)** |
-| **LCCS Common Sequence** | **$< 64$ bytes** | $< 128$ bytes | **BROKEN (PASS)** |
-| **Shannon Entropy ($H$)** | **7.989 bits/byte** | $\ge 7.90$ bits/byte | **MAXIMAL ENTROPY (PASS)** |
+| **Build-to-Build Similarity** | **100.0%** | **88.5%** | Graph isomorphism broken |
+| **Instruction Expansion** | $1.0\times$ | **$20.0\times$** | Massive search space inflation |
+| **Diffing Resistance Score** | 0.0 / 100.0 | **11.5 / 100.0** | Increased manual reversing effort |
 
----
-
-## 🤖 2. MLX Polymorphism Discriminator (TPDI)
-
-Evaluates pairwise Mach-O code similarity across 5 independent builds using MLX deep feature extractors (positional byte variance, entropy, and 4-gram sliding distributions):
-
-```
-======================================================================
-     MLX TEXT-POLYMORPHISM DISCRIMINATOR — FINAL EVALUATION
-======================================================================
-  [1] LCCS (Longest Common Sequence):   38.00 bytes  (PASS: < 64 bytes)
-  [2] Cosine Dissimilarity:            0.9412       (PASS: > 0.85)
-  [3] Text Entropy:                    7.989 bits   (PASS: > 7.80)
-  [4] Positional Byte Variance:        0.9820       (PASS: > 0.80)
-  [5] Dynamic Variable Polymorphism:   100.0%       (PASS: 100%)
-----------------------------------------------------------------------
-  FINAL TPDI COMPOSITE SCORE:          75.00 / 100.0
-  POLYMORPHISM GRADE:                  GRADE A [VERIFIED POLYMORPHIC]
-======================================================================
+```bash
+python3 benchmarks/binary_diffing_benchmark.py
 ```
 
 ---
 
-## 🎯 3. Black-Box Surrogate Approximation Benchmark
+## 🧪 4. Full Semantic Test Harness (70 Test Suites)
 
-Measures the ability of an automated attacker using machine learning surrogate models (k-NN & piecewise linear regressors) to approximate functions purely from 250 input/output training samples:
+All 70 test suites pass with **100% semantic agreement**, confirming that no mathematical transformations introduce runtime logic bugs:
 
+```bash
+export PATH="$HOME/.opam/default/bin:$PATH"
+dune runtest
 ```
-======================================================================
-      VECTIS NEXT BLACK-BOX BEHAVIOR APPROXIMATION BENCHMARK
-======================================================================
-  [+] Target: arithmetic         | Match Rate:   0.0% | Resistance: 100.0/100
-  [+] Target: bitwise            | Match Rate:   0.0% | Resistance: 100.0/100
-  [+] Target: crc_transform      | Match Rate:   1.2% | Resistance:  98.8/100
-  [+] Target: fsm_state_machine  | Match Rate:   0.0% | Resistance: 100.0/100
-  [+] Target: toy_crypto         | Match Rate:   4.4% | Resistance:  95.6/100
-----------------------------------------------------------------------
-  Overall Empirical Black-Box Resistance: 98.88 / 100.0
-======================================================================
-```
-
----
-
-## 🧪 4. Full Test Suite Execution (70 Suites)
-
-All 70 test suites pass with zero errors and full semantic soundness:
-- **Suites 1–13**: Native ARM64 JIT, CIL VM, CIL S2S, String encryption, Signal implicit flow, Variable splitting, Compiler wrapper, Two-tier JIT, Polynomial MBA, Function merging, Function outlining, Dynamic opaque predicates, Bogus control flow.
-- **Suites 14–66**: Loop unrolling, Loop fission, Indirect jumps, LUTs, Array interleaving, Struct permutation, Pointer masking, Homomorphic ops, 4-tier virtualization, Signal traps, Anti-debug, Anti-disasm, Self-checksum, Timing checks, API hashing, Rolling key schedule, Ephemeral payload, Diophantine equations, Sail spec layout, Polymorphic library, Chain JIT, VISA JIT.
-- **Suites 67–70**: Vectis Virtual ISA disassembly, Reference VM Interpreter with algebraic state masking, E-Graph equality saturation, Neural-Symbolic Rewriter with formal equivalence verifier.

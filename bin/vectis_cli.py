@@ -42,9 +42,17 @@ def cmd_verify(args):
     os.system(f"python3 {verifier_script} {target_dir}")
 
 def cmd_benchmark(args):
-    print("[*] Running Vectis Next Black-Box Behavior Benchmark...")
-    bench_script = PROJECT_ROOT / "benchmarks/blackbox_behavior_benchmark.py"
-    os.system(f"python3 {bench_script}")
+    target = getattr(args, "type", "all")
+    if target in ("all", "smt"):
+        print("[*] Running Vectis SMT & Symbolic Execution Hardness Benchmark...")
+        os.system(f"python3 {PROJECT_ROOT / 'benchmarks/symbolic_execution_benchmark.py'}")
+    if target in ("all", "mba"):
+        print("[*] Running Vectis MBA Simplification Benchmark...")
+        os.system(f"python3 {PROJECT_ROOT / 'benchmarks/mba_simplification_benchmark.py'}")
+    if target in ("all", "diff"):
+        print("[*] Running Vectis Binary Diffing & CFG Alignment Benchmark...")
+        os.system(f"python3 {PROJECT_ROOT / 'benchmarks/binary_diffing_benchmark.py'}")
+
 
 def cmd_dataset(args):
     ds_script = PROJECT_ROOT / "tools/neural_dataset_gen.py"
@@ -73,7 +81,9 @@ def main():
     p_verify.add_argument("-d", "--dir", help="Directory containing Sail specs")
 
     # benchmark
-    subparsers.add_parser("benchmark", help="Run black-box approximation benchmark")
+    p_bench = subparsers.add_parser("benchmark", help="Run adversarial deobfuscation benchmarks")
+    p_bench.add_argument("--type", choices=["all", "smt", "mba", "diff"], default="all", help="Benchmark class to execute")
+
 
     # dataset
     p_dataset = subparsers.add_parser("dataset", help="Generate neural training dataset")

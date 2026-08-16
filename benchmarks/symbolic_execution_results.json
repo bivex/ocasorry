@@ -1,0 +1,52 @@
+[
+  {
+    "target": "1_baseline_linear",
+    "num_variables": 2,
+    "ast_nodes": 14,
+    "solve_time_sec": 0.013816541999403853,
+    "status": "SAT",
+    "is_timeout": false,
+    "is_sat": true,
+    "slowdown_vs_baseline": 1.0
+  },
+  {
+    "target": "2_degree2_mba",
+    "num_variables": 2,
+    "ast_nodes": 18,
+    "solve_time_sec": 0.020418874999450054,
+    "status": "UNSAT",
+    "is_timeout": false,
+    "is_sat": false,
+    "slowdown_vs_baseline": 1.5
+  },
+  {
+    "target": "3_high_order_poly_mba",
+    "num_variables": 3,
+    "ast_nodes": 29,
+    "solve_time_sec": 0.07549104099962278,
+    "status": "SAT",
+    "is_timeout": false,
+    "is_sat": true,
+    "slowdown_vs_baseline": 5.5
+  },
+  {
+    "target": "4_diophantine_opaque",
+    "num_variables": 2,
+    "ast_nodes": 23,
+    "solve_time_sec": 0.002718166997510707,
+    "status": "UNSAT",
+    "is_timeout": false,
+    "is_sat": false,
+    "slowdown_vs_baseline": 0.2
+  },
+  {
+    "target": "5_rolling_vkey_cascade",
+    "num_variables": 4,
+    "ast_nodes": 40,
+    "solve_time_sec": 0.32080895800027065,
+    "status": "SAT",
+    "is_timeout": false,
+    "is_sat": true,
+    "slowdown_vs_baseline": 23.2
+  }
+]

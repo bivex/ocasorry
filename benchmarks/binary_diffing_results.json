@@ -1,0 +1,8 @@
+{
+  "baseline_unobfuscated_similarity": 1.0,
+  "vectis_obfuscated_similarity": 0.9305,
+  "code_expansion_factor": 20.47,
+  "diffing_resistance_score": 6.95,
+  "instruction_count_baseline": 32,
+  "instruction_count_obfuscated": 655
+}
