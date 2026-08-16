@@ -12,11 +12,11 @@ open C_visa_spec
     the centralized "star hub" CFG topology and defeating automated graph matching (BinDiff).
 *)
 
-let format_table (name : string) (op : visa_opcodes) (size : int) (trap_str : string) : string =
+let format_table (name : string) (op : visa_opcodes) (size : int) (default_label : string) (trap_str : string) : string =
   Printf.sprintf {|
     /* Decentralized Routing Network: %s */
     static const void * const %s[%d] = {
-        [0 ... %d] = &&__h_default,
+        [0 ... %d] = &&%s,
         [0x%X] = &&__h_vadd, [0x%X] = &&__h_vsub, [0x%X] = &&__h_vmul,
         [0x%X] = &&__h_vxor, [0x%X] = &&__h_vand, [0x%X] = &&__h_vor,
         [0x%X] = &&__h_vli,  [0x%X] = &&__h_vmv,
@@ -31,7 +31,7 @@ let format_table (name : string) (op : visa_opcodes) (size : int) (trap_str : st
         [0x%X] = &&__h_vret, [0x%X] = &&__h_vjit, [0x%X] = &&__h_vjit_alt1,
 %s
     };
-|} name name size (size - 1)
+|} name name size (size - 1) default_label
    op.vadd_vv op.vsub_vv op.vmul_vv op.vxor_vv op.vand_vv op.vor_vv
    op.vli_vi op.vmv_vv
    op.vadd_alt1 op.vadd_alt2 op.vsub_alt1 op.vsub_alt2
@@ -47,12 +47,13 @@ let emit_dispatch_table
     ~(trap_bindings_str : string) : string =
   let size = prof.dispatch_size in
   String.concat "\n" [
-    format_table "__dt_alu"   op size trap_bindings_str;
-    format_table "__dt_mem"   op size trap_bindings_str;
-    format_table "__dt_ctrl"  op size trap_bindings_str;
-    format_table "__dt_shift" op size trap_bindings_str;
-    format_table "__dt_jit"   op size trap_bindings_str;
+    format_table "__dt_alu"   op size "__h_decoy_alu_0" trap_bindings_str;
+    format_table "__dt_mem"   op size "__h_decoy_mem_0" trap_bindings_str;
+    format_table "__dt_ctrl"  op size "__h_decoy_ctrl_0" trap_bindings_str;
+    format_table "__dt_shift" op size "__h_decoy_alu_1" trap_bindings_str;
+    format_table "__dt_jit"   op size "__h_decoy_alu_0" trap_bindings_str;
   ]
+
 
 
 let emit_dispatch_macro

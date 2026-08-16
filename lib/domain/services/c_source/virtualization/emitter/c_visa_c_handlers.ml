@@ -377,6 +377,40 @@ __h_vjit_alt1: {
 }
 
 
+__h_decoy_alu_0: {
+    /* Anti-DSE / Anti-Pushan Honey-Trap Decoy Handler 0 */
+    unsigned long long __da = __VREG_GET(%s) ^ 0x9E3779B97F4A7C15ULL;
+    unsigned long long __db = __VREG_GET(%s) + 0x517CC1B727220A95ULL;
+    __VREG_SET(%s, (__da ^ __db) + ((__da & __db) << 1));
+    %s = ((%s * 0x623d443fbfa30237ULL) ^ 0xA5A5A5A5ULL) * 0x3141592653589793ULL;
+    __VISA_DISPATCH();
+}
+__h_decoy_alu_1: {
+    /* Anti-DSE / Anti-Pushan Honey-Trap Decoy Handler 1 */
+    unsigned long long __da = __VREG_GET(%s) + 0x3141592653589793ULL;
+    unsigned long long __db = __VREG_GET(%s) ^ 0x623d443fbfa30237ULL;
+    __VREG_SET(%s, (__da | __db) - (__da & __db));
+    %s = ((%s * 0x517CC1B727220A95ULL) ^ 0x5A5A5A5AULL) * 0x9E3779B97F4A7C15ULL;
+    __VISA_DISP_SHIFT();
+}
+__h_decoy_mem_0: {
+    /* Anti-DSE / Anti-Pushan Honey-Trap Decoy Handler 2 */
+    volatile unsigned long long __dmem = %s[%s & 0x07];
+    (void)__dmem;
+    %s = ((%s * 0x3141592653589793ULL) ^ 0xC3C3C3C3ULL) * 0x623d443fbfa30237ULL;
+    __VISA_DISP_MEM();
+}
+__h_decoy_ctrl_0: {
+    /* Anti-DSE / Anti-Pushan Honey-Trap Decoy Handler 3 */
+    unsigned long long __arx = (unsigned long long)%s;
+    __arx = ((__arx << 13) | (__arx >> 51)) ^ 0x9E3779B97F4A7C15ULL;
+    if (__VREG_GET(%s) > 0x1000ULL) {
+        %s = (unsigned int)(%s + 1U + ((__arx * (__arx + 1ULL)) & 1ULL));
+    }
+    %s = ((%s * 0x9E3779B97F4A7C15ULL) ^ 0x3C3C3C3CULL) * 0x517CC1B727220A95ULL;
+    __VISA_DISP_CTRL();
+}
+
 __h_default:
     __builtin_trap();
 |}
@@ -424,7 +458,6 @@ __h_default:
   (* vj *)
   vs.ins vs.vma vs.pc vs.vma vs.vma
 
-
   (* vjit *)
   vs.vs1 vs.vs2
   len1 enc_insns1_str key1
@@ -435,5 +468,12 @@ __h_default:
   len2 enc_insns2_str key2
   vs.alloc_fn vs.free_fn
   vs.vd vs.vd k3 k4
+
+  (* Honey-Trap Decoy Handlers (Anti-Pushan) *)
+  vs.vs1 vs.vs2 vs.vd vs.vma vs.vma
+  vs.vs1 vs.vs2 vs.vd vs.vma vs.vma
+  vs.vsd vs.vpd vs.vma vs.vma
+  vs.vma vs.vs1 vs.pc vs.pc vs.vma vs.vma
+
 
 
