@@ -375,6 +375,7 @@ int compute_secret_hash(int a, int b) {
     return z;
 }
 
+__attribute__((annotate("vectis:visa")))
 int main(int argc, char **argv) {
     /* argv[1] = a, argv[2] = b  (for differential fuzzing) */
     int a = (argc > 1) ? atoi(argv[1]) : 42;
@@ -383,6 +384,7 @@ int main(int argc, char **argv) {
     return 0;
 }
 """
+
 
 
 def run_self_verification(samples: int = 5) -> int:

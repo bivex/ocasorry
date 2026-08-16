@@ -94,6 +94,32 @@ let make_var_set () : var_set =
 
 (* ── Public emitters ────────────────────────────────────────────────────────── *)
 
+let rand_prologue_jitter () =
+  let aarch64_insns = [|
+    "nop";
+    "hint #0";
+    "yield";
+    "add sp, sp, #0";
+    "sub sp, sp, #0";
+    "orr x16, x16, x16";
+    "eor x17, x17, xzr";
+  |] in
+  let n = 2 + Random.int 4 in
+  let chosen_aarch64 = List.init n (fun _ -> aarch64_insns.(Random.int (Array.length aarch64_insns))) in
+  let aarch64_str = String.concat "\\n\\t" chosen_aarch64 in
+  let x86_insns = [| "nop"; "pause"; "lea rsp, [rsp+0]"; "mov rax, rax"; "xor r11, 0" |] in
+  let chosen_x86 = List.init n (fun _ -> x86_insns.(Random.int (Array.length x86_insns))) in
+  let x86_str = String.concat "\\n\\t" chosen_x86 in
+  Printf.sprintf {|
+    /* Architectural Prologue Jitter & Diversity Sled */
+    #if defined(__aarch64__) || defined(__arm64__)
+    __asm__ volatile("%s" : : : "memory");
+    #elif defined(__x86_64__)
+    __asm__ volatile("%s" : : : "memory");
+    #endif
+|} aarch64_str x86_str
+
+
 let emit_header
     ~(vs : var_set)
     ~(ret_type_str : string)
@@ -105,6 +131,9 @@ let emit_header
   let w3 = Random.int 256 in
   let dcv = rand_hex4 () in
   let dval = Random.int64 Int64.max_int in
+  let jitter_alloc = rand_prologue_jitter () in
+  let jitter_free  = rand_prologue_jitter () in
+  let jitter_fn    = rand_prologue_jitter () in
   Printf.sprintf {|
 #ifndef _DARWIN_C_SOURCE
 #define _DARWIN_C_SOURCE
@@ -121,6 +150,7 @@ let emit_header
 
 __attribute__((noinline))
 static void *%s(size_t *out_sz, size_t min_sz) {
+%s
     volatile unsigned long long __dcv_%s = 0x%LxULL;
     (void)__dcv_%s;
     size_t page_sz = (size_t)sysconf(_SC_PAGESIZE);
@@ -143,6 +173,7 @@ static void *%s(size_t *out_sz, size_t min_sz) {
 
 __attribute__((noinline))
 static void %s(void *ptr, size_t sz) {
+%s
     if (ptr && ptr != MAP_FAILED) {
 #if defined(__APPLE__) && (defined(__aarch64__) || defined(__arm64__))
         pthread_jit_write_protect_np(0);
@@ -156,8 +187,8 @@ static void %s(void *ptr, size_t sz) {
 
 __attribute__((visibility("default")))
 %s %s(%s) {
-%s|} vs.alloc_fn dcv dval dcv vs.free_fn w1 w2 w3 ret_type_str fn_name fn_params sbox_code
-
+%s
+%s|} vs.alloc_fn jitter_alloc dcv dval dcv vs.free_fn jitter_free w1 w2 w3 ret_type_str fn_name fn_params jitter_fn sbox_code
 
 let emit_vbank
     ~(vs : var_set)
@@ -166,6 +197,9 @@ let emit_vbank
     ~(reg_mask_base : int64)
     ~(reg_mask_step : int64) : string =
   ignore vs;
+  let mult = (Random.int 15) * 2 + 1 in
+  let off  = Random.int vreg_total in
+  let clobber = rand_prologue_jitter () in
   Printf.sprintf {|
     /* Anti-VTIL / Anti-NoVmp: Overlapping Aliased VCPU Register Matrix & Dynamic Register Cycling (Gap 2) */
     union __attribute__((aligned(16))) {
@@ -178,10 +212,12 @@ let emit_vbank
     #define __VREG_SET(r, val) do { __vbank.__q[__VREG_ROT(r)] = ((unsigned long long)(val)) ^ __VREG_MASK(r); } while(0)
 
     for (int __i = 0; __i < %d; __i++) {
-        __vbank.__q[__i] = (0x%LxULL + ((unsigned long long)__i * 0x%LxULL));
+        unsigned int __v_idx = (((unsigned int)__i * %uU) + %uU) %% %uU;
+        __vbank.__q[__v_idx] = (0x%LxULL + ((unsigned long long)__v_idx * 0x%LxULL));
     }
-|} vreg_total vreg_rot_seed reg_mask_base reg_mask_step vreg_total reg_mask_base reg_mask_step
-
+%s
+|} vreg_total vreg_rot_seed reg_mask_base reg_mask_step
+   vreg_total mult off vreg_total reg_mask_base reg_mask_step clobber
 
 
 let emit_shadow_and_cfi
@@ -202,9 +238,9 @@ let emit_shadow_and_cfi
     /* Vector 2: Dual Shadow Stack (%s + %s) with Algebraic Scrambling */
     #define __VSTK_PHYS_D(idx) ((((unsigned int)(idx)) * %uU + %uU) %% %uU)
     #define __VSTK_PHYS_C(idx) ((((unsigned int)(idx)) * %uU + %uU) %% %uU)
-    unsigned long long %s[%d] = {0};
-    unsigned long long %s[%d] = {0};
 
+    unsigned long long %s[%d] = {0};
+    unsigned long long %s[%d] = {0};
     unsigned int %s = 0;
     unsigned int %s = 0;
     unsigned long long %s = 0x%LxULL;
@@ -283,6 +319,7 @@ let emit_epilogue
   let cfi_xor = Int64.logxor reg_mask_step 0xDEADBEEFCAFEBABEL in
   let stepped_magic = Int64.logor (Random.int64 Int64.max_int) 1L in
   let poison_magic  = Int64.logor (Random.int64 Int64.max_int) 1L in
+  let epilogue_jitter = rand_prologue_jitter () in
   Printf.sprintf {|
 __h_vret: ;
     /* Verify Shadow Control Stack CFI Canary with Algebraic Scrambling */
@@ -322,6 +359,7 @@ __h_vret: ;
     volatile unsigned char *__wp_vsc = (volatile unsigned char *)%s;
     for (size_t __i = 0; __i < sizeof(%s); ++__i) __wp_vsc[__i] = 0;
     __asm__ volatile("" : : "r"(__wp_vb), "r"(__wp_vbl), "r"(__wp_vbm), "r"(__wp_vsd), "r"(__wp_vsc) : "memory");
+%s
     return (%s)__res_val;
 }
 #undef __VSTK_PHYS_D
@@ -341,7 +379,9 @@ __h_vret: ;
   vs.vbm vs.vbm
   vs.vsd vs.vsd
   vs.vsc vs.vsc
+  epilogue_jitter
   ret_type_str
+
 
 
 
