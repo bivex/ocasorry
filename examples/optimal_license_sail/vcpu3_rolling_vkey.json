@@ -2,9 +2,9 @@
   "vcpu_tier": 3,
   "vcpu_type": "rolling_vkey",
   "isa_name": "RollingVKey_Stateful_Arch",
-  "vkey_seed": 2780552162,
-  "lcg_multiplier": 21075,
-  "lcg_delta": 2443392215,
+  "vkey_seed": 3885352905,
+  "lcg_multiplier": 14687,
+  "lcg_delta": 3596698363,
   "opcodes": {
     "op_add_imm": 1,
     "op_xor_imm": 2,

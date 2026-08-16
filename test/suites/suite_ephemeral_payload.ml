@@ -2,20 +2,32 @@ open Vectis_lib
 open Helpers
 
 let run () =
-  Printf.printf "\n--- [Suite 44] In-Memory Ephemeral Payload Unpacking Tests ---\n%!";
+  Printf.printf "\n--- [Suite 44] In-Memory Native Ephemeral JIT Compiler Tests ---\n%!";
 
   let c_code = {|
 extern int printf(const char *format, ...);
 
-int calc_ephemeral_func(int x) {
-    int res = x + 100;
-    return res;
+__attribute__((annotate("vectis:ephemeral")))
+int calc_arithmetic_jit(int x) {
+    int a = x * 3;
+    int b = (a ^ 0x5A) + 42;
+    return b;
+}
+
+__attribute__((annotate("vectis:ephemeral")))
+int calc_conditional_jit(int x) {
+    if (x >= 50) {
+        return x * 2;
+    } else {
+        return x + 10;
+    }
 }
 
 int main(int argc, char **argv) {
-    int x = 20;
-    int res = calc_ephemeral_func(x);
-    printf("%d\n", res);
+    int v1 = calc_arithmetic_jit(15);
+    int v2 = calc_conditional_jit(60);
+    int v3 = calc_conditional_jit(20);
+    printf("%d %d %d\n", v1, v2, v3);
     return 0;
 }
 |} in
@@ -46,14 +58,25 @@ int main(int argc, char **argv) {
 
   let compile_cmd = Printf.sprintf "clang -w -O0 %s -o %s" (Filename.quote src_file) (Filename.quote bin_file) in
   let compile_res = Sys.command compile_cmd in
-  assert_bool "Clang compilation of Ephemeral Payload code succeeded" (compile_res = 0);
+  assert_bool "Clang compilation of Native Ephemeral JIT code succeeded" (compile_res = 0);
 
   let run_cmd1 = Printf.sprintf "%s" (Filename.quote bin_file) in
   let ic = Unix.open_process_in run_cmd1 in
   let out = input_line ic in
   ignore (Unix.close_process_in ic);
-  let res_val = int_of_string (String.trim out) in
-  assert_bool "Ephemeral Payload execution produced valid result" (res_val > 0);
+
+  let parts = String.split_on_char ' ' (String.trim out) in
+  let v1 = int_of_string (List.nth parts 0) in
+  let v2 = int_of_string (List.nth parts 1) in
+  let v3 = int_of_string (List.nth parts 2) in
+
+  let expected_v1 = ((15 * 3) lxor 0x5A) + 42 in
+  let expected_v2 = 60 * 2 in
+  let expected_v3 = 20 + 10 in
+
+  assert_bool (Printf.sprintf "Native JIT Arithmetic result: %d == %d" v1 expected_v1) (v1 = expected_v1);
+  assert_bool (Printf.sprintf "Native JIT Conditional result 1: %d == %d" v2 expected_v2) (v2 = expected_v2);
+  assert_bool (Printf.sprintf "Native JIT Conditional result 2: %d == %d" v3 expected_v3) (v3 = expected_v3);
 
   (try Sys.remove src_file with _ -> ());
   (try Sys.remove bin_file with _ -> ())
