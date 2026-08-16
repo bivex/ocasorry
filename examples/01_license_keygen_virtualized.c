@@ -204,104 +204,105 @@ static void __vectis_free_ephemeral_page(void *ptr, size_t sz) {
 }
 
 static unsigned char __packed_inner_bc_vcpu2_nested_matrix_1[12]  = 
-  {      (unsigned char)182,      (unsigned char)229,      (unsigned char)4,      (unsigned char)182, 
-        (unsigned char)87,      (unsigned char)96,      (unsigned char)123,      (unsigned char)159, 
-        (unsigned char)190,      (unsigned char)220,      (unsigned char)120,      (unsigned char)27};
-static unsigned char __packed_outer_bc_vcpu2_nested_matrix_1[5]  = {      (unsigned char)222,      (unsigned char)86,      (unsigned char)129,      (unsigned char)171, 
-        (unsigned char)141};
-static unsigned int __visa_program_vcpu1_vector_parity_1[34]  = 
-  {      825024037U,      1545659030U,      2536724419U,      163683884U, 
-        1758974745U,      2077012426U,      1572394433U,      1353844402U, 
-        3779724703U,      2757430216U,      722740149U,      744584550U, 
-        2529494429U,      1556090318U,      1674895803U,      988467300U, 
-        2244773713U,      1022592514U,      1669973231U,      2774180842U, 
-        3100986455U,      593502720U,      3825938797U,      1191804126U, 
-        1109373323U,      791843444U,      4076388339U,      4119787356U, 
-        1350845833U,      3417030394U,      2493872935U,      3250138000U, 
-        2656043261U,      1511525624U};
+  {      (unsigned char)244,      (unsigned char)245,      (unsigned char)20,      (unsigned char)192, 
+        (unsigned char)71,      (unsigned char)112,      (unsigned char)15,      (unsigned char)175, 
+        (unsigned char)206,      (unsigned char)236,      (unsigned char)99,      (unsigned char)43};
+static unsigned char __packed_outer_bc_vcpu2_nested_matrix_1[5]  = {      (unsigned char)50,      (unsigned char)172,      (unsigned char)77,      (unsigned char)166, 
+        (unsigned char)172};
+static unsigned int __visa_program_vcpu1_vector_parity_1[40]  = 
+  {      2767065979U,      3124762184U,      2631164673U,      2955695838U, 
+        1535511215U,      2693278308U,      3590513597U,      127075186U, 
+        418266955U,      1935681408U,      278577113U,      1767674798U, 
+        3125215207U,      3975724860U,      181569165U,      111439818U, 
+        3717107971U,      4223681744U,      2431285545U,      2229040870U, 
+        1607877303U,      1889038092U,      3887203525U,      757447578U, 
+        1696488531U,      2852135464U,      2780443769U,      4043066550U, 
+        4061533327U,      946367324U,      4281492245U,      974407378U, 
+        1623077539U,      2992737528U,      4125774129U,      2035047814U, 
+        2530635231U,      882387860U,      3757192933U,      909397282U};
 static int __visa_engine_ready ;
 static char volatile   __enc_lit_1[56]  = 
-  {      188,      202,      186,      199, 
-        174,      137,      145,      134, 
-        139,      142,      131,      199, 
-        140,      130,      158,      199, 
-        129,      136,      149,      138, 
-        134,      147,      221,      199, 
-        170,      146,      148,      147, 
-        199,      133,      130,      199, 
-        130,      159,      134,      132, 
-        147,      139,      158,      199, 
-        214,      209,      199,      132, 
-        143,      134,      149,      134, 
-        132,      147,      130,      149, 
-        148,      201,      237,      231};
+  {      194,      180,      196,      185, 
+        208,      247,      239,      248, 
+        245,      240,      253,      185, 
+        242,      252,      224,      185, 
+        255,      246,      235,      244, 
+        248,      237,      163,      185, 
+        212,      236,      234,      237, 
+        185,      251,      252,      185, 
+        252,      225,      248,      250, 
+        237,      245,      224,      185, 
+        168,      175,      185,      250, 
+        241,      248,      235,      248, 
+        250,      237,      252,      235, 
+        234,      183,      147,      153};
 static char volatile   __dec_lit_1[56]  ;
 static int volatile   __init_lit_1  =    0;
 static char volatile   __enc_lit_2[56]  = 
-  {      70,      48,      64,      61, 
-        84,      115,      107,      124, 
-        113,      116,      121,      61, 
-        118,      120,      100,      61, 
-        123,      114,      111,      112, 
-        124,      105,      39,      61, 
-        80,      104,      110,      105, 
-        61,      127,      120,      61, 
-        120,      101,      124,      126, 
-        105,      113,      100,      61, 
-        44,      43,      61,      126, 
-        117,      124,      111,      124, 
-        126,      105,      120,      111, 
-        110,      51,      23,      29};
+  {      174,      216,      168,      213, 
+        188,      155,      131,      148, 
+        153,      156,      145,      213, 
+        158,      144,      140,      213, 
+        147,      154,      135,      152, 
+        148,      129,      207,      213, 
+        184,      128,      134,      129, 
+        213,      151,      144,      213, 
+        144,      141,      148,      150, 
+        129,      153,      140,      213, 
+        196,      195,      213,      150, 
+        157,      148,      135,      148, 
+        150,      129,      144,      135, 
+        134,      219,      255,      245};
 static char volatile   __dec_lit_2[56]  ;
 static int volatile   __init_lit_2  =    0;
 static char volatile   __enc_lit_3[77]  = 
-  {      215,      167,      209,      172, 
-        223,      217,      207,      207, 
-        201,      223,      223,      182, 
-        172,      192,      229,      239, 
-        233,      226,      255,      233, 
-        172,      231,      233,      245, 
-        172,      229,      255,      172, 
-        218,      205,      192,      197, 
-        200,      173,      172,      184, 
-        161,      218,      207,      220, 
-        217,      172,      202,      233, 
-        232,      233,      254,      237, 
-        248,      233,      232,      172, 
-        205,      249,      248,      228, 
-        227,      254,      229,      246, 
-        237,      248,      229,      227, 
-        226,      172,      217,      226, 
-        224,      227,      239,      231, 
-        233,      232,      162,      134, 
-        140};
+  {      158,      238,      152,      229, 
+        150,      144,      134,      134, 
+        128,      150,      150,      255, 
+        229,      137,      172,      166, 
+        160,      171,      182,      160, 
+        229,      174,      160,      188, 
+        229,      172,      182,      229, 
+        147,      132,      137,      140, 
+        129,      228,      229,      241, 
+        232,      147,      134,      149, 
+        144,      229,      131,      160, 
+        161,      160,      183,      164, 
+        177,      160,      161,      229, 
+        132,      176,      177,      173, 
+        170,      183,      172,      191, 
+        164,      177,      172,      170, 
+        171,      229,      144,      171, 
+        169,      170,      166,      174, 
+        160,      161,      235,      207, 
+        197};
 static char volatile   __dec_lit_3[77]  ;
 static int volatile   __init_lit_3  =    0;
 static char volatile   __enc_lit_4[59]  = 
-  {      43,      93,      45,      80, 
-        54,      49,      57,      60, 
-        53,      52,      74,      80, 
-        57,      30,      6,      17, 
-        28,      25,      20,      80, 
-        28,      25,      19,      21, 
-        30,      3,      21,      80, 
-        27,      21,      9,      81, 
-        80,      68,      93,      38, 
-        51,      32,      37,      80, 
-        51,      17,      3,      19, 
-        17,      20,      21,      80, 
-        34,      21,      26,      21, 
-        19,      4,      21,      20, 
-        94,      122,      112};
+  {      108,      26,      106,      23, 
+        113,      118,      126,      123, 
+        114,      115,      13,      23, 
+        126,      89,      65,      86, 
+        91,      94,      83,      23, 
+        91,      94,      84,      82, 
+        89,      68,      82,      23, 
+        92,      82,      78,      22, 
+        23,      3,      26,      97, 
+        116,      103,      98,      23, 
+        116,      86,      68,      84, 
+        86,      83,      82,      23, 
+        101,      82,      93,      82, 
+        84,      67,      82,      83, 
+        25,      61,      55};
 static char volatile   __dec_lit_4[59]  ;
 static int volatile   __init_lit_4  =    0;
 static char volatile   __enc_lit_5[23]  = 
-  {      142,      255,      136,      245, 
-        131,      176,      167,      188, 
-        179,      172,      188,      187, 
-        178,      245,      158,      176, 
-        172,      239,      245,      240, 
-        166,      223,      213};
+  {      246,      135,      240,      141, 
+        251,      200,      223,      196, 
+        203,      212,      196,      195, 
+        202,      141,      230,      200, 
+        212,      151,      141,      136, 
+        222,      167,      173};
 static char volatile   __dec_lit_5[23]  ;
 static int volatile   __init_lit_5  =    0;
 extern int printf(char const   *format  , ...) ;
@@ -394,13 +395,13 @@ static const unsigned char __vm_sbox_7[256] = {
         unsigned char __b[1024];
         unsigned long long __q[128];
     } __vbank;
-    #define __VREG_ROT(r) (((unsigned int)(r) + 36U) & 0x3FU)
-    #define __VREG_MASK(r) (0x1f856e425ef1ULL + ((unsigned long long)__VREG_ROT(r) * 0x517cc1b727220a95ULL))
+    #define __VREG_ROT(r) (((unsigned int)(r) + 53U) & 0x3FU)
+    #define __VREG_MASK(r) (0x4c212cd1eac9ULL + ((unsigned long long)__VREG_ROT(r) * 0x517cc1b727220a95ULL))
     #define __VREG_GET(r) (__vbank.__q[__VREG_ROT(r)] ^ __VREG_MASK(r))
     #define __VREG_SET(r, val) do { __vbank.__q[__VREG_ROT(r)] = ((unsigned long long)(val)) ^ __VREG_MASK(r); } while(0)
 
     for (int __i = 0; __i < 128; __i++) {
-        __vbank.__q[__i] = (0x1f856e425ef1ULL + ((unsigned long long)__i * 0x517cc1b727220a95ULL));
+        __vbank.__q[__i] = (0x4c212cd1eac9ULL + ((unsigned long long)__i * 0x517cc1b727220a95ULL));
     }
 
     /* Vector 2: Dual Shadow Stack (__vsd_7fd47f60 + __vsc_fac54b70) */
@@ -425,21 +426,21 @@ static const unsigned char __vm_sbox_7[256] = {
     #endif
 
     /* Vector 8: Ephemeral Self-Scrubbing Bytecode Scratchpad & Metamorphic Mutation Array */
-    unsigned int __vbl_f356cb0b[34];
+    unsigned int __vbl_f356cb0b[40];
     memcpy(__vbl_f356cb0b, __visa_program_vcpu1_vector_parity_1, sizeof(__vbl_f356cb0b));
-    unsigned int __vbm_26167038[34] = {0};
+    unsigned int __vbm_26167038[40] = {0};
 
     const unsigned long long __fae_0d42f3aa =
         (unsigned long long)(uintptr_t)(license_key != 0 ? (const void *)license_key : (const void *)&__vbl_f356cb0b);
     const unsigned long long __vbc_hash_0 = __vbl_f356cb0b[0] ^ (unsigned long long)__vbl_f356cb0b[1];
     const unsigned long long __cfi_732813ed =
-        0x1f856e425ef1ULL
+        0x4c212cd1eac9ULL
         ^ (__fae_0d42f3aa * 0x623d443fbfa30237ULL)
         ^ (__vbc_hash_0 * 0x4abcd253149dc8cdULL);
 
     __vsc_fac54b70[__vpc_7b9f8c0b++] = __cfi_732813ed ^ 0x8fd17f58eddcb02bULL;
 
-    __VREG_SET(7, (unsigned long long)(uintptr_t)license_key);
+    __VREG_SET(6, (unsigned long long)(uintptr_t)license_key);
     unsigned int __pc_0133638f = 0;
     unsigned int __rw_f79ef390, __ky_1dde3824, __in_7e650c5c;
     unsigned char __f6_c6560093, __vm_17b7379c, __vs2_916352e8, __vs1_04f93f62, __f3_92397de1, __vd_5e9f2301;
@@ -447,18 +448,18 @@ static const unsigned char __vm_sbox_7[256] = {
     /* Decentralized Routing Network: __dt_alu */
     static const void * const __dt_alu[256] = {
         [0 ... 255] = &&__h_default,
-        [0x2A] = &&__h_vadd, [0x18] = &&__h_vsub, [0x10] = &&__h_vmul,
-        [0x28] = &&__h_vxor, [0x12] = &&__h_vand, [0x25] = &&__h_vor,
-        [0x2C] = &&__h_vli,  [0x3A] = &&__h_vmv,
-        [0xF] = &&__h_vadd_alt1, [0x11] = &&__h_vadd_alt2,
-        [0x1B] = &&__h_vsub_alt1, [0x21] = &&__h_vsub_alt2,
-        [0x7] = &&__h_vxor_alt1, [0x3B] = &&__h_vxor_alt2,
-        [0x31] = &&__h_vand_alt1, [0x8] = &&__h_vor_alt1,
-        [0x2D] = &&__h_vmul_alt1, [0x1C] = &&__h_vmv_alt1, [0x2B] = &&__h_vli_alt1,
-        [0x15] = &&__h_vsll, [0x20] = &&__h_vsrl,
-        [0x0] = &&__h_vle8, [0x29] = &&__h_vse8,
-        [0x2F] = &&__h_vbge, [0xA] = &&__h_vj,
-        [0x36] = &&__h_vret, [0x37] = &&__h_vjit, [0x5] = &&__h_vjit_alt1,
+        [0x36] = &&__h_vadd, [0x37] = &&__h_vsub, [0xF] = &&__h_vmul,
+        [0x39] = &&__h_vxor, [0x1E] = &&__h_vand, [0x16] = &&__h_vor,
+        [0xD] = &&__h_vli,  [0x3C] = &&__h_vmv,
+        [0x2C] = &&__h_vadd_alt1, [0x11] = &&__h_vadd_alt2,
+        [0x23] = &&__h_vsub_alt1, [0xB] = &&__h_vsub_alt2,
+        [0x3D] = &&__h_vxor_alt1, [0x20] = &&__h_vxor_alt2,
+        [0x1D] = &&__h_vand_alt1, [0x15] = &&__h_vor_alt1,
+        [0x2D] = &&__h_vmul_alt1, [0x4] = &&__h_vmv_alt1, [0x22] = &&__h_vli_alt1,
+        [0x31] = &&__h_vsll, [0x2] = &&__h_vsrl,
+        [0x2A] = &&__h_vle8, [0x30] = &&__h_vse8,
+        [0x1C] = &&__h_vbge, [0x8] = &&__h_vj,
+        [0x2B] = &&__h_vret, [0x7] = &&__h_vjit, [0x6] = &&__h_vjit_alt1,
         [0x40] = &&__h_trap_64,
         [0x41] = &&__h_trap_65,
         [0x42] = &&__h_trap_66,
@@ -657,18 +658,18 @@ static const unsigned char __vm_sbox_7[256] = {
     /* Decentralized Routing Network: __dt_mem */
     static const void * const __dt_mem[256] = {
         [0 ... 255] = &&__h_default,
-        [0x2A] = &&__h_vadd, [0x18] = &&__h_vsub, [0x10] = &&__h_vmul,
-        [0x28] = &&__h_vxor, [0x12] = &&__h_vand, [0x25] = &&__h_vor,
-        [0x2C] = &&__h_vli,  [0x3A] = &&__h_vmv,
-        [0xF] = &&__h_vadd_alt1, [0x11] = &&__h_vadd_alt2,
-        [0x1B] = &&__h_vsub_alt1, [0x21] = &&__h_vsub_alt2,
-        [0x7] = &&__h_vxor_alt1, [0x3B] = &&__h_vxor_alt2,
-        [0x31] = &&__h_vand_alt1, [0x8] = &&__h_vor_alt1,
-        [0x2D] = &&__h_vmul_alt1, [0x1C] = &&__h_vmv_alt1, [0x2B] = &&__h_vli_alt1,
-        [0x15] = &&__h_vsll, [0x20] = &&__h_vsrl,
-        [0x0] = &&__h_vle8, [0x29] = &&__h_vse8,
-        [0x2F] = &&__h_vbge, [0xA] = &&__h_vj,
-        [0x36] = &&__h_vret, [0x37] = &&__h_vjit, [0x5] = &&__h_vjit_alt1,
+        [0x36] = &&__h_vadd, [0x37] = &&__h_vsub, [0xF] = &&__h_vmul,
+        [0x39] = &&__h_vxor, [0x1E] = &&__h_vand, [0x16] = &&__h_vor,
+        [0xD] = &&__h_vli,  [0x3C] = &&__h_vmv,
+        [0x2C] = &&__h_vadd_alt1, [0x11] = &&__h_vadd_alt2,
+        [0x23] = &&__h_vsub_alt1, [0xB] = &&__h_vsub_alt2,
+        [0x3D] = &&__h_vxor_alt1, [0x20] = &&__h_vxor_alt2,
+        [0x1D] = &&__h_vand_alt1, [0x15] = &&__h_vor_alt1,
+        [0x2D] = &&__h_vmul_alt1, [0x4] = &&__h_vmv_alt1, [0x22] = &&__h_vli_alt1,
+        [0x31] = &&__h_vsll, [0x2] = &&__h_vsrl,
+        [0x2A] = &&__h_vle8, [0x30] = &&__h_vse8,
+        [0x1C] = &&__h_vbge, [0x8] = &&__h_vj,
+        [0x2B] = &&__h_vret, [0x7] = &&__h_vjit, [0x6] = &&__h_vjit_alt1,
         [0x40] = &&__h_trap_64,
         [0x41] = &&__h_trap_65,
         [0x42] = &&__h_trap_66,
@@ -867,18 +868,18 @@ static const unsigned char __vm_sbox_7[256] = {
     /* Decentralized Routing Network: __dt_ctrl */
     static const void * const __dt_ctrl[256] = {
         [0 ... 255] = &&__h_default,
-        [0x2A] = &&__h_vadd, [0x18] = &&__h_vsub, [0x10] = &&__h_vmul,
-        [0x28] = &&__h_vxor, [0x12] = &&__h_vand, [0x25] = &&__h_vor,
-        [0x2C] = &&__h_vli,  [0x3A] = &&__h_vmv,
-        [0xF] = &&__h_vadd_alt1, [0x11] = &&__h_vadd_alt2,
-        [0x1B] = &&__h_vsub_alt1, [0x21] = &&__h_vsub_alt2,
-        [0x7] = &&__h_vxor_alt1, [0x3B] = &&__h_vxor_alt2,
-        [0x31] = &&__h_vand_alt1, [0x8] = &&__h_vor_alt1,
-        [0x2D] = &&__h_vmul_alt1, [0x1C] = &&__h_vmv_alt1, [0x2B] = &&__h_vli_alt1,
-        [0x15] = &&__h_vsll, [0x20] = &&__h_vsrl,
-        [0x0] = &&__h_vle8, [0x29] = &&__h_vse8,
-        [0x2F] = &&__h_vbge, [0xA] = &&__h_vj,
-        [0x36] = &&__h_vret, [0x37] = &&__h_vjit, [0x5] = &&__h_vjit_alt1,
+        [0x36] = &&__h_vadd, [0x37] = &&__h_vsub, [0xF] = &&__h_vmul,
+        [0x39] = &&__h_vxor, [0x1E] = &&__h_vand, [0x16] = &&__h_vor,
+        [0xD] = &&__h_vli,  [0x3C] = &&__h_vmv,
+        [0x2C] = &&__h_vadd_alt1, [0x11] = &&__h_vadd_alt2,
+        [0x23] = &&__h_vsub_alt1, [0xB] = &&__h_vsub_alt2,
+        [0x3D] = &&__h_vxor_alt1, [0x20] = &&__h_vxor_alt2,
+        [0x1D] = &&__h_vand_alt1, [0x15] = &&__h_vor_alt1,
+        [0x2D] = &&__h_vmul_alt1, [0x4] = &&__h_vmv_alt1, [0x22] = &&__h_vli_alt1,
+        [0x31] = &&__h_vsll, [0x2] = &&__h_vsrl,
+        [0x2A] = &&__h_vle8, [0x30] = &&__h_vse8,
+        [0x1C] = &&__h_vbge, [0x8] = &&__h_vj,
+        [0x2B] = &&__h_vret, [0x7] = &&__h_vjit, [0x6] = &&__h_vjit_alt1,
         [0x40] = &&__h_trap_64,
         [0x41] = &&__h_trap_65,
         [0x42] = &&__h_trap_66,
@@ -1077,18 +1078,18 @@ static const unsigned char __vm_sbox_7[256] = {
     /* Decentralized Routing Network: __dt_shift */
     static const void * const __dt_shift[256] = {
         [0 ... 255] = &&__h_default,
-        [0x2A] = &&__h_vadd, [0x18] = &&__h_vsub, [0x10] = &&__h_vmul,
-        [0x28] = &&__h_vxor, [0x12] = &&__h_vand, [0x25] = &&__h_vor,
-        [0x2C] = &&__h_vli,  [0x3A] = &&__h_vmv,
-        [0xF] = &&__h_vadd_alt1, [0x11] = &&__h_vadd_alt2,
-        [0x1B] = &&__h_vsub_alt1, [0x21] = &&__h_vsub_alt2,
-        [0x7] = &&__h_vxor_alt1, [0x3B] = &&__h_vxor_alt2,
-        [0x31] = &&__h_vand_alt1, [0x8] = &&__h_vor_alt1,
-        [0x2D] = &&__h_vmul_alt1, [0x1C] = &&__h_vmv_alt1, [0x2B] = &&__h_vli_alt1,
-        [0x15] = &&__h_vsll, [0x20] = &&__h_vsrl,
-        [0x0] = &&__h_vle8, [0x29] = &&__h_vse8,
-        [0x2F] = &&__h_vbge, [0xA] = &&__h_vj,
-        [0x36] = &&__h_vret, [0x37] = &&__h_vjit, [0x5] = &&__h_vjit_alt1,
+        [0x36] = &&__h_vadd, [0x37] = &&__h_vsub, [0xF] = &&__h_vmul,
+        [0x39] = &&__h_vxor, [0x1E] = &&__h_vand, [0x16] = &&__h_vor,
+        [0xD] = &&__h_vli,  [0x3C] = &&__h_vmv,
+        [0x2C] = &&__h_vadd_alt1, [0x11] = &&__h_vadd_alt2,
+        [0x23] = &&__h_vsub_alt1, [0xB] = &&__h_vsub_alt2,
+        [0x3D] = &&__h_vxor_alt1, [0x20] = &&__h_vxor_alt2,
+        [0x1D] = &&__h_vand_alt1, [0x15] = &&__h_vor_alt1,
+        [0x2D] = &&__h_vmul_alt1, [0x4] = &&__h_vmv_alt1, [0x22] = &&__h_vli_alt1,
+        [0x31] = &&__h_vsll, [0x2] = &&__h_vsrl,
+        [0x2A] = &&__h_vle8, [0x30] = &&__h_vse8,
+        [0x1C] = &&__h_vbge, [0x8] = &&__h_vj,
+        [0x2B] = &&__h_vret, [0x7] = &&__h_vjit, [0x6] = &&__h_vjit_alt1,
         [0x40] = &&__h_trap_64,
         [0x41] = &&__h_trap_65,
         [0x42] = &&__h_trap_66,
@@ -1287,18 +1288,18 @@ static const unsigned char __vm_sbox_7[256] = {
     /* Decentralized Routing Network: __dt_jit */
     static const void * const __dt_jit[256] = {
         [0 ... 255] = &&__h_default,
-        [0x2A] = &&__h_vadd, [0x18] = &&__h_vsub, [0x10] = &&__h_vmul,
-        [0x28] = &&__h_vxor, [0x12] = &&__h_vand, [0x25] = &&__h_vor,
-        [0x2C] = &&__h_vli,  [0x3A] = &&__h_vmv,
-        [0xF] = &&__h_vadd_alt1, [0x11] = &&__h_vadd_alt2,
-        [0x1B] = &&__h_vsub_alt1, [0x21] = &&__h_vsub_alt2,
-        [0x7] = &&__h_vxor_alt1, [0x3B] = &&__h_vxor_alt2,
-        [0x31] = &&__h_vand_alt1, [0x8] = &&__h_vor_alt1,
-        [0x2D] = &&__h_vmul_alt1, [0x1C] = &&__h_vmv_alt1, [0x2B] = &&__h_vli_alt1,
-        [0x15] = &&__h_vsll, [0x20] = &&__h_vsrl,
-        [0x0] = &&__h_vle8, [0x29] = &&__h_vse8,
-        [0x2F] = &&__h_vbge, [0xA] = &&__h_vj,
-        [0x36] = &&__h_vret, [0x37] = &&__h_vjit, [0x5] = &&__h_vjit_alt1,
+        [0x36] = &&__h_vadd, [0x37] = &&__h_vsub, [0xF] = &&__h_vmul,
+        [0x39] = &&__h_vxor, [0x1E] = &&__h_vand, [0x16] = &&__h_vor,
+        [0xD] = &&__h_vli,  [0x3C] = &&__h_vmv,
+        [0x2C] = &&__h_vadd_alt1, [0x11] = &&__h_vadd_alt2,
+        [0x23] = &&__h_vsub_alt1, [0xB] = &&__h_vsub_alt2,
+        [0x3D] = &&__h_vxor_alt1, [0x20] = &&__h_vxor_alt2,
+        [0x1D] = &&__h_vand_alt1, [0x15] = &&__h_vor_alt1,
+        [0x2D] = &&__h_vmul_alt1, [0x4] = &&__h_vmv_alt1, [0x22] = &&__h_vli_alt1,
+        [0x31] = &&__h_vsll, [0x2] = &&__h_vsrl,
+        [0x2A] = &&__h_vle8, [0x30] = &&__h_vse8,
+        [0x1C] = &&__h_vbge, [0x8] = &&__h_vj,
+        [0x2B] = &&__h_vret, [0x7] = &&__h_vjit, [0x6] = &&__h_vjit_alt1,
         [0x40] = &&__h_trap_64,
         [0x41] = &&__h_trap_65,
         [0x42] = &&__h_trap_66,
@@ -1494,21 +1495,21 @@ static const unsigned char __vm_sbox_7[256] = {
     };
 
     #define __VISA_STEP_CORE() do { \
-        if (__pc_0133638f >= 34) goto __h_vret; \
-        unsigned int __slot = ((__pc_0133638f * 41U) + 12U) % 34U; \
+        if (__pc_0133638f >= 40) goto __h_vret; \
+        unsigned int __slot = ((__pc_0133638f * 37U) + 7U) % 40U; \
         __rw_f79ef390 = __vbl_f356cb0b[__slot]; \
-        __ky_1dde3824 = 0x27D49E08U ^ (__pc_0133638f * 0x329C10F7U) ^ __vbm_26167038[__slot]; \
+        __ky_1dde3824 = 0x30BB78D4U ^ (__pc_0133638f * 0x5F7DFF5DU) ^ __vbm_26167038[__slot]; \
         __in_7e650c5c = __rw_f79ef390 ^ __ky_1dde3824; \
         /* Dynamic In-Place Bytecode Metamorphic Scrambler (Gap 1): */ \
         unsigned int __vbd = (__slot + __pc_0133638f + 1U) * 0x9E3779B9U; \
         __vbm_26167038[__slot] ^= __vbd; \
         __vbl_f356cb0b[__slot] ^= __vbd; \
         __f6_c6560093 = (unsigned char)((__in_7e650c5c >> 26) & 0x3F); \
-        __vm_17b7379c = (unsigned char)((__in_7e650c5c >> 25) & 0x01); \
+        __vm_17b7379c = (unsigned char)((__in_7e650c5c >> 20) & 0x01); \
         __vs2_916352e8 = (unsigned char)((__in_7e650c5c >> 7) & 0x1F); \
-        __vs1_04f93f62 = (unsigned char)((__in_7e650c5c >> 12) & 0x1F); \
-        __f3_92397de1 = (unsigned char)((__in_7e650c5c >> 22) & 0x07); \
-        __vd_5e9f2301 = (unsigned char)((__in_7e650c5c >> 17)  & 0x1F); \
+        __vs1_04f93f62 = (unsigned char)((__in_7e650c5c >> 21) & 0x1F); \
+        __f3_92397de1 = (unsigned char)((__in_7e650c5c >> 17) & 0x07); \
+        __vd_5e9f2301 = (unsigned char)((__in_7e650c5c >> 12)  & 0x1F); \
         /* Anti-Pushan: Non-linear Quadratic VPC Stepper */ \
         __pc_0133638f = (__pc_0133638f + 1U) + (unsigned int)((__vma_b39d0ad4 * (__vma_b39d0ad4 + 1ULL)) & 1ULL); \
         __vma_b39d0ad4 = ((__vma_b39d0ad4 * 0x623d443fbfa30237ULL) ^ (__vd_5e9f2301 + __f6_c6560093 + ((unsigned long long)__pc_0133638f * 0x9E3779B9ULL))) * 0x517CC1B727220A95ULL; \
@@ -4355,7 +4356,7 @@ __h_vse8:
     }
     __VISA_DISP_MEM();
 __h_vbge: {
-    unsigned int __branch_target = (__in_7e650c5c >> 17) & 0xFFU;
+    unsigned int __branch_target = (__in_7e650c5c >> 12) & 0xFFU;
 
     /* Anti-Concolic Cryptographic ARX Path Trap (Vector 5) & DynOpVm CFG Edge Keying */
     unsigned long long __arx_v = (unsigned long long)__vma_b39d0ad4;
@@ -4503,7 +4504,7 @@ __h_vret: ;
     if (((__vma_b39d0ad4 * (__vma_b39d0ad4 + 1ULL)) & 1ULL) != 0ULL) {
         __builtin_trap();
     }
-    unsigned long long __res_val = (__VREG_GET(3) ^ (__stepped * 0x5bdb6c2fd5330917ULL)) ^ ((__vma_b39d0ad4 * (__vma_b39d0ad4 + 1ULL)) & 1ULL);
+    unsigned long long __res_val = (__VREG_GET(2) ^ (__stepped * 0x5bdb6c2fd5330917ULL)) ^ ((__vma_b39d0ad4 * (__vma_b39d0ad4 + 1ULL)) & 1ULL);
 
     /* Volatile Scrubbing with Compiler Memory Barriers (Prevents Clang -O2/-O3 DSE) */
     volatile unsigned char *__wp_vb = (volatile unsigned char *)&__vbank;
@@ -4525,7 +4526,7 @@ __h_vret: ;
 #undef __VREG_SET
 #undef __VISA_DISPATCH
 
-int __attribute__((__annotate__("vectis:nested_vm")))  _lI_0__O01O1Il_1__1(int _l__11I0O____O1O_2 ) 
+int __attribute__((__annotate__("vectis:nested_vm")))  _lIO1_IIlll_l_1(int _l_I0_0O____2 ) 
 { 
   int __outer_pc ;
   int __outer_running ;
@@ -4547,7 +4548,7 @@ int __attribute__((__annotate__("vectis:nested_vm")))  _lI_0__O01O1Il_1__1(int _
 
   {
   __t_start = __vectis_get_timestamp();
-  __desync_guard = 62924;
+  __desync_guard = 45381;
   {
   if ((__desync_guard & ~ __desync_guard) != 0) {
     return (0);
@@ -4556,34 +4557,34 @@ int __attribute__((__annotate__("vectis:nested_vm")))  _lI_0__O01O1Il_1__1(int _
   __vectis_enforce_anti_debug();
   __outer_pc = 0;
   __outer_running = 1;
-  __inner_key = 198;
+  __inner_key = 214;
   __nested_vm_result = 0;
   while (1) {
-    __outer_op = (int )__packed_outer_bc_vcpu2_nested_matrix_1[__outer_pc] ^ ((129 + __outer_pc * 17) & 255);
+    __outer_op = (int )__packed_outer_bc_vcpu2_nested_matrix_1[__outer_pc] ^ ((134 + __outer_pc * 17) & 255);
     __outer_pc ++;
     switch (__outer_op) {
-    case 95: 
+    case 180: 
     {
     __inner_pc = 0;
     __inner_running = 1;
     break;
     }
-    case 196: 
+    case 59: 
     {
     while (1) {
       __inner_op = (int )__packed_inner_bc_vcpu2_nested_matrix_1[__inner_pc] ^ ((__inner_key + __inner_pc * 31) & 255);
       __inner_pc ++;
       switch (__inner_op) {
-      case 112: 
+      case 34: 
       {
       __r_arg = (int )__packed_inner_bc_vcpu2_nested_matrix_1[__inner_pc] ^ ((__inner_key + __inner_pc * 31) & 255);
       __inner_pc ++;
       __r_dst = (int )__packed_inner_bc_vcpu2_nested_matrix_1[__inner_pc] ^ ((__inner_key + __inner_pc * 31) & 255);
       __inner_pc ++;
-      __inner_vregs[__r_dst] = _l__11I0O____O1O_2;
+      __inner_vregs[__r_dst] = _l_I0_0O____2;
       break;
       }
-      case 149: 
+      case 243: 
       {
       __r_imm = (int )__packed_inner_bc_vcpu2_nested_matrix_1[__inner_pc] ^ ((__inner_key + __inner_pc * 31) & 255);
       __inner_pc ++;
@@ -4592,7 +4593,7 @@ int __attribute__((__annotate__("vectis:nested_vm")))  _lI_0__O01O1Il_1__1(int _
       __inner_vregs[__r_dst] = __r_imm;
       break;
       }
-      case 251: 
+      case 159: 
       {
       __r_dst = (int )__packed_inner_bc_vcpu2_nested_matrix_1[__inner_pc] ^ ((__inner_key + __inner_pc * 31) & 255);
       __inner_pc ++;
@@ -4603,7 +4604,7 @@ int __attribute__((__annotate__("vectis:nested_vm")))  _lI_0__O01O1Il_1__1(int _
       __inner_vregs[__r_dst] = __inner_vregs[__r_s1] + __inner_vregs[__r_s2];
       break;
       }
-      case 111: 
+      case 172: 
       {
       __r_dst = (int )__packed_inner_bc_vcpu2_nested_matrix_1[__inner_pc] ^ ((__inner_key + __inner_pc * 31) & 255);
       __inner_pc ++;
@@ -4614,7 +4615,7 @@ int __attribute__((__annotate__("vectis:nested_vm")))  _lI_0__O01O1Il_1__1(int _
       __inner_vregs[__r_dst] = __inner_vregs[__r_s1] - __inner_vregs[__r_s2];
       break;
       }
-      case 143: 
+      case 197: 
       {
       __r_dst = (int )__packed_inner_bc_vcpu2_nested_matrix_1[__inner_pc] ^ ((__inner_key + __inner_pc * 31) & 255);
       __inner_pc ++;
@@ -4625,7 +4626,7 @@ int __attribute__((__annotate__("vectis:nested_vm")))  _lI_0__O01O1Il_1__1(int _
       __inner_vregs[__r_dst] = __inner_vregs[__r_s1] ^ __inner_vregs[__r_s2];
       break;
       }
-      case 10: 
+      case 128: 
       {
       __r_dst = (int )__packed_inner_bc_vcpu2_nested_matrix_1[__inner_pc] ^ ((__inner_key + __inner_pc * 31) & 255);
       __inner_pc ++;
@@ -4636,7 +4637,7 @@ int __attribute__((__annotate__("vectis:nested_vm")))  _lI_0__O01O1Il_1__1(int _
       __inner_vregs[__r_dst] = __inner_vregs[__r_s1] * __inner_vregs[__r_s2];
       break;
       }
-      case 132: 
+      case 111: 
       {
       __r_s1 = (int )__packed_inner_bc_vcpu2_nested_matrix_1[__inner_pc] ^ ((__inner_key + __inner_pc * 31) & 255);
       __inner_pc ++;
@@ -4651,14 +4652,14 @@ int __attribute__((__annotate__("vectis:nested_vm")))  _lI_0__O01O1Il_1__1(int _
     }
     break;
     }
-    case 34: 
+    case 229: 
     {
-    __r_imm = (int )__packed_outer_bc_vcpu2_nested_matrix_1[__outer_pc] ^ ((129 + __outer_pc * 17) & 255);
+    __r_imm = (int )__packed_outer_bc_vcpu2_nested_matrix_1[__outer_pc] ^ ((134 + __outer_pc * 17) & 255);
     __outer_pc ++;
     __inner_key = (__inner_key * 33 + __r_imm) & 255;
     break;
     }
-    case 72: 
+    case 102: 
     {
     __outer_running = 0;
     break;
@@ -4675,11 +4676,11 @@ int __attribute__((__annotate__("vectis:nested_vm")))  _lI_0__O01O1Il_1__1(int _
   }
 }
 }
-static unsigned int __rolling_bc_vcpu3_rolling_vkey_1[4]  = {      1011771701U,      1290980574U,      758975409U,      2456606722U};
+static unsigned int __rolling_bc_vcpu3_rolling_vkey_1[4]  = {      503951793U,      843941290U,      2035225405U,      1526082478U};
 
 int vcpu3_rolling_vkey(int h2) {
     unsigned int __regs[4] = { (unsigned int)h2, 0, 0, 0 };
-    unsigned int __vkey = 0x3E4E6935U;
+    unsigned int __vkey = 0x3E09B1B1U;
     int __pc = 0;
     unsigned int __enc, __dec;
     unsigned char __op;
@@ -4687,10 +4688,10 @@ int vcpu3_rolling_vkey(int h2) {
     /* Direct Threading Dispatch Table via GNU C Computed Gotos */
     static const void * const __rolling_handlers[256] = {
         [0 ... 255] = &&__r_default,
-        [0x02] = &&__r_add,
-        [0x04] = &&__r_xor,
-        [0x05] = &&__r_mul,
-        [0x80] = &&__r_halt
+        [0x20] = &&__r_add,
+        [0x07] = &&__r_xor,
+        [0x04] = &&__r_mul,
+        [0x05] = &&__r_halt
     };
 
     #define __ROLLING_DISPATCH() do { \
@@ -4698,7 +4699,7 @@ int vcpu3_rolling_vkey(int h2) {
         __enc = __rolling_bc_vcpu3_rolling_vkey_1[__pc]; \
         __dec = __enc ^ __vkey; \
         /* Stateful rolling key evolution dependent on decrypted instruction history */ \
-        __vkey = (__vkey * 0x5815U) ^ (__dec + 0x566A1587U); \
+        __vkey = (__vkey * 0xA335U) ^ (__dec + 0x1168F90FU); \
         __op = (unsigned char)(__dec >> 24); \
         __pc++; \
         goto *__rolling_handlers[__op]; \
@@ -4728,24 +4729,27 @@ __r_halt: ;
     return __ret_val;
 }
 
-static unsigned char __ephemeral_payload_vcpu4_ephemeral_jit_1[56]  = 
-  {      (unsigned char)24,      (unsigned char)255,      (unsigned char)252,      (unsigned char)214, 
-        (unsigned char)16,      (unsigned char)255,      (unsigned char)248,      (unsigned char)214, 
-        (unsigned char)241,      (unsigned char)157,      (unsigned char)112,      (unsigned char)174, 
-        (unsigned char)227,      (unsigned char)220,      (unsigned char)255,      (unsigned char)41, 
-        (unsigned char)99,      (unsigned char)253,      (unsigned char)241,      (unsigned char)151, 
-        (unsigned char)3,      (unsigned char)255,      (unsigned char)227,      (unsigned char)182, 
-        (unsigned char)16,      (unsigned char)235,      (unsigned char)99,      (unsigned char)230, 
-        (unsigned char)99,      (unsigned char)253,      (unsigned char)252,      (unsigned char)141, 
-        (unsigned char)156,      (unsigned char)252,      (unsigned char)252,      (unsigned char)168, 
-        (unsigned char)212,      (unsigned char)252,      (unsigned char)124,      (unsigned char)174, 
-        (unsigned char)254,      (unsigned char)252,      (unsigned char)252,      (unsigned char)232, 
-        (unsigned char)244,      (unsigned char)252,      (unsigned char)124,      (unsigned char)174, 
-        (unsigned char)28,      (unsigned char)255,      (unsigned char)244,      (unsigned char)214, 
-        (unsigned char)60,      (unsigned char)255,      (unsigned char)163,      (unsigned char)42};
+static unsigned char __ephemeral_payload_vcpu4_ephemeral_jit_1[68]  = 
+  {      (unsigned char)218,      (unsigned char)38,      (unsigned char)58,      (unsigned char)15, 
+        (unsigned char)193,      (unsigned char)38,      (unsigned char)37,      (unsigned char)15, 
+        (unsigned char)58,      (unsigned char)5,      (unsigned char)38,      (unsigned char)240, 
+        (unsigned char)201,      (unsigned char)38,      (unsigned char)33,      (unsigned char)15, 
+        (unsigned char)218,      (unsigned char)38,      (unsigned char)58,      (unsigned char)111, 
+        (unsigned char)40,      (unsigned char)68,      (unsigned char)169,      (unsigned char)119, 
+        (unsigned char)186,      (unsigned char)36,      (unsigned char)40,      (unsigned char)78, 
+        (unsigned char)58,      (unsigned char)5,      (unsigned char)38,      (unsigned char)240, 
+        (unsigned char)201,      (unsigned char)50,      (unsigned char)186,      (unsigned char)63, 
+        (unsigned char)58,      (unsigned char)5,      (unsigned char)38,      (unsigned char)240, 
+        (unsigned char)186,      (unsigned char)36,      (unsigned char)37,      (unsigned char)84, 
+        (unsigned char)69,      (unsigned char)37,      (unsigned char)37,      (unsigned char)113, 
+        (unsigned char)13,      (unsigned char)37,      (unsigned char)165,      (unsigned char)119, 
+        (unsigned char)39,      (unsigned char)37,      (unsigned char)37,      (unsigned char)49, 
+        (unsigned char)45,      (unsigned char)37,      (unsigned char)165,      (unsigned char)119, 
+        (unsigned char)197,      (unsigned char)38,      (unsigned char)45,      (unsigned char)15, 
+        (unsigned char)229,      (unsigned char)38,      (unsigned char)122,      (unsigned char)243};
 
 int vcpu4_ephemeral_jit(int h3) {
-    size_t __code_len = 56;
+    size_t __code_len = 68;
     size_t __tier2_sz = 0;
 
     /* Step 1: Allocate Ephemeral Page (MAP_JIT on Apple Silicon / Anonymous on Linux) */
@@ -4757,7 +4761,7 @@ int vcpu4_ephemeral_jit(int h3) {
 #endif
     /* Step 2: Decrypt Native AArch64 Machine Code Payload */
     for (size_t __i = 0; __i < __code_len; __i++) {
-        __tier2_page[__i] = __ephemeral_payload_vcpu4_ephemeral_jit_1[__i] ^ 0xFC;
+        __tier2_page[__i] = __ephemeral_payload_vcpu4_ephemeral_jit_1[__i] ^ 0x25;
     }
 #if defined(__APPLE__) && (defined(__aarch64__) || defined(__arm64__))
     pthread_jit_write_protect_np(1); /* Switch to execute-only permissions */
@@ -4776,17 +4780,17 @@ int vcpu4_ephemeral_jit(int h3) {
     return __result;
 }
 
-int __attribute__((__annotate__("vectis:cff, irreducible_loop, bcf, literals")))  _lI_lI_0OOl1_3(char const   *_llIl1Ol_0l0Ol0O0_13 ) 
+int __attribute__((__annotate__("vectis:cff, irreducible_loop, bcf, literals")))  _l000OI1_01O0_3(char const   *_l1O0_010O_lO0l_13 ) 
 { 
-  unsigned long _lOI1ll10___4 ;
-  int _l0IOO0lO00_0O0I_5 ;
-  int __attribute__((__annotate__("vectis:visa")))  _lO___0_l__6 ;
-  int _l1l0OO1lI0llO0_7 ;
-  int __attribute__((__annotate__("vectis:nested_vm")))  _l_ll_I_IO_8 ;
-  int _l__O_0_110l_00I_9 ;
-  int __attribute__((__annotate__("vectis:rolling_vkey")))  _l00_1_00_O000OO_10 ;
-  int _lI0_01Ol11__11 ;
-  int __attribute__((__annotate__("vectis:ephemeral")))  _l1_OlOOOI1O0_12 ;
+  unsigned long _l1lOll1I0l00l_4 ;
+  int _ll10_OI0_00000_5 ;
+  int __attribute__((__annotate__("vectis:visa")))  _l0IlIO_1_1l0_6 ;
+  int _l_I_I1I_I0l1O_7 ;
+  int __attribute__((__annotate__("vectis:nested_vm")))  _l__I1I__0IIO_8 ;
+  int _llII1llO100Il___9 ;
+  int __attribute__((__annotate__("vectis:rolling_vkey")))  _l_lO1ll_0_O0__10 ;
+  int _l0I1101_00I00ll_11 ;
+  int __attribute__((__annotate__("vectis:ephemeral")))  _lO0OIIlIl0O01_12 ;
   int volatile   __idx_1 ;
   int volatile   __idx_2 ;
   int volatile   __idx_3 ;
@@ -4798,55 +4802,72 @@ int __attribute__((__annotate__("vectis:cff, irreducible_loop, bcf, literals")))
   int __cff_state ;
 
   {
-  __cff_state = 11;
+  __cff_state = 15;
   while (1) {
     if (__cff_state != 0) {
       switch (__cff_state) {
-      case 101: 
+      case 104: 
       {
-      if ((_lOI1ll10___4 | 1) % 2 != 0) {
-        _lO___0_l__6 = vcpu1_vector_parity(_llIl1Ol_0l0Ol0O0_13);
-        _l0IOO0lO00_0O0I_5 = (int )_lO___0_l__6;
-        _l_ll_I_IO_8 = _lI_0__O01O1Il_1__1(_l0IOO0lO00_0O0I_5);
-        _l1l0OO1lI0llO0_7 = (int )_l_ll_I_IO_8;
-        _l00_1_00_O000OO_10 = vcpu3_rolling_vkey(_l1l0OO1lI0llO0_7);
-        _l__O_0_110l_00I_9 = (int )_l00_1_00_O000OO_10;
-        _l1_OlOOOI1O0_12 = vcpu4_ephemeral_jit(_l__O_0_110l_00I_9);
-        _lI0_01Ol11__11 = (int )_l1_OlOOOI1O0_12;
+      if ((_l1lOll1I0l00l_4 | 1) % 2 != 0) {
+        _l0IlIO_1_1l0_6 = vcpu1_vector_parity(_l1O0_010O_lO0l_13);
+        _ll10_OI0_00000_5 = (int )_l0IlIO_1_1l0_6;
+        _l__I1I__0IIO_8 = _lIO1_IIlll_l_1(_ll10_OI0_00000_5);
+        _l_I_I1I_I0l1O_7 = (int )_l__I1I__0IIO_8;
+        _l_lO1ll_0_O0__10 = vcpu3_rolling_vkey(_l_I_I1I_I0l1O_7);
+        _llII1llO100Il___9 = (int )_l_lO1ll_0_O0__10;
+        _lO0OIIlIl0O01_12 = vcpu4_ephemeral_jit(_llII1llO100Il___9);
+        _l0I1101_00I00ll_11 = (int )_lO0OIIlIl0O01_12;
       } else {
-        _lO___0_l__6 = vcpu1_vector_parity(_llIl1Ol_0l0Ol0O0_13);
-        _l0IOO0lO00_0O0I_5 = (int )_lO___0_l__6;
-        _l_ll_I_IO_8 = _lI_0__O01O1Il_1__1(_l0IOO0lO00_0O0I_5);
-        _l1l0OO1lI0llO0_7 = (int )_l_ll_I_IO_8;
-        _l00_1_00_O000OO_10 = vcpu3_rolling_vkey(_l1l0OO1lI0llO0_7);
-        _l__O_0_110l_00I_9 = (int )_l00_1_00_O000OO_10;
-        _l1_OlOOOI1O0_12 = vcpu4_ephemeral_jit(_l__O_0_110l_00I_9);
-        _lI0_01Ol11__11 = (int )_l1_OlOOOI1O0_12;
+        _l0IlIO_1_1l0_6 = vcpu1_vector_parity(_l1O0_010O_lO0l_13);
+        _ll10_OI0_00000_5 = (int )_l0IlIO_1_1l0_6;
+        _l__I1I__0IIO_8 = _lIO1_IIlll_l_1(_ll10_OI0_00000_5);
+        _l_I_I1I_I0l1O_7 = (int )_l__I1I__0IIO_8;
+        _l_lO1ll_0_O0__10 = vcpu3_rolling_vkey(_l_I_I1I_I0l1O_7);
+        _llII1llO100Il___9 = (int )_l_lO1ll_0_O0__10;
+        _lO0OIIlIl0O01_12 = vcpu4_ephemeral_jit(_llII1llO100Il___9);
+        _l0I1101_00I00ll_11 = (int )_lO0OIIlIl0O01_12;
       }
-      __cff_state = 118;
+      __cff_state = 117;
       break;
       }
-      case 11: 
-      {
-      __t_start = __vectis_get_timestamp();
-      __cff_state = 27;
-      break;
-      }
-      case 38: 
+      case 31: 
       {
       if ((__desync_guard & ~ __desync_guard) != 0) {
         return (0);
       }
-      __cff_state = 48;
+      __cff_state = 43;
       break;
       }
-      case 82: 
+      case 52: 
+      {
+      if (__init_lit_1 == 0) {
+        __idx_1 = 0;
+        while (1) {
+          if (__idx_1 < 56) {
+            __dec_lit_1[__idx_1] = __enc_lit_1[__idx_1] ^ 153;
+            __idx_1 ++;
+          } else {
+            break;
+          }
+        }
+        __init_lit_1 = 1;
+      }
+      __cff_state = 66;
+      break;
+      }
+      case 120: 
+      {
+      __t_end = __vectis_get_timestamp();
+      __cff_state = 136;
+      break;
+      }
+      case 87: 
       {
       if (__init_lit_4 == 0) {
         __idx_4 = 0;
         while (1) {
           if (__idx_4 < 59) {
-            __dec_lit_4[__idx_4] = __enc_lit_4[__idx_4] ^ 112;
+            __dec_lit_4[__idx_4] = __enc_lit_4[__idx_4] ^ 55;
             __idx_4 ++;
           } else {
             break;
@@ -4857,26 +4878,80 @@ int __attribute__((__annotate__("vectis:cff, irreducible_loop, bcf, literals")))
       __cff_state = 97;
       break;
       }
-      case 57: 
+      case 136: 
       {
-      if (__init_lit_1 == 0) {
-        __idx_1 = 0;
+      if (__t_end - __t_start < 1000000000) {
+
+      }
+      __cff_state = 0;
+      break;
+      }
+      case 66: 
+      {
+      if (__init_lit_2 == 0) {
+        __idx_2 = 0;
         while (1) {
-          if (__idx_1 < 56) {
-            __dec_lit_1[__idx_1] = __enc_lit_1[__idx_1] ^ 231;
-            __idx_1 ++;
+          if (__idx_2 < 56) {
+            __dec_lit_2[__idx_2] = __enc_lit_2[__idx_2] ^ 245;
+            __idx_2 ++;
           } else {
             break;
           }
         }
-        __init_lit_1 = 1;
+        __init_lit_2 = 1;
       }
-      __cff_state = 63;
+      __cff_state = 72;
       break;
       }
-      case 118: 
+      case 97: 
       {
-      if (_lI0_01Ol11__11) {
+      if ((unsigned long )_l1O0_010O_lO0l_13 == (unsigned long )((void *)0)) {
+        __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
+        (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_1[0]));
+        return ((int __attribute__((__annotate__("vectis:cff, irreducible_loop, bcf, literals")))  )0);
+      } else {
+        _l1lOll1I0l00l_4 = strlen(_l1O0_010O_lO0l_13);
+        if (_l1lOll1I0l00l_4 != 16UL) {
+          __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
+          (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_2[0]));
+          return ((int __attribute__((__annotate__("vectis:cff, irreducible_loop, bcf, literals")))  )0);
+        }
+      }
+      __cff_state = 104;
+      break;
+      }
+      case 43: 
+      {
+      __vectis_enforce_anti_debug();
+      __cff_state = 52;
+      break;
+      }
+      case 72: 
+      {
+      if (__init_lit_3 == 0) {
+        __idx_3 = 0;
+        while (1) {
+          if (__idx_3 < 77) {
+            __dec_lit_3[__idx_3] = __enc_lit_3[__idx_3] ^ 197;
+            __idx_3 ++;
+          } else {
+            break;
+          }
+        }
+        __init_lit_3 = 1;
+      }
+      __cff_state = 87;
+      break;
+      }
+      case 23: 
+      {
+      __desync_guard = 63348;
+      __cff_state = 31;
+      break;
+      }
+      case 117: 
+      {
+      if (_l0I1101_00I00ll_11) {
         __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
         (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_3[0]));
         return ((int __attribute__((__annotate__("vectis:cff, irreducible_loop, bcf, literals")))  )1);
@@ -4885,84 +4960,13 @@ int __attribute__((__annotate__("vectis:cff, irreducible_loop, bcf, literals")))
         (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_4[0]));
         return ((int __attribute__((__annotate__("vectis:cff, irreducible_loop, bcf, literals")))  )0);
       }
-      __cff_state = 126;
+      __cff_state = 120;
       break;
       }
-      case 48: 
+      case 15: 
       {
-      __vectis_enforce_anti_debug();
-      __cff_state = 57;
-      break;
-      }
-      case 133: 
-      {
-      if (__t_end - __t_start < 1000000000) {
-
-      }
-      __cff_state = 0;
-      break;
-      }
-      case 70: 
-      {
-      if (__init_lit_3 == 0) {
-        __idx_3 = 0;
-        while (1) {
-          if (__idx_3 < 77) {
-            __dec_lit_3[__idx_3] = __enc_lit_3[__idx_3] ^ 140;
-            __idx_3 ++;
-          } else {
-            break;
-          }
-        }
-        __init_lit_3 = 1;
-      }
-      __cff_state = 82;
-      break;
-      }
-      case 97: 
-      {
-      if ((unsigned long )_llIl1Ol_0l0Ol0O0_13 == (unsigned long )((void *)0)) {
-        __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
-        (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_1[0]));
-        return ((int __attribute__((__annotate__("vectis:cff, irreducible_loop, bcf, literals")))  )0);
-      } else {
-        _lOI1ll10___4 = strlen(_llIl1Ol_0l0Ol0O0_13);
-        if (_lOI1ll10___4 != 16UL) {
-          __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
-          (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_2[0]));
-          return ((int __attribute__((__annotate__("vectis:cff, irreducible_loop, bcf, literals")))  )0);
-        }
-      }
-      __cff_state = 101;
-      break;
-      }
-      case 63: 
-      {
-      if (__init_lit_2 == 0) {
-        __idx_2 = 0;
-        while (1) {
-          if (__idx_2 < 56) {
-            __dec_lit_2[__idx_2] = __enc_lit_2[__idx_2] ^ 29;
-            __idx_2 ++;
-          } else {
-            break;
-          }
-        }
-        __init_lit_2 = 1;
-      }
-      __cff_state = 70;
-      break;
-      }
-      case 27: 
-      {
-      __desync_guard = 43307;
-      __cff_state = 38;
-      break;
-      }
-      case 126: 
-      {
-      __t_end = __vectis_get_timestamp();
-      __cff_state = 133;
+      __t_start = __vectis_get_timestamp();
+      __cff_state = 23;
       break;
       }
       }
@@ -4972,23 +4976,23 @@ int __attribute__((__annotate__("vectis:cff, irreducible_loop, bcf, literals")))
   }
 }
 }
-int __attribute__((__annotate__("vectis:literals, api_hash")))  main(int _l_llOI0lO0I__1_19 ,
-                                                                     char **_l1IO_lIIll0__20 ) ;
+int __attribute__((__annotate__("vectis:literals, api_hash")))  main(int _lI0O1O_1ll_1ll_O_19 ,
+                                                                     char **_lI0IO1_lOIll0_0_20 ) ;
 static unsigned char const volatile   __dk[16]  __attribute__((__goblint_cil_pulledup__("main")))  = 
   {      (unsigned char const volatile   )0x0a,      (unsigned char const volatile   )0x08,      (unsigned char const volatile   )0x15,      (unsigned char const volatile   )0x77, 
         (unsigned char const volatile   )0x63,      (unsigned char const volatile   )0x62,      (unsigned char const volatile   )0x6e,      (unsigned char const volatile   )0x68, 
         (unsigned char const volatile   )0x77,      (unsigned char const volatile   )0x11,      (unsigned char const volatile   )0x16,      (unsigned char const volatile   )0x17, 
         (unsigned char const volatile   )0x63,      (unsigned char const volatile   )0x77,      (unsigned char const volatile   )0x6d,      (unsigned char const volatile   )0x6d};
-int __attribute__((__annotate__("vectis:literals, api_hash")))  main(int _l_llOI0lO0I__1_19 ,
-                                                                     char **_l1IO_lIIll0__20 ) 
+int __attribute__((__annotate__("vectis:literals, api_hash")))  main(int _lI0O1O_1ll_1ll_O_19 ,
+                                                                     char **_lI0IO1_lOIll0_0_20 ) 
 { 
   char volatile   __dk_buf[17] ;
   int volatile   __i ;
-  char const   *_l0l_lI_OOlI1_14 ;
-  char const   *_l__l1l0I0_15 ;
-  int _ll101IIl1l_0Il0_16 ;
-  int __attribute__((__annotate__("vectis:cff, irreducible_loop, bcf, literals")))  _l0I_O1O1IlIIIl1O_17 ;
-  int _l_l_lll1I_18 ;
+  char const   *_ll00O1l0IOll_0l_14 ;
+  char const   *_lI__1O01O_O011I__15 ;
+  int _l1OO00ll10Ol_O_I_16 ;
+  int __attribute__((__annotate__("vectis:cff, irreducible_loop, bcf, literals")))  _l00IIOO0_01_IOOI_17 ;
+  int _l_IOlll_llIlIl_18 ;
   int volatile   __idx_5 ;
   void *__resolved_printf ;
 
@@ -4998,7 +5002,7 @@ int __attribute__((__annotate__("vectis:literals, api_hash")))  main(int _l_llOI
     __idx_5 = 0;
     while (1) {
       if (__idx_5 < 23) {
-        __dec_lit_5[__idx_5] = __enc_lit_5[__idx_5] ^ 213;
+        __dec_lit_5[__idx_5] = __enc_lit_5[__idx_5] ^ 173;
         __idx_5 ++;
       } else {
         break;
@@ -5012,22 +5016,22 @@ int __attribute__((__annotate__("vectis:literals, api_hash")))  main(int _l_llOI
     __i += (int volatile   )1;
   }
   __dk_buf[16] = (char volatile   )'\000';
-  if (_l_llOI0lO0I__1_19 > 1) {
-    _l__l1l0I0_15 = (char const   *)*(_l1IO_lIIll0__20 + 1);
+  if (_lI0O1O_1ll_1ll_O_19 > 1) {
+    _lI__1O01O_O011I__15 = (char const   *)*(_lI0IO1_lOIll0_0_20 + 1);
   } else {
-    _l__l1l0I0_15 = (char const   *)(__dk_buf);
+    _lI__1O01O_O011I__15 = (char const   *)(__dk_buf);
   }
-  _l0l_lI_OOlI1_14 = _l__l1l0I0_15;
+  _ll00O1l0IOll_0l_14 = _lI__1O01O_O011I__15;
   __resolved_printf = __vectis_resolve_symbol_hash(3524737521U);
   (*((int (*)(char const   *format  , ...))__resolved_printf))((char const   *)(& __dec_lit_5[0]),
-                                                               _l0l_lI_OOlI1_14);
-  _l0I_O1O1IlIIIl1O_17 = _lI_lI_0OOl1_3(_l0l_lI_OOlI1_14);
-  _ll101IIl1l_0Il0_16 = (int )_l0I_O1O1IlIIIl1O_17;
-  if (_ll101IIl1l_0Il0_16) {
-    _l_l_lll1I_18 = 0;
+                                                               _ll00O1l0IOll_0l_14);
+  _l00IIOO0_01_IOOI_17 = _l000OI1_01O0_3(_ll00O1l0IOll_0l_14);
+  _l1OO00ll10Ol_O_I_16 = (int )_l00IIOO0_01_IOOI_17;
+  if (_l1OO00ll10Ol_O_I_16) {
+    _l_IOlll_llIlIl_18 = 0;
   } else {
-    _l_l_lll1I_18 = 1;
+    _l_IOlll_llIlIl_18 = 1;
   }
-  return ((int __attribute__((__annotate__("vectis:literals, api_hash")))  )_l_l_lll1I_18);
+  return ((int __attribute__((__annotate__("vectis:literals, api_hash")))  )_l_IOlll_llIlIl_18);
 }
 }

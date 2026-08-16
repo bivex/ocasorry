@@ -92,7 +92,19 @@ module Make (Entropy : Entropy_port.S) = struct
       emit_junk_insn spec op instrs free_reg
     in
 
-
+    (* Tahr-style Stochastic Expander with Revert Rollback (Step 1) *)
+    let try_stochastic_expand free_reg (complex_gen : unit -> unit) (fallback_gen : unit -> unit) =
+      let snapshot = !instrs in
+      if free_reg + 4 < 28 && Entropy.next_int ~max:100 < 35 then (
+        try
+          complex_gen ()
+        with _ ->
+          instrs := snapshot;
+          fallback_gen ()
+      ) else (
+        fallback_gen ()
+      )
+    in
 
     match e with
     | Const (CInt (i, _, _)) ->
@@ -151,14 +163,52 @@ module Make (Entropy : Entropy_port.S) = struct
         compile_exp spec op instrs get_vreg e1 dst (free_reg + 1);
         compile_exp spec op instrs get_vreg e2 t   (free_reg + 2);
         (match bin_op with
-         | PlusA   -> emit2 (vadd ()) t dst dst
+         | PlusA   ->
+             try_stochastic_expand free_reg
+               (fun () ->
+                 let t1 = free_reg + 1 in
+                 let t2 = free_reg + 2 in
+                 let sh_reg = free_reg + 3 in
+                 emit2 (vxor ()) t dst t1;
+                 emit2 (vand ()) t dst t2;
+                 emit_vli_14 spec op instrs 1 sh_reg;
+                 instrs := (Spec.encode_inst spec ~funct6:op.C_visa_spec.vsll_vv ~vm:1
+                             ~vs2:(sh_reg land 0x1F) ~vs1_or_imm:(t2 land 0x1F)
+                             ~funct3:0 ~vd:(t2 land 0x1F)) :: !instrs;
+                 emit2 (vadd ()) t2 t1 dst)
+               (fun () -> emit2 (vadd ()) t dst dst)
          | MinusA  -> emit2 (vsub ()) t dst dst
          | Mult    -> emit2 (vmul ()) t dst dst
-         | BAnd    -> emit2 (vand ()) t dst dst
-         | BOr     -> emit2 (vor  ()) t dst dst
-         | BXor    -> emit2 (vxor ()) t dst dst
+         | BAnd    ->
+             try_stochastic_expand free_reg
+               (fun () ->
+                 let t1 = free_reg + 1 in
+                 let t2 = free_reg + 2 in
+                 emit2 (vor ()) t dst t1;
+                 emit2 (vxor ()) t dst t2;
+                 emit2 (vsub ()) t2 t1 dst)
+               (fun () -> emit2 (vand ()) t dst dst)
+         | BOr     ->
+             try_stochastic_expand free_reg
+               (fun () ->
+                 let t1 = free_reg + 1 in
+                 let t2 = free_reg + 2 in
+                 emit2 (vxor ()) t dst t1;
+                 emit2 (vand ()) t dst t2;
+                 emit2 (vadd ()) t2 t1 dst)
+               (fun () -> emit2 (vor  ()) t dst dst)
+         | BXor    ->
+             try_stochastic_expand free_reg
+               (fun () ->
+                 let t1 = free_reg + 1 in
+                 let t2 = free_reg + 2 in
+                 emit2 (vor ()) t dst t1;
+                 emit2 (vand ()) t dst t2;
+                 emit2 (vsub ()) t2 t1 dst)
+               (fun () -> emit2 (vxor ()) t dst dst)
          | Shiftlt -> emit2 op.C_visa_spec.vsll_vv t dst dst
          | Shiftrt -> emit2 op.C_visa_spec.vsrl_vv t dst dst
+
          | Div     ->
              instrs := (Spec.encode_inst spec ~funct6:op.C_visa_spec.vmul_vv ~vm:1
                          ~vs2:(t land 0x1F) ~vs1_or_imm:(dst land 0x1F)
