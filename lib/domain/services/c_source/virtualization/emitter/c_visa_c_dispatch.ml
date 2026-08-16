@@ -75,8 +75,9 @@ let emit_dispatch_macro
         __vs1    = (unsigned char)((__inst >> %d) & 0x1F); \
         __funct3 = (unsigned char)((__inst >> %d) & 0x07); \
         __vd     = (unsigned char)((__inst >> %d)  & 0x1F); \
-        __pc++; \
-        __vm_state_acc = ((__vm_state_acc * 0x63c63cd93839c9b9ULL) ^ (__vd + __funct6 + (unsigned long long)__pc)) * 0x517CC1B727220A95ULL; \
+        /* Anti-Pushan: Non-linear Quadratic VPC Stepper */ \
+        __pc = (__pc + 1U) + (unsigned int)((__vm_state_acc * (__vm_state_acc + 1ULL)) & 1ULL); \
+        __vm_state_acc = ((__vm_state_acc * 0x63c63cd93839c9b9ULL) ^ (__vd + __funct6 + ((unsigned long long)__pc * 0x9E3779B9ULL))) * 0x517CC1B727220A95ULL; \
         goto *__dispatch_table[__funct6 & 0x%X]; \
     } while (0)
 
