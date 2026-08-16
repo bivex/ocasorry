@@ -1,0 +1,29 @@
+[
+  {
+    "architecture": "1_naive_static_vm",
+    "iterations": 20,
+    "trace_steps_per_run": 100,
+    "median_io_purity": 1.0,
+    "median_semantic_recovery_pct": 100.0,
+    "median_resistance_score": 0.0,
+    "std_dev": 0.0
+  },
+  {
+    "architecture": "2_static_masked_vm",
+    "iterations": 20,
+    "trace_steps_per_run": 100,
+    "median_io_purity": 1.0,
+    "median_semantic_recovery_pct": 100.0,
+    "median_resistance_score": 0.0,
+    "std_dev": 0.0
+  },
+  {
+    "architecture": "3_vectis_rolling_state_vm",
+    "iterations": 20,
+    "trace_steps_per_run": 100,
+    "median_io_purity": 0.0,
+    "median_semantic_recovery_pct": 0.0,
+    "median_resistance_score": 100.0,
+    "std_dev": 0.0
+  }
+]

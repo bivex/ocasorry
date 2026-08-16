@@ -101,11 +101,30 @@ python3 benchmarks/semantic_polymorphism_benchmark.py
 
 ---
 
-## 🧪 4. Full Semantic Test Harness (70 Test Suites)
+## ⚡ 4. Dynamic Trace-Lifter & Semantic De-virtualization
 
-All 70 test suites pass with **100% semantic agreement**, confirming that no mathematical transformations introduce runtime logic bugs:
+Measures resistance against **trace-first automated de-virtualization** (tools like Triton, Frida, QEMU, or Intel PIN logging I/O executions $(a_t, b_t) \to vd_t$ and attempting algebraic/clustering recovery):
+
+| Architecture | Trace I/O Clustering Purity | Linear Mask Solver Attack | Semantic Recovery Rate | De-virtualization Resistance |
+|---|---|---|---|---|
+| **1. Naive Static VM** | **100.0%** (Pure $f(a,b)$) | N/A (unmasked) | **100.0% (LIFTED)** | 0.0 / 100.0 |
+| **2. Static Masked VM** | **100.0%** (via $a \oplus b \oplus vd = M$) | **BROKEN (Mask Solved)** | **100.0% (LIFTED)** | 0.0 / 100.0 |
+| **3. Vectis Rolling-State VM** | **0.0%** (History-entangled) | **FAILED (No static invariant)** | **0.0% (UNLIFTABLE)** | **100.0 / 100.0** |
+
+```bash
+python3 benchmarks/trace_lifter_benchmark.py
+# Or via CLI:
+python3 bin/vectis_cli.py benchmark --type trace
+```
+
+---
+
+## 🧪 5. Full Semantic Test Harness (71 Test Suites)
+
+All 71 test suites pass with **100% semantic agreement**, confirming that no mathematical transformations introduce runtime logic bugs:
 
 ```bash
 export PATH="$HOME/.opam/default/bin:$PATH"
 dune runtest
 ```
+
