@@ -79,6 +79,7 @@ let render_visa_sail
     ~(op_vret_v : int)
     ~(op_vbge_vv : int)
     ~(op_vj : int)
+    ~(op_vjit_vv : int)
     ~(vd_shift : int)
     ~(vs1_shift : int)
     ~(vs2_shift : int)
@@ -104,6 +105,7 @@ let render_visa_sail
   let n_li  = gen_mnemonic rng "I" in let n_mv  = gen_mnemonic rng "M" in
   let n_ld  = gen_mnemonic rng "L" in let n_ret = gen_mnemonic rng "R" in
   let n_bge = gen_mnemonic rng "B" in let n_jmp = gen_mnemonic rng "J" in
+  let n_jit = gen_mnemonic rng "Z" in
   let s = Buffer.create 2048 in
   Buffer.add_string s (Printf.sprintf
     "(* Sail ISA: %s  tier=%d  imm%d  GF_poly=0x%02X  ROL=%d\n\
@@ -133,6 +135,7 @@ let render_visa_sail
     (n_ret, Printf.sprintf "(regidx_%s)" isa_name);
     (n_bge, Printf.sprintf "(regidx_%s, regidx_%s)" isa_name isa_name);
     (n_jmp, "(bits(32))");
+    (n_jit, Printf.sprintf "(regidx_%s, regidx_%s, regidx_%s)" isa_name isa_name isa_name);
   ] in
   List.iter (fun (nm, ty) ->
     Buffer.add_string s (Printf.sprintf "    %s : %s,\n" nm ty)
@@ -165,6 +168,7 @@ let render_visa_sail
     (op_vret_v,  n_ret, "vd");
     (op_vbge_vv, n_bge, "vs1, vs2");
     (op_vj,      n_jmp, "inst");
+    (op_vjit_vv, n_jit, "vd, vs1, vs2");
   ] in
   List.iter (fun (opc, nm, args) ->
     Buffer.add_string s (Printf.sprintf "        %d => Some(%s(%s)),\n" opc nm args)
@@ -195,6 +199,7 @@ let render_visa_sail
     Printf.sprintf "%s(vd) => { () }" n_ret;
     Printf.sprintf "%s(vs1, vs2) => { () }" n_bge;
     Printf.sprintf "%s(tgt) => { %s_PC = tgt }" n_jmp isa_name;
+    Printf.sprintf "%s(vd, vs1, vs2) => %s_R[vd] = ((%s_R[vs1] ^ %s_R[vs2]) * 3) + 42" n_jit isa_name isa_name isa_name;
   ] in
   List.iter (fun arm ->
     Buffer.add_string s (Printf.sprintf "        %s,\n" arm)

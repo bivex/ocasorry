@@ -128,6 +128,75 @@ __h_vj: {
     __pc = (unsigned int)((__jump_target) + ((__vm_state_acc * (__vm_state_acc + 1ULL)) & 1ULL));
     __VISA_DISPATCH();
 }
+__h_vjit: {
+    /* Architecture A: Dynamic In-VM Ephemeral AArch64 JIT Escape Gate */
+    unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
+    size_t __jit_sz = 0;
+    size_t __jit_code_sz = 32;
+    unsigned char *__jpage = (unsigned char *)__vectis_vm_alloc_ephemeral_page(&__jit_sz, __jit_code_sz);
+    if (__jpage) {
+#if defined(__APPLE__) && (defined(__aarch64__) || defined(__arm64__))
+        pthread_jit_write_protect_np(0);
+#endif
+        uint32_t __insns[8] = {
+            0xCA010000, /* eor x0, x0, x1 */
+            0xD2800062, /* mov x2, #3 */
+            0x9B027C00, /* mul x0, x0, x2 */
+            0x9100A800, /* add x0, x0, #42 */
+            0xD65F03C0  /* ret */
+        };
+        memcpy(__jpage, __insns, sizeof(__insns));
+#if defined(__APPLE__) && (defined(__aarch64__) || defined(__arm64__))
+        pthread_jit_write_protect_np(1);
+        sys_icache_invalidate(__jpage, sizeof(__insns));
+#elif defined(__aarch64__) || defined(__arm64__)
+        __builtin___clear_cache((char *)__jpage, (char *)__jpage + sizeof(__insns));
+#endif
+        typedef unsigned long long (*__vjit_fn_t)(unsigned long long, unsigned long long);
+        volatile __vjit_fn_t __jfn = (__vjit_fn_t)(void *)__jpage;
+        unsigned long long __jres = __jfn(__a, __b);
+        __vectis_vm_free_ephemeral_page(__jpage, __jit_sz);
+        __VREG_SET(__vd, __jres);
+    } else {
+        __VREG_SET(__vd, ((__a ^ __b) * 3ULL) + 42ULL);
+    }
+    __VISA_DISPATCH();
+}
+__h_vjit_alt1: {
+    /* Architecture A: Dynamic In-VM Ephemeral AArch64 JIT Escape Gate (Alt Alias) */
+    unsigned long long __a = __VREG_GET(__vs1), __b = __VREG_GET(__vs2);
+    size_t __jit_sz = 0;
+    size_t __jit_code_sz = 32;
+    unsigned char *__jpage = (unsigned char *)__vectis_vm_alloc_ephemeral_page(&__jit_sz, __jit_code_sz);
+    if (__jpage) {
+#if defined(__APPLE__) && (defined(__aarch64__) || defined(__arm64__))
+        pthread_jit_write_protect_np(0);
+#endif
+        uint32_t __insns[8] = {
+            0x8B010000, /* add x0, x0, x1 */
+            0xD2800B42, /* mov x2, #0x5A */
+            0xCA020000, /* eor x0, x0, x2 */
+            0xD28000A2, /* mov x2, #5 */
+            0x9B027C00, /* mul x0, x0, x2 */
+            0xD65F03C0  /* ret */
+        };
+        memcpy(__jpage, __insns, sizeof(__insns));
+#if defined(__APPLE__) && (defined(__aarch64__) || defined(__arm64__))
+        pthread_jit_write_protect_np(1);
+        sys_icache_invalidate(__jpage, sizeof(__insns));
+#elif defined(__aarch64__) || defined(__arm64__)
+        __builtin___clear_cache((char *)__jpage, (char *)__jpage + sizeof(__insns));
+#endif
+        typedef unsigned long long (*__vjit_fn_t)(unsigned long long, unsigned long long);
+        volatile __vjit_fn_t __jfn = (__vjit_fn_t)(void *)__jpage;
+        unsigned long long __jres = __jfn(__a, __b);
+        __vectis_vm_free_ephemeral_page(__jpage, __jit_sz);
+        __VREG_SET(__vd, __jres);
+    } else {
+        __VREG_SET(__vd, ((__a + __b) ^ 0x5AULL) * 5ULL);
+    }
+    __VISA_DISPATCH();
+}
 __h_default:
     __builtin_trap();
 |}

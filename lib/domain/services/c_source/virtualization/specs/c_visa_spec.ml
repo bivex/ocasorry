@@ -23,6 +23,7 @@ type visa_opcodes = {
   vxor_alt1 : int; vxor_alt2 : int;
   vand_alt1 : int; vor_alt1  : int;
   vmul_alt1 : int; vmv_alt1  : int; vli_alt1  : int;
+  vjit_vv   : int; vjit_alt1 : int;
 }
 
 type visa_abi = { in_regs : int list; out_reg : int }
@@ -59,6 +60,7 @@ let default_spec : visa_spec = {
     vxor_alt1 = 0x1C; vxor_alt2 = 0x1D;
     vand_alt1 = 0x1E; vor_alt1  = 0x1F;
     vmul_alt1 = 0x20; vmv_alt1  = 0x21; vli_alt1  = 0x22;
+    vjit_vv   = 0x23; vjit_alt1 = 0x24;
   };
   abi = { in_regs = [0; 1; 2; 3; 4; 5; 6; 7]; out_reg = 0 };
 }
@@ -202,6 +204,8 @@ let from_json_string (json_str : string) : visa_spec =
     vmul_alt1 = op |> member "vmul_alt1" |> to_int_def 0x20;
     vmv_alt1  = op |> member "vmv_alt1"  |> to_int_def 0x21;
     vli_alt1  = op |> member "vli_alt1"  |> to_int_def 0x22;
+    vjit_vv   = op |> member "vjit_vv"   |> to_int_def 0x23;
+    vjit_alt1 = op |> member "vjit_alt1" |> to_int_def 0x24;
   } in
   let abi = match json |> member "abi" with
     | `Null -> { in_regs = [0; 1; 2; 3; 4; 5; 6; 7]; out_reg = 0 }

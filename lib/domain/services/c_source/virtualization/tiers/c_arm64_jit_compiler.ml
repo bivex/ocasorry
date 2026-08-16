@@ -111,13 +111,11 @@ module Make (Entropy : Entropy_port.S) = struct
   let enc_ret : int32 = 0xD65F03C0l
   let enc_nop : int32 = 0xD503201Fl
 
-  (* Decoy instruction generator (Anti-Analysis / Polymorphic JIT) *)
+  (* Decoy instruction generator (Anti-Analysis / Polymorphic JIT using NOP & WZR logic) *)
   let gen_decoy_insn () : int32 list =
-    let r = 9 + (Entropy.next_int ~max:7) in (* w9..w15 *)
-    match Entropy.next_int ~max:4 with
-    | 0 -> [ enc_eor r r r ]
-    | 1 -> [ enc_add_imm r r 0 ]
-    | 2 -> [ enc_mov_reg r r ]
+    match Entropy.next_int ~max:3 with
+    | 0 -> [ enc_eor wzr wzr wzr ]
+    | 1 -> [ enc_mov_reg wzr wzr ]
     | _ -> [ enc_nop ]
 
   type jit_item =

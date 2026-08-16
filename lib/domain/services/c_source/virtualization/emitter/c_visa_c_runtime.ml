@@ -6,9 +6,52 @@ let emit_header
     ~(fn_params : string)
     ~(sbox_code : string) : string =
   Printf.sprintf {|
+#ifndef _DARWIN_C_SOURCE
+#define _DARWIN_C_SOURCE
+#endif
+#include <sys/mman.h>
+#include <unistd.h>
 #include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
+#ifdef __APPLE__
+#include <pthread.h>
+#include <libkern/OSCacheControl.h>
+#endif
+
+#ifndef __VECTIS_VM_EPHEMERAL_HELPERS
+#define __VECTIS_VM_EPHEMERAL_HELPERS
+static void *__vectis_vm_alloc_ephemeral_page(size_t *out_sz, size_t min_sz) {
+    size_t page_sz = (size_t)sysconf(_SC_PAGESIZE);
+    if (page_sz < 4096) page_sz = 4096;
+    size_t alloc_sz = (min_sz + page_sz - 1) & ~(page_sz - 1);
+    *out_sz = alloc_sz;
+#if defined(__APPLE__) && (defined(__aarch64__) || defined(__arm64__))
+    void *ptr = mmap(NULL, alloc_sz, PROT_READ | PROT_WRITE | PROT_EXEC,
+                     MAP_ANON | MAP_PRIVATE | MAP_JIT, -1, 0);
+#elif defined(__aarch64__) || defined(__arm64__)
+    void *ptr = mmap(NULL, alloc_sz, PROT_READ | PROT_WRITE | PROT_EXEC,
+                     MAP_ANON | MAP_PRIVATE, -1, 0);
+#else
+    void *ptr = mmap(NULL, alloc_sz, PROT_READ | PROT_WRITE,
+                     MAP_ANON | MAP_PRIVATE, -1, 0);
+#endif
+    if (ptr == MAP_FAILED) return NULL;
+    return ptr;
+}
+
+static void __vectis_vm_free_ephemeral_page(void *ptr, size_t sz) {
+    if (ptr && ptr != MAP_FAILED) {
+#if defined(__APPLE__) && (defined(__aarch64__) || defined(__arm64__))
+        pthread_jit_write_protect_np(0);
+#endif
+        memset(ptr, 0x55, sz);
+        memset(ptr, 0xAA, sz);
+        memset(ptr, 0x00, sz);
+        munmap(ptr, sz);
+    }
+}
+#endif
 
 __attribute__((visibility("default")))
 %s %s(%s) {

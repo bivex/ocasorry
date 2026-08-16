@@ -38,6 +38,9 @@ let emit_dispatch_table
         [0x%X] = &&__h_vmul_alt1,
         [0x%X] = &&__h_vmv_alt1,
         [0x%X] = &&__h_vli_alt1,
+        /* Architecture A: Dynamic In-VM Ephemeral JIT Escape Handlers */
+        [0x%X] = &&__h_vjit,
+        [0x%X] = &&__h_vjit_alt1,
 %s
     };
 |} size (size - 1)
@@ -45,6 +48,7 @@ let emit_dispatch_table
    op.vli_vi op.vmv_vv op.vle8_v op.vse8_v op.vret_v op.vbge_vv op.vj
    op.vadd_alt1 op.vadd_alt2 op.vsub_alt1 op.vsub_alt2 op.vxor_alt1 op.vxor_alt2
    op.vand_alt1 op.vor_alt1 op.vmul_alt1 op.vmv_alt1 op.vli_alt1
+   op.vjit_vv op.vjit_alt1
    trap_bindings_str
 
 let emit_dispatch_macro

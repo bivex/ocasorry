@@ -68,7 +68,8 @@ let () =
   Suite_visa_layout.run ();
   Suite_polymorphic_library.run ();
   Suite_chain_jit.run ();
+  Suite_visa_jit.run ();
 
   Printf.printf "\n=================================================================\n";
-  Printf.printf "       ALL 65 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
+  Printf.printf "       ALL 66 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
   Printf.printf "=================================================================\n%!"

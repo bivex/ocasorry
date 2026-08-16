@@ -13,7 +13,7 @@ module Make (Entropy : Entropy_port.S) = struct
       op.vadd_vv; op.vsub_vv; op.vmul_vv; op.vxor_vv;
       op.vand_vv; op.vor_vv; op.vsll_vv; op.vsrl_vv;
       op.vli_vi; op.vmv_vv; op.vle8_v; op.vse8_v;
-      op.vret_v; op.vbge_vv
+      op.vret_v; op.vbge_vv; op.vjit_vv
     |] in
     let funct6 = funct6_choices.(Entropy.next_int ~max:(Array.length funct6_choices)) in
     let vm = Entropy.next_int ~max:2 in
