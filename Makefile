@@ -83,10 +83,27 @@ ml-synthesize:  ## RL-synthesize MBA-hardened C11 VCPU kernels for all tiers
 ml-discriminate: build  ## Measure True Polymorphic Diversity Index (TPDI) via Apple MLX
 	$(PYTHON3) $(TOOLS)/mlx_polymorphism_discriminator.py --test
 
+ml-benchmark: build  ## Full Benchmark: TPDI (10 builds) + Formal Z3 Soundness + License Demo
+	@echo "======================================================================"
+	@echo "  💎 Vectis: Running Complete Polymorphic & Security Benchmark"
+	@echo "======================================================================"
+	$(PYTHON3) $(TOOLS)/mlx_polymorphism_discriminator.py --test --samples 10
+	@echo ""
+	@echo "[*] Verifying Sail ISA Formal Soundness (Z3 QFBV)..."
+	$(PYTHON3) $(TOOLS)/mlx_neural_sail_verifier.py $(EXAMPLES)/
+	@echo ""
+	@echo "[*] Verifying 4-Tier Federated License Cascade Demo..."
+	$(MAKE) virtualize IN=examples/01_license_keygen.c OUT=examples/01_license_keygen_virtualized.c BIN=examples/01_license_keygen_virtualized.bin
+	./examples/01_license_keygen_virtualized.bin PRO-943DY27VA074
+	@echo "======================================================================"
+	@echo "  🏆 ALL BENCHMARKS & VERIFICATIONS COMPLETED SUCCESSFULLY!"
+	@echo "======================================================================"
+
 ml-bridge:  ## Feed optimal params back to ocasorry_synth CLI (Gap-1)
 	$(PYTHON3) $(TOOLS)/sail_params_to_synth.py --params $(OPT_PARAMS)
 
 ml-pipeline: ml-dataset ml-optimize ml-architect ml-synthesize ml-bridge ml-specs ml-verify ml-discriminate  ## Full ML pipeline end-to-end
+
 
 help:  ## Print available Makefile targets
 	@echo "======================================================================"
