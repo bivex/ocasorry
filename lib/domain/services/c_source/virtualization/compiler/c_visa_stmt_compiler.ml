@@ -97,6 +97,17 @@ module Make (Entropy : Entropy_port.S) = struct
 
   let loop_stack : loop_ctx list ref = ref []
 
+  (* VMorph Step 2: Interleaved Variable Bytecode Stream Padding & Decoy Jumps *)
+  let emit_padding_decoy spec op pb =
+    if Entropy.next_int ~max:100 < 25 then (
+      let target_pc = pb.len + 2 in
+      let jump_w = encode_jump spec op target_pc in
+      let junk_val = Entropy.next_int32 () in
+      ignore (buf_push pb jump_w);
+      ignore (buf_push pb junk_val)
+    )
+
+
   let rec compile_stmt spec op (pb : patch_buf)
       get_vreg next_vreg (s : stmt) : unit =
     let emit w  = ignore (buf_push pb w) in
@@ -113,7 +124,8 @@ module Make (Entropy : Entropy_port.S) = struct
             | Set ((Var v, NoOffset), expr, _, _) ->
                 let dst = get_vreg v.vname in
                 ExprC.compile_exp spec op instrs get_vreg expr dst (!next_vreg);
-                flush ()
+                flush ();
+                emit_padding_decoy spec op pb
             | Set ((Mem (BinOp (PlusPI, ptr_e, idx_e, _)), NoOffset), expr, _, _) ->
                 (match extract_ptr_var ptr_e with
                  | Some ptr_v ->
@@ -125,7 +137,8 @@ module Make (Entropy : Entropy_port.S) = struct
                      ignore (buf_push pb
                        (Spec.encode_inst spec ~funct6:op.C_visa_spec.vse8_v ~vm:1
                           ~vs2:(t1 land 0x1F) ~vs1_or_imm:(t2 land 0x1F)
-                          ~funct3:0 ~vd:((get_vreg ptr_v.vname) land 0x1F)))
+                          ~funct3:0 ~vd:((get_vreg ptr_v.vname) land 0x1F)));
+                     emit_padding_decoy spec op pb
                  | None -> ())
             | _ -> ())
           inst_list
@@ -149,7 +162,11 @@ module Make (Entropy : Entropy_port.S) = struct
          | [] -> ())
 
     | Block blk ->
-        List.iter (compile_stmt spec op pb get_vreg next_vreg) blk.bstmts
+        List.iter (fun s ->
+          compile_stmt spec op pb get_vreg next_vreg s;
+          emit_padding_decoy spec op pb
+        ) blk.bstmts
+
 
     | Loop (blk, _, _, _, _) ->
         let loop_start = pb.len in
