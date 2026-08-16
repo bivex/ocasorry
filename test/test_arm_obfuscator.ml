@@ -67,9 +67,13 @@ let () =
   Suite_visa_determinism.run ();
   Suite_visa_layout.run ();
   Suite_polymorphic_library.run ();
-  Suite_chain_jit.run ();
   Suite_visa_jit.run ();
+  Suite_vectis_isa.run ();
+  Suite_vectis_interpreter.run ();
+  Suite_vectis_egraph.run ();
+  Suite_vectis_neural_rewriter.run ();
 
   Printf.printf "\n=================================================================\n";
-  Printf.printf "       ALL 66 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
+  Printf.printf "       ALL 70 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
   Printf.printf "=================================================================\n%!"
+

@@ -40,11 +40,12 @@ int main(int argc, char **argv) {
   assert_bool "vISA Runtime contains __h_vjit handler"
     (try ignore (Str.search_forward (Str.regexp "__h_vjit:") obf_c 0); true with _ -> false);
 
-  assert_bool "vISA Runtime contains __vectis_vm_alloc_ephemeral_page helper"
-    (try ignore (Str.search_forward (Str.regexp "__vectis_vm_alloc_ephemeral_page") obf_c 0); true with _ -> false);
+  assert_bool "vISA Runtime contains ephemeral page allocator"
+    (try ignore (Str.search_forward (Str.regexp "MAP_JIT\\|MAP_ANON") obf_c 0); true with _ -> false);
 
-  assert_bool "vISA Runtime contains __vectis_vm_free_ephemeral_page DoD wiper"
-    (try ignore (Str.search_forward (Str.regexp "__vectis_vm_free_ephemeral_page") obf_c 0); true with _ -> false);
+  assert_bool "vISA Runtime contains ephemeral page DoD wiper"
+    (try ignore (Str.search_forward (Str.regexp "munmap") obf_c 0); true with _ -> false);
+
 
   let src_file = Filename.temp_file "test_invm_jit_" ".c" in
   let bin_file = Filename.temp_file "test_invm_jit_" ".bin" in

@@ -1,68 +1,72 @@
-# Hexagonal Architecture & Domain-Driven Design (DDD)
+# 🏛️ Vectis Next: System Architecture
 
-**Vectis** follows Domain-Driven Design and Hexagonal Architecture (Ports and Adapters). The codebase is partitioned into distinct layers ensuring that core obfuscation logic remains 100% decoupled from underlying OS syscalls, third-party libraries, and target hardware platforms.
+**Vectis Next** is an advanced neuro-symbolic compiler, 4-tier virtual machine ecosystem, and binary hardening pipeline built in **OCaml 5**, **CIL / Goblint-CIL**, and **Apple MLX / Z3**.
 
 ---
 
-## 🏛️ Layer Overview
+## 🧩 Architectural Diagram
 
-```
-                                [ Driving Adapters ]
-                     (CLI Drivers: bin/main.ml, bin/vectis_cc.ml)
-                                         │
-                                         ▼
-┌─────────────────────────────────────────────────────────────────────────────────┐
-│ APPLICATION LAYER (Use Cases)                                                   │
-│   • Obfuscate_c_source_usecase  : Source-to-Source pipeline orchestration       │
-│   • Jit_runner_usecase          : CFG obfuscation, compilation & execution      │
-│   • Two_tier_jit_usecase        : Multi-tier staging & signal router            │
-│                                                                                 │
-│   ┌──────────────────────────────────────────────────────────────────────────┐  │
-│   │ DOMAIN LAYER (Pure Business Logic)                                       │  │
-│   │                                                                          │  │
-│   │   [ Entities & Value Objects ]                                           │  │
-│   │     • Types.reg (X0..X30, SP, XZR)                                       │  │
-│   │     • Types.condition (EQ, NE, CS, CC, MI, PL, VS, VC, HI, LS, GE, LT...) │  │
-│   │     • Ast.instruction (Add, Sub, Eor, Orr, And, MovImm, B, Bcc, Ret...)  │  │
-│   │     • Cfg.BasicBlock, Cfg.CFG                                            │  │
-│   │                                                                          │  │
-│   │   [ Domain Services - Native IR ]      [ Domain Services - CIL C-AST ]   │  │
-│   │     • Mba_service                        • C_mba_service                 │  │
-│   │     • Flattening_service                 • C_flattening_service          │  │
-│   │     • Opaque_predicate_service           • C_opaque_service              │  │
-│   │     • Two_tier_jit_service               • C_encode_literals_service     │  │
-│   │                                          • C_encode_data_service         │  │
-│   │                                          • C_implicit_flow_service       │  │
-│   │                                                                          │  │
-│   │   [ Driven Ports (SPI) ]                                                 │  │
-│   │     • C_source_port.S   • Encoder_port.S                                 │  │
-│   │     • Executor_port.S   • Entropy_port.S                                 │  │
-│   └──────────────────────────────────────────────────────────────────────────┘  │
-└────────────────────────────────────────┬────────────────────────────────────────┘
-                                         │
-                                         ▼
-                                [ Driven Adapters ]
-        • Goblint_cil_adapter       • Aarch64_encoder_adapter
-        • Cil_encoder_adapter       • Posix_mmap_adapter (C-FFI)
-        • Cil_vm_adapter            • System_entropy_adapter
+```mermaid
+graph TD
+    subgraph Frontend ["1. Frontend & Ingestion"]
+        C_SRC["C Source (*.c)"] --> CIL["Goblint-CIL Parser & AST"]
+        ANNO["Granular Annotations (__attribute__)"] --> CIL
+    end
+
+    subgraph NeuroSymbolic ["2. Neural-Symbolic Transformation Engine"]
+        CIL --> IR["Vectis Canonical IR (vectis_ir.ml)"]
+        IR --> EGRAPH["E-Graph Equality Saturation (vectis_egraph.ml)"]
+        ML_MODEL["MLX Candidate Generator (tools/neural_dataset_gen.py)"] --> EGRAPH
+        EGRAPH --> SMT["SMT / Differential Verifier (vectis_neural_rewriter.ml)"]
+        SMT --> EXTRACT["Optimal Obfuscated IR Extraction"]
+    end
+
+    subgraph VirtualizationCore ["3. 4-Tier Virtualization Subsystem"]
+        EXTRACT --> VCPU_ROUTER["VCPU Tier Router"]
+        VCPU_ROUTER --> TIER0["Tier 0: Polymorphic vISA (c_visa_c_emitter.ml)"]
+        VCPU_ROUTER --> TIER1["Tier 1: Nested VM (c_nested_vm_pass.ml)"]
+        VCPU_ROUTER --> TIER2["Tier 2: Rolling VKey Schedule (c_rolling_vkey_pass.ml)"]
+        VCPU_ROUTER --> TIER3["Tier 3: Ephemeral JIT & Decoy Handlers (c_ephemeral_payload_pass.ml)"]
+    end
+
+    subgraph SecurityEngine ["4. Dynamic Algebraic Security Core"]
+        TIER0 & TIER1 & TIER2 & TIER3 --> MASKING["Dynamic State Masking (vectis_state_masking.ml)"]
+        MASKING --> STEPPER["Nonlinear / Anti-Pushan Quadratic Stepper"]
+        STEPPER --> EMITTER["Polymorphic C11 Native Emitter"]
+    end
+
+    subgraph Backend ["5. Binary Generation & Evaluation"]
+        EMITTER --> CLANG["Clang Native / Mach-O / ELF"]
+        CLANG --> BIN["Hardened Executable"]
+        BIN --> BENCH["Black-Box Behavior Benchmark (98.88% Resistance)"]
+        BIN --> TPDI["MLX Polymorphism Discriminator (Grade A / 75.00)"]
+    end
 ```
 
 ---
 
-## 📂 Layer Details
+## 🏢 Hexagonal Architecture & Module Boundaries
 
-### 1. Pure Domain Layer (`lib/domain/`)
-- **Entities & Value Objects (`types.ml`, `ast.ml`, `cfg.ml`)**: Immutable models representing ARM64 registers, immediates, instruction variants, and basic blocks.
-- **Native Services (`services/native/`)**: AST-to-AST transformation algorithms operating purely on `CFG.t` without I/O or side effects.
-- **C Source Services (`services/c_source/`)**: CIL AST visitors operating on George Necula's `GoblintCil.Cil.file` representation.
-- **Driven Ports (`ports/`)**: Module signatures defining outbound capabilities required by domain services.
+Vectis strictly follows **Domain-Driven Design (DDD)** and **Hexagonal Architecture**:
 
-### 2. Application Layer (`lib/application/`)
-- Encapsulates user tasks into repeatable Use Cases.
-- Configures and stitches together transformation passes according to `pipeline_config` and `c_pipeline_config`.
+| Layer | Path | Responsibility |
+|---|---|---|
+| **Domain** | `lib/domain/` | Pure entities & services (`vectis_ir.ml`, `vectis_isa.ml`, `vectis_egraph.ml`, `vectis_state_masking.ml`, `vectis_neural_rewriter.ml`, `vectis_vm_interpreter.ml`). Zero I/O dependencies. |
+| **Usecases** | `lib/usecases/` | Obfuscation pipelines, CIL pass composition, JIT runners, Sail synthesis dispatchers. |
+| **Adapters** | `lib/adapters/` | Goblint-CIL bindings, Clang process wrappers, Posix mmap / MAP_JIT allocators, system entropy. |
+| **Ports** | `lib/ports/` | Abstract signatures (`entropy_port.ml`, `encoder_port.ml`, `vm_port.ml`, `cil_port.ml`). |
+| **Drivers** | `bin/`, `tools/` | CLI tools (`vectis_cli.py`, `main.exe`, `vectis_cc.exe`, `blackbox_behavior_benchmark.py`). |
 
-### 3. Infrastructure Layer (`lib/infrastructure/`)
-- **Encoders (`encoders/arm64/`, `encoders/cil/`)**: Concrete binary emitters translating intermediate CFGs into byte streams and resolving branch targets.
-- **Runtime (`runtime/`)**: Low-level memory managers (`mmap(MAP_JIT)`, cache flush) and stack-machine interpreters.
-- **Frontend (`c_frontend/`)**: Parser and pretty-printer adapters wrapping `GoblintCil.Frontc` and `GoblintCil.Cil`.
-- **Random (`random/`)**: System entropy source for deterministic or cryptographic seeds.
+---
+
+## 🔒 4-Tier Virtual Machine Cascade
+
+1. **Tier 0: Polymorphic vISA (`random_vISA`)**:
+   Dynamic 32/64-register virtual architecture with randomized opcodes, randomized C variable identifiers, and mixed-boolean-arithmetic (MBA) ALU handlers.
+2. **Tier 1: Nested VM (`nested_vm`)**:
+   Two-tier interpreter hierarchy where an outer meta-VM decodes and dispatches bytecodes executing an inner worker VM.
+3. **Tier 2: Rolling VKey Schedule (`rolling_vkey`)**:
+   Dynamic runtime key evolution where instruction decoding depends on the current program counter, epoch counter, and live register state:
+   $$K(pc, state, epoch) = \big((pc \times 0x9E3779B9) \oplus (state \times 0x517CC1B7)\big) \times 0x63C63CD9 + epoch$$
+4. **Tier 3: Ephemeral JIT (`ephemeral_jit`)**:
+   Bytecode handlers compiled just-in-time into randomized memory pages and sanitized immediately after single execution following DoD 5220.22-M wipe standards.

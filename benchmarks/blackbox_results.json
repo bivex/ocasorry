@@ -1,0 +1,52 @@
+[
+  {
+    "target": "arithmetic",
+    "train_samples": 250,
+    "test_samples": 250,
+    "exact_match_rate_pct": 0.0,
+    "mean_absolute_error": 18745.428,
+    "resistance_score": 100.0,
+    "status": "PASS",
+    "duration_sec": 0.10566115379333496
+  },
+  {
+    "target": "bitwise",
+    "train_samples": 250,
+    "test_samples": 250,
+    "exact_match_rate_pct": 0.0,
+    "mean_absolute_error": 20376.548,
+    "resistance_score": 100.0,
+    "status": "PASS",
+    "duration_sec": 0.10631799697875977
+  },
+  {
+    "target": "crc_transform",
+    "train_samples": 250,
+    "test_samples": 250,
+    "exact_match_rate_pct": 1.2,
+    "mean_absolute_error": 19411.024,
+    "resistance_score": 98.8,
+    "status": "PASS",
+    "duration_sec": 0.10441303253173828
+  },
+  {
+    "target": "fsm_state_machine",
+    "train_samples": 250,
+    "test_samples": 250,
+    "exact_match_rate_pct": 0.0,
+    "mean_absolute_error": 4595.432,
+    "resistance_score": 100.0,
+    "status": "PASS",
+    "duration_sec": 0.10634994506835938
+  },
+  {
+    "target": "toy_crypto",
+    "train_samples": 250,
+    "test_samples": 250,
+    "exact_match_rate_pct": 4.3999999999999995,
+    "mean_absolute_error": 4.528,
+    "resistance_score": 95.6,
+    "status": "PASS",
+    "duration_sec": 0.10060787200927734
+  }
+]
