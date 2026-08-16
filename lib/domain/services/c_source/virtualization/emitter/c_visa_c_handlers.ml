@@ -253,9 +253,10 @@ __h_vle8: {
 }
 __h_vse8:
     if (%s < %d) {
-        %s[%s++] = __VREG_GET(%s);
+        %s[__VSTK_PHYS_D(%s++)] = __VREG_GET(%s);
     }
     __VISA_DISP_MEM();
+
 __h_vbge: {
 %s
     /* Anti-Concolic Cryptographic ARX Path Trap (Vector 5) & DynOpVm CFG Edge Keying */
@@ -395,11 +396,12 @@ __h_decoy_alu_1: {
 }
 __h_decoy_mem_0: {
     /* Anti-DSE / Anti-Pushan Honey-Trap Decoy Handler 2 */
-    volatile unsigned long long __dmem = %s[%s & 0x07];
+    volatile unsigned long long __dmem = %s[__VSTK_PHYS_D(%s & 0x07)];
     (void)__dmem;
     %s = ((%s * 0x3141592653589793ULL) ^ 0xC3C3C3C3ULL) * 0x623d443fbfa30237ULL;
     __VISA_DISP_MEM();
 }
+
 __h_decoy_ctrl_0: {
     /* Anti-DSE / Anti-Pushan Honey-Trap Decoy Handler 3 */
     unsigned long long __arx = (unsigned long long)%s;

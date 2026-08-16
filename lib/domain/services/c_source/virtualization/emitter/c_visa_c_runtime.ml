@@ -34,9 +34,18 @@ type var_set = {
   free_fn  : string;   (* ephemeral free helper     *)
   dss      : int;      (* data stack size 48..95    *)
   css      : int;      (* ctrl stack size 24..47    *)
+  stk_a_d  : int;      (* data stack coprime multiplier *)
+  stk_b_d  : int;      (* data stack offset             *)
+  stk_a_c  : int;      (* ctrl stack coprime multiplier *)
+  stk_b_c  : int;      (* ctrl stack offset             *)
   gold1    : int64;    (* random odd multiplier 1   *)
   gold2    : int64;    (* random odd multiplier 2   *)
 }
+
+let rec find_coprime m =
+  let a = (Random.int 63) * 2 + 1 in
+  let rec gcd x y = if y = 0 then x else gcd y (x mod y) in
+  if gcd a m = 1 then a else find_coprime m
 
 let make_var_set () : var_set =
   let s () = rand_hex4 () ^ rand_hex4 () in
@@ -45,6 +54,8 @@ let make_var_set () : var_set =
     let v = Random.int64 Int64.max_int in
     Int64.logor v 1L
   in
+  let dss_val = 48 + (Random.int 48) in
+  let css_val = 24 + (Random.int 24) in
   {
     vsd      = "__vsd_"  ^ s ();
     vsc      = "__vsc_"  ^ s ();
@@ -67,14 +78,18 @@ let make_var_set () : var_set =
     vbm      = "__vbm_"  ^ s ();
     fae      = "__fae_"  ^ s ();
 
-
     alloc_fn = "__vma_"  ^ s ();
     free_fn  = "__vmf_"  ^ s ();
-    dss      = 48 + (Random.int 48);   (* 48..95  — always multiple of 8-ish *)
-    css      = 24 + (Random.int 24);   (* 24..47  *)
+    dss      = dss_val;
+    css      = css_val;
+    stk_a_d  = find_coprime dss_val;
+    stk_b_d  = Random.int dss_val;
+    stk_a_c  = find_coprime css_val;
+    stk_b_c  = Random.int css_val;
     gold1    = rand_odd ();
     gold2    = rand_odd ();
   }
+
 
 
 (* ── Public emitters ────────────────────────────────────────────────────────── *)
@@ -184,9 +199,12 @@ let emit_shadow_and_cfi
   let dtag = rand_hex4 () ^ rand_hex4 () in
   let decoy_val = Random.int64 Int64.max_int in
   Printf.sprintf {|
-    /* Vector 2: Dual Shadow Stack (%s + %s) */
+    /* Vector 2: Dual Shadow Stack (%s + %s) with Algebraic Scrambling */
+    #define __VSTK_PHYS_D(idx) ((((unsigned int)(idx)) * %uU + %uU) %% %uU)
+    #define __VSTK_PHYS_C(idx) ((((unsigned int)(idx)) * %uU + %uU) %% %uU)
     unsigned long long %s[%d] = {0};
     unsigned long long %s[%d] = {0};
+
     unsigned int %s = 0;
     unsigned int %s = 0;
     unsigned long long %s = 0x%LxULL;
@@ -218,15 +236,17 @@ let emit_shadow_and_cfi
         ^ (%s * 0x%LxULL)
         ^ (__vbc_hash_0 * 0x%LxULL);
 
-    %s[%s++] = %s ^ 0x%LxULL;
+    %s[__VSTK_PHYS_C(%s++)] = %s ^ 0x%LxULL;
 
 %s
     unsigned int %s = 0;
     unsigned int %s, %s, %s;
     unsigned char %s, %s, %s, %s, %s, %s;
 |}
-  (* vstack names *)
+  (* vstack names & permutation keys *)
   vs.vsd vs.vsc
+  vs.stk_a_d vs.stk_b_d vs.dss
+  vs.stk_a_c vs.stk_b_c vs.css
   vs.vsd vs.dss
   vs.vsc vs.css
   vs.vpd
@@ -265,8 +285,8 @@ let emit_epilogue
   let poison_magic  = Int64.logor (Random.int64 Int64.max_int) 1L in
   Printf.sprintf {|
 __h_vret: ;
-    /* Verify Shadow Control Stack CFI Canary */
-    if (%s == 0 || ((%s[--%s] ^ 0x%LxULL) != %s)) {
+    /* Verify Shadow Control Stack CFI Canary with Algebraic Scrambling */
+    if (%s == 0 || ((%s[__VSTK_PHYS_C(--%s)] ^ 0x%LxULL) != %s)) {
         __builtin_trap();
     }
     /* Vector 12: Microarchitectural Timer Check & Silent State Poisoning */
@@ -304,6 +324,8 @@ __h_vret: ;
     __asm__ volatile("" : : "r"(__wp_vb), "r"(__wp_vbl), "r"(__wp_vbm), "r"(__wp_vsd), "r"(__wp_vsc) : "memory");
     return (%s)__res_val;
 }
+#undef __VSTK_PHYS_D
+#undef __VSTK_PHYS_C
 #undef __VREG_ROT
 #undef __VREG_MASK
 #undef __VREG_GET
@@ -320,6 +342,7 @@ __h_vret: ;
   vs.vsd vs.vsd
   vs.vsc vs.vsc
   ret_type_str
+
 
 
 
