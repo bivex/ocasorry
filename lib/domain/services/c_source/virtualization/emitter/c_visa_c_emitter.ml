@@ -31,20 +31,23 @@ let emit_function_body
     ~(pack_key : int64)
     ~(delta_key : int64)
     ~(lay : visa_field_layout) : string =
+  (* Fresh per-build session: randomised variable names, stack sizes, constants *)
+  let vs = C_visa_c_runtime.make_var_set () in
   let prof     = C_visa_profile_service.get_active_profile () in
   let sbox_code = C_visa_profile_service.generate_sbox_luts prof.lut_count in
   let (trap_code, trap_bindings) =
     C_visa_profile_service.generate_synthetic_trap_handlers
+      ~vs1:vs.vs1
+      ~vs2:vs.vs2
+      ~vd:vs.vd
       ~start_slot:64
       ~total_slots:prof.dispatch_size
       ~lut_count:prof.lut_count
   in
   let trap_bindings_str = C_visa_profile_service.format_trap_bindings trap_bindings in
 
-  (* Fresh per-build session: randomised variable names, stack sizes, constants *)
-  let vs = C_visa_c_runtime.make_var_set () in
-
   String.concat "" [
+
     C_visa_c_runtime.emit_header ~vs ~ret_type_str ~fn_name ~fn_params ~sbox_code;
 
     C_visa_c_runtime.emit_vbank ~vs ~vreg_total ~vreg_rot_seed ~reg_mask_base ~reg_mask_step;

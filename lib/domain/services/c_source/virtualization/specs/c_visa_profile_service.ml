@@ -165,8 +165,9 @@ let generate_sbox_luts (lut_count : int) : string =
     String.concat "\n" (List.rev !luts)
 
 (** Generate unique synthetic non-linear polynomial trap handlers *)
-let generate_synthetic_trap_handlers ~(start_slot : int) ~(total_slots : int) ~(lut_count : int) : string * (int * string) list =
+let generate_synthetic_trap_handlers ~(vs1 : string) ~(vs2 : string) ~(vd : string) ~(start_slot : int) ~(total_slots : int) ~(lut_count : int) : string * (int * string) list =
   if start_slot >= total_slots then ("", [])
+
   else
     let handlers = ref [] in
     let bindings = ref [] in
@@ -176,10 +177,10 @@ let generate_synthetic_trap_handlers ~(start_slot : int) ~(total_slots : int) ~(
       let c1 = (0x1000000 + (slot * 0x9E3779B9)) land 0xFFFFFFFF in
       let c2 = (0x2000000 + (slot * 0x517CC1B7)) land 0xFFFFFFFF in
       let k = (0x3000000 + (slot * 0x6C62272E)) land 0xFFFFFFFF in
-      let sbox_mod = if lut_count > 0 then Printf.sprintf " ^ __vm_sbox_%d[__VREG_GET(__vd) & 0xFF]" (slot mod lut_count) else "" in
+      let sbox_mod = if lut_count > 0 then Printf.sprintf " ^ __vm_sbox_%d[__VREG_GET(%s) & 0xFF]" (slot mod lut_count) vd else "" in
       let h_code = Printf.sprintf {|
 %s: {
-    unsigned long long __a = __VREG_GET(__vs1) ^ 0x%XULL, __b = __VREG_GET(__vs2) + 0x%XULL;
+    unsigned long long __a = __VREG_GET(%s) ^ 0x%XULL, __b = __VREG_GET(%s) + 0x%XULL;
     unsigned long long __x1 = (__a ^ __b) + ((__a & __b) << 1);
     unsigned long long __x2 = ((__a | __b) << 1) - (__a ^ __b);
     unsigned long long __al = __x1 & 0xFFFFFFFFULL, __ah = __x1 >> 32;
@@ -188,13 +189,14 @@ let generate_synthetic_trap_handlers ~(start_slot : int) ~(total_slots : int) ~(
     unsigned long long __p1 = (__al + __ah) * (__bl + __bh) - __p0 - __p2;
     unsigned long long __x3 = __p0 + ((__p1 ^ 0x%XULL) << 32);
     unsigned long long __x4 = (__x3 ^ (__x1 + __x2)) - ((~__x1 & __x2) << 1);
-    __VREG_SET(__vd, ((__x4 ^ 0x%XULL) + 0x%XULL)%s);
+    __VREG_SET(%s, ((__x4 ^ 0x%XULL) + 0x%XULL)%s);
     __VISA_DISPATCH();
 }
-|} label c1 c2 k c1 c2 sbox_mod in
+|} label vs1 c1 vs2 c2 k vd c1 c2 sbox_mod in
       handlers := h_code :: !handlers
     done;
     (String.concat "" (List.rev !handlers), List.rev !bindings)
+
 
 let format_trap_bindings (bindings : (int * string) list) : string =
   if bindings = [] then ""
