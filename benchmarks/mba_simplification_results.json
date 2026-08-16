@@ -1,57 +1,68 @@
 [
   {
-    "target": "0_ground_truth_raw",
+    "target": "0_raw_2var_ground_truth",
+    "num_variables": 2,
     "ast_nodes_obfuscated": 3,
     "ast_nodes_z3_simplified": 3,
     "z3_size_reduction_pct": 0.0,
-    "z3_completely_simplified": true,
-    "synthesis_recovered": true,
-    "synthesis_recovered_form": "x + y",
-    "synthesis_time_sec": 0.0004,
-    "resistance_status": "SIMPLIFIED"
+    "synthesis_success_rate_pct": 100.0,
+    "synthesis_recovered_formula": "add(x, y)",
+    "synthesis_median_time_sec": 0.0039,
+    "std_dev_sec": 0.0011
   },
   {
-    "target": "1_linear_mba_depth1",
+    "target": "1_linear_mba_2var_depth1",
+    "num_variables": 2,
     "ast_nodes_obfuscated": 5,
     "ast_nodes_z3_simplified": 8,
     "z3_size_reduction_pct": -60.0,
-    "z3_completely_simplified": false,
-    "synthesis_recovered": true,
-    "synthesis_recovered_form": "x + y",
-    "synthesis_time_sec": 0.0048,
-    "resistance_status": "STRONG"
+    "synthesis_success_rate_pct": 100.0,
+    "synthesis_recovered_formula": "add(x, y)",
+    "synthesis_median_time_sec": 0.0167,
+    "std_dev_sec": 0.0013
   },
   {
-    "target": "2_recursive_mba_depth2",
+    "target": "2_recursive_mba_2var_depth2",
+    "num_variables": 2,
     "ast_nodes_obfuscated": 10,
     "ast_nodes_z3_simplified": 14,
     "z3_size_reduction_pct": -40.0,
-    "z3_completely_simplified": false,
-    "synthesis_recovered": true,
-    "synthesis_recovered_form": "x + y",
-    "synthesis_time_sec": 0.0214,
-    "resistance_status": "STRONG"
+    "synthesis_success_rate_pct": 100.0,
+    "synthesis_recovered_formula": "add(x, y)",
+    "synthesis_median_time_sec": 0.0429,
+    "std_dev_sec": 0.0056
   },
   {
-    "target": "3_polynomial_mba_depth3",
-    "ast_nodes_obfuscated": 12,
-    "ast_nodes_z3_simplified": 9,
-    "z3_size_reduction_pct": 25.0,
-    "z3_completely_simplified": false,
-    "synthesis_recovered": true,
-    "synthesis_recovered_form": "x ^ y",
-    "synthesis_time_sec": 0.0035,
-    "resistance_status": "STRONG"
-  },
-  {
-    "target": "4_egraph_saturated_depth4",
+    "target": "3_egraph_saturated_2var_depth4",
+    "num_variables": 2,
     "ast_nodes_obfuscated": 11,
     "ast_nodes_z3_simplified": 14,
     "z3_size_reduction_pct": -27.3,
-    "z3_completely_simplified": false,
-    "synthesis_recovered": true,
-    "synthesis_recovered_form": "x ^ y",
-    "synthesis_time_sec": 0.0211,
-    "resistance_status": "STRONG"
+    "synthesis_success_rate_pct": 100.0,
+    "synthesis_recovered_formula": "xor(x, y)",
+    "synthesis_median_time_sec": 0.0633,
+    "std_dev_sec": 0.0063
+  },
+  {
+    "target": "4_multivar_poly_mba_3var",
+    "num_variables": 3,
+    "ast_nodes_obfuscated": 9,
+    "ast_nodes_z3_simplified": 10,
+    "z3_size_reduction_pct": -11.1,
+    "synthesis_success_rate_pct": 0.0,
+    "synthesis_recovered_formula": "FAILED / TIMEOUT",
+    "synthesis_median_time_sec": 2.7271,
+    "std_dev_sec": 0.091
+  },
+  {
+    "target": "5_multivar_affine_sbox_3var",
+    "num_variables": 3,
+    "ast_nodes_obfuscated": 13,
+    "ast_nodes_z3_simplified": 11,
+    "z3_size_reduction_pct": 15.4,
+    "synthesis_success_rate_pct": 0.0,
+    "synthesis_recovered_formula": "FAILED / TIMEOUT",
+    "synthesis_median_time_sec": 2.1167,
+    "std_dev_sec": 0.2252
   }
 ]

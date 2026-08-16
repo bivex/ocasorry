@@ -1,4 +1,6 @@
 open C_arm64_edsl
+open C_visa_c_runtime
+
 
 (** Domain Service: C11 Opcode Handlers Generator for vISA Virtual Machines
     Generates C11 code for all ALU, bitwise, memory load/store, and branching operations.
@@ -37,50 +39,58 @@ let generate_vjit_alt1_insns ~k3 ~k4 =
   in
   assemble ~insert_decoys:false prog
 
-(* ── MBA form pools — each op has N semantically equivalent C expressions ── *)
-(* Each function takes the actual (randomised) vd variable name string.       *)
+(* ── MBA form pools with 3-variable state-entangled invariants ── *)
 
-let vadd_forms vd = [|
-  Printf.sprintf "__VREG_SET(%s, (__a ^ __b) + ((__a & __b) << 1))" vd;
-  Printf.sprintf "__VREG_SET(%s, (__a | __b) + (__a & __b))" vd;
-  Printf.sprintf "__VREG_SET(%s, ((__a | __b) << 1) - (__a ^ __b))" vd;
-  Printf.sprintf "__VREG_SET(%s, __a + __b)" vd;
-  Printf.sprintf "__VREG_SET(%s, (__a + __b + 1ULL) - 1ULL)" vd;
+let vadd_forms (vs : C_visa_c_runtime.var_set) = [|
+  Printf.sprintf "__VREG_SET(%s, (__a ^ __b) + ((__a & __b) << 1) + (((unsigned long long)%s * ((unsigned long long)%s + 1ULL)) & 1ULL))" vs.vd vs.ky vs.ky;
+  Printf.sprintf "__VREG_SET(%s, (__a | __b) + (__a & __b) + (((unsigned long long)%s * ((unsigned long long)%s + 1ULL)) & 1ULL))" vs.vd vs.fae vs.fae;
+  Printf.sprintf "__VREG_SET(%s, ((__a | __b) << 1) - (__a ^ __b))" vs.vd;
+  Printf.sprintf "__VREG_SET(%s, (__a + __b) ^ (((unsigned long long)%s * ((unsigned long long)%s + 1ULL)) & 1ULL))" vs.vd vs.pc vs.pc;
+  Printf.sprintf "__VREG_SET(%s, (__a + __b + 1ULL) - 1ULL)" vs.vd;
 |]
 
-let vsub_forms vd = [|
-  Printf.sprintf "__VREG_SET(%s, (__a ^ __b) - ((~__a & __b) << 1))" vd;
-  Printf.sprintf "__VREG_SET(%s, (__a & ~__b) - (~__a & __b))" vd;
-  Printf.sprintf "__VREG_SET(%s, (__a ^ ~__b) + 1ULL + ((__a & ~__b) << 1))" vd;
-  Printf.sprintf "__VREG_SET(%s, __a - __b)" vd;
+let vsub_forms (vs : C_visa_c_runtime.var_set) = [|
+  Printf.sprintf "__VREG_SET(%s, (__a ^ __b) - ((~__a & __b) << 1) + (((unsigned long long)%s * ((unsigned long long)%s + 1ULL)) & 1ULL))" vs.vd vs.ky vs.ky;
+  Printf.sprintf "__VREG_SET(%s, (__a & ~__b) - (~__a & __b))" vs.vd;
+  Printf.sprintf "__VREG_SET(%s, (__a ^ ~__b) + 1ULL + ((__a & ~__b) << 1))" vs.vd;
+  Printf.sprintf "__VREG_SET(%s, (__a - __b) ^ (((unsigned long long)%s * ((unsigned long long)%s + 1ULL)) & 1ULL))" vs.vd vs.fae vs.fae;
 |]
 
-let vmul_forms vd = [|
-  Printf.sprintf "__VREG_SET(%s, (unsigned long long)(__a * __b))" vd;
-  Printf.sprintf "__VREG_SET(%s, (unsigned long long)((__a ^ 0) * (__b ^ 0)))" vd;
-  Printf.sprintf "__VREG_SET(%s, (unsigned long long)((__a + 0ULL) * (__b + 0ULL)))" vd;
+let vmul_forms (vs : C_visa_c_runtime.var_set) = [|
+  Printf.sprintf "__VREG_SET(%s, (unsigned long long)(__a * __b))" vs.vd;
+  Printf.sprintf "__VREG_SET(%s, (unsigned long long)((__a ^ 0) * (__b ^ 0)) + (((unsigned long long)%s * ((unsigned long long)%s + 1ULL)) & 1ULL))" vs.vd vs.ky vs.ky;
+  Printf.sprintf "__VREG_SET(%s, (unsigned long long)((__a + 0ULL) * (__b + 0ULL)))" vs.vd;
 |]
 
-let vxor_forms vd = [|
-  Printf.sprintf "__VREG_SET(%s, (__a | __b) - (__a & __b))" vd;
-  Printf.sprintf "__VREG_SET(%s, (~__a & __b) + (__a & ~__b))" vd;
-  Printf.sprintf "__VREG_SET(%s, (__a + __b) - ((__a & __b) << 1))" vd;
-  Printf.sprintf "__VREG_SET(%s, __a ^ __b)" vd;
+let vxor_forms (vs : C_visa_c_runtime.var_set) = [|
+  Printf.sprintf "__VREG_SET(%s, ((__a | __b) - (__a & __b)) + (((unsigned long long)%s * ((unsigned long long)%s + 1ULL)) & 1ULL))" vs.vd vs.ky vs.ky;
+  Printf.sprintf "__VREG_SET(%s, (~__a & __b) + (__a & ~__b))" vs.vd;
+  Printf.sprintf "__VREG_SET(%s, (__a + __b) - ((__a & __b) << 1))" vs.vd;
+  Printf.sprintf "__VREG_SET(%s, (__a ^ __b) ^ (((unsigned long long)%s * ((unsigned long long)%s + 1ULL)) & 1ULL))" vs.vd vs.pc vs.pc;
 |]
 
-let vand_forms vd = [|
-  Printf.sprintf "__VREG_SET(%s, (__a | __b) - (__a ^ __b))" vd;
-  Printf.sprintf "__VREG_SET(%s, (__a + __b) - (__a | __b))" vd;
-  Printf.sprintf "__VREG_SET(%s, __a & __b)" vd;
+let vand_forms (vs : C_visa_c_runtime.var_set) = [|
+  Printf.sprintf "__VREG_SET(%s, ((__a | __b) - (__a ^ __b)) + (((unsigned long long)%s * ((unsigned long long)%s + 1ULL)) & 1ULL))" vs.vd vs.fae vs.fae;
+  Printf.sprintf "__VREG_SET(%s, (__a + __b) - (__a | __b))" vs.vd;
+  Printf.sprintf "__VREG_SET(%s, __a & __b)" vs.vd;
 |]
 
-let vor_forms vd = [|
-  Printf.sprintf "__VREG_SET(%s, (__a & __b) + (__a ^ __b))" vd;
-  Printf.sprintf "__VREG_SET(%s, (__a + __b) - (__a & __b))" vd;
-  Printf.sprintf "__VREG_SET(%s, __a | __b)" vd;
+let vor_forms (vs : C_visa_c_runtime.var_set) = [|
+  Printf.sprintf "__VREG_SET(%s, ((__a & __b) + (__a ^ __b)) + (((unsigned long long)%s * ((unsigned long long)%s + 1ULL)) & 1ULL))" vs.vd vs.ky vs.ky;
+  Printf.sprintf "__VREG_SET(%s, (__a + __b) - (__a & __b))" vs.vd;
+  Printf.sprintf "__VREG_SET(%s, __a | __b)" vs.vd;
 |]
 
 let pick arr = arr.(Random.int (Array.length arr))
+
+let emit_disp vs =
+  let r = Random.int 3 in
+  if r = 0 then
+    Printf.sprintf "if (((unsigned long long)%s * ((unsigned long long)%s + 1ULL)) & 1ULL) { goto __h_vret; } else { __VISA_DISPATCH(); }" vs.ky vs.ky
+  else if r = 1 then
+    Printf.sprintf "if (((unsigned long long)%s * ((unsigned long long)%s + 1ULL)) & 1ULL) { __VISA_DISPATCH(); } else { __VISA_DISPATCH(); }" vs.fae vs.fae
+  else
+    "__VISA_DISPATCH();"
 
 (* Inline volatile decoy between handlers — unique per build *)
 let decoy_stmt () =
@@ -111,53 +121,59 @@ let emit_handlers
   let insns2 = generate_vjit_alt1_insns ~k3 ~k4 in
   let (enc_insns1_str, key1, len1) = to_encrypted_c_array insns1 in
   let (enc_insns2_str, key2, len2) = to_encrypted_c_array insns2 in
-  (* Pick random MBA forms — pass vs.vd so forms use the randomised name *)
-  let f_vadd  = pick (vadd_forms vs.vd) in
-  let f_vadd1 = pick (vadd_forms vs.vd) in
-  let f_vadd2 = pick (vadd_forms vs.vd) in
-  let f_vsub  = pick (vsub_forms vs.vd) in
-  let f_vsub1 = pick (vsub_forms vs.vd) in
-  let f_vsub2 = pick (vsub_forms vs.vd) in
-  let f_vmul  = pick (vmul_forms vs.vd) in
-  let f_vmul1 = pick (vmul_forms vs.vd) in
-  let f_vxor  = pick (vxor_forms vs.vd) in
-  let f_vxor1 = pick (vxor_forms vs.vd) in
-  let f_vxor2 = pick (vxor_forms vs.vd) in
-  let f_vand  = pick (vand_forms vs.vd) in
-  let f_vand1 = pick (vand_forms vs.vd) in
-  let f_vor   = pick (vor_forms  vs.vd) in
-  let f_vor1  = pick (vor_forms  vs.vd) in
+  (* Pick random MBA forms — pass vs so forms use randomized names & state registers *)
+  let f_vadd  = pick (vadd_forms vs) in
+  let f_vadd1 = pick (vadd_forms vs) in
+  let f_vadd2 = pick (vadd_forms vs) in
+  let f_vsub  = pick (vsub_forms vs) in
+  let f_vsub1 = pick (vsub_forms vs) in
+  let f_vsub2 = pick (vsub_forms vs) in
+  let f_vmul  = pick (vmul_forms vs) in
+  let f_vmul1 = pick (vmul_forms vs) in
+  let f_vxor  = pick (vxor_forms vs) in
+  let f_vxor1 = pick (vxor_forms vs) in
+  let f_vxor2 = pick (vxor_forms vs) in
+  let f_vand  = pick (vand_forms vs) in
+  let f_vand1 = pick (vand_forms vs) in
+  let f_vor   = pick (vor_forms  vs) in
+  let f_vor1  = pick (vor_forms  vs) in
+  let d1 = emit_disp vs in
+  let d2 = emit_disp vs in
+  let d3 = emit_disp vs in
+  let d4 = emit_disp vs in
+  let d5 = emit_disp vs in
+  let d6 = emit_disp vs in
   trap_code ^ Printf.sprintf {|
 __h_vadd: {
     unsigned long long __a = __VREG_GET(%s), __b = __VREG_GET(%s);
     %s;
-    __VISA_DISPATCH();
+    %s
 }
 __h_vadd_alt1: {
     unsigned long long __a = __VREG_GET(%s), __b = __VREG_GET(%s);
     %s;
-    __VISA_DISPATCH();
+    %s
 }
 __h_vadd_alt2: {
     unsigned long long __a = __VREG_GET(%s), __b = __VREG_GET(%s);
     %s;
-    __VISA_DISPATCH();
+    %s
 }
 %s
 __h_vsub: {
     unsigned long long __a = __VREG_GET(%s), __b = __VREG_GET(%s);
     %s;
-    __VISA_DISPATCH();
+    %s
 }
 __h_vsub_alt1: {
     unsigned long long __a = __VREG_GET(%s), __b = __VREG_GET(%s);
     %s;
-    __VISA_DISPATCH();
+    %s
 }
 __h_vsub_alt2: {
     unsigned long long __a = __VREG_GET(%s), __b = __VREG_GET(%s);
     %s;
-    __VISA_DISPATCH();
+    %s
 }
 %s
 __h_vmul: {
@@ -208,6 +224,7 @@ __h_vor_alt1: {
     %s;
     __VISA_DISPATCH();
 }
+
 __h_vsll: {
     unsigned long long __a = __VREG_GET(%s), __sh = __VREG_GET(%s) & 0x3FULL;
     __VREG_SET(%s, __a << __sh);
@@ -321,15 +338,16 @@ __h_default:
     __builtin_trap();
 |}
   (* vadd *)
-  vs.vs1 vs.vs2 f_vadd
-  vs.vs1 vs.vs2 f_vadd1
-  vs.vs1 vs.vs2 f_vadd2
+  vs.vs1 vs.vs2 f_vadd d1
+  vs.vs1 vs.vs2 f_vadd1 d2
+  vs.vs1 vs.vs2 f_vadd2 d3
   (decoy_stmt ())
   (* vsub *)
-  vs.vs1 vs.vs2 f_vsub
-  vs.vs1 vs.vs2 f_vsub1
-  vs.vs1 vs.vs2 f_vsub2
+  vs.vs1 vs.vs2 f_vsub d4
+  vs.vs1 vs.vs2 f_vsub1 d5
+  vs.vs1 vs.vs2 f_vsub2 d6
   (decoy_stmt ())
+
   (* vmul *)
   vs.vs1 vs.vs2 f_vmul
   vs.vs1 vs.vs2 f_vmul1

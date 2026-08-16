@@ -116,8 +116,12 @@ def run_benchmark():
         subprocess.run([
             MAIN_BIN, "-i", src_c, "-o", obf_c,
             "--virtualize", "--poly-mba", "--opaque", "--dyn-opaque",
-            "--rolling-vkey", "--vcpu-scramble"
+            "--rolling-vkey", "--vcpu-scramble",
+            "--decentralized-disp", "--split-bb", "--bcf", "--relational-morph",
+            "--indirect", "--micro-dispatcher"
         ], check=True, capture_output=True)
+
+
         subprocess.run(["clang", "-w", "-O2", obf_c, "-o", obf_bin], check=True)
         
         insns = extract_disassembly_blocks(obf_bin)
