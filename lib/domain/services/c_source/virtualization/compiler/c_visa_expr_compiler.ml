@@ -65,13 +65,13 @@ module Make (Entropy : Entropy_port.S) = struct
     let vand () = pick [| op.C_visa_spec.vand_vv; op.vand_alt1 |] 2 in
     let vor  () = pick [| op.C_visa_spec.vor_vv;  op.vor_alt1  |] 2 in
     let vmul () = pick [| op.C_visa_spec.vmul_vv; op.vmul_alt1 |] 2 in
-    let vjit () = pick [| op.C_visa_spec.vjit_vv; op.vjit_alt1 |] 2 in
-    ignore (vjit);
     let emit2 funct6 vs2r vs1r vdr =
       instrs := (Spec.encode_inst spec ~funct6 ~vm:1
                   ~vs2:(vs2r land 0x1F) ~vs1_or_imm:(vs1r land 0x1F)
                   ~funct3:0 ~vd:(vdr land 0x1F)) :: !instrs
     in
+
+
     match e with
     | Const (CInt (i, _, _)) ->
         emit_const spec op instrs (Z.to_int i) dst free_reg
