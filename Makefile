@@ -79,10 +79,13 @@ ml-architect:  ## Train VCPU profile architect (requires ml-optimize)
 ml-synthesize:  ## RL-synthesize MBA-hardened C11 VCPU kernels for all tiers
 	$(PYTHON3) $(TOOLS)/mlx_neural_vm_synthesizer.py --test
 
+ml-discriminate: build  ## Measure True Polymorphic Diversity Index (TPDI) via Apple MLX
+	$(PYTHON3) $(TOOLS)/mlx_polymorphism_discriminator.py --test
+
 ml-bridge:  ## Feed optimal params back to ocasorry_synth CLI (Gap-1)
 	$(PYTHON3) $(TOOLS)/sail_params_to_synth.py --params $(OPT_PARAMS)
 
-ml-pipeline: ml-dataset ml-optimize ml-architect ml-synthesize ml-bridge ml-specs ml-verify  ## Full ML pipeline end-to-end
+ml-pipeline: ml-dataset ml-optimize ml-architect ml-synthesize ml-bridge ml-specs ml-verify ml-discriminate  ## Full ML pipeline end-to-end
 
 help:  ## Print available Makefile targets
 	@echo "======================================================================"
