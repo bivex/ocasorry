@@ -63,5 +63,29 @@ int main(int argc, char **argv) {
   let expected_val = (((12 lxor 34) * 3) + 42) + 100 in
   assert_bool (Printf.sprintf "In-VM JIT execution result: %d == %d" actual_val expected_val) (actual_val = expected_val);
 
+  (* Direct Typed C_arm64_edsl Assembler & Encryption Unit Verification *)
+  let open C_arm64_edsl in
+  let test_prog =
+    empty
+    <+> MovImm (X0, 100)
+    <+> MovImm (X1, 200)
+    <+> Add (X0, X0, X1)
+    <+> CmpImm (X0, 300)
+    <+> BCond (Eq, "lbl_match")
+    <+> MovImm (X0, 0)
+    <+> B "lbl_exit"
+    <+> Label "lbl_match"
+    <+> MovImm (X0, 42)
+    <+> Label "lbl_exit"
+    <+> Ret
+  in
+  let words = assemble ~insert_decoys:false test_prog in
+  assert_bool "C_arm64_edsl assembled non-empty word stream" (List.length words > 0);
+
+  let (enc_str, key, len) = to_encrypted_c_array ~key:0x12345678l words in
+  assert_bool "C_arm64_edsl session key matches" (key = 0x12345678l);
+  assert_bool "C_arm64_edsl encrypted string is non-empty" (String.length enc_str > 0);
+  assert_bool "C_arm64_edsl word count matches" (len = List.length words);
+
   (try Sys.remove src_file with _ -> ());
   (try Sys.remove bin_file with _ -> ())

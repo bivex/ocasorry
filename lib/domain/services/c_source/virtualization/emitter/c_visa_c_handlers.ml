@@ -1,60 +1,41 @@
+open C_arm64_edsl
+
 (** Domain Service: C11 Opcode Handlers Generator for vISA Virtual Machines
     Generates C11 code for all ALU, bitwise, memory load/store, and branching operations.
     Features:
-    - Dynamic Polymorphic AArch64 JIT Machine Code Synthesis with Safe Decoys (WZR/NOP).
+    - Typed AArch64 Machine Code Generation via C_arm64_edsl.
     - Session-Key XOR Encryption of JIT Instruction Buffers in .rodata.
     - Ephemeral Micro-Allocation with 3-Pass DoD 5220.22-M Memory Sanitization.
 *)
 
 let generate_vjit_insns ~k1 ~k2 =
-  let enc_mov_x2 imm =
-    Int32.logor 0xD2800002l (Int32.shift_left (Int32.of_int (imm land 0xFFFF)) 5)
+  let prog =
+    empty
+    <+> Eor (X0, X0, X1)
+    <+> Decoy `ZeroLogic
+    <+> MovImm (X2, k1)
+    <+> Mul (X0, X0, X2)
+    <+> Decoy `Nop
+    <+> AddImm (X0, X0, k2)
+    <+> Decoy `ZeroLogic
+    <+> Ret
   in
-  let enc_add_imm_x0 imm =
-    Int32.logor 0x91000000l (Int32.shift_left (Int32.of_int (imm land 0xFFF)) 10)
-  in
-  let decoys = [
-    0xCA1F031Fl; (* eor xzr, xzr, xzr *)
-    0xAA1F031Fl; (* mov xzr, xzr *)
-    0xD503201Fl; (* nop *)
-  ] in
-  let d1 = List.nth decoys (Random.int (List.length decoys)) in
-  let d2 = List.nth decoys (Random.int (List.length decoys)) in
-  let d3 = List.nth decoys (Random.int (List.length decoys)) in
-  [
-    0xCA010000l;         (* eor x0, x0, x1 *)
-    d1;                  (* polymorphic decoy *)
-    enc_mov_x2 k1;       (* mov x2, #k1 *)
-    0x9B027C00l;         (* mul x0, x0, x2 *)
-    d2;                  (* polymorphic decoy *)
-    enc_add_imm_x0 k2;   (* add x0, x0, #k2 *)
-    d3;                  (* polymorphic decoy *)
-    0xD65F03C0l;         (* ret *)
-  ]
+  assemble ~insert_decoys:false prog
 
 let generate_vjit_alt1_insns ~k3 ~k4 =
-  let enc_mov_x2 imm =
-    Int32.logor 0xD2800002l (Int32.shift_left (Int32.of_int (imm land 0xFFFF)) 5)
+  let prog =
+    empty
+    <+> Add (X0, X0, X1)
+    <+> Decoy `ZeroLogic
+    <+> MovImm (X2, k3)
+    <+> Eor (X0, X0, X2)
+    <+> Decoy `Nop
+    <+> MovImm (X2, k4)
+    <+> Mul (X0, X0, X2)
+    <+> Decoy `ZeroLogic
+    <+> Ret
   in
-  let decoys = [
-    0xCA1F031Fl; (* eor xzr, xzr, xzr *)
-    0xAA1F031Fl; (* mov xzr, xzr *)
-    0xD503201Fl; (* nop *)
-  ] in
-  let d1 = List.nth decoys (Random.int (List.length decoys)) in
-  let d2 = List.nth decoys (Random.int (List.length decoys)) in
-  let d3 = List.nth decoys (Random.int (List.length decoys)) in
-  [
-    0x8B010000l;         (* add x0, x0, x1 *)
-    d1;                  (* polymorphic decoy *)
-    enc_mov_x2 k3;       (* mov x2, #k3 *)
-    0xCA020000l;         (* eor x0, x0, x2 *)
-    d2;                  (* polymorphic decoy *)
-    enc_mov_x2 k4;       (* mov x2, #k4 *)
-    0x9B027C00l;         (* mul x0, x0, x2 *)
-    d3;                  (* polymorphic decoy *)
-    0xD65F03C0l;         (* ret *)
-  ]
+  assemble ~insert_decoys:false prog
 
 let emit_handlers ~(trap_code : string) ~(vd_shift : int) : string =
   let branch_target_line =
@@ -75,17 +56,8 @@ let emit_handlers ~(trap_code : string) ~(vd_shift : int) : string =
   let insns1 = generate_vjit_insns ~k1 ~k2 in
   let insns2 = generate_vjit_alt1_insns ~k3 ~k4 in
 
-  let key1 = Int32.logor (Int32.of_int (Random.bits ())) 0x10000001l in
-  let key2 = Int32.logor (Int32.of_int (Random.bits ())) 0x20000001l in
-
-  let enc_insns1_str =
-    List.map (fun w -> Printf.sprintf "0x%08lXU" (Int32.logxor w key1)) insns1
-    |> String.concat ", "
-  in
-  let enc_insns2_str =
-    List.map (fun w -> Printf.sprintf "0x%08lXU" (Int32.logxor w key2)) insns2
-    |> String.concat ", "
-  in
+  let (enc_insns1_str, key1, len1) = to_encrypted_c_array insns1 in
+  let (enc_insns2_str, key2, len2) = to_encrypted_c_array insns2 in
 
   trap_code ^ Printf.sprintf {|
 __h_vadd: {
@@ -271,5 +243,5 @@ __h_default:
     __builtin_trap();
 |}
     branch_target_line
-    (List.length insns1) enc_insns1_str key1 k1 k2
-    (List.length insns2) enc_insns2_str key2 k3 k4
+    len1 enc_insns1_str key1 k1 k2
+    len2 enc_insns2_str key2 k3 k4
