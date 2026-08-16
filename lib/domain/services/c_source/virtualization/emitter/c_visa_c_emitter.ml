@@ -46,14 +46,44 @@ let emit_function_body
   in
   let trap_bindings_str = C_visa_profile_service.format_trap_bindings trap_bindings in
 
+  (* ISW 1st-order Masked Register File names — unique per build *)
+  let isw_share0 = Printf.sprintf "__isw_s0_%04x%04x" (Random.int 0xFFFF) (Random.int 0xFFFF) in
+  let isw_share1 = Printf.sprintf "__isw_s1_%04x%04x" (Random.int 0xFFFF) (Random.int 0xFFFF) in
+  let isw_trng   = Printf.sprintf "__isw_rng_%04x%04x" (Random.int 0xFFFF) (Random.int 0xFFFF) in
+  let isw_seed   = let v = Random.int64 Int64.max_int in Int64.logor v 1L in
+
   String.concat "" [
+
+    (* Эшелон 2: TRNG preamble at file scope BEFORE the function body opens *)
+    C_isw_masked_regfile_service.emit_isw_trng_preamble
+      ~trng_fn:isw_trng
+      ~trng_seed:isw_seed;
 
     C_visa_c_runtime.emit_header ~vs ~ret_type_str ~fn_name ~fn_params ~sbox_code;
 
     C_visa_c_runtime.emit_vbank ~vs ~vreg_total ~vreg_rot_seed ~reg_mask_base ~reg_mask_step;
+
+    (* Эшелон 2: ISW masked register file variables + macros inside function body *)
+    C_isw_masked_regfile_service.emit_isw_masked_regfile
+      ~share0_name:isw_share0
+      ~share1_name:isw_share1
+      ~vreg_total
+      ~trng_fn:isw_trng;
+
     C_visa_c_runtime.emit_shadow_and_cfi ~vs ~word_count ~vbc_name ~ptr_arg ~reg_mask_base ~reg_mask_step ~arg_inits;
     C_visa_c_dispatch.emit_dispatch_table ~op ~prof ~trap_bindings_str;
     C_visa_c_dispatch.emit_dispatch_macro ~vs ~word_count ~affine_p ~affine_s ~pack_key ~delta_key ~lay ~prof;
+
+    (* ISW masked AND / XOR handlers injected before standard handlers *)
+    C_isw_masked_regfile_service.emit_masked_and_handler
+      ~label:"__h_visw_and"
+      ~vs
+      ~disp_macro:"__VISA_DISPATCH()";
+    C_isw_masked_regfile_service.emit_masked_xor_handler
+      ~label:"__h_visw_xor"
+      ~vs
+      ~disp_macro:"__VISA_DISPATCH()";
+
     C_visa_c_handlers.emit_handlers ~vs ~trap_code ~vd_shift:lay.vd_shift;
     C_visa_c_runtime.emit_epilogue ~vs ~out_reg ~ret_type_str ~reg_mask_step;
   ]
