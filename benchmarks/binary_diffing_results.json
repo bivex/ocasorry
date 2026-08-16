@@ -3,26 +3,26 @@
   "builds_per_iteration": 3,
   "pairwise_samples": 60,
   "baseline_unobfuscated_similarity": 1.0,
-  "vectis_obfuscated_similarity": 0.7857,
+  "vectis_obfuscated_similarity": 0.7915,
   "similarity_stats": {
-    "median": 0.7857,
-    "mean": 0.7683,
-    "std": 0.0757,
-    "min": 0.5897,
-    "max": 0.8986,
-    "p95": 0.8898
+    "median": 0.7915,
+    "mean": 0.7873,
+    "std": 0.0804,
+    "min": 0.6019,
+    "max": 0.9623,
+    "p95": 0.8986
   },
-  "code_expansion_factor": 23.75,
+  "code_expansion_factor": 23.25,
   "expansion_stats": {
-    "median": 23.75,
-    "mean": 23.53,
+    "median": 23.25,
+    "mean": 23.39,
     "std": 0.78,
-    "min": 22.22,
-    "max": 24.5,
-    "p95": 24.44
+    "min": 22.09,
+    "max": 24.38,
+    "p95": 24.38
   },
-  "diffing_resistance_score": 21.43,
+  "diffing_resistance_score": 20.85,
   "instruction_count_baseline": 32,
-  "instruction_count_obfuscated_median": 760,
-  "elapsed_sec": 7.6
+  "instruction_count_obfuscated_median": 744,
+  "elapsed_sec": 7.8
 }

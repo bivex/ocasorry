@@ -4,7 +4,7 @@
     {
       "depth": 0,
       "proof_status": "unsat",
-      "proof_sec": 0.0007,
+      "proof_sec": 0.0001,
       "ast_nodes": 3,
       "z3_simplify_nodes": 3,
       "simplify_collapse_pct": 0.0,
@@ -15,8 +15,8 @@
       "grammar_synth_formula": "add(x, y)",
       "grammar_synth_sec": 0.002,
       "smt_median_sec": 0.0008,
-      "smt_std": 0.0025,
-      "smt_max": 0.0125,
+      "smt_std": 0.0002,
+      "smt_max": 0.0016,
       "smt_scale_vs_depth0": 1.0
     },
     {
@@ -31,9 +31,9 @@
       "attacker_view_collapse_pct": -14.3,
       "grammar_synth_success": true,
       "grammar_synth_formula": "xor(mul(v, 2654435769), k)",
-      "grammar_synth_sec": 1.4089,
+      "grammar_synth_sec": 1.4389,
       "smt_median_sec": 0.0009,
-      "smt_std": 0.0001,
+      "smt_std": 0.0,
       "smt_max": 0.001,
       "smt_scale_vs_depth0": 1.1
     },
@@ -49,16 +49,16 @@
       "attacker_view_collapse_pct": -7.7,
       "grammar_synth_success": true,
       "grammar_synth_formula": "xor(mul(v, 335903615), k)",
-      "grammar_synth_sec": 2.9083,
-      "smt_median_sec": 0.015,
-      "smt_std": 0.0133,
-      "smt_max": 0.0708,
-      "smt_scale_vs_depth0": 18.2
+      "grammar_synth_sec": 2.9908,
+      "smt_median_sec": 0.0158,
+      "smt_std": 0.014,
+      "smt_max": 0.0745,
+      "smt_scale_vs_depth0": 20.0
     },
     {
       "depth": 4,
       "proof_status": "unsat",
-      "proof_sec": 0.0,
+      "proof_sec": 0.0001,
       "ast_nodes": 36,
       "z3_simplify_nodes": 3,
       "simplify_collapse_pct": 91.7,
@@ -67,16 +67,16 @@
       "attacker_view_collapse_pct": -8.0,
       "grammar_synth_success": false,
       "grammar_synth_formula": "-",
-      "grammar_synth_sec": 3.006,
-      "smt_median_sec": 0.0373,
-      "smt_std": 0.1814,
-      "smt_max": 0.8647,
-      "smt_scale_vs_depth0": 45.1
+      "grammar_synth_sec": 3.0035,
+      "smt_median_sec": 0.0379,
+      "smt_std": 0.4345,
+      "smt_max": 2.0311,
+      "smt_scale_vs_depth0": 47.9
     },
     {
       "depth": 8,
       "proof_status": "unsat",
-      "proof_sec": 0.0,
+      "proof_sec": 0.0001,
       "ast_nodes": 66,
       "z3_simplify_nodes": 3,
       "simplify_collapse_pct": 95.5,
@@ -86,10 +86,10 @@
       "grammar_synth_success": false,
       "grammar_synth_formula": "-",
       "grammar_synth_sec": 3.0003,
-      "smt_median_sec": 0.0833,
-      "smt_std": 0.0202,
-      "smt_max": 0.1354,
-      "smt_scale_vs_depth0": 100.7
+      "smt_median_sec": 0.0859,
+      "smt_std": 0.0418,
+      "smt_max": 0.2591,
+      "smt_scale_vs_depth0": 108.8
     }
   ],
   "c11_handler_example": "/* __h_vadd: per-build entangled chain (Z3-proven == x + y) */\n__h_vadd: {\n    unsigned long long __e = __a + __b;\n    __e = (__e * 0x5851F42DULL) ^ __vkey_epoch[0];\n    __e = (__e * 0x14057B7FULL) ^ __vkey_epoch[1];\n    __e = (__e * 0x14057B7FULL) ^ __vkey_epoch[2];\n    __e = (__e * 0x5851F42DULL) ^ __vkey_epoch[3];\n    __e = (__e ^ __vkey_epoch[3]) * 0xFBCC7BA5ULL;\n    __e = (__e ^ __vkey_epoch[2]) * 0x0886447FULL;\n    __e = (__e ^ __vkey_epoch[1]) * 0x0886447FULL;\n    __e = (__e ^ __vkey_epoch[0]) * 0xFBCC7BA5ULL;\n    __VREG_SET(__vd, __e);\n    __VISA_DISPATCH();\n}"

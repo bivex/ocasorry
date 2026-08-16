@@ -228,12 +228,12 @@ __h_vor_alt1: {
 __h_vsll: {
     unsigned long long __a = __VREG_GET(%s), __sh = __VREG_GET(%s) & 0x3FULL;
     __VREG_SET(%s, __a << __sh);
-    __VISA_DISPATCH();
+    __VISA_DISP_SHIFT();
 }
 __h_vsrl: {
     unsigned long long __a = __VREG_GET(%s), __sh = __VREG_GET(%s) & 0x3FULL;
     __VREG_SET(%s, (unsigned long long)(__a >> __sh));
-    __VISA_DISPATCH();
+    __VISA_DISP_SHIFT();
 }
 __h_vli:
     __VREG_SET(%s, (unsigned long long)((%s << 13) | (%s << 10) | (%s << 5) | %s));
@@ -253,24 +253,24 @@ __h_vle8: {
     if (__load_base) {
         __VREG_SET(%s, (unsigned long long)__load_base[__VREG_GET(%s)]);
     }
-    __VISA_DISPATCH();
+    __VISA_DISP_MEM();
 }
 __h_vse8:
     if (%s < %d) {
         %s[%s++] = __VREG_GET(%s);
     }
-    __VISA_DISPATCH();
+    __VISA_DISP_MEM();
 __h_vbge: {
 %s
     if (__VREG_GET(%s) >= __VREG_GET(%s)) {
         %s = (unsigned int)((__branch_target) + ((%s * (%s + 1ULL)) & 1ULL));
     }
-    __VISA_DISPATCH();
+    __VISA_DISP_CTRL();
 }
 __h_vj: {
     unsigned int __jump_target = (%s >> 7) & 0x7FFFFU;
     %s = (unsigned int)((__jump_target) + ((%s * (%s + 1ULL)) & 1ULL));
-    __VISA_DISPATCH();
+    __VISA_DISP_CTRL();
 }
 __h_vjit: {
     /* Architecture A: Polymorphic In-VM Ephemeral AArch64 JIT Escape Gate */
@@ -301,7 +301,7 @@ __h_vjit: {
     } else {
         __VREG_SET(%s, ((__a ^ __b) * %dULL) + %dULL);
     }
-    __VISA_DISPATCH();
+    __VISA_DISP_JIT();
 }
 __h_vjit_alt1: {
     /* Architecture A: Polymorphic In-VM Ephemeral AArch64 JIT Escape Gate (Alt Alias) */
@@ -332,8 +332,9 @@ __h_vjit_alt1: {
     } else {
         __VREG_SET(%s, ((__a + __b) ^ 0x%XULL) * %dULL);
     }
-    __VISA_DISPATCH();
+    __VISA_DISP_JIT();
 }
+
 __h_default:
     __builtin_trap();
 |}
