@@ -1,8 +1,28 @@
 {
+  "iterations": 5,
+  "builds_per_iteration": 3,
+  "pairwise_samples": 15,
   "baseline_unobfuscated_similarity": 1.0,
-  "vectis_obfuscated_similarity": 0.8709,
-  "code_expansion_factor": 22.34,
-  "diffing_resistance_score": 12.91,
+  "vectis_obfuscated_similarity": 0.817,
+  "similarity_stats": {
+    "median": 0.817,
+    "mean": 0.7974,
+    "std": 0.1154,
+    "min": 0.6373,
+    "max": 0.9486,
+    "p95": 0.9406
+  },
+  "code_expansion_factor": 22.41,
+  "expansion_stats": {
+    "median": 22.41,
+    "mean": 22.21,
+    "std": 1.1,
+    "min": 20.47,
+    "max": 23.88,
+    "p95": 23.59
+  },
+  "diffing_resistance_score": 18.3,
   "instruction_count_baseline": 32,
-  "instruction_count_obfuscated": 715
+  "instruction_count_obfuscated_median": 717,
+  "elapsed_sec": 1.7
 }

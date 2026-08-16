@@ -63,16 +63,17 @@ python3 benchmarks/mba_simplification_benchmark.py
 
 ## 🔍 3. Binary Diffing & CFG Alignment
 
-Measures the divergence of instruction 3-grams and CFG basic blocks between independent compilations of the same source code:
+Measures the divergence of instruction 3-grams between independent compilations of the same source code. Each build draws fresh OS entropy (unique ISA layout per invocation), so single-shot similarity varies widely (observed 61–100% per pair) — the benchmark therefore runs **N = 20 statistical iterations × 3 randomized builds** (60 pairwise samples) and reports the median ± σ:
 
 | Metric | Baseline (Unobfuscated) | Vectis Randomized Virtualization | Security Implication |
 |---|---|---|---|
-| **Build-to-Build Similarity** | **100.0%** | **88.5%** | Graph isomorphism broken |
-| **Instruction Expansion** | $1.0\times$ | **$20.0\times$** | Massive search space inflation |
-| **Diffing Resistance Score** | 0.0 / 100.0 | **11.5 / 100.0** | Increased manual reversing effort |
+| **Build-to-Build Similarity (median)** | **100.0%** | **~87% ± 8σ** | Graph isomorphism partially broken; roadmap target <50% |
+| **Instruction Expansion (median)** | $1.0\times$ | **~23×** | Massive search space inflation |
+| **Diffing Resistance Score** | 0.0 / 100.0 | **~13 / 100.0** | Increased manual reversing effort |
 
 ```bash
-python3 benchmarks/binary_diffing_benchmark.py
+python3 benchmarks/binary_diffing_benchmark.py              # N=20 (default)
+python3 benchmarks/binary_diffing_benchmark.py --iterations 5
 ```
 
 ---

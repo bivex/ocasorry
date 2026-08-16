@@ -43,6 +43,9 @@ def cmd_verify(args):
 
 def cmd_benchmark(args):
     target = getattr(args, "type", "all")
+    # Optional iteration count passthrough (statistical N-repeats)
+    iters = getattr(args, "iterations", None)
+    iter_flag = f" --iterations {iters}" if iters else ""
     if target in ("all", "smt"):
         print("[*] Running Vectis SMT & Symbolic Execution Hardness Benchmark...")
         os.system(f"python3 {PROJECT_ROOT / 'benchmarks/symbolic_execution_benchmark.py'}")
@@ -51,7 +54,7 @@ def cmd_benchmark(args):
         os.system(f"python3 {PROJECT_ROOT / 'benchmarks/mba_simplification_benchmark.py'}")
     if target in ("all", "diff"):
         print("[*] Running Vectis Binary Diffing & CFG Alignment Benchmark...")
-        os.system(f"python3 {PROJECT_ROOT / 'benchmarks/binary_diffing_benchmark.py'}")
+        os.system(f"python3 {PROJECT_ROOT / 'benchmarks/binary_diffing_benchmark.py'}{iter_flag}")
 
 
 def cmd_dataset(args):
@@ -83,6 +86,7 @@ def main():
     # benchmark
     p_bench = subparsers.add_parser("benchmark", help="Run adversarial deobfuscation benchmarks")
     p_bench.add_argument("--type", choices=["all", "smt", "mba", "diff"], default="all", help="Benchmark class to execute")
+    p_bench.add_argument("--iterations", type=int, default=None, help="Statistical repeats for the diffing benchmark (default: 20)")
 
 
     # dataset
