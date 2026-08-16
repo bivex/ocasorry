@@ -109,8 +109,10 @@ let () =
   let out_file = ref "" in
   let enable_mba = ref false in
   let enable_poly_mba = ref false in
+  let enable_bpm_mba = ref false in
   let enable_float_mba = ref false in
   let enable_cff = ref false in
+
   let enable_opaque = ref false in
   let enable_dyn_opaque = ref false in
   let enable_diophantine = ref false in
@@ -180,7 +182,9 @@ let () =
     ("-o", Arg.Set_string out_file, "Output obfuscated C source file");
     ("--mba", Arg.Set enable_mba, "Enable Mixed Boolean-Arithmetic (MBA)");
     ("--poly-mba", Arg.Set enable_poly_mba, "Enable Polynomial MBA (High-Order Non-Linear Invertibles)");
+    ("--bpm-mba", Arg.Set enable_bpm_mba, "Enable Bit-Permutation MBA (BPM/SSRN 2025 Anti-DSE)");
     ("--egraph-mba", Arg.Set enable_egraph_mba, "Enable E-Graph Equality Expansion MBA (Scrambler/arXiv:2603.03624)");
+
     ("--egraph-depth", Arg.Set_int egraph_depth, "Set E-Graph Equality Expansion recursion depth (default: 3)");
     ("--no-poly-mba", Arg.Clear enable_poly_mba, "Disable High-Order Polynomial MBA");
     ("--float-mba", Arg.Set enable_float_mba, "Enable Floating-Point Fixed-Scale MBA Lifting");
@@ -279,7 +283,9 @@ let () =
     let config : Obfuscate_c_source_usecase.c_pipeline_config = {
       enable_c_mba = !enable_mba;
       enable_c_polynomial_mba = !enable_poly_mba;
+      enable_c_bpm_mba = !enable_bpm_mba;
       enable_c_float_mba = !enable_float_mba;
+
       enable_c_egraph_mba = !enable_egraph_mba;
       c_egraph_depth = !egraph_depth;
       enable_c_eh_shadow = !enable_eh_shadow;

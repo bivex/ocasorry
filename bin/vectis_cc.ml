@@ -153,7 +153,9 @@ let () =
             let config : Obfuscate_c_source_usecase.c_pipeline_config = {
               enable_c_mba = !enable_mba;
               enable_c_polynomial_mba = !enable_poly_mba;
+              enable_c_bpm_mba = false;
               enable_c_float_mba = !enable_float_mba;
+
               enable_c_egraph_mba = false;
               c_egraph_depth = 3;
               enable_c_eh_shadow = false;

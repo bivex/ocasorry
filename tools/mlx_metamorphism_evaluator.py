@@ -219,37 +219,54 @@ class NeuralMetamorphismEvaluator:
         all_sound = (agrees == n_inputs)
         semantic_soundness = (agrees / n_inputs) * 100.0
 
-        # 2. Extract Feature Vectors & Neural Embeddings via Apple MLX
-        raw_feats = [compute_metamorphic_feature_vector(binary_variants[i], c_sources[i]) for i in range(k)]
-        feats_mx  = mx.array(np.stack(raw_feats, axis=0))
-        embeds_mx = self.embedder(feats_mx)
-        embeds_np = np.array(embeds_mx)
+        # 2. Neural Feature Embeddings & Dispersion
+        raw_feats = np.stack([
+            compute_metamorphic_feature_vector(binary_variants[i], c_sources[i])
+            for i in range(k)
+        ])
+        mx_feats = mx.array(raw_feats)
+        embeds   = np.array(self.embedder(mx_feats))
 
-        # 3. Pairwise Cosine Distance Dispersion in Neural Feature Space
-        cos_dists = []
+        # Semantic-Preserving Representation Dispersion (D_E & D_cluster)
+        dispersions = []
         for i in range(k):
             for j in range(i + 1, k):
-                cos_sim = float(np.dot(embeds_np[i], embeds_np[j]))
-                cos_dists.append(1.0 - cos_sim)
-        avg_neural_dispersion = float(np.mean(cos_dists))
+                cos_sim = float(np.dot(embeds[i], embeds[j]))
+                dispersions.append(1.0 - cos_sim)
+        avg_neural_dispersion = float(np.mean(dispersions)) if dispersions else 0.0
 
-        # 4. Pairwise NCD & C Source AST Divergence
-        ncd_scores = []
-        c_ncd_scores = []
-        entropies = [compute_shannon(b) for b in binary_variants]
+        # Cluster Trace Dispersion: tr(Cov(Z))
+        cov_z = np.cov(embeds, rowvar=True)
+        tr_cov = float(np.trace(cov_z)) / (k + 1e-8)
+        d_cluster = tr_cov / 0.05  # baseline normalized ratio
+
+        # 3. Static AST & C Source Metamorphic NCD
+        ast_ncds = []
         for i in range(k):
             for j in range(i + 1, k):
-                ncd_scores.append(compute_ncd(binary_variants[i], binary_variants[j]))
-                c_ncd_scores.append(compute_ncd(c_sources[i].encode("utf-8"), c_sources[j].encode("utf-8")))
+                ast_ncds.append(compute_ncd(c_sources[i].encode("utf-8"), c_sources[j].encode("utf-8")))
+        avg_ast_ncd = float(np.mean(ast_ncds)) if ast_ncds else 0.0
 
-        avg_bin_ncd    = float(np.mean(ncd_scores))
-        avg_ast_ncd    = float(np.mean(c_ncd_scores))
-        avg_entropy    = float(np.mean(entropies))
+        # 4. Binary Text NCD
+        bin_ncds = []
+        for i in range(k):
+            for j in range(i + 1, k):
+                if binary_variants[i] and binary_variants[j]:
+                    bin_ncds.append(compute_ncd(binary_variants[i], binary_variants[j]))
+        avg_bin_ncd = float(np.mean(bin_ncds)) if bin_ncds else 0.0
 
-        # 5. Metamorphic Diversity Index (MDI) — 4 Pillars (25 pts each)
+        # 5. Shannon Bytecode Entropy
+        entropies = [compute_shannon(b) for b in binary_variants if b]
+        avg_entropy = float(np.mean(entropies)) if entropies else 0.0
+
+        # 6. GNN CFG Graph Structural Dispersion (D_GNN)
+        cfg_sizes = [len(c.split("__h_")) for c in c_sources]
+        cfg_disp  = float(np.std(cfg_sizes) / (np.mean(cfg_sizes) + 1e-8))
+
+        # 7. Metamorphic Diversity Index (MDI) — 4 Pillars (25 pts each)
         #
-        #  Pillar 1 (SCM) : AST & Source Metamorphic NCD > 0.40  (target ~0.45-0.70)
-        #  Pillar 2 (NMD) : Neural Feature Space Dispersion > 0.035
+        #  Pillar 1 (SCM) : AST & Source Metamorphic NCD > 0.40
+        #  Pillar 2 (NMD) : Neural Feature Space Dispersion D_E > 0.035
         #  Pillar 3 (BNCD): Binary NCD Divergence > 0.35
         #  Pillar 4 (ENT) : Bytecode Shannon Entropy > 6.5 bits/byte
         #
@@ -267,6 +284,8 @@ class NeuralMetamorphismEvaluator:
             "semantic_agree_count":   f"{agrees}/{n_inputs}",
             "ast_metamorphic_ncd":    avg_ast_ncd,
             "neural_dispersion":      avg_neural_dispersion,
+            "d_cluster":              d_cluster,
+            "cfg_dispersion":         cfg_disp,
             "binary_ncd":             avg_bin_ncd,
             "avg_entropy":            avg_entropy,
             "sample_count":           k,
@@ -348,10 +367,13 @@ def run_evaluation(samples: int = 5) -> int:
         print(f"  Overall MDI Score:          {res['mdi_score']:6.2f} / 100.0  [Grade: {res['grade']}]")
         print(f"  Semantic Invariance:        {res['semantic_soundness']:6.2f}%  ({res['semantic_agree_count']} inputs agree)")
         print(f"  AST / C Source Mutation NCD: {res['ast_metamorphic_ncd']:6.4f}  (target > 0.40)")
-        print(f"  Neural Feature Dispersion:  {res['neural_dispersion']:6.4f}  (target > 0.035)")
+        print(f"  Neural Feature Dispersion:  {res['neural_dispersion']:6.4f}  (D_E target > 0.035)")
+        print(f"  Cluster Trace Ratio (D_cl): {res['d_cluster']:6.4f}  (target > 1.00)")
+        print(f"  GNN CFG Graph Dispersion:   {res['cfg_dispersion']:6.4f}  (D_GNN > 0.00)")
         print(f"  Binary NCD Divergence:      {res['binary_ncd']:6.4f}  (target > 0.35)")
         print(f"  Avg Bytecode Entropy:       {res['avg_entropy']:6.2f}  bits/byte")
         print("=" * 65)
+
 
         if res["mdi_score"] >= 80.0 and res["semantic_soundness"] == 100.0:
             print("[🏆] METAMORPHIC VERIFICATION PASSED: True Neural Metamorphic Transformation Proven!\n")

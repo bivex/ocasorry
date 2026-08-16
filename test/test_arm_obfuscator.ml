@@ -73,8 +73,10 @@ let () =
   Suite_vectis_interpreter.run ();
   Suite_vectis_egraph.run ();
   Suite_vectis_neural_rewriter.run ();
+  Suite_bpm_mba.run ();
 
   Printf.printf "\n=================================================================\n";
-  Printf.printf "       ALL 70 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
+  Printf.printf "       ALL 71 MODULAR TEST SUITES PASSED SUCCESSFULLY!           \n";
   Printf.printf "=================================================================\n%!"
+
 

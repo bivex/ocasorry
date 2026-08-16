@@ -214,6 +214,17 @@ module Make (Entropy : Entropy_port.S) = struct
                     ~vs2:(t2 land 0x1F) ~vs1_or_imm:(t1 land 0x1F)
                     ~funct3:0 ~vd:(dst land 0x1F)) :: !instrs
 
+    (* Tigress Superoperator Rule 5: Fused Add-Rotate-XOR (ARX Box) *)
+    | BinOp (BXor, BinOp (PlusA, e1, e2, _), BinOp (Shiftlt, _e3, Const (CInt (i, _, _)), _), _) when Z.to_int i = 3 ->
+        let t = free_reg in
+        compile_exp spec op instrs get_vreg e1 dst (free_reg + 1);
+        compile_exp spec op instrs get_vreg e2 t   (free_reg + 2);
+        instrs := (Spec.encode_inst spec ~funct6:op.C_visa_spec.vsuper_arx ~vm:1
+                    ~vs2:(t land 0x1F) ~vs1_or_imm:(dst land 0x1F)
+                    ~funct3:0 ~vd:(dst land 0x1F)) :: !instrs
+
+
+
     | BinOp (PlusA, e1, Const (CInt (i, _, _)), _) when Z.to_int i > 0 && Z.to_int i <= 511 ->
         compile_exp spec op instrs get_vreg e1 dst free_reg;
         emit_super_imm spec instrs op.C_visa_spec.vsuper_add_imm (Z.to_int i) dst dst

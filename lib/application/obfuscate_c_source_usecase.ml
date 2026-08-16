@@ -1,7 +1,9 @@
 type c_pipeline_config = {
   enable_c_mba : bool;
   enable_c_polynomial_mba : bool;
+  enable_c_bpm_mba : bool;
   enable_c_float_mba : bool;
+
   enable_c_opaque : bool;
   enable_c_dynamic_opaque : bool;
   enable_c_diophantine : bool;
@@ -68,7 +70,9 @@ type c_pipeline_config = {
 let default_c_config = {
   enable_c_mba = true;
   enable_c_polynomial_mba = false;
+  enable_c_bpm_mba = false;
   enable_c_float_mba = false;
+
   enable_c_egraph_mba = false;
   c_egraph_depth = 3;
   enable_c_eh_shadow = false;
@@ -135,7 +139,9 @@ let default_c_config = {
 module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
   module MBA = C_mba_service.Make (Entropy)
   module PolyMBA = C_polynomial_mba_service.Make (Entropy)
+  module BPMMBA = C_bpm_mba_service.Make (Entropy)
   module FloatMBA = C_float_mba_service.Make (Entropy)
+
   module Opaque = C_opaque_service.Make (Entropy)
   module DynOpaque = C_dynamic_opaque_service.Make (Entropy)
   module Diophantine = C_diophantine_opaque_service.Make (Entropy)
@@ -224,7 +230,9 @@ module Make (Entropy : Entropy_port.S) (C_Port : C_source_port.S) = struct
     let f = if config.enable_c_constant_unfold then ConstUnfold.transform_file f else f in
     let f = LokiInvariants.transform_file ~global:config.enable_c_loki_invariants f in
     let f = if config.enable_c_polynomial_mba then PolyMBA.transform_file f else f in
+    let f = if config.enable_c_bpm_mba then BPMMBA.transform_file f else f in
     let f = if config.enable_c_lut then LUT.transform_file f else f in
+
     let f = EGraphMBA.transform_file ~depth:config.c_egraph_depth ~global:config.enable_c_egraph_mba f in
     let f = if config.enable_c_mba then MBA.transform_file f else f in
     let f = if config.enable_c_ghost_code then GhostCode.transform_file f else f in
