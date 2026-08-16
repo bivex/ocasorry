@@ -29,6 +29,9 @@ let format_table (name : string) (op : visa_opcodes) (size : int) (default_label
         [0x%X] = &&__h_vle8, [0x%X] = &&__h_vse8,
         [0x%X] = &&__h_vbge, [0x%X] = &&__h_vj,
         [0x%X] = &&__h_vret, [0x%X] = &&__h_vjit, [0x%X] = &&__h_vjit_alt1,
+        [0x%X] = &&__h_vsuper_add_imm, [0x%X] = &&__h_vsuper_xor_imm,
+        [0x%X] = &&__h_vsuper_mul_imm, [0x%X] = &&__h_vsuper_madd,
+        [0x%X] = &&__h_vsuper_arx,
 %s
     };
 |} name name size (size - 1) default_label
@@ -39,7 +42,9 @@ let format_table (name : string) (op : visa_opcodes) (size : int) (default_label
    op.vmul_alt1 op.vmv_alt1 op.vli_alt1
    op.vsll_vv op.vsrl_vv op.vle8_v op.vse8_v op.vbge_vv op.vj op.vret_v
    op.vjit_vv op.vjit_alt1
+   op.vsuper_add_imm op.vsuper_xor_imm op.vsuper_mul_imm op.vsuper_madd op.vsuper_arx
    trap_str
+
 
 let emit_dispatch_table
     ~(op : visa_opcodes)

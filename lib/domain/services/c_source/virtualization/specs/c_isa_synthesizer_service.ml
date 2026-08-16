@@ -101,6 +101,11 @@ module Make (Entropy : Entropy_port.S) = struct
     let op_vli_alt1  = pop () in
     let op_vjit_vv   = pop () in
     let op_vjit_alt1 = pop () in
+    let op_vsuper_add_imm = pop () in
+    let op_vsuper_xor_imm = pop () in
+    let op_vsuper_mul_imm = pop () in
+    let op_vsuper_madd    = pop () in
+    let op_vsuper_arx     = pop () in
 
     let pack_key = Int64.logand (Int64.abs (Entropy.next_int64 ())) 0xFFFFFFFFL in
     (* Random odd nonzero 32-bit delta (odd for diffusion; the Z3 verifier
@@ -142,6 +147,11 @@ module Make (Entropy : Entropy_port.S) = struct
       vli_alt1  = op_vli_alt1;
       vjit_vv   = op_vjit_vv;
       vjit_alt1 = op_vjit_alt1;
+      vsuper_add_imm = op_vsuper_add_imm;
+      vsuper_xor_imm = op_vsuper_xor_imm;
+      vsuper_mul_imm = op_vsuper_mul_imm;
+      vsuper_madd    = op_vsuper_madd;
+      vsuper_arx     = op_vsuper_arx;
     } in
     let in_regs_arr = [| 0; 1; 2; 3; 4; 5; 6; 7 |] in
     shuffle in_regs_arr;
@@ -179,7 +189,8 @@ module Make (Entropy : Entropy_port.S) = struct
     "vadd_alt1": %d, "vadd_alt2": %d, "vsub_alt1": %d, "vsub_alt2": %d,
     "vxor_alt1": %d, "vxor_alt2": %d, "vand_alt1": %d, "vor_alt1": %d,
     "vmul_alt1": %d, "vmv_alt1": %d, "vli_alt1": %d,
-    "vjit_vv": %d, "vjit_alt1": %d
+    "vjit_vv": %d, "vjit_alt1": %d,
+    "vsuper_add_imm": %d, "vsuper_xor_imm": %d, "vsuper_mul_imm": %d, "vsuper_madd": %d, "vsuper_arx": %d
   }
 }|} tier isa_name pack_key delta_key (String.concat ", " (List.map string_of_int in_regs)) out_reg
       layout.funct6_shift layout.funct6_mask layout.vm_shift layout.vs2_shift
@@ -191,6 +202,8 @@ module Make (Entropy : Entropy_port.S) = struct
       op_vxor_alt1 op_vxor_alt2 op_vand_alt1 op_vor_alt1
       op_vmul_alt1 op_vmv_alt1 op_vli_alt1
       op_vjit_vv op_vjit_alt1
+      op_vsuper_add_imm op_vsuper_xor_imm op_vsuper_mul_imm op_vsuper_madd op_vsuper_arx
+
     in
 
     let sail_str =

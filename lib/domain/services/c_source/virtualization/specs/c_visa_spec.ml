@@ -24,6 +24,9 @@ type visa_opcodes = {
   vand_alt1 : int; vor_alt1  : int;
   vmul_alt1 : int; vmv_alt1  : int; vli_alt1  : int;
   vjit_vv   : int; vjit_alt1 : int;
+  vsuper_add_imm : int; vsuper_xor_imm : int;
+  vsuper_mul_imm : int; vsuper_madd    : int;
+  vsuper_arx     : int;
 }
 
 type visa_abi = { in_regs : int list; out_reg : int }
@@ -61,7 +64,11 @@ let default_spec : visa_spec = {
     vand_alt1 = 0x1E; vor_alt1  = 0x1F;
     vmul_alt1 = 0x20; vmv_alt1  = 0x21; vli_alt1  = 0x22;
     vjit_vv   = 0x23; vjit_alt1 = 0x24;
+    vsuper_add_imm = 0x25; vsuper_xor_imm = 0x26;
+    vsuper_mul_imm = 0x27; vsuper_madd    = 0x28;
+    vsuper_arx     = 0x29;
   };
+
   abi = { in_regs = [0; 1; 2; 3; 4; 5; 6; 7]; out_reg = 0 };
 }
 
@@ -224,7 +231,13 @@ let from_json_string (json_str : string) : visa_spec =
     vli_alt1  = op |> member "vli_alt1"  |> to_int_def 0x22;
     vjit_vv   = op |> member "vjit_vv"   |> to_int_def 0x23;
     vjit_alt1 = op |> member "vjit_alt1" |> to_int_def 0x24;
+    vsuper_add_imm = op |> member "vsuper_add_imm" |> to_int_def 0x25;
+    vsuper_xor_imm = op |> member "vsuper_xor_imm" |> to_int_def 0x26;
+    vsuper_mul_imm = op |> member "vsuper_mul_imm" |> to_int_def 0x27;
+    vsuper_madd    = op |> member "vsuper_madd"    |> to_int_def 0x28;
+    vsuper_arx     = op |> member "vsuper_arx"     |> to_int_def 0x29;
   } in
+
   let abi = match json |> member "abi" with
     | `Null -> { in_regs = [0; 1; 2; 3; 4; 5; 6; 7]; out_reg = 0 }
     | abi_obj ->

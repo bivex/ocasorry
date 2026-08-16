@@ -413,6 +413,36 @@ __h_decoy_ctrl_0: {
     __VISA_DISP_CTRL();
 }
 
+__h_vsuper_add_imm: {
+    /* Superoperator 1: Fused Immediate Load + Addition */
+    unsigned int __imm = (((unsigned int)%s) << 8) | (((unsigned int)%s) << 3) | ((unsigned int)%s);
+    __VREG_SET(%s, __VREG_GET(%s) + (unsigned long long)__imm);
+    __VISA_DISPATCH();
+}
+__h_vsuper_xor_imm: {
+    /* Superoperator 2: Fused Immediate Load + Bitwise XOR */
+    unsigned int __imm = (((unsigned int)%s) << 8) | (((unsigned int)%s) << 3) | ((unsigned int)%s);
+    __VREG_SET(%s, __VREG_GET(%s) ^ (unsigned long long)__imm);
+    __VISA_DISPATCH();
+}
+__h_vsuper_mul_imm: {
+    /* Superoperator 3: Fused Immediate Load + Multiplication */
+    unsigned int __imm = (((unsigned int)%s) << 8) | (((unsigned int)%s) << 3) | ((unsigned int)%s);
+    __VREG_SET(%s, __VREG_GET(%s) * (unsigned long long)__imm);
+    __VISA_DISPATCH();
+}
+__h_vsuper_madd: {
+    /* Superoperator 4: Fused Multiply-Accumulate (MAC) */
+    __VREG_SET(%s, (__VREG_GET(%s) * __VREG_GET(%s)) + __VREG_GET(%s));
+    __VISA_DISPATCH();
+}
+__h_vsuper_arx: {
+    /* Superoperator 5: Fused Add-Rotate-XOR ARX Box */
+    unsigned long long __a = __VREG_GET(%s), __b = __VREG_GET(%s);
+    __VREG_SET(%s, (__a + __b) ^ ((__b << 3) | (__b >> 61)));
+    __VISA_DISPATCH();
+}
+
 __h_default:
     __builtin_trap();
 |}
@@ -476,6 +506,14 @@ __h_default:
   vs.vs1 vs.vs2 vs.vd vs.vma vs.vma
   vs.vsd vs.vpd vs.vma vs.vma
   vs.vma vs.vs1 vs.pc vs.pc vs.vma vs.vma
+
+  (* Superoperator Handlers *)
+  vs.vm vs.vs2 vs.f3 vs.vd vs.vs1
+  vs.vm vs.vs2 vs.f3 vs.vd vs.vs1
+  vs.vm vs.vs2 vs.f3 vs.vd vs.vs1
+  vs.vd vs.vs1 vs.vs2 vs.vd
+  vs.vs1 vs.vs2 vs.vd
+
 
 
 

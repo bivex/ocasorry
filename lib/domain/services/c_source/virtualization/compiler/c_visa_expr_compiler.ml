@@ -18,6 +18,15 @@ module Make (Entropy : Entropy_port.S) = struct
     instrs := (Spec.encode_inst spec ~funct6:op.C_visa_spec.vli_vi
                 ~vm ~vs2 ~vs1_or_imm:vs1 ~funct3:f3 ~vd:(dst land 0x1F)) :: !instrs
 
+  let emit_super_imm spec (instrs : Int32.t list ref) funct6 imm9 src_reg dst_reg =
+    let imm = imm9 land 0x1FF in
+    let vm  = (imm lsr 8) land 0x01 in
+    let vs2 = (imm lsr 3) land 0x1F in
+    let f3  =  imm        land 0x07 in
+    instrs := (Spec.encode_inst spec ~funct6 ~vm ~vs2
+                ~vs1_or_imm:(src_reg land 0x1F) ~funct3:f3 ~vd:(dst_reg land 0x1F)) :: !instrs
+
+
   (* Load any 32-bit constant into dst using at most 5 instructions *)
   let emit_const spec op instrs v dst free_reg =
     let v32 = v land 0xFFFFFFFF in
@@ -184,7 +193,53 @@ module Make (Entropy : Entropy_port.S) = struct
                     ~vs2:(free_reg land 0x1F) ~vs1_or_imm:(dst land 0x1F)
                     ~funct3:0 ~vd:(dst land 0x1F)) :: !instrs
 
+    (* Tigress Superoperator Fusion Rules (Composite Macro-Ops) *)
+    | BinOp (PlusA, BinOp (Mult, e1, e2, _), e3, _) ->
+        let t1 = free_reg in
+        let t2 = free_reg + 1 in
+        compile_exp spec op instrs get_vreg e3 dst (free_reg + 2);
+        compile_exp spec op instrs get_vreg e1 t1  (free_reg + 2);
+        compile_exp spec op instrs get_vreg e2 t2  (free_reg + 2);
+        instrs := (Spec.encode_inst spec ~funct6:op.C_visa_spec.vsuper_madd ~vm:1
+                    ~vs2:(t2 land 0x1F) ~vs1_or_imm:(t1 land 0x1F)
+                    ~funct3:0 ~vd:(dst land 0x1F)) :: !instrs
+
+    | BinOp (PlusA, e3, BinOp (Mult, e1, e2, _), _) ->
+        let t1 = free_reg in
+        let t2 = free_reg + 1 in
+        compile_exp spec op instrs get_vreg e3 dst (free_reg + 2);
+        compile_exp spec op instrs get_vreg e1 t1  (free_reg + 2);
+        compile_exp spec op instrs get_vreg e2 t2  (free_reg + 2);
+        instrs := (Spec.encode_inst spec ~funct6:op.C_visa_spec.vsuper_madd ~vm:1
+                    ~vs2:(t2 land 0x1F) ~vs1_or_imm:(t1 land 0x1F)
+                    ~funct3:0 ~vd:(dst land 0x1F)) :: !instrs
+
+    | BinOp (PlusA, e1, Const (CInt (i, _, _)), _) when Z.to_int i > 0 && Z.to_int i <= 511 ->
+        compile_exp spec op instrs get_vreg e1 dst free_reg;
+        emit_super_imm spec instrs op.C_visa_spec.vsuper_add_imm (Z.to_int i) dst dst
+
+    | BinOp (PlusA, Const (CInt (i, _, _)), e1, _) when Z.to_int i > 0 && Z.to_int i <= 511 ->
+        compile_exp spec op instrs get_vreg e1 dst free_reg;
+        emit_super_imm spec instrs op.C_visa_spec.vsuper_add_imm (Z.to_int i) dst dst
+
+    | BinOp (BXor, e1, Const (CInt (i, _, _)), _) when Z.to_int i > 0 && Z.to_int i <= 511 ->
+        compile_exp spec op instrs get_vreg e1 dst free_reg;
+        emit_super_imm spec instrs op.C_visa_spec.vsuper_xor_imm (Z.to_int i) dst dst
+
+    | BinOp (BXor, Const (CInt (i, _, _)), e1, _) when Z.to_int i > 0 && Z.to_int i <= 511 ->
+        compile_exp spec op instrs get_vreg e1 dst free_reg;
+        emit_super_imm spec instrs op.C_visa_spec.vsuper_xor_imm (Z.to_int i) dst dst
+
+    | BinOp (Mult, e1, Const (CInt (i, _, _)), _) when Z.to_int i > 2 && Z.to_int i <= 511 ->
+        compile_exp spec op instrs get_vreg e1 dst free_reg;
+        emit_super_imm spec instrs op.C_visa_spec.vsuper_mul_imm (Z.to_int i) dst dst
+
+    | BinOp (Mult, Const (CInt (i, _, _)), e1, _) when Z.to_int i > 2 && Z.to_int i <= 511 ->
+        compile_exp spec op instrs get_vreg e1 dst free_reg;
+        emit_super_imm spec instrs op.C_visa_spec.vsuper_mul_imm (Z.to_int i) dst dst
+
     | BinOp (bin_op, e1, e2, _) ->
+
         let t = free_reg in
         compile_exp spec op instrs get_vreg e1 dst (free_reg + 1);
         compile_exp spec op instrs get_vreg e2 t   (free_reg + 2);
