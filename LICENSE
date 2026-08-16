@@ -1,21 +1,36 @@
-MIT License
+PolyForm Noncommercial License 1.0.0
+<https://polyformproject.org/licenses/noncommercial/1.0.0>
 
 Copyright (c) 2026 bivex
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+## Purpose
+This license allows you to use, modify, and distribute this software for any noncommercial purpose, free of charge. Commercial use is permitted ONLY with prior written authorization or a commercial license from the author.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+## Agreement
+In order to receive this license, you must agree to its rules. The rules of this license are both obligations under that agreement and conditions to your license. You must not do anything with this software that triggers a rule that you cannot or will not follow.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+## Notices
+You must ensure that everyone who gets a copy of any part of this software from you, with or without changes, also gets the text of this license and the copyright notice above.
+
+## Noncommercial License
+The licensor grants you a copyright license to use, modify, and distribute this software for Noncommercial Purposes.
+
+## Noncommercial Purposes
+Noncommercial purposes include:
+* Personal use, study, learning, research, and experimentation
+* Academic and educational use
+* Non-profit and public security auditing
+* Free and open-source public software development that is not monetized
+
+Noncommercial purposes do NOT include:
+* Any commercial purpose or for-profit activity
+* Integrating this software into commercial products, services, or SaaS platforms
+* Using this software to obfuscate, protect, or build proprietary software for sale or commercial distribution
+* Providing paid consulting, obfuscation-as-a-service, or commercial support based on this software
+
+## Commercial Licensing
+For commercial use, proprietary licensing, or commercial distribution rights, please contact the author:
+* Repository / Copyright Holder: bivex (https://github.com/bivex/vectis)
+
+## Disclaimer & Limitation of Liability
+As far as the law allows, this software comes AS IS, without any warranty or condition of any kind, and no contributor or copyright holder will be liable to anyone for any damages related to this software or this license, under any kind of legal claim.

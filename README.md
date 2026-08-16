@@ -9,7 +9,7 @@
 [![ISA](https://img.shields.io/badge/Formal-Sail%20ISA-00A896.svg?style=for-the-badge)](https://github.com/rems-project/sail)
 [![MLX](https://img.shields.io/badge/Neural-Apple%20MLX-20B2AA.svg?style=for-the-badge&logo=apple&logoColor=white)](docs/mlx-ai-neural-subsystem.md)
 [![Target](https://img.shields.io/badge/Target-Mach--O%20%7C%20ELF%20%7C%20PE-05668D.svg?style=for-the-badge)](https://clang.llvm.org/)
-[![License](https://img.shields.io/badge/License-MIT-008080.svg?style=for-the-badge)](LICENSE)
+[![License](https://img.shields.io/badge/License-PolyForm%20Noncommercial%201.0.0-008080.svg?style=for-the-badge)](LICENSE)
 
 <p align="center">
   <b>Vectis</b> transforms standard C code into resilient, mathematically obfuscated C11 source code backed by per-build synthesized <b>Multi-Tier Virtual Processors (VCPUs)</b>, <b>Apple MLX Neural Synthesis</b>, <b>E-Graph Equality MBA</b>, and <b>61+ military-grade protection passes</b>.
@@ -133,6 +133,6 @@ make
 
 <div align="center">
 
-<sub>Engineered with 💎 by the Vectis Team. Licensed under the <a href="LICENSE">MIT License</a>.</sub>
+<sub>Engineered with 💎 by the Vectis Team. Free for Noncommercial / Public use. Commercial use requires author's consent (<a href="LICENSE">PolyForm Noncommercial 1.0.0</a>).</sub>
 
 </div>
