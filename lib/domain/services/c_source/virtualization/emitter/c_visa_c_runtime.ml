@@ -280,10 +280,17 @@ __h_vret: ;
         __builtin_trap();
     }
     unsigned long long __res_val = (__VREG_GET(%d) ^ (__stepped * 0x%LxULL)) ^ ((%s * (%s + 1ULL)) & 1ULL);
-    __builtin_memset(&__vbank, 0, sizeof(__vbank));
-    __builtin_memset(%s, 0, sizeof(%s));
-    __builtin_memset(%s, 0, sizeof(%s));
-    __builtin_memset(%s, 0, sizeof(%s));
+
+    /* Volatile Scrubbing with Compiler Memory Barriers (Prevents Clang -O2/-O3 DSE) */
+    volatile unsigned char *__wp_vb = (volatile unsigned char *)&__vbank;
+    for (size_t __i = 0; __i < sizeof(__vbank); ++__i) __wp_vb[__i] = 0;
+    volatile unsigned char *__wp_vbl = (volatile unsigned char *)%s;
+    for (size_t __i = 0; __i < sizeof(%s); ++__i) __wp_vbl[__i] = 0;
+    volatile unsigned char *__wp_vsd = (volatile unsigned char *)%s;
+    for (size_t __i = 0; __i < sizeof(%s); ++__i) __wp_vsd[__i] = 0;
+    volatile unsigned char *__wp_vsc = (volatile unsigned char *)%s;
+    for (size_t __i = 0; __i < sizeof(%s); ++__i) __wp_vsc[__i] = 0;
+    __asm__ volatile("" : : "r"(__wp_vb), "r"(__wp_vbl), "r"(__wp_vsd), "r"(__wp_vsc) : "memory");
     return (%s)__res_val;
 }
 #undef __VREG_ROT
@@ -291,6 +298,8 @@ __h_vret: ;
 #undef __VREG_GET
 #undef __VREG_SET
 #undef __VISA_DISPATCH
+
+
 |}
   vs.vpc vs.vsc vs.vpc cfi_xor vs.cfi
   vs.te vs.te
