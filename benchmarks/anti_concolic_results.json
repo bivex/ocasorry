@@ -1,8 +1,8 @@
 [
   {
     "level": "Level 0 (Plain Branch)",
-    "median_solve_s": 0.0004765209996548947,
-    "std_dev_s": 0.0034312785441703514,
+    "median_solve_s": 0.0004656250002881279,
+    "std_dev_s": 0.00015794295967765134,
     "ast_size": 64,
     "timeout_rate_pct": 0.0,
     "status": "TRIVIALLY SOLVED (<1ms)",
@@ -11,18 +11,18 @@
   },
   {
     "level": "Level 1 (Linear Opaque Predicate)",
-    "median_solve_s": 0.0338793334994989,
-    "std_dev_s": 0.003809271865509296,
+    "median_solve_s": 0.03440179199969862,
+    "std_dev_s": 0.003954135250366791,
     "ast_size": 64,
     "timeout_rate_pct": 0.0,
     "status": "SOLVED (Linear algebraic elimination)",
-    "solver_slowdown": 71.1,
+    "solver_slowdown": 73.9,
     "concolic_resistance_score": 100.0
   },
   {
     "level": "Level 2 (1-Round ARX Cryptographic Invariant)",
-    "median_solve_s": 0.0012958335009898292,
-    "std_dev_s": 0.00015532868296912666,
+    "median_solve_s": 0.0012685834990406875,
+    "std_dev_s": 0.00015538762094457825,
     "ast_size": 64,
     "timeout_rate_pct": 0.0,
     "status": "PARTIALLY SOLVED (Single ARX step)",
@@ -31,12 +31,12 @@
   },
   {
     "level": "Level 3 (Vectis 4-Round Chained ARX Trap)",
-    "median_solve_s": 2.0065492289995746,
-    "std_dev_s": 0.004115435968158123,
+    "median_solve_s": 2.00646154199967,
+    "std_dev_s": 0.0043556071974271285,
     "ast_size": 64,
     "timeout_rate_pct": 100.0,
     "status": "CONCOLIC STATE EXPLOSION WALL (100% TIMEOUT / UNSOLVABLE)",
-    "solver_slowdown": 4210.8,
+    "solver_slowdown": 4309.2,
     "concolic_resistance_score": 100.0
   }
 ]
