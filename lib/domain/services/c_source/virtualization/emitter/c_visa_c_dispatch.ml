@@ -72,8 +72,12 @@ let emit_dispatch_macro
         if (%s >= %d) goto __h_vret; \
         unsigned int __slot = ((%s * %uU) + %uU) %% %uU; \
         %s = %s[__slot]; \
-        %s = 0x%lXU ^ (%s * 0x%lXU); \
+        %s = 0x%lXU ^ (%s * 0x%lXU) ^ %s[__slot]; \
         %s = %s ^ %s; \
+        /* Dynamic In-Place Bytecode Metamorphic Scrambler (Gap 1): */ \
+        unsigned int __vbd = (__slot + %s + 1U) * 0x9E3779B9U; \
+        %s[__slot] ^= __vbd; \
+        %s[__slot] ^= __vbd; \
         %s = (unsigned char)((%s >> %d) & 0x%X); \
         %s = (unsigned char)((%s >> %d) & 0x01); \
         %s = (unsigned char)((%s >> %d) & 0x1F); \
@@ -84,6 +88,8 @@ let emit_dispatch_macro
         %s = (%s + 1U) + (unsigned int)((%s * (%s + 1ULL)) & 1ULL); \
         %s = ((%s * 0x%LxULL) ^ (%s + %s + ((unsigned long long)%s * 0x9E3779B9ULL))) * 0x517CC1B727220A95ULL; \
     } while (0)
+
+
 
     #define __VISA_DISPATCH() do { \
         __VISA_STEP_CORE(); \
@@ -120,11 +126,15 @@ let emit_dispatch_macro
   (* raw = vbl[slot] *)
   vs.rw vs.vbl
   (* key *)
-  vs.ky pk32 vs.pc dk32
+  vs.ky pk32 vs.pc dk32 vs.vbm
   (* inst *)
   vs.ins vs.rw vs.ky
+  (* in-place mutation *)
+  vs.pc vs.vbm vs.vbl
   (* field decodes — funct6 *)
+
   vs.f6 vs.ins lay.funct6_shift lay.funct6_mask
+
   (* vm *)
   vs.vm vs.ins lay.vm_shift
   (* vs2 *)

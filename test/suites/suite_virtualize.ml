@@ -41,10 +41,17 @@ int main(int argc, char **argv) {
   let oc = open_out src_file in
   output_string oc obfuscated_c;
   close_out oc;
+  let compile_cmd = Printf.sprintf "clang -w -O0 %s -o %s 2>&1" (Filename.quote src_file) (Filename.quote bin_file) in
 
-  let compile_cmd = Printf.sprintf "clang -w -O0 %s -o %s" (Filename.quote src_file) (Filename.quote bin_file) in
-  let compile_res = Sys.command compile_cmd in
-  assert_bool "Clang compilation of random_vISA Virtualized code succeeded" (compile_res = 0);
+
+  let ic = Unix.open_process_in compile_cmd in
+  let err_lines = ref [] in
+  (try while true do err_lines := input_line ic :: !err_lines done with End_of_file -> ());
+  let status = Unix.close_process_in ic in
+  if status <> Unix.WEXITED 0 then (
+    Printf.eprintf "[FAIL] Clang error output:\n%s\n%!" (String.concat "\n" (List.rev !err_lines));
+    assert_bool "Clang compilation of random_vISA Virtualized code succeeded" false
+  );
 
   let test_cases = [ (10, 20); (0, 0); (5, 15); (100, 200) ] in
   List.iter

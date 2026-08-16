@@ -27,7 +27,9 @@ type var_set = {
   f3       : string;   (* funct3 field              *)
   vd       : string;   (* vd field                  *)
   vbl      : string;   (* vbc_live scratchpad name  *)
+  vbm      : string;   (* vbc_mutation_round name   *)
   fae      : string;   (* fn_addr_entropy name      *)
+
   alloc_fn : string;   (* ephemeral alloc helper    *)
   free_fn  : string;   (* ephemeral free helper     *)
   dss      : int;      (* data stack size 48..95    *)
@@ -62,6 +64,7 @@ let make_var_set () : var_set =
     f3       = "__f3_"   ^ s ();
     vd       = "__vd_"   ^ s ();
     vbl      = "__vbl_"  ^ s ();
+    vbm      = "__vbm_"  ^ s ();
     fae      = "__fae_"  ^ s ();
     alloc_fn = "__vma_"  ^ s ();
     free_fn  = "__vmf_"  ^ s ();
@@ -70,6 +73,7 @@ let make_var_set () : var_set =
     gold1    = rand_odd ();
     gold2    = rand_odd ();
   }
+
 
 (* ── Public emitters ────────────────────────────────────────────────────────── *)
 
@@ -197,9 +201,10 @@ let emit_shadow_and_cfi
     unsigned long long %s = 0;
     #endif
 
-    /* Vector 8: Ephemeral Self-Scrubbing Bytecode Scratchpad */
+    /* Vector 8: Ephemeral Self-Scrubbing Bytecode Scratchpad & Metamorphic Mutation Array */
     unsigned int %s[%d];
     memcpy(%s, %s, sizeof(%s));
+    unsigned int %s[%d] = {0};
 
     const unsigned long long %s =
         (unsigned long long)(uintptr_t)(%s != 0 ? (const void *)%s : (const void *)&%s);
@@ -228,7 +233,7 @@ let emit_shadow_and_cfi
   (* timer *)
   vs.te vs.te vs.te vs.te
   (* bytecode scratchpad *)
-  vs.vbl word_count vs.vbl vbc_name vs.vbl
+  vs.vbl word_count vs.vbl vbc_name vs.vbl vs.vbm word_count
   (* fn entropy *)
   vs.fae ptr_arg ptr_arg vs.vbl
   (* hash + canary *)
@@ -286,11 +291,13 @@ __h_vret: ;
     for (size_t __i = 0; __i < sizeof(__vbank); ++__i) __wp_vb[__i] = 0;
     volatile unsigned char *__wp_vbl = (volatile unsigned char *)%s;
     for (size_t __i = 0; __i < sizeof(%s); ++__i) __wp_vbl[__i] = 0;
+    volatile unsigned char *__wp_vbm = (volatile unsigned char *)%s;
+    for (size_t __i = 0; __i < sizeof(%s); ++__i) __wp_vbm[__i] = 0;
     volatile unsigned char *__wp_vsd = (volatile unsigned char *)%s;
     for (size_t __i = 0; __i < sizeof(%s); ++__i) __wp_vsd[__i] = 0;
     volatile unsigned char *__wp_vsc = (volatile unsigned char *)%s;
     for (size_t __i = 0; __i < sizeof(%s); ++__i) __wp_vsc[__i] = 0;
-    __asm__ volatile("" : : "r"(__wp_vb), "r"(__wp_vbl), "r"(__wp_vsd), "r"(__wp_vsc) : "memory");
+    __asm__ volatile("" : : "r"(__wp_vb), "r"(__wp_vbl), "r"(__wp_vbm), "r"(__wp_vsd), "r"(__wp_vsc) : "memory");
     return (%s)__res_val;
 }
 #undef __VREG_ROT
@@ -298,8 +305,6 @@ __h_vret: ;
 #undef __VREG_GET
 #undef __VREG_SET
 #undef __VISA_DISPATCH
-
-
 |}
   vs.vpc vs.vsc vs.vpc cfi_xor vs.cfi
   vs.te vs.te
@@ -307,9 +312,11 @@ __h_vret: ;
   vs.vma vs.vma
   out_reg stepped_magic vs.vma vs.vma
   vs.vbl vs.vbl
+  vs.vbm vs.vbm
   vs.vsd vs.vsd
   vs.vsc vs.vsc
   ret_type_str
+
 
 
 (* Expose a field accessor needed by dispatch emitter — kept as a module-level record *)

@@ -93,12 +93,8 @@ let emit_disp vs =
     "__VISA_DISPATCH();"
 
 (* Inline volatile decoy between handlers — unique per build *)
-let decoy_stmt () =
-  let tag = Printf.sprintf "%04x%04x" (Random.int 0xFFFF) (Random.int 0xFFFF) in
-  let v   = Printf.sprintf "0x%LXULL" (Random.int64 Int64.max_int) in
-  Printf.sprintf
-    "\n    { volatile unsigned long long __dcb_%s = %s; (void)__dcb_%s; }\n"
-    tag v tag
+let decoy_stmt () = ""
+
 
 
 
@@ -137,45 +133,37 @@ let emit_handlers
   let f_vand1 = pick (vand_forms vs) in
   let f_vor   = pick (vor_forms  vs) in
   let f_vor1  = pick (vor_forms  vs) in
-  let d1 = emit_disp vs in
-  let d2 = emit_disp vs in
-  let d3 = emit_disp vs in
-  let d4 = emit_disp vs in
-  let d5 = emit_disp vs in
-  let d6 = emit_disp vs in
   trap_code ^ Printf.sprintf {|
 __h_vadd: {
     unsigned long long __a = __VREG_GET(%s), __b = __VREG_GET(%s);
     %s;
-    %s
+    __VISA_DISPATCH();
 }
 __h_vadd_alt1: {
     unsigned long long __a = __VREG_GET(%s), __b = __VREG_GET(%s);
     %s;
-    %s
+    __VISA_DISPATCH();
 }
 __h_vadd_alt2: {
     unsigned long long __a = __VREG_GET(%s), __b = __VREG_GET(%s);
     %s;
-    %s
+    __VISA_DISPATCH();
 }
-%s
 __h_vsub: {
     unsigned long long __a = __VREG_GET(%s), __b = __VREG_GET(%s);
     %s;
-    %s
+    __VISA_DISPATCH();
 }
 __h_vsub_alt1: {
     unsigned long long __a = __VREG_GET(%s), __b = __VREG_GET(%s);
     %s;
-    %s
+    __VISA_DISPATCH();
 }
 __h_vsub_alt2: {
     unsigned long long __a = __VREG_GET(%s), __b = __VREG_GET(%s);
     %s;
-    %s
+    __VISA_DISPATCH();
 }
-%s
 __h_vmul: {
     unsigned long long __a = __VREG_GET(%s), __b = __VREG_GET(%s);
     %s;
@@ -186,7 +174,6 @@ __h_vmul_alt1: {
     %s;
     __VISA_DISPATCH();
 }
-%s
 __h_vxor: {
     unsigned long long __a = __VREG_GET(%s), __b = __VREG_GET(%s);
     %s;
@@ -202,7 +189,6 @@ __h_vxor_alt2: {
     %s;
     __VISA_DISPATCH();
 }
-%s
 __h_vand: {
     unsigned long long __a = __VREG_GET(%s), __b = __VREG_GET(%s);
     %s;
@@ -213,7 +199,6 @@ __h_vand_alt1: {
     %s;
     __VISA_DISPATCH();
 }
-%s
 __h_vor: {
     unsigned long long __a = __VREG_GET(%s), __b = __VREG_GET(%s);
     %s;
@@ -224,6 +209,7 @@ __h_vor_alt1: {
     %s;
     __VISA_DISPATCH();
 }
+
 
 __h_vsll: {
     unsigned long long __a = __VREG_GET(%s), __sh = __VREG_GET(%s) & 0x3FULL;
@@ -380,32 +366,27 @@ __h_default:
     __builtin_trap();
 |}
   (* vadd *)
-  vs.vs1 vs.vs2 f_vadd d1
-  vs.vs1 vs.vs2 f_vadd1 d2
-  vs.vs1 vs.vs2 f_vadd2 d3
-  (decoy_stmt ())
+  vs.vs1 vs.vs2 f_vadd
+  vs.vs1 vs.vs2 f_vadd1
+  vs.vs1 vs.vs2 f_vadd2
   (* vsub *)
-  vs.vs1 vs.vs2 f_vsub d4
-  vs.vs1 vs.vs2 f_vsub1 d5
-  vs.vs1 vs.vs2 f_vsub2 d6
-  (decoy_stmt ())
-
+  vs.vs1 vs.vs2 f_vsub
+  vs.vs1 vs.vs2 f_vsub1
+  vs.vs1 vs.vs2 f_vsub2
   (* vmul *)
   vs.vs1 vs.vs2 f_vmul
   vs.vs1 vs.vs2 f_vmul1
-  (decoy_stmt ())
   (* vxor *)
   vs.vs1 vs.vs2 f_vxor
   vs.vs1 vs.vs2 f_vxor1
   vs.vs1 vs.vs2 f_vxor2
-  (decoy_stmt ())
   (* vand *)
   vs.vs1 vs.vs2 f_vand
   vs.vs1 vs.vs2 f_vand1
-  (decoy_stmt ())
   (* vor *)
   vs.vs1 vs.vs2 f_vor
   vs.vs1 vs.vs2 f_vor1
+
   (* vsll *)
   vs.vs1 vs.vs2 vs.vd
   (* vsrl *)
