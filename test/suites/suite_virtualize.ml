@@ -13,10 +13,16 @@ int virtual_vector_compute(int a, int b) {
     return res;
 }
 
+int virtual_vector_div_mod(int a, int b) {
+    int q = a / b;
+    int r = a % b;
+    return (q * 100) + r;
+}
+
 int main(int argc, char **argv) {
     int a = atoi(argv[1]);
     int b = atoi(argv[2]);
-    printf("%d\n", virtual_vector_compute(a, b));
+    printf("%d %d\n", virtual_vector_compute(a, b), virtual_vector_div_mod(a, b));
     return 0;
 }
 |} in
@@ -43,7 +49,6 @@ int main(int argc, char **argv) {
   close_out oc;
   let compile_cmd = Printf.sprintf "clang -w -O0 %s -o %s 2>&1" (Filename.quote src_file) (Filename.quote bin_file) in
 
-
   let ic = Unix.open_process_in compile_cmd in
   let err_lines = ref [] in
   (try while true do err_lines := input_line ic :: !err_lines done with End_of_file -> ());
@@ -53,18 +58,23 @@ int main(int argc, char **argv) {
     assert_bool "Clang compilation of random_vISA Virtualized code succeeded" false
   );
 
-  let test_cases = [ (10, 20); (0, 0); (5, 15); (100, 200) ] in
+  let test_cases = [ (10, 20); (5, 15); (100, 7); (250, 13) ] in
   List.iter
     (fun (a, b) ->
-      let expected = ((a + b) * 3) lxor 0x5A in
+      let exp_comp = ((a + b) * 3) lxor 0x5A in
+      let exp_dm = ((a / b) * 100) + (a mod b) in
       let run_cmd = Printf.sprintf "%s %d %d" (Filename.quote bin_file) a b in
       let ic = Unix.open_process_in run_cmd in
       let out_line = input_line ic in
       ignore (Unix.close_process_in ic);
 
-      let actual = int_of_string (String.trim out_line) in
-      assert_bool (Printf.sprintf "random_vISA VCPU virtual_vector_compute(%d, %d) == %d" a b expected) (actual = expected))
+      let parts = String.split_on_char ' ' (String.trim out_line) in
+      let actual_comp = int_of_string (List.nth parts 0) in
+      let actual_dm = int_of_string (List.nth parts 1) in
+      assert_bool (Printf.sprintf "random_vISA VCPU virtual_vector_compute(%d, %d) == %d" a b exp_comp) (actual_comp = exp_comp);
+      assert_bool (Printf.sprintf "random_vISA VCPU virtual_vector_div_mod(%d, %d) == %d" a b exp_dm) (actual_dm = exp_dm))
     test_cases;
+
 
   (try Sys.remove src_file with _ -> ());
   (try Sys.remove bin_file with _ -> ())

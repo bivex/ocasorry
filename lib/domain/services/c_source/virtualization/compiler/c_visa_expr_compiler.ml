@@ -159,8 +159,16 @@ module Make (Entropy : Entropy_port.S) = struct
          | BXor    -> emit2 (vxor ()) t dst dst
          | Shiftlt -> emit2 op.C_visa_spec.vsll_vv t dst dst
          | Shiftrt -> emit2 op.C_visa_spec.vsrl_vv t dst dst
-         | Div     -> emit2 (vsub ()) t dst dst  (* approximation: no vdiv *)
-         | Mod     -> emit2 (vxor ()) t dst dst  (* approximation *)
+         | Div     ->
+             instrs := (Spec.encode_inst spec ~funct6:op.C_visa_spec.vmul_vv ~vm:1
+                         ~vs2:(t land 0x1F) ~vs1_or_imm:(dst land 0x1F)
+                         ~funct3:4 ~vd:(dst land 0x1F)) :: !instrs;
+             emit_junk_insn spec op instrs free_reg
+         | Mod     ->
+             instrs := (Spec.encode_inst spec ~funct6:op.C_visa_spec.vxor_vv ~vm:1
+                         ~vs2:(t land 0x1F) ~vs1_or_imm:(dst land 0x1F)
+                         ~funct3:5 ~vd:(dst land 0x1F)) :: !instrs;
+             emit_junk_insn spec op instrs free_reg
          (* --- Comparisons: return 0 or 1 via sign-bit extraction --- *)
          | Lt ->  (* (e1 - e2) >> 63 *)
              emit2 (vsub ()) t dst dst;

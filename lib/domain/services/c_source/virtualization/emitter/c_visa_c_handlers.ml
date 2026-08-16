@@ -166,7 +166,11 @@ __h_vsub_alt2: {
 }
 __h_vmul: {
     unsigned long long __a = __VREG_GET(%s), __b = __VREG_GET(%s);
-    %s;
+    if (%s == 4) {
+        __VREG_SET(%s, __b ? __a / __b : __a ^ 0x5AULL);
+    } else {
+        %s;
+    }
     __VISA_DISPATCH();
 }
 __h_vmul_alt1: {
@@ -176,9 +180,15 @@ __h_vmul_alt1: {
 }
 __h_vxor: {
     unsigned long long __a = __VREG_GET(%s), __b = __VREG_GET(%s);
-    %s;
+    if (%s == 5) {
+        __VREG_SET(%s, __b ? __a %% __b : 0ULL);
+    } else {
+        %s;
+    }
     __VISA_DISPATCH();
 }
+
+
 __h_vxor_alt1: {
     unsigned long long __a = __VREG_GET(%s), __b = __VREG_GET(%s);
     %s;
@@ -379,12 +389,13 @@ __h_default:
   vs.vs1 vs.vs2 f_vsub1
   vs.vs1 vs.vs2 f_vsub2
   (* vmul *)
-  vs.vs1 vs.vs2 f_vmul
+  vs.vs1 vs.vs2 vs.f3 vs.vd f_vmul
   vs.vs1 vs.vs2 f_vmul1
   (* vxor *)
-  vs.vs1 vs.vs2 f_vxor
+  vs.vs1 vs.vs2 vs.f3 vs.vd f_vxor
   vs.vs1 vs.vs2 f_vxor1
   vs.vs1 vs.vs2 f_vxor2
+
   (* vand *)
   vs.vs1 vs.vs2 f_vand
   vs.vs1 vs.vs2 f_vand1
