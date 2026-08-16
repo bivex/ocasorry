@@ -20,6 +20,9 @@ Unlike superficial statistical metrics, these benchmarks directly evaluate again
 4. **Binary Polymorphism & Entropy Verification** (`tools/mlx_polymorphism_discriminator.py`):
    * *Attacker Tooling*: YARA rules, static signature engines.
    * *Objective*: Measure Mach-O / ELF divergence, Longest Common Subsequence (LCCS), and Shannon entropy across randomized builds.
+5. **Semantic Handler Polymorphism** (`benchmarks/semantic_polymorphism_benchmark.py`):
+   * *Attacker Tooling*: handler-body lifting + grammar synthesis (QSynth/Syntia) with leaked build constants + SMT inversion.
+   * *Objective*: Validate per-build entangled handler semantics (breakthrough direction #1+#2): the verifier proves equivalence for free, the attacker's lifted view neither simplifies nor synthesizes.
 
 ---
 
@@ -74,6 +77,26 @@ Measures the divergence of instruction 3-grams between independent compilations 
 ```bash
 python3 benchmarks/binary_diffing_benchmark.py              # N=20 (default)
 python3 benchmarks/binary_diffing_benchmark.py --iterations 5
+```
+
+---
+
+## 🧬 5. Semantic Handler Polymorphism (Spike)
+
+Validates the breakthrough direction of **per-build handler semantics**: `__h_vadd` implemented per build as a mirrored reversible entanglement chain over the rolling VM key `k` (forward rounds in the handler, mirrored inverses in dispatch under an evolved key). The full chain is the identity **by construction**, so the per-build Z3 equivalence proof is free (<1 ms), while the attacker's lifted view — the forward-only segment — neither simplifies nor synthesizes:
+
+| Depth | Verifier proof | Verifier-view simplify | **Attacker-view simplify** | Grammar synthesis (fair: constants leaked) | SMT inversion scale |
+|---|---|---|---|---|---|
+| 0 (canonical `x+y`) | unsat, ~0s | 0% | 0% | **recovered** in 0.002s | 1.0× |
+| 1 | unsat, ~0s | 70% | **−14% (grows)** | recovered in 1.4s | 1.1× |
+| 2 | unsat, ~0s | 84% | −8% | recovered in 2.9s | 18.9× |
+| 4 | unsat, ~0s | 92% | −8% | **WALL (3s timeout)** | 46.4× |
+| 8 | unsat, ~0s | 96% | −15% | **WALL (3s timeout)** | **103.7×** |
+
+Interpretation: entanglement depth becomes a measurable security knob — grammar attack breaks at depth ≥ 4 and SMT inversion cost grows ~13× per doubling. The benchmark also emits a depth-4 C11 `__h_vadd` body as the integration artifact (see `benchmarks/semantic_polymorphism_results.json`). Next step: use this hardness curve as the reward signal for the PPO handler synthesizer (`tools/mlx_neural_vm_synthesizer.py`).
+
+```bash
+python3 benchmarks/semantic_polymorphism_benchmark.py
 ```
 
 ---

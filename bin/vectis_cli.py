@@ -55,6 +55,9 @@ def cmd_benchmark(args):
     if target in ("all", "diff"):
         print("[*] Running Vectis Binary Diffing & CFG Alignment Benchmark...")
         os.system(f"python3 {PROJECT_ROOT / 'benchmarks/binary_diffing_benchmark.py'}{iter_flag}")
+    if target in ("all", "poly"):
+        print("[*] Running Vectis Semantic Handler Polymorphism Spike...")
+        os.system(f"python3 {PROJECT_ROOT / 'benchmarks/semantic_polymorphism_benchmark.py'}")
 
 
 def cmd_dataset(args):
@@ -85,7 +88,7 @@ def main():
 
     # benchmark
     p_bench = subparsers.add_parser("benchmark", help="Run adversarial deobfuscation benchmarks")
-    p_bench.add_argument("--type", choices=["all", "smt", "mba", "diff"], default="all", help="Benchmark class to execute")
+    p_bench.add_argument("--type", choices=["all", "smt", "mba", "diff", "poly"], default="all", help="Benchmark class to execute")
     p_bench.add_argument("--iterations", type=int, default=None, help="Statistical repeats for the diffing benchmark (default: 20)")
 
 
