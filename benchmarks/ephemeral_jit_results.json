@@ -1,26 +1,26 @@
 [
   {
     "mode": "1_native_baseline",
-    "median_us": 929.5,
-    "min_us": 919.0,
-    "max_us": 959.0,
-    "std_dev_us": 11.330820799924425,
+    "median_us": 931.5,
+    "min_us": 928.0,
+    "max_us": 1043.0,
+    "std_dev_us": 35.54331864077973,
     "overhead_multiplier": 1.0
   },
   {
     "mode": "2_interpreted_vm",
-    "median_us": 932.0,
-    "min_us": 926.0,
-    "max_us": 940.0,
-    "std_dev_us": 4.217522969706271,
+    "median_us": 928.5,
+    "min_us": 925.0,
+    "max_us": 986.0,
+    "std_dev_us": 17.306862800634892,
     "overhead_multiplier": 1.0
   },
   {
     "mode": "3_vectis_ephemeral_jit",
-    "median_us": 929.5,
+    "median_us": 941.0,
     "min_us": 927.0,
-    "max_us": 951.0,
-    "std_dev_us": 6.851824574520279,
-    "overhead_multiplier": 1.0
+    "max_us": 1044.0,
+    "std_dev_us": 32.44730343187242,
+    "overhead_multiplier": 1.01
   }
 ]

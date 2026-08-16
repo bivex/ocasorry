@@ -304,9 +304,21 @@ __h_vjit: {
         }
 #if defined(__APPLE__) && (defined(__aarch64__) || defined(__arm64__))
         pthread_jit_write_protect_np(1);
-        sys_icache_invalidate(__jpage, __jit_code_sz);
-#elif defined(__aarch64__) || defined(__arm64__)
-        __builtin___clear_cache((char *)__jpage, (char *)__jpage + __jit_code_sz);
+#endif
+#if defined(__aarch64__) || defined(__arm64__)
+        /* Vector 15: Hardware-Direct In-Line Instruction Cache Invalidation (PoU) */
+        {
+            uintptr_t __line_addr = (uintptr_t)__jpage;
+            uintptr_t __end_addr  = __line_addr + __jit_code_sz;
+            for (uintptr_t __p = __line_addr; __p < __end_addr; __p += 64) {
+                __asm__ volatile("dc cvau, %%0" : : "r"(__p) : "memory");
+            }
+            __asm__ volatile("dsb ish" : : : "memory");
+            for (uintptr_t __p = __line_addr; __p < __end_addr; __p += 64) {
+                __asm__ volatile("ic ivau, %%0" : : "r"(__p) : "memory");
+            }
+            __asm__ volatile("dsb ish\n\tisb" : : : "memory");
+        }
 #endif
         typedef unsigned long long (*__vjit_fn_t)(unsigned long long, unsigned long long);
         volatile __vjit_fn_t __jfn = (__vjit_fn_t)(void *)__jpage;
@@ -335,10 +347,23 @@ __h_vjit_alt1: {
         }
 #if defined(__APPLE__) && (defined(__aarch64__) || defined(__arm64__))
         pthread_jit_write_protect_np(1);
-        sys_icache_invalidate(__jpage, __jit_code_sz);
-#elif defined(__aarch64__) || defined(__arm64__)
-        __builtin___clear_cache((char *)__jpage, (char *)__jpage + __jit_code_sz);
 #endif
+#if defined(__aarch64__) || defined(__arm64__)
+        /* Vector 15: Hardware-Direct In-Line Instruction Cache Invalidation (PoU) */
+        {
+            uintptr_t __line_addr = (uintptr_t)__jpage;
+            uintptr_t __end_addr  = __line_addr + __jit_code_sz;
+            for (uintptr_t __p = __line_addr; __p < __end_addr; __p += 64) {
+                __asm__ volatile("dc cvau, %%0" : : "r"(__p) : "memory");
+            }
+            __asm__ volatile("dsb ish" : : : "memory");
+            for (uintptr_t __p = __line_addr; __p < __end_addr; __p += 64) {
+                __asm__ volatile("ic ivau, %%0" : : "r"(__p) : "memory");
+            }
+            __asm__ volatile("dsb ish\n\tisb" : : : "memory");
+        }
+#endif
+
         typedef unsigned long long (*__vjit_fn_t)(unsigned long long, unsigned long long);
         volatile __vjit_fn_t __jfn = (__vjit_fn_t)(void *)__jpage;
         unsigned long long __jres = __jfn(__a, __b);
@@ -349,6 +374,7 @@ __h_vjit_alt1: {
     }
     __VISA_DISP_JIT();
 }
+
 
 __h_default:
     __builtin_trap();
