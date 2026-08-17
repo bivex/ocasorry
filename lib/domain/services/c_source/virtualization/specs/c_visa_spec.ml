@@ -190,6 +190,8 @@ let from_json_string (json_str : string) : visa_spec =
     | `String s -> Int64.of_string s
     | _         -> 0x1000193L in
   let lay = json |> member "layout" in
+  if lay = `Null then
+    invalid_arg "C_visa_spec.from_json_string: missing 'layout' object";
   let layout = {
     funct6_shift = lay |> member "funct6_shift" |> to_int_def 26;
     funct6_mask  = lay |> member "funct6_mask"  |> to_int_def 0x3F;
@@ -202,6 +204,8 @@ let from_json_string (json_str : string) : visa_spec =
   } in
   validate_layout layout;
   let op = json |> member "opcodes" in
+  if op = `Null then
+    invalid_arg "C_visa_spec.from_json_string: missing 'opcodes' object";
   let opcodes = {
     vadd_vv = op |> member "vadd_vv" |> to_int_def 0x00;
     vsub_vv = op |> member "vsub_vv" |> to_int_def 0x01;

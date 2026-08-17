@@ -273,7 +273,9 @@ let () =
       match C_visa_spec_service.VisaSpec.load_from_file f with
       | _ -> ()
       | exception Invalid_argument m ->
-          Printf.eprintf "[warn] skipping %s: %s\n%!" f m)
+          Printf.eprintf "[warn] skipping %s: %s\n%!" f m
+      | exception exn ->
+          Printf.eprintf "[warn] skipping %s: %s\n%!" f (Printexc.to_string exn))
     (List.rev !globbed_spec_files);
 
   if !in_file = "" then
