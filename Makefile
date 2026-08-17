@@ -86,6 +86,9 @@ ml-discriminate: build  ## Measure True Polymorphic Diversity Index (TPDI) via A
 ml-metamorph: build  ## Measure True Metamorphic Diversity Index (MDI) via Apple MLX
 	$(PYTHON3) $(TOOLS)/mlx_metamorphism_evaluator.py --test --samples 10
 
+ml-adversarial-llm:  ## Validate Apple MLX Neural Adversarial LLM-Decompiler Evasion Engine
+	$(PYTHON3) $(TOOLS)/mlx_adversarial_llm_evasion.py --test
+
 
 ml-benchmark: build  ## Full Benchmark: TPDI (10 builds) + Formal Z3 Soundness + License Demo
 	@echo "======================================================================"
