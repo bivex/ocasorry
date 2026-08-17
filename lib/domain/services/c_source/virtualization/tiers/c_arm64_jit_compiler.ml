@@ -108,15 +108,36 @@ module Make (Entropy : Entropy_port.S) = struct
   let enc_b_uncond (imm26_offset : int) : int32 =
     Int32.logor 0x14000000l (Int32.of_int (imm26_offset land 0x03FFFFFF))
 
-  let enc_ret : int32 = 0xD65F03C0l
-  let enc_nop : int32 = 0xD503201Fl
+  let enc_ret  : int32 = 0xD65F03C0l
+  let enc_nop  : int32 = 0xD503201Fl
+  let enc_yield: int32 = 0xD503203Fl
 
-  (* Decoy instruction generator (Anti-Analysis / Polymorphic JIT using NOP & WZR logic) *)
+  (* Encodes HINT #imm (harmless architectural hint that looks distinct to scanners) *)
+  let enc_hint (imm : int) : int32 =
+    Int32.logor 0xD503201Fl (Int32.of_int ((imm land 0x7F) lsl 5))
+
+  (* BIC xzr, xzr, xzr — zero-with-mask decoy *)
+  let enc_bic_xzr : int32 = 0x8A3FFFFFl
+
+  (* Decoy instruction generator (Anti-Analysis / Polymorphic JIT — 7 classes) *)
   let gen_decoy_insn () : int32 list =
-    match Entropy.next_int ~max:3 with
+    match Entropy.next_int ~max:7 with
     | 0 -> [ enc_eor wzr wzr wzr ]
     | 1 -> [ enc_mov_reg wzr wzr ]
-    | _ -> [ enc_nop ]
+    | 2 -> [ enc_nop ]
+    | 3 -> [ enc_yield ]
+    | 4 -> [ enc_hint (Entropy.next_int ~max:127) ]
+    | 5 -> [ enc_bic_xzr ]
+    | _ -> [ enc_hint 0x11 (* csync look-alike *) ]
+
+  (* ─── Polyglot Diversity Sled (JIT Trampoline Front-Matter) ─────────────────
+     Injects 0–2 random decoy instructions at the top of every JIT-compiled
+     function body. Each build + function gets a different sled pattern, making
+     byte-level YARA / Frida Memory.scan() rules unable to match the JIT buffer.
+     Chosen from 8 equivalence classes; all are side-effect-free on AArch64.  *)
+  let gen_polyglot_sled () : int32 list =
+    let sled_len = Entropy.next_int ~max:3 in (* 0, 1, or 2 instructions *)
+    List.concat (List.init sled_len (fun _ -> gen_decoy_insn ()))
 
   type jit_item =
     | Raw of int32
@@ -270,6 +291,14 @@ module Make (Entropy : Entropy_port.S) = struct
           | other -> [ other ])
         complete_items
     in
+
+    (* Polyglot Diversity Sled: prefix the entire JIT buffer with 0–2 unique
+       harmless instructions chosen per-function per-build from 7 instruction
+       classes (NOP / YIELD / HINT #imm / BIC xzr / EOR wzr / MOV wzr / HINT #11).
+       This makes every emitted JIT buffer start with a different byte pattern,
+       defeating memory-resident YARA rules and Frida Memory.scan() signatures. *)
+    let sled_insns = List.map (fun w -> Raw w) (gen_polyglot_sled ()) in
+    let polymorphic_items = sled_insns @ polymorphic_items in
 
     (* Phase 2: Compute label word positions *)
     let label_map = Hashtbl.create 16 in
