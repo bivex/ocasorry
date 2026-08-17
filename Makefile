@@ -98,6 +98,10 @@ ml-gnn-dispersion:  ## Benchmark Apple MLX Neural GNN CFG Anti-Diffing & Topolog
 ml-sbox-synth:  ## Synthesize Non-Linear Cryptographic S-Box (NL 112, SAC, Degree 7) via Apple MLX
 	$(PYTHON3) $(TOOLS)/mlx_crypto_sbox_synthesizer.py --benchmark
 
+ml-jit-polyglot:  ## Benchmark Apple MLX Neural Autoregressive AArch64 JIT Polyglot Sequencer
+	$(PYTHON3) $(TOOLS)/mlx_aarch64_jit_polyglot.py --benchmark
+
+
 
 
 
