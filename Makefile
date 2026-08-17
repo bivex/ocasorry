@@ -95,6 +95,10 @@ ml-smt-timeout:  ## Benchmark Apple MLX Neural SMT Complexity & Timeout Maximize
 ml-gnn-dispersion:  ## Benchmark Apple MLX Neural GNN CFG Anti-Diffing & Topological Dispersion Engine
 	$(PYTHON3) $(TOOLS)/mlx_gnn_cfg_dispersion.py --benchmark
 
+ml-sbox-synth:  ## Synthesize Non-Linear Cryptographic S-Box (NL 112, SAC, Degree 7) via Apple MLX
+	$(PYTHON3) $(TOOLS)/mlx_crypto_sbox_synthesizer.py --benchmark
+
+
 
 
 
