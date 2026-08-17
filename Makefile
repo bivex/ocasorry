@@ -89,6 +89,10 @@ ml-metamorph: build  ## Measure True Metamorphic Diversity Index (MDI) via Apple
 ml-adversarial-llm:  ## Validate Apple MLX Neural Adversarial LLM-Decompiler Evasion Engine
 	$(PYTHON3) $(TOOLS)/mlx_adversarial_llm_evasion.py --test
 
+ml-smt-timeout:  ## Benchmark Apple MLX Neural SMT Complexity & Timeout Maximizer (Anti-DSE)
+	$(PYTHON3) $(TOOLS)/mlx_smt_timeout_synthesizer.py --benchmark
+
+
 
 ml-benchmark: build  ## Full Benchmark: TPDI (10 builds) + Formal Z3 Soundness + License Demo
 	@echo "======================================================================"
