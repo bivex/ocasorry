@@ -25,7 +25,7 @@ PASSES       ?= --virtualize --rolling-vkey --bcf --cff --anti-debug --egraph-mb
 # Full 4-Tier Federated VCPU Virtualization flags
 VFLAGS       ?= --virtualize --nested-vm --rolling-vkey --ephemeral --literals --cff --irreducible-loop --bcf --anti-debug --anti-disasm --timing-check --api-hash --constructor --rename --strip
 
-.PHONY: build ml-verify ml-dataset ml-optimize ml-architect ml-synthesize ml-bridge ml-specs ml-pipeline obfuscate compile-obf virtualize help
+.PHONY: build ml-verify ml-dataset ml-optimize ml-architect ml-synthesize ml-bridge ml-specs ml-multi-visa ml-pipeline obfuscate compile-obf virtualize help
 
 build:  ## Build OCaml binaries (required before ml-dataset / obfuscation)
 	eval $$(opam env) && dune build
@@ -100,6 +100,9 @@ ml-sbox-synth:  ## Synthesize Non-Linear Cryptographic S-Box (NL 112, SAC, Degre
 
 ml-jit-polyglot:  ## Benchmark Apple MLX Neural Autoregressive AArch64 JIT Polyglot Sequencer
 	$(PYTHON3) $(TOOLS)/mlx_aarch64_jit_polyglot.py --benchmark
+
+ml-multi-visa:  ## Design optimal multi-vISA architecture specifications on Metal GPU
+	$(PYTHON3) $(TOOLS)/mlx_multi_visa_designer.py --benchmark --n-specs 4 --threat 4
 
 
 
