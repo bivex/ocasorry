@@ -92,6 +92,10 @@ ml-adversarial-llm:  ## Validate Apple MLX Neural Adversarial LLM-Decompiler Eva
 ml-smt-timeout:  ## Benchmark Apple MLX Neural SMT Complexity & Timeout Maximizer (Anti-DSE)
 	$(PYTHON3) $(TOOLS)/mlx_smt_timeout_synthesizer.py --benchmark
 
+ml-gnn-dispersion:  ## Benchmark Apple MLX Neural GNN CFG Anti-Diffing & Topological Dispersion Engine
+	$(PYTHON3) $(TOOLS)/mlx_gnn_cfg_dispersion.py --benchmark
+
+
 
 
 ml-benchmark: build  ## Full Benchmark: TPDI (10 builds) + Formal Z3 Soundness + License Demo
